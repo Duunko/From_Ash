@@ -9,7 +9,7 @@
  * over the game underneath it, keeping the previous stage's update loop running.
  * 
  * variables: owned_objects, always_update, always_draw, on_top
- * functions: push, pop
+ * functions: push, pop, get
  * 
 */
 function stage(top) {
@@ -25,6 +25,10 @@ function stage(top) {
     } else {
         this.on_top = true;
     } 
+    this.get = function(obj){
+    	return this.owned_objects[this.owned_objects.indexOf(obj)];
+    }
+    
     this.always_update = true;
     this.always_draw = true;
     
