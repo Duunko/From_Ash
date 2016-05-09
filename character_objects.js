@@ -24,6 +24,18 @@ function main_character(x, y) {
 	
 	this.update = function(){
 		console.log(this.x+" , "+this.y);
+	   if (keysPressed[RIGHT_KEY_CODE] == true) {
+         this.x += 2;
+       }
+       if (keysPressed[LEFT_KEY_CODE] == true) {
+          this.x -= 2;
+       }
+       if (keysPressed[DOWN_KEY_CODE] == true) {
+         this.y += 2;
+       }
+       if (keysPressed[UP_KEY_CODE] == true) {
+         this.y -= 2;
+       }
 	}
 	
     this.draw = function() {
