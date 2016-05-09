@@ -56,18 +56,7 @@ function keyDown(e) {
     keysPressed[e.keyCode] = true;
   }
 
-  if (keysPressed[RIGHT_KEY_CODE] == true) {
-         MC.x += 2;
-       }
-       if (keysPressed[LEFT_KEY_CODE] == true) {
-          MC.x -= 2;
-       }
-       if (keysPressed[DOWN_KEY_CODE] == true) {
-         MC.y += 2;
-       }
-       if (keysPressed[UP_KEY_CODE] == true) {
-         MC.y -= 2;
-       }
+  
 }
 
 
