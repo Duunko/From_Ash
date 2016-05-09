@@ -91,6 +91,9 @@ function game_draw(renderer) {
 	renderer.ctx.fillStyle = 'white';
 	renderer.ctx.fillRect(0, 0, renderer.can.width, renderer.can.height);
 	renderer.ctx.fill();
+	
+	onEnterFrame();
+	
 	for(var i = 0; i < renderer.stages.length; i++){
 	    if(renderer.stages[i].always_update == true || renderer.stages[i].always_draw == true){
 		    for (var j = 0; j < renderer.stages[i].owned_objects.length; j++){

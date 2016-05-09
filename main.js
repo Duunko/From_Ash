@@ -23,9 +23,12 @@ var renderer = new renderer(canvas, context);
 var main_stage = new stage();
 renderer.push(main_stage);
 
-// Start the game loop. 
-make_loop(renderer, 30);
+//Set up the tile system
+create_board();
 
+// Start the game loop. 
+console.log(playerX);
+make_loop(renderer, 30);
 
 
 /* Making character movement
@@ -82,7 +85,7 @@ function keyUp(e){
  * the stage for testing purposes.
  */
 
-var MC = new main_character(20, 20);
+var MC = new main_character(playerX, playerY);
 main_stage.push(MC);
 
 

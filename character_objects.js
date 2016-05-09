@@ -23,7 +23,7 @@ function main_character(x, y) {
 	this.y = y;
 	
 	this.update = function(){
-		
+		console.log(this.x+" , "+this.y);
 	}
 	
     this.draw = function() {
