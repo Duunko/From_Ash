@@ -1,4 +1,5 @@
 //Main file for the game
+//This a test to make sure Daniel "GETS" github. *wink wink* *nudge nudge*
 
 
 /* Basic setup functions.
