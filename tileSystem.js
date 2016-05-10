@@ -26,10 +26,10 @@ function create_board(){
 	VIEW_TILE_WIDTH = Math.floor(VIEW_WIDTH / TILE_SIZE);
 	VIEW_TILE_HEIGHT = Math.floor(VIEW_HEIGHT / TILE_SIZE);
 
-	//playerX = WORLD_SIZE/2;
-	//playerY = WORLD_SIZE/2;
-	playerX = VIEW_WIDTH/2;
-	playerY = VIEW_HEIGHT/2;
+	playerX = WORLD_SIZE/2;
+	playerY = WORLD_SIZE/2;
+	//playerX = VIEW_WIDTH/2;
+	//playerY = VIEW_HEIGHT/2;
 	
 	console.log(playerX);
 
@@ -48,8 +48,8 @@ function create_board(){
 
 function onEnterFrame(){
   
-  var left = MC.x - VIEW_WIDTH / 2;
-  var top = MC.y - VIEW_HEIGHT / 2;
+  var left = MC.mapX - VIEW_WIDTH / 2;
+  var top = MC.mapY - VIEW_HEIGHT / 2;
   
   var leftTile = Math.floor(left / TILE_SIZE);
   var topTile = Math.floor(top / TILE_SIZE);

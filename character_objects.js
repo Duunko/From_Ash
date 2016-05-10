@@ -19,27 +19,33 @@ function main_character(x, y) {
 	this.hp = 40;
 	this.move_direc = 'south';
 	this.look_direc = {x:0, y:0};
-	this.x = x;
-	this.y = y;
+	this.canvasX = canvas.width/2;
+	this.canvasY = canvas.height/2;
+	this.mapX = WORLD_SIZE/2;
+	this.mapY = WORLD_SIZE/2;
 	
 	this.update = function(){
-		console.log(this.x+" , "+this.y);
+		console.log(this.canvasX+" , "+this.canvasY);
 	   if (keysPressed[RIGHT_KEY_CODE] == true) {
-         this.x += 2;
+         this.canvasX += 2;
+		 this.mapX += 2;
        }
        if (keysPressed[LEFT_KEY_CODE] == true) {
-          this.x -= 2;
+          this.canvasX -= 2;
+		  this.mapX -= 2;
        }
        if (keysPressed[DOWN_KEY_CODE] == true) {
-         this.y += 2;
+         this.canvasY += 2;
+		 this.mapY += 2;
        }
        if (keysPressed[UP_KEY_CODE] == true) {
-         this.y -= 2;
+         this.canvasY -= 2;
+		 this.mapY -= 2;
        }
 	}
 	
     this.draw = function() {
-    	context.drawImage(this.sprite, this.x, this.y, 40, 40);
+    	context.drawImage(this.sprite, this.canvasX, this.canvasY, 40, 40);
     }
     
     this.attack = function(){

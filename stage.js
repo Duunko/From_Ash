@@ -92,6 +92,7 @@ function game_draw(renderer) {
 	renderer.ctx.fillRect(0, 0, renderer.can.width, renderer.can.height);
 	renderer.ctx.fill();
 	
+	//this draws the tiles to the floor
 	onEnterFrame();
 	
 	for(var i = 0; i < renderer.stages.length; i++){
