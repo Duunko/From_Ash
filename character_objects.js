@@ -11,7 +11,7 @@
  * 
  */
 
-function main_character(x, y) {
+function main_character(x, y ) {
 	this.sprite = new Image();
 	this.sprite.src = 'https://image.freepik.com/free-icon/arrow-bold-down--ios-7-interface-symbol_318-34310.png'
 	this.sprite.width = 40;
@@ -23,8 +23,8 @@ function main_character(x, y) {
 	this.look_direc = {x:0, y:0};
 	this.canvasX = canvas.width/2;
 	this.canvasY = canvas.height/2;
-	this.mapX = WORLD_WIDTH/2;
-	this.mapY = WORLD_HEIGHT/2;
+	this.mapX = tiles.WORLD_WIDTH/2;
+	this.mapY = tiles.WORLD_HEIGHT/2;
 	
 	this.speed = 10;
 	
@@ -35,7 +35,7 @@ function main_character(x, y) {
 		 if(this.canvasX + this.sprite.width < canvas.width){
 			this.canvasX += this.speed;
 		 }
-		 if(this.mapX < canvas.width - 310){
+		 if(this.mapX < canvas.width - 300){
 			this.mapX += this.speed;
 		 }
        }
@@ -51,7 +51,7 @@ function main_character(x, y) {
 		 if(this.canvasY + this.sprite.height < canvas.height){
 			this.canvasY += this.speed;
 		 }
-		 if(this.mapY < canvas.height - 210){
+		 if(this.mapY < canvas.height - 200){
 			this.mapY += this.speed;
 		 }
        }

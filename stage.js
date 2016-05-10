@@ -97,7 +97,6 @@ function game_draw(renderer) {
 	}
 	
 	//this draws the tiles to the floor
-	onEnterFrame();
 	
 	for(var i = 0; i < renderer.stages.length; i++){
 	    if(renderer.stages[i].always_update == true || renderer.stages[i].always_draw == true){

@@ -6,44 +6,44 @@
  *
  */
  
-function create_board(){
+function create_board(world_width, world_height, tile_size){
 	
-	TILE_TYPE_WATER = 0;
-	TILE_TYPE_GRASS = 1;
+	this.depth = 100000;
+	this.TILE_TYPE_WATER = 0;
+	this.TILE_TYPE_GRASS = 1;
 
-	NUM_TILE_TYPES = 2;
+	this.NUM_TILE_TYPES = 2;
 
-	TILE_COLORS = ['#0000DD', '#00CC00'];
+	this.TILE_COLORS = ['#0000DD', '#00CC00'];
 
-	TILE_SIZE = 50;
-	WORLD_SIZE = 1000;
-	WORLD_WIDTH = 1000;
-	WORLD_HEIGHT = 700;
+	this.TILE_SIZE = tile_size;
+	this.WORLD_WIDTH = world_width;
+	this.WORLD_HEIGHT = world_height;
 
-	TILES_IN_A_ROW = Math.floor(WORLD_WIDTH/TILE_SIZE);
-	TILES_IN_A_COL = Math.floor(WORLD_HEIGHT/TILE_SIZE);
+	this.TILES_IN_A_ROW = Math.floor(this.WORLD_WIDTH/this.TILE_SIZE);
+	this.TILES_IN_A_COL = Math.floor(this.WORLD_HEIGHT/this.TILE_SIZE);
 
-	VIEW_WIDTH = canvas.width;
-	VIEW_HEIGHT = canvas.height;
+	this.VIEW_WIDTH = canvas.width;
+	this.VIEW_HEIGHT = canvas.height;
 
-	VIEW_TILE_WIDTH = Math.floor(VIEW_WIDTH / TILE_SIZE);
-	VIEW_TILE_HEIGHT = Math.floor(VIEW_HEIGHT / TILE_SIZE);
+	this.VIEW_TILE_WIDTH = Math.floor(this.VIEW_WIDTH / this.TILE_SIZE);
+	this.VIEW_TILE_HEIGHT = Math.floor(this.VIEW_HEIGHT / this.TILE_SIZE);
 
-	playerX = WORLD_WIDTH/2;
-	playerY = WORLD_HEIGHT/2;
+	this.playerX = this.WORLD_WIDTH/2;
+	this.playerY = this.WORLD_HEIGHT/2;
 	//playerX = VIEW_WIDTH/2;
 	//playerY = VIEW_HEIGHT/2;
 	
-	console.log(playerX);
+	console.log(this.playerX);
 
-	tileGrid = [];
-	tiles = [];
+	this.tileGrid = [];
+	this.tiles = [];
 
-	for(var i = 0; i < TILES_IN_A_ROW; i++){
+	for(var i = 0; i < this.TILES_IN_A_ROW; i++){
 		var column = new Array();
-	  for(var j=0; j < TILES_IN_A_COL; j++){
+	  for(var j=0; j < this.TILES_IN_A_COL; j++){
 		//column[j] = Math.floor(Math.random()*NUM_TILE_TYPES);
-		if((i == 0 || j == 0) || (i == TILES_IN_A_ROW - 1 || j == TILES_IN_A_COL - 1)){
+		if((i == 0 || j == 0) || (i == this.TILES_IN_A_ROW - 1 || j == this.TILES_IN_A_COL - 1)){
 			column[j] = 0;
 		}
 		else{
@@ -51,37 +51,46 @@ function create_board(){
 		}
 	  } //INNER
 	  
-	  tileGrid[i] = column;
+	  this.tileGrid[i] = column;
 	} //OUTER
+	
+	this.update = function(){
+		
+	}
+	
+	this.draw = function onEnterFrame(){
+  
+        var left = MC.mapX - this.VIEW_WIDTH / 2;
+        var top = MC.mapY - this.VIEW_HEIGHT / 2;
+  
+        var leftTile = Math.floor(left / this.TILE_SIZE);
+        var topTile = Math.floor(top / this.TILE_SIZE);
+  
+        var tileOffsetX = left % this.TILE_SIZE;
+        var tileOffsetY = top % this.TILE_SIZE;
+  
+        context.clearRect(0, 0, canvas.width, canvas.height);
+  
+        
+  
+        for(var i = 0; i < this.VIEW_TILE_WIDTH+1; i++){
+  	        for(var j = 0; j < this.VIEW_TILE_HEIGHT+1; j++){
+		        var tileColor = '#000000';
+		        if(this.tileGrid.length - 1 >= leftTile+i){
+			        console.log(leftTile + i);
+			        if(this.tileGrid[leftTile+i].length - 1 >= topTile+j){
+				        var tileColor = this.tileGrid[leftTile+i][topTile +j];
+			        }
+		        }
+		        context.fillStyle = this.TILE_COLORS[tileColor];
+		        context.fillRect(i*this.TILE_SIZE - tileOffsetX, j*this.TILE_SIZE - tileOffsetY, this.TILE_SIZE, this.TILE_SIZE);
+             }
+          }
+  
+          context.fillStyle = 'white';
+          context.fillRect(this.VIEW_WIDTH/2, this.VIEW_HEIGHT/2, 15, 15);
+  
+    }
+	
 }
 
-function onEnterFrame(){
-  
-  var left = MC.mapX - VIEW_WIDTH / 2;
-  var top = MC.mapY - VIEW_HEIGHT / 2;
-  
-  var leftTile = Math.floor(left / TILE_SIZE);
-  var topTile = Math.floor(top / TILE_SIZE);
-  
-  var tileOffsetX = left % TILE_SIZE;
-  var tileOffsetY = top % TILE_SIZE;
-  
-  context.clearRect(0, 0, canvas.width, canvas.height);
-  
-  for(var i = 0; i < VIEW_TILE_WIDTH+1; i++){
-  	for(var j = 0; j < VIEW_TILE_HEIGHT+1; j++){
-		var tileColor = '#000000';
-		if(tileGrid.length - 1 >= leftTile+i){
-			if(tileGrid[leftTile+i].length - 1 >= topTile+i){
-				var tileColor = tileGrid[leftTile+i][topTile +j];
-			}
-		}
-		context.fillStyle = TILE_COLORS[tileColor];
-		context.fillRect(i*TILE_SIZE - tileOffsetX, j*TILE_SIZE - tileOffsetY, TILE_SIZE, TILE_SIZE);
-    }
-  }
-  
-  context.fillStyle = 'white';
-  context.fillRect(VIEW_WIDTH/2, VIEW_HEIGHT/2, 15, 15);
-  
-}

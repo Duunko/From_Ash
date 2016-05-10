@@ -24,10 +24,11 @@ var main_stage = new stage();
 renderer.push(main_stage);
 
 //Set up the tile system
-create_board();
+var tiles = new create_board(900, 700, 50);
+main_stage.push(tiles);
 
 // Start the game loop. 
-console.log(playerX);
+console.log(tiles.playerX);
 make_loop(renderer, 30);
 
 
@@ -77,7 +78,7 @@ function keyUp(e){
  * the stage for testing purposes.
  */
 
-var MC = new main_character(playerX, playerY);
+var MC = new main_character(tiles.playerX, tiles.playerY);
 main_stage.push(MC);
 
 
