@@ -92,8 +92,12 @@ function create_board(world_width, world_height, tile_size){
 				        var tileColor = this.tileGrid[leftTile+i][topTile +j];
 			        }
 		        }
+				context.beginPath();
 		        context.fillStyle = this.TILE_COLORS[tileColor];
 		        context.fillRect(i*this.TILE_SIZE - tileOffsetX, j*this.TILE_SIZE - tileOffsetY, this.TILE_SIZE, this.TILE_SIZE);
+				context.lineWidth = 3;
+				context.strokeStyle = "#000000";
+				context.strokeRect(i*this.TILE_SIZE - tileOffsetX, j*this.TILE_SIZE - tileOffsetY, this.TILE_SIZE, this.TILE_SIZE);
             }
         }
   
