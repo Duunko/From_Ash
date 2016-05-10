@@ -44,11 +44,14 @@ var LEFT_KEY_CODE = 65;
 var UP_KEY_CODE = 87;
 var DOWN_KEY_CODE = 83;
 
+var ACTION_KEY_CODE = 75;
+
 var keysPressed = {};
 keysPressed[RIGHT_KEY_CODE] = false;
 keysPressed[LEFT_KEY_CODE] = false;
 keysPressed[UP_KEY_CODE] = false;
 keysPressed[DOWN_KEY_CODE] = false;
+keysPressed[ACTION_KEY_CODE] = false;
 
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
