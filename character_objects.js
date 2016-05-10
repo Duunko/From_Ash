@@ -30,12 +30,11 @@ function main_character(x, y ) {
 	
 	this.update = function(){
 		console.log(this.mapX+" , "+this.mapY);
-		console.log(this.sprite.width);
 	   if (keysPressed[RIGHT_KEY_CODE] == true) {
 		 if(this.canvasX + this.sprite.width < canvas.width){
 			this.canvasX += this.speed;
 		 }
-		 if(this.mapX < canvas.width - 300){
+		 if(this.mapX < tiles.WORLD_WIDTH){
 			this.mapX += this.speed;
 		 }
        }
@@ -43,15 +42,15 @@ function main_character(x, y ) {
 		  if(this.canvasX > 0){
 			this.canvasX -= this.speed;
 		  }
-		  if(this.mapX > 400){
-			this.mapX -= this.speed;
+		  if(this.mapX > 0){
+			  this.mapX -= this.speed;
 		  }
        }
        if (keysPressed[DOWN_KEY_CODE] == true) {
 		 if(this.canvasY + this.sprite.height < canvas.height){
 			this.canvasY += this.speed;
 		 }
-		 if(this.mapY < canvas.height - 200){
+		 if(this.mapY < tiles.WORLD_HEIGHT){
 			this.mapY += this.speed;
 		 }
        }
@@ -59,7 +58,7 @@ function main_character(x, y ) {
 		 if(this.canvasY > 0){
 			this.canvasY -= this.speed;
 		 }
-		 if(this.mapY > 300){
+		 if(this.mapY > 0){
 			this.mapY -= this.speed;
 		 }
        }

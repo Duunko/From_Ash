@@ -24,7 +24,7 @@ var main_stage = new stage();
 renderer.push(main_stage);
 
 //Set up the tile system
-var tiles = new create_board(900, 700, 50);
+var tiles = new create_board(900, 900, 50);
 main_stage.push(tiles);
 
 // Start the game loop. 
