@@ -23,8 +23,8 @@ function main_character(x, y) {
 	this.look_direc = {x:0, y:0};
 	this.canvasX = canvas.width/2;
 	this.canvasY = canvas.height/2;
-	this.mapX = WORLD_SIZE/2;
-	this.mapY = WORLD_SIZE/2;
+	this.mapX = WORLD_WIDTH/2;
+	this.mapY = WORLD_HEIGHT/2;
 	
 	this.speed = 10;
 	
@@ -35,7 +35,7 @@ function main_character(x, y) {
 		 if(this.canvasX + this.sprite.width < canvas.width){
 			this.canvasX += this.speed;
 		 }
-		 if(this.mapX < canvas.width - 210){
+		 if(this.mapX < canvas.width - 310){
 			this.mapX += this.speed;
 		 }
        }

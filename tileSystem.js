@@ -17,8 +17,11 @@ function create_board(){
 
 	TILE_SIZE = 50;
 	WORLD_SIZE = 1000;
+	WORLD_WIDTH = 1000;
+	WORLD_HEIGHT = 700;
 
-	TILES_IN_A_ROW = Math.floor(WORLD_SIZE/TILE_SIZE);
+	TILES_IN_A_ROW = Math.floor(WORLD_WIDTH/TILE_SIZE);
+	TILES_IN_A_COL = Math.floor(WORLD_HEIGHT/TILE_SIZE);
 
 	VIEW_WIDTH = canvas.width;
 	VIEW_HEIGHT = canvas.height;
@@ -26,8 +29,8 @@ function create_board(){
 	VIEW_TILE_WIDTH = Math.floor(VIEW_WIDTH / TILE_SIZE);
 	VIEW_TILE_HEIGHT = Math.floor(VIEW_HEIGHT / TILE_SIZE);
 
-	playerX = WORLD_SIZE/2;
-	playerY = WORLD_SIZE/2;
+	playerX = WORLD_WIDTH/2;
+	playerY = WORLD_HEIGHT/2;
 	//playerX = VIEW_WIDTH/2;
 	//playerY = VIEW_HEIGHT/2;
 	
@@ -38,8 +41,14 @@ function create_board(){
 
 	for(var i = 0; i < TILES_IN_A_ROW; i++){
 		var column = new Array();
-	  for(var j=0; j < TILES_IN_A_ROW; j++){
-		column[j] = Math.floor(Math.random()*NUM_TILE_TYPES);
+	  for(var j=0; j < TILES_IN_A_COL; j++){
+		//column[j] = Math.floor(Math.random()*NUM_TILE_TYPES);
+		if((i == 0 || j == 0) || (i == TILES_IN_A_ROW - 1 || j == TILES_IN_A_COL - 1)){
+			column[j] = 0;
+		}
+		else{
+			column[j] = 1;
+		}
 	  } //INNER
 	  
 	  tileGrid[i] = column;
