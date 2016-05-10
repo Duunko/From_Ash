@@ -39,7 +39,7 @@ make_loop(renderer, 30);
  * 
  * Takes mostly from the in-class tile engine fiddle.
  */
-
+ 
 var RIGHT_KEY_CODE = 68;
 var LEFT_KEY_CODE = 65;
 var UP_KEY_CODE = 87;
@@ -56,14 +56,18 @@ keysPressed[ACTION_KEY_CODE] = false;
 
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
+document.addEventListener('onmousemove', onMouseMove);
 
+function onMouseMove(e){
+	var mouseX = e.clientX;
+	var mouseY = e.clientY;
+}
+//context.fillText('Coordinates: ' + mouseX + ' ' + mouseY,10,50);
 
 function keyDown(e) {
   if (e.keyCode in keysPressed){
     keysPressed[e.keyCode] = true;
   }
-
- 
 }
 
 
@@ -79,7 +83,9 @@ function keyUp(e){
  */
 
 var MC = new main_character(tiles.playerX, tiles.playerY);
+//var textyea = 'texting yea';
 main_stage.push(MC);
+//main_stage.push(textyea);
 
 
 

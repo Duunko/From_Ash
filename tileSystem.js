@@ -77,7 +77,7 @@ function create_board(world_width, world_height, tile_size){
   	        for(var j = 0; j < this.VIEW_TILE_HEIGHT+1; j++){
 		        var tileColor = '#000000';
 		        if(this.tileGrid.length - 1 >= leftTile+i){
-			        console.log(leftTile + i);
+			        //console.log(leftTile + i);
 			        if(this.tileGrid[leftTile+i].length - 1 >= topTile+j){
 				        var tileColor = this.tileGrid[leftTile+i][topTile +j];
 			        }
