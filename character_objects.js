@@ -14,6 +14,8 @@
 function main_character(x, y) {
 	this.sprite = new Image();
 	this.sprite.src = 'https://image.freepik.com/free-icon/arrow-bold-down--ios-7-interface-symbol_318-34310.png'
+	this.sprite.width = 40;
+	this.sprite.height = 40;
 	
 	this.fp = 40;
 	this.hp = 40;
@@ -24,28 +26,47 @@ function main_character(x, y) {
 	this.mapX = WORLD_SIZE/2;
 	this.mapY = WORLD_SIZE/2;
 	
+	this.speed = 10;
+	
 	this.update = function(){
-		console.log(this.canvasX+" , "+this.canvasY);
+		console.log(this.mapX+" , "+this.mapY);
+		console.log(this.sprite.width);
 	   if (keysPressed[RIGHT_KEY_CODE] == true) {
-         this.canvasX += 2;
-		 this.mapX += 2;
+		 if(this.canvasX + this.sprite.width < canvas.width){
+			this.canvasX += this.speed;
+		 }
+		 if(this.mapX < canvas.width - 210){
+			this.mapX += this.speed;
+		 }
        }
        if (keysPressed[LEFT_KEY_CODE] == true) {
-          this.canvasX -= 2;
-		  this.mapX -= 2;
+		  if(this.canvasX > 0){
+			this.canvasX -= this.speed;
+		  }
+		  if(this.mapX > 400){
+			this.mapX -= this.speed;
+		  }
        }
        if (keysPressed[DOWN_KEY_CODE] == true) {
-         this.canvasY += 2;
-		 this.mapY += 2;
+		 if(this.canvasY + this.sprite.height < canvas.height){
+			this.canvasY += this.speed;
+		 }
+		 if(this.mapY < canvas.height - 210){
+			this.mapY += this.speed;
+		 }
        }
        if (keysPressed[UP_KEY_CODE] == true) {
-         this.canvasY -= 2;
-		 this.mapY -= 2;
+		 if(this.canvasY > 0){
+			this.canvasY -= this.speed;
+		 }
+		 if(this.mapY > 300){
+			this.mapY -= this.speed;
+		 }
        }
 	}
 	
     this.draw = function() {
-    	context.drawImage(this.sprite, this.canvasX, this.canvasY, 40, 40);
+    	context.drawImage(this.sprite, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
     }
     
     this.attack = function(){

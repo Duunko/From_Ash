@@ -16,7 +16,7 @@ function create_board(){
 	TILE_COLORS = ['#0000DD', '#00CC00'];
 
 	TILE_SIZE = 50;
-	WORLD_SIZE = 10000;
+	WORLD_SIZE = 1000;
 
 	TILES_IN_A_ROW = Math.floor(WORLD_SIZE/TILE_SIZE);
 
@@ -61,9 +61,14 @@ function onEnterFrame(){
   
   for(var i = 0; i < VIEW_TILE_WIDTH+1; i++){
   	for(var j = 0; j < VIEW_TILE_HEIGHT+1; j++){
-    	var tileColor = tileGrid[leftTile+i][topTile +j];
-      context.fillStyle = TILE_COLORS[tileColor];
-      context.fillRect(i*TILE_SIZE - tileOffsetX, j*TILE_SIZE - tileOffsetY, TILE_SIZE, TILE_SIZE);
+		var tileColor = '#000000';
+		if(tileGrid.length - 1 >= leftTile+i){
+			if(tileGrid[leftTile+i].length - 1 >= topTile+i){
+				var tileColor = tileGrid[leftTile+i][topTile +j];
+			}
+		}
+		context.fillStyle = TILE_COLORS[tileColor];
+		context.fillRect(i*TILE_SIZE - tileOffsetX, j*TILE_SIZE - tileOffsetY, TILE_SIZE, TILE_SIZE);
     }
   }
   
