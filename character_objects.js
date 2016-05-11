@@ -40,8 +40,8 @@ function main_character(x, y ) {
 	   //console.log(this.mapX+" , "+this.mapY);
 	   //console.log("left: "+tiles.left);
 	   //console.log(toMapX(this.canvasX)+" , "+toMapY(this.canvasY));
-	   console.log("this.ySpeed "+this.canvasYSpeed);
-	   console.log("tiles.top "+tiles.top);
+	   console.log("this.xSpeed "+this.canvasXSpeed+ " ,this.ySpeed "+this.canvasYSpeed);
+	   console.log(MC.canvasX+" , "+MC.canvasY);
 	   
 	    if (keysPressed[RIGHT_KEY_CODE] == true) {
 			if(this.canvasX + this.sprite.width <= canvas.width){
@@ -85,19 +85,21 @@ function main_character(x, y ) {
 			if(this.canvasYSpeed  < 0){ this.canvasYSpeed += this.speedInc }
 		}
 	   
-	   
-	    if(this.canvasX > 0 && this.canvasX + this.sprite.width < canvas.width){
+	    //if within bounds add directional changes
+	    if(this.canvasX > 0 && this.canvasXSpeed < 0){
 			this.canvasX += this.canvasXSpeed;
-	    }
-	    else{
-		   if(this.canvasX < 0){ this.canvasX = 1 }
-		   if(this.canvasX + this.sprite.width > canvas.width){ this.canvasX = canvas.width - this.sprite.width }
-	    }
-	   
-	    if(this.canvasY > 0 && this.canvasY + this.sprite.height < canvas.height){
-		   this.canvasY += this.canvasYSpeed;
-	    }
-	    
+		}
+		if(this.canvasX + this.sprite.width < canvas.width && this.canvasXSpeed > 0){
+			this.canvasX += this.canvasXSpeed;
+		}
+		
+		if(this.canvasY > 0 && this.canvasYSpeed < 0){
+			this.canvasY += this.canvasYSpeed;
+		}
+		if(this.canvasY + this.sprite.height < canvas.height && this.canvasYSpeed > 0){
+			this.canvasY += this.canvasYSpeed;
+		}
+		
 		this.mapX = toMapX(this.canvasX);
 	    this.mapY = toMapY(this.canvasY);
 		
