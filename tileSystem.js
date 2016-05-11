@@ -34,6 +34,9 @@ function create_board(world_width, world_height, tile_size){
 	//playerX = VIEW_WIDTH/2;
 	//playerY = VIEW_HEIGHT/2;
 	
+	this.left;
+	this.top;
+	
 	console.log(this.playerX);
 
 	this.tileGrid = [];
@@ -60,35 +63,42 @@ function create_board(world_width, world_height, tile_size){
 	
 	this.draw = function onEnterFrame(){
   
-        var left = MC.mapX - this.VIEW_WIDTH / 2;
-        var top = MC.mapY - this.VIEW_HEIGHT / 2;
+        this.left = MC.mapX - this.VIEW_WIDTH / 2;
+        this.top = MC.mapY - this.VIEW_HEIGHT / 2;
+		this.right = MC.mapX + this.VIEW_WIDTH / 2;
+		this.bottom = MC.mapY + this.VIEW_HEIGHT / 2;
+		
+		if(this.left <= 0){ this.left = 0 }
+		if(this.top <= 0){ this.top = 0 }
+		
+		if(this.bottom >= this.WORLD_HEIGHT){ this.top = this.WORLD_HEIGHT - this.VIEW_HEIGHT}
+		if(this.right >= this.WORLD_WIDTH){ this.left = this.WORLD_WIDTH - this.VIEW_WIDTH}
   
-        var leftTile = Math.floor(left / this.TILE_SIZE);
-        var topTile = Math.floor(top / this.TILE_SIZE);
+        var leftTile = Math.floor(this.left / this.TILE_SIZE);
+        var topTile = Math.floor(this.top / this.TILE_SIZE);
+		
+		var bottomTile = Math.floor(this.bottom / this.TILE_SIZE);
   
-        var tileOffsetX = left % this.TILE_SIZE;
-        var tileOffsetY = top % this.TILE_SIZE;
+        var tileOffsetX = this.left % this.TILE_SIZE;
+        var tileOffsetY = this.top % this.TILE_SIZE;
   
         context.clearRect(0, 0, canvas.width, canvas.height);
-  
-        
   
         for(var i = 0; i < this.VIEW_TILE_WIDTH+1; i++){
   	        for(var j = 0; j < this.VIEW_TILE_HEIGHT+1; j++){
 		        var tileColor = '#000000';
 		        if(this.tileGrid.length - 1 >= leftTile+i){
-			        //console.log(leftTile + i);
 			        if(this.tileGrid[leftTile+i].length - 1 >= topTile+j){
 				        var tileColor = this.tileGrid[leftTile+i][topTile +j];
 			        }
 		        }
 		        context.fillStyle = this.TILE_COLORS[tileColor];
 		        context.fillRect(i*this.TILE_SIZE - tileOffsetX, j*this.TILE_SIZE - tileOffsetY, this.TILE_SIZE, this.TILE_SIZE);
-             }
-          }
+            }
+        }
   
-          context.fillStyle = 'white';
-          context.fillRect(this.VIEW_WIDTH/2, this.VIEW_HEIGHT/2, 15, 15);
+        context.fillStyle = 'white';
+        context.fillRect(this.VIEW_WIDTH/2, this.VIEW_HEIGHT/2, 15, 15);
   
     }
 	

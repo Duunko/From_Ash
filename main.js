@@ -24,7 +24,7 @@ var main_stage = new stage();
 renderer.push(main_stage);
 
 //Set up the tile system
-var tiles = new create_board(900, 700, 50);
+var tiles = new create_board(900, 900, 50);
 main_stage.push(tiles);
 
 // Start the game loop. 
@@ -47,6 +47,10 @@ var DOWN_KEY_CODE = 83;
 
 var ACTION_KEY_CODE = 75;
 
+//mouse X and Y global variables
+var mouseX = 0;
+var mouseY = 0;
+
 var keysPressed = {};
 keysPressed[RIGHT_KEY_CODE] = false;
 keysPressed[LEFT_KEY_CODE] = false;
@@ -56,20 +60,18 @@ keysPressed[ACTION_KEY_CODE] = false;
 
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
-document.addEventListener('onmousemove', onMouseMove);
+document.addEventListener('mousemove', onMouseMove);
 
 function onMouseMove(e){
-	var mouseX = e.clientX;
-	var mouseY = e.clientY;
+	mouseX = e.offsetX || e.pageX - rect.left - window.scrollX;
+	mouseY = e.offsetY || e.pageY - rect.top - window.scrollY;
 }
-//context.fillText('Coordinates: ' + mouseX + ' ' + mouseY,10,50);
 
 function keyDown(e) {
   if (e.keyCode in keysPressed){
     keysPressed[e.keyCode] = true;
   }
 }
-
 
 function keyUp(e){
 	if (e.keyCode in keysPressed){
@@ -83,9 +85,7 @@ function keyUp(e){
  */
 
 var MC = new main_character(tiles.playerX, tiles.playerY);
-//var textyea = 'texting yea';
 main_stage.push(MC);
-//main_stage.push(textyea);
 
 
 
