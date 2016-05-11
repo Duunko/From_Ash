@@ -39,13 +39,17 @@ make_loop(renderer, 30);
  * 
  * Takes mostly from the in-class tile engine fiddle.
  */
-
+ 
 var RIGHT_KEY_CODE = 68;
 var LEFT_KEY_CODE = 65;
 var UP_KEY_CODE = 87;
 var DOWN_KEY_CODE = 83;
 
 var ACTION_KEY_CODE = 75;
+
+//mouse X and Y global variables
+var mouseX = 0;
+var mouseY = 0;
 
 var keysPressed = {};
 keysPressed[RIGHT_KEY_CODE] = false;
@@ -56,16 +60,18 @@ keysPressed[ACTION_KEY_CODE] = false;
 
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
+document.addEventListener('mousemove', onMouseMove);
 
+function onMouseMove(e){
+	mouseX = e.offsetX || e.pageX - rect.left - window.scrollX;
+	mouseY = e.offsetY || e.pageY - rect.top - window.scrollY;
+}
 
 function keyDown(e) {
   if (e.keyCode in keysPressed){
     keysPressed[e.keyCode] = true;
   }
-
- 
 }
-
 
 function keyUp(e){
 	if (e.keyCode in keysPressed){

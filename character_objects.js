@@ -5,7 +5,7 @@
 /* Basic character object
  * This is the object for the main character. Contains a sprite,
  * fire point value, hit point value, directional data (for bookeeping),
- * x and y coordiantes, and an update and draw method. 
+ * x and y coordinates, and an update and draw method. 
  * 
  * Also contains an attack() and special() method that are unimpelemented.
  * 
@@ -64,12 +64,18 @@ function main_character(x, y ) {
 		 if(this.mapY > 0){
 			this.mapY -= this.speed;
 		 }
+
        }
-	   
 	}
 	
     this.draw = function() {
     	context.drawImage(this.sprite, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
+		//drawing line from character to mouse coordinates
+		context.beginPath();
+		context.moveTo(this.canvasX + this.sprite.width/2,this.canvasY + this.sprite.height/2);
+		context.lineTo(mouseX,mouseY);
+		context.strokeStyle = '#ff0000';
+		context.stroke();		
     }
     
     this.attack = function(){
