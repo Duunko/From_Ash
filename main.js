@@ -39,17 +39,35 @@ make_loop(renderer, 30);
  * 
  * Takes mostly from the in-class tile engine fiddle.
  */
- 
+
+//mouse X and Y global variables
+var mouseX = 0;
+var mouseY = 0;
+
+// corners of canvas
+var topLeft = {x:0,y:0};
+var topRight = {x:canvas.width,y:0};
+var bottomLeft = {x:0,y:canvas.height};
+var bottomRight = {x:canvas.width,y:canvas.height};
+
+//mouse angles in degrees
+var mADTL = 0;
+var mADTR = 0;
+var mADBL = 0;
+var mADBR = 0;
+//character angles in degrees
+var cADTL = 0;
+var cADTR = 0;
+var cADBL = 0;
+var cADBR = 0;
+
+//keycodes and key presses
 var RIGHT_KEY_CODE = 68;
 var LEFT_KEY_CODE = 65;
 var UP_KEY_CODE = 87;
 var DOWN_KEY_CODE = 83;
 
 var ACTION_KEY_CODE = 75;
-
-//mouse X and Y global variables
-var mouseX = 0;
-var mouseY = 0;
 
 var keysPressed = {};
 keysPressed[RIGHT_KEY_CODE] = false;
@@ -79,6 +97,10 @@ function keyUp(e){
   }
 }
 
+function angleDeg(x1,y1,x2,y2){
+	AD = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+	return AD;
+}
 
 /* Making the basic character and pushing him to 
  * the stage for testing purposes.
