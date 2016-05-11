@@ -34,13 +34,33 @@ function main_character(x, y ) {
 	this.canvasYSpeed = 0;
 	this.mapYSpeed = 0;
 	
+	this.can_melee = true;
+	
 	
 	this.update = function(){
 	   
-	   console.log(this.mapX+" , "+this.mapY);
-	   console.log("canvasYSpeed: "+this.canvasYSpeed);
-	   console.log("mapYSpeed: "+this.mapYSpeed);
-	   
+	   //console.log(this.mapX+" , "+this.mapY);
+	   //console.log("canvasYSpeed: "+this.canvasYSpeed);
+	  // console.log("mapYSpeed: "+this.mapYSpeed);
+	   var diagonal_motion = 1;
+	   var count = 0;
+       if (keysPressed[RIGHT_KEY_CODE] == true){
+       	  count++; 
+       } 
+       if (keysPressed[LEFT_KEY_CODE] == true){
+       	  count++; 
+       } 
+	   if (keysPressed[UP_KEY_CODE] == true){
+       	  count++; 
+       } 
+       if (keysPressed[DOWN_KEY_CODE] == true){
+       	  count++; 
+       } 
+       if (count > 1){
+       	   console.log(diagonal_motion);
+       	   diagonal_motion = 2;
+       }
+       
 	    if (keysPressed[RIGHT_KEY_CODE] == true) {
 			if(this.canvasX + this.sprite.width <= canvas.width){
 				//this.canvasX += this.speed;
@@ -208,7 +228,8 @@ function main_character(x, y ) {
     }
     
     this.attack = function(){
-    	
+    	var hit = new hitbox('arc', this.look_direc, 10);
+    	main_stage.push(hit);
     }
 	
     this.special = function(param){

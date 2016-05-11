@@ -109,7 +109,9 @@ function game_draw(renderer) {
 		        	    sort_array(renderer.stages[i].owned_objects);
 		        	    renderer.need_sort = false;
 		        	}
-		        	renderer.stages[i].owned_objects[j].draw();
+		        	if (renderer.stages[i].owned_objects[j] != undefined){
+		        	    renderer.stages[i].owned_objects[j].draw();
+		        	}
 		        }
 		    }
 		

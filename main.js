@@ -28,7 +28,7 @@ var tiles = new create_board(900, 900, 50);
 main_stage.push(tiles);
 
 // Start the game loop. 
-console.log(tiles.playerX);
+//console.log(tiles.playerX);
 make_loop(renderer, 15);
 
 
@@ -69,6 +69,7 @@ var DOWN_KEY_CODE = 83;
 
 var ACTION_KEY_CODE = 75;
 
+
 var keysPressed = {};
 keysPressed[RIGHT_KEY_CODE] = false;
 keysPressed[LEFT_KEY_CODE] = false;
@@ -79,11 +80,23 @@ keysPressed[ACTION_KEY_CODE] = false;
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
 document.addEventListener('mousemove', onMouseMove);
+document.addEventListener('mousedown', onMouseDown);
+//document.addEventListener('mouseup', onMouseUp);
 
 function onMouseMove(e){
 	mouseX = e.offsetX || e.pageX - rect.left - window.scrollX;
 	mouseY = e.offsetY || e.pageY - rect.top - window.scrollY;
 }
+
+function onMouseDown(e){
+	if (MC.can_melee == true){
+	    MC.attack();
+	    MC.can_melee = false;
+	}
+}
+
+
+
 
 function keyDown(e) {
   if (e.keyCode in keysPressed){
