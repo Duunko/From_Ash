@@ -29,7 +29,7 @@ main_stage.push(tiles);
 
 // Start the game loop. 
 console.log(tiles.playerX);
-make_loop(renderer, 30);
+make_loop(renderer, 15);
 
 
 /* Making character movement
