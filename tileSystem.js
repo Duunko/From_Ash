@@ -63,10 +63,10 @@ function create_board(world_width, world_height, tile_size){
 	
 	this.draw = function onEnterFrame(){
   
-        this.left = MC.mapX - this.VIEW_WIDTH / 2;
-        this.top = MC.mapY - this.VIEW_HEIGHT / 2;
-		this.right = MC.mapX + this.VIEW_WIDTH / 2;
-		this.bottom = MC.mapY + this.VIEW_HEIGHT / 2;
+        this.left = MC.canvasX - this.VIEW_WIDTH / 2;
+        this.top = MC.canvasY - this.VIEW_HEIGHT / 2;
+		this.right = MC.canvasX + this.VIEW_WIDTH / 2;
+		this.bottom = MC.canvasY + this.VIEW_HEIGHT / 2;
 		
 		if(this.left <= 0){ this.left = 0 }
 		if(this.top <= 0){ this.top = 0 }

@@ -118,7 +118,31 @@ function angleDeg(x1,y1,x2,y2){
 /* Making the basic character and pushing him to 
  * the stage for testing purposes.
  */
-
+ 
+ //-----------------------------------------------------------
+ //---------HELPER FUNCTIONS----------------------------------
+ //-----------------------------------------------------------
+ 
+ //converters
+ function toCanvasX(old){
+	return old - tiles.left; 
+ }
+ 
+ function toCanvasY(old){
+	return old - tiles.top; 
+ }
+ 
+ function toMapX(old){
+	return old + tiles.left;
+ }
+ 
+ function toMapY(old){
+	return old + tiles.top;
+ }
+ 
+ //-----------------------------------------------------------
+ //---------INSTANCES-----------------------------------------
+ //-----------------------------------------------------------
 var MC = new main_character(tiles.playerX, tiles.playerY);
 main_stage.push(MC);
 
