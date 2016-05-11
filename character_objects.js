@@ -26,10 +26,13 @@ function main_character(x, y ) {
 	this.mapX = tiles.WORLD_WIDTH/2;
 	this.mapY = tiles.WORLD_HEIGHT/2;
 	
+	this.xSpeed = 0;
+	this.ySpeed = 0;
 	this.speed = 10;
 	
 	this.update = function(){
-		console.log(this.mapX+" , "+this.mapY);
+	   
+	   console.log(this.mapX+" , "+this.mapY);
 	   if (keysPressed[RIGHT_KEY_CODE] == true) {
 		 if(this.canvasX + this.sprite.width < canvas.width){
 			this.canvasX += this.speed;
@@ -62,6 +65,7 @@ function main_character(x, y ) {
 			this.mapY -= this.speed;
 		 }
        }
+	   
 	}
 	
     this.draw = function() {
