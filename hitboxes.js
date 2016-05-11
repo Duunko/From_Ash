@@ -40,11 +40,11 @@ function hitbox(shape, opt1, opt2, opt3, opt4) {
 	}
 	
 	this.draw = function(){
-		console.log(MC.canvasX, MC.canvasY);
+		/*console.log(MC.canvasX, MC.canvasY);
 		console.log('current frame: ' + this.currframe);
 		console.log('xy pairs:');
 		console.log(this.xy1);
-		console.log(this.xy2);
+		console.log(this.xy2); */
 		context.fillStyle = '#CF0D42';
 		context.moveTo(this.xy1.x, this.xy1.y);
 		context.lineTo(this.xy2.x, this.xy2.y);
