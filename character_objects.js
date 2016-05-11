@@ -36,46 +36,23 @@ function main_character(x, y ) {
 	
 	this.can_melee = true;
 	
-	
 	this.update = function(){
 	   
 	   //console.log(this.mapX+" , "+this.mapY);
-	   //console.log("canvasYSpeed: "+this.canvasYSpeed);
-	  // console.log("mapYSpeed: "+this.mapYSpeed);
-	   var diagonal_motion = 1;
-	   var count = 0;
-       if (keysPressed[RIGHT_KEY_CODE] == true){
-       	  count++; 
-       } 
-       if (keysPressed[LEFT_KEY_CODE] == true){
-       	  count++; 
-       } 
-	   if (keysPressed[UP_KEY_CODE] == true){
-       	  count++; 
-       } 
-       if (keysPressed[DOWN_KEY_CODE] == true){
-       	  count++; 
-       } 
-       if (count > 1){
-       	   console.log(diagonal_motion);
-       	   diagonal_motion = 2;
-       }
-       
+	   //console.log("left: "+tiles.left);
+	   //console.log(toMapX(this.canvasX)+" , "+toMapY(this.canvasY));
+	   console.log("this.xSpeed "+this.canvasXSpeed+ " ,this.ySpeed "+this.canvasYSpeed);
+	   console.log(MC.canvasX+" , "+MC.canvasY);
+	   
 	    if (keysPressed[RIGHT_KEY_CODE] == true) {
 			if(this.canvasX + this.sprite.width <= canvas.width){
 				//this.canvasX += this.speed;
 				if(this.canvasXSpeed < this.speed){ this.canvasXSpeed += this.speedInc }
 			}
-		 
-			if(this.mapX + this.sprite.width <= tiles.WORLD_WIDTH){
-				//this.mapX += this.speed;
-				if(this.mapXSpeed < this.speed){ this.mapXSpeed += this.speedInc }
-			}
         }
 	   
 	    else {
 		   if(this.canvasXSpeed > 0){ this.canvasXSpeed -= this.speedInc }
-		   if(this.mapXSpeed > 0){ this.mapXSpeed -= this.speedInc }
 	    }
 	   
         if (keysPressed[LEFT_KEY_CODE] == true) {
@@ -83,15 +60,10 @@ function main_character(x, y ) {
 				//this.canvasX -= this.speed;
 				if(this.canvasXSpeed > -this.speed){ this.canvasXSpeed -= this.speedInc }
 			}
-			if(this.mapX > 0){
-			  //this.mapX -= this.speed;
-			  if(this.mapXSpeed > -this.speed){ this.mapXSpeed -= this.speedInc }
-			}
         }
 	   
 	    else {
 		   if(this.canvasXSpeed < 0){ this.canvasXSpeed += this.speedInc }
-		   if(this.mapXSpeed < 0){ this.mapXSpeed += this.speedInc }
 	    }
 	   
         if (keysPressed[DOWN_KEY_CODE] == true) {
@@ -99,88 +71,40 @@ function main_character(x, y ) {
 				//this.canvasY += this.speed;
 				if(this.canvasYSpeed < this.speed){ this.canvasYSpeed += this.speedInc }
 			}
-			if(this.mapY < tiles.WORLD_HEIGHT){
-				//this.mapY += this.speed;
-				if(this.mapYSpeed < this.speed){ this.mapYSpeed += this.speedInc }
-			}
         }
 		else{
 			if(this.canvasYSpeed > 0){ this.canvasYSpeed -= this.speedInc }
-			if(this.mapYSpeed > 0){ this.mapYSpeed -= this.speedInc }
 		}
 		
 		if (keysPressed[UP_KEY_CODE] == true) {
 			if(this.canvasY > 0){
-				this.canvasY -= this.speed;
-				//if(this.canvasYSpeed > -this.speed){ this.canvasYSpeed -= this.speedInc }
-			}
-			if(this.mapY > 0){
-				this.mapY -= this.speed;
-				//if(this.mapYSpeed > -this.speed){ this.canvasYSpeed -= this.speedInc }
+				//this.canvasY -= this.speed;
+				if(this.canvasYSpeed > -this.speed){ this.canvasYSpeed -= this.speedInc }
 			}
         }
 		else{
 			if(this.canvasYSpeed  < 0){ this.canvasYSpeed += this.speedInc }
-			if(this.mapYSpeed < 0){ this.mapYSpeed += this.speedInc }
 		}
 	   
-	   
-	   if(this.canvasX > 0 && this.canvasX + this.sprite.width < canvas.width){
+	    //if within bounds add directional changes
+	    if(this.canvasX > 0 && this.canvasXSpeed < 0){
 			this.canvasX += this.canvasXSpeed;
-	   }
-	   else{
-		   if(this.canvasX < 0){ this.canvasX = 1 }
-		   if(this.canvasX + this.sprite.width > canvas.width){ this.canvasX = canvas.width - this.sprite.width }
-	   }
-	   if(this.mapX > 0 && this.mapX + this.sprite.width < tiles.WORLD_WIDTH){
-			this.mapX += this.mapXSpeed;
-	   }
-	   else{
-		   if(this.mapX < 0){ this.mapX = 1 }
-		   if(this.mapX + this.sprite.width > canvas.width){ this.mapX = canvas.width - this.sprite.width }
-	   }
-	   
-	   if(this.canvasY > 0 && this.canvasY + this.sprite.height < canvas.height){
-		   this.canvasY += this.canvasYSpeed;
-	   }
-	   
-	   if(this.mapY > 0 && this.mapY + this.sprite.height < tiles.WORLD_HEIGHT){
-		   this.mapY += this.mapYSpeed;
-	   }
-
-	   if (keysPressed[RIGHT_KEY_CODE] == true) {
-		 if(this.canvasX + this.sprite.width < canvas.width){
-			this.canvasX += this.speed;
-		 }
-		 if(this.mapX < tiles.WORLD_WIDTH){
-			this.mapX += this.speed;
-		 }
-       }
-       if (keysPressed[LEFT_KEY_CODE] == true) {
-		  if(this.canvasX > 0){
-			this.canvasX -= this.speed;
-		  }
-		  if(this.mapX > 0){
-			  this.mapX -= this.speed;
-		  }
-       }
-       if (keysPressed[DOWN_KEY_CODE] == true) {
-		 if(this.canvasY + this.sprite.height < canvas.height){
-			this.canvasY += this.speed;
-		 }
-		 if(this.mapY < tiles.WORLD_HEIGHT){
-			this.mapY += this.speed;
-		 }
-       }
-       if (keysPressed[UP_KEY_CODE] == true) {
-		 if(this.canvasY > 0){
-			this.canvasY -= this.speed;
-		 }
-		 if(this.mapY > 0){
-			this.mapY -= this.speed;
-		 }
-		 }
-	}
+		}
+		if(this.canvasX + this.sprite.width < canvas.width && this.canvasXSpeed > 0){
+			this.canvasX += this.canvasXSpeed;
+		}
+		
+		if(this.canvasY > 0 && this.canvasYSpeed < 0){
+			this.canvasY += this.canvasYSpeed;
+		}
+		if(this.canvasY + this.sprite.height < canvas.height && this.canvasYSpeed > 0){
+			this.canvasY += this.canvasYSpeed;
+		}
+		
+		this.mapX = toMapX(this.canvasX);
+	    this.mapY = toMapY(this.canvasY);
+		
+	}//Update
 	
     this.draw = function() {
     	context.drawImage(this.sprite, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
