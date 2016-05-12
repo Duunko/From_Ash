@@ -38,6 +38,8 @@ function main_character(x, y ) {
 	this.can_melee = true;
 	this.can_dash = true;
 	
+	this.dashing = false;
+	
 	this.update = function(){
 	   
 	   //console.log(this.mapX+" , "+this.mapY);
@@ -46,47 +48,61 @@ function main_character(x, y ) {
 	   console.log("this.xSpeed "+this.canvasXSpeed+ " ,this.ySpeed "+this.canvasYSpeed);
 	   console.log(MC.canvasX+" , "+MC.canvasY);
 	   
-	    if (keysPressed[RIGHT_KEY_CODE] == true) {
-			if(this.canvasX + this.sprite.width <= canvas.width){
-				//this.canvasX += this.speed;
-				if(this.canvasXSpeed < this.speed){ this.canvasXSpeed += this.speedInc }
+	    if(this.dashing == false){
+		   
+			if (keysPressed[RIGHT_KEY_CODE] == true) {
+				if(this.canvasX + this.sprite.width <= canvas.width){
+					//this.canvasX += this.speed;
+					if(this.canvasXSpeed < this.speed){ this.canvasXSpeed += this.speedInc }
+				}
 			}
-        }
-	   
-	    else {
-		   if(this.canvasXSpeed > 0){ this.canvasXSpeed -= this.speedInc }
+		   
+			else {
+			   if(this.canvasXSpeed > 0){ this.canvasXSpeed -= this.speedInc }
+			}
+		   
+			if (keysPressed[LEFT_KEY_CODE] == true) {
+				if(this.canvasX > 0){
+					//this.canvasX -= this.speed;
+					if(this.canvasXSpeed > -this.speed){ this.canvasXSpeed -= this.speedInc }
+				}
+			}
+		   
+			else {
+			   if(this.canvasXSpeed < 0){ this.canvasXSpeed += this.speedInc }
+			}
+		   
+			if (keysPressed[DOWN_KEY_CODE] == true) {
+				if(this.canvasY + this.sprite.height < canvas.height){
+					//this.canvasY += this.speed;
+					if(this.canvasYSpeed < this.speed){ this.canvasYSpeed += this.speedInc }
+				}
+			}
+			else{
+				if(this.canvasYSpeed > 0){ this.canvasYSpeed -= this.speedInc }
+			}
+			
+			if (keysPressed[UP_KEY_CODE] == true) {
+				if(this.canvasY > 0){
+					//this.canvasY -= this.speed;
+					if(this.canvasYSpeed > -this.speed){ this.canvasYSpeed -= this.speedInc }
+				}
+			}
+			else{
+				if(this.canvasYSpeed  < 0){ this.canvasYSpeed += this.speedInc }
+			}
 	    }
-	   
-        if (keysPressed[LEFT_KEY_CODE] == true) {
-			if(this.canvasX > 0){
-				//this.canvasX -= this.speed;
-				if(this.canvasXSpeed > -this.speed){ this.canvasXSpeed -= this.speedInc }
-			}
-        }
-	   
-	    else {
-		   if(this.canvasXSpeed < 0){ this.canvasXSpeed += this.speedInc }
+
+		//wind-down proportionally for dash
+	    else{
+			//assuming xSpeed is larger
+			if(this.canvasXSpeed > 0){ this.canvasXSpeed -= this.speedInc }
+			if(this.canvasXSpeed < 0){ this.canvasXSpeed += this.speedInc }
+			
+			if(this.canvasYSpeed > 0){ this.canvasYSpeed -= this.speedInc /* / (this.canvasXSpeed / this.canvasYSpeed)*/}
+			if(this.canvasYSpeed < 0){ this.canvasYSpeed += this.speedInc /* / (this.canvasXSpeed / this.canvasYSpeed)*/}
 	    }
-	   
-        if (keysPressed[DOWN_KEY_CODE] == true) {
-			if(this.canvasY + this.sprite.height < canvas.height){
-				//this.canvasY += this.speed;
-				if(this.canvasYSpeed < this.speed){ this.canvasYSpeed += this.speedInc }
-			}
-        }
-		else{
-			if(this.canvasYSpeed > 0){ this.canvasYSpeed -= this.speedInc }
-		}
-		
-		if (keysPressed[UP_KEY_CODE] == true) {
-			if(this.canvasY > 0){
-				//this.canvasY -= this.speed;
-				if(this.canvasYSpeed > -this.speed){ this.canvasYSpeed -= this.speedInc }
-			}
-        }
-		else{
-			if(this.canvasYSpeed  < 0){ this.canvasYSpeed += this.speedInc }
-		}
+	
 	   
 	    //if within bounds add directional changes
 	    if(this.canvasX > 0 && this.canvasXSpeed < 0){
@@ -104,16 +120,14 @@ function main_character(x, y ) {
 		}
 		
 		//failsafe for speed wind-down
-		if(this.canvasXSpeed > 0 && this.canvasXSpeed < this.speedInc){
+		if((this.canvasXSpeed > 0 && this.canvasXSpeed < this.speedInc) && (this.canvasYSpeed > 0 && this.canvasYSpeed < this.speedInc)){
 			this.canvasXSpeed = 0;
-		}
-		if(this.canvasYSpeed > 0 && this.canvasYSpeed < this.speedInc){
 			this.canvasYSpeed = 0;
 		}
 		
 		//re-enable dash
-		if(this.can_dash == false && (this.canvasXSpeed == 0 && this.canvasYSpeed == 0)){
-			this.can_dash = true;
+		if(this.dashing == true && (this.canvasXSpeed == 0 && this.canvasYSpeed == 0)){
+			this.dashing = false;
 		}
 		
 		this.mapX = toMapX(this.canvasX);
@@ -176,7 +190,7 @@ function main_character(x, y ) {
     }
 	
 	this.dash = function(){
-		if(this.can_dash == true){
+		if(this.dashing == false){
 			//move towards
 			//mouseX and mouseY
 			var slopeX = mouseX - this.canvasX;
@@ -186,7 +200,7 @@ function main_character(x, y ) {
 			this.canvasXSpeed = (slopeX / distance) * 20;
 			this.canvasYSpeed = (slopeY / distance) * 20;
 			
-			MC.can_dash = false;
+			this.dashing = true;
 		}
 	}
 	
