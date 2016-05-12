@@ -22,8 +22,8 @@ function enemy_a(x, y){
 	
 	this.canvasX = x;
 	this.canvasY = y;
-	this.mapX = x; //-------------------Create formula for canvasX to mapX
-	this.mapY = y;
+	this.mapX = toMapX(this.canvasX);
+	this.mapY = toMapY(this.canvasY);
 	
 	this.speed = 5;
 	

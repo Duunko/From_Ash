@@ -26,6 +26,7 @@ function main_character(x, y ) {
 	this.mapX = tiles.WORLD_WIDTH/2;
 	this.mapY = tiles.WORLD_HEIGHT/2;
 	
+	//speed rounds up to the nearest multiple of the incriment
 	this.speed = 5;
 	this.speedInc = 0.5;
 	
@@ -35,6 +36,7 @@ function main_character(x, y ) {
 	this.mapYSpeed = 0;
 	
 	this.can_melee = true;
+	this.can_dash = true;
 	
 	this.update = function(){
 	   
@@ -101,6 +103,19 @@ function main_character(x, y ) {
 			this.canvasY += this.canvasYSpeed;
 		}
 		
+		//failsafe for speed wind-down
+		if(this.canvasXSpeed > 0 && this.canvasXSpeed < this.speedInc){
+			this.canvasXSpeed = 0;
+		}
+		if(this.canvasYSpeed > 0 && this.canvasYSpeed < this.speedInc){
+			this.canvasYSpeed = 0;
+		}
+		
+		//re-enable dash
+		if(this.can_dash == false && (this.canvasXSpeed == 0 && this.canvasYSpeed == 0)){
+			this.can_dash = true;
+		}
+		
 		this.mapX = toMapX(this.canvasX);
 	    this.mapY = toMapY(this.canvasY);
 		
@@ -152,9 +167,28 @@ function main_character(x, y ) {
     }
     
     this.attack = function(){
-    	var hit = new hitbox('arc', this.look_direc, 10);
-    	main_stage.push(hit);
+		if(this.can_melee == true){
+			var hit = new hitbox('arc', this.look_direc, 10);
+			main_stage.push(hit);
+		
+			this.can_melee = false;
+		}
     }
+	
+	this.dash = function(){
+		if(this.can_dash == true){
+			//move towards
+			//mouseX and mouseY
+			var slopeX = mouseX - this.canvasX;
+			var slopeY = mouseY - this.canvasY;
+			var distance = Math.sqrt(Math.pow((mouseX - this.canvasX), 2)
+								 + Math.pow((mouseY - this.canvasY), 2));
+			this.canvasXSpeed = (slopeX / distance) * 20;
+			this.canvasYSpeed = (slopeY / distance) * 20;
+			
+			MC.can_dash = false;
+		}
+	}
 	
     this.special = function(param){
     	

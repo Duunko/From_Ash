@@ -89,14 +89,9 @@ function onMouseMove(e){
 }
 
 function onMouseDown(e){
-	if (MC.can_melee == true){
-	    MC.attack();
-	    MC.can_melee = false;
-	}
+	//MC.attack();
+	MC.dash();
 }
-
-
-
 
 function keyDown(e) {
   if (e.keyCode in keysPressed){
