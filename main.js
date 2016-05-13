@@ -127,6 +127,7 @@ function angleDeg(x1,y1,x2,y2){
  
  //converters
  function toCanvasX(old){
+	console.log(old);
 	return old - tiles.left; 
  }
  
@@ -158,7 +159,8 @@ function angleDeg(x1,y1,x2,y2){
  //---------INSTANCES-----------------------------------------
  //-----------------------------------------------------------
 var MC = new main_character(tiles.playerX, tiles.playerY);
+var EN = new enemy_a(100,100);
+
 main_stage.push(MC);
-
-
+main_stage.push(EN);
 
