@@ -20,25 +20,49 @@ function enemy_a(x, y){
 	this.move_direc = 'south';
 	this.look_direc = 'south';
 	
-	this.canvasX = x;
-	this.canvasY = y;
-	this.mapX = toMapX(this.canvasX);
-	this.mapY = toMapY(this.canvasY);
+
+	this.mapX = x;
+	this.mapY = y;
+
+	this.canvasX = toCanvasX(x);
+	this.canvasY = toCanvasY(y);
+
 	
-	this.speed = 5;
+	this.speed = 1;
 	
 	this.update = function(){
-		//if main character is alive
-		moveTowards(MC);
+		if(MC.hp > 0){
+			this.moveTowards(MC);
+		}
+		
+		this.canvasX = toCanvasX(this.mapX);
+		this.canvasY = toCanvasY(this.mapY);
+		
 	}
 	
 	this.draw = function(){
+		context.drawImage(this.sprite, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
+		console.log("mapX: " + this.mapX + " mapY: " + this.mapY);
 		
 	}
 	
 	this.moveTowards = function(target){
-		target.x;
-		target.y;
+		//always following
+		if(target.mapX > this.mapX){
+			this.mapX += this.speed;
+		}else if(target.mapX == this.mapX){
+			this.mapX = this.mapX;
+		}else if(target.mapX < this.mapX){
+			this.mapX -= this.speed;
+		}
+		
+		if(target.mapY > this.mapY){
+			this.mapY += this.speed;
+		}else if(target.mapY == this.mapY){
+			this.mapY = this.mapY;
+		}else if(target.mapY < this.mapY){
+			this.mapY -= this.speed;
+		}
 	}
 	
 	this.attack = function(){
