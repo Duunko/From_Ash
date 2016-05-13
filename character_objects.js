@@ -42,6 +42,7 @@ function main_character(x, y ) {
 	this.dashTimer = 20;
 	this.dashXInc;
 	this.dashYInc;
+	this.dashWindD = 1.25;
 	
 	this.update = function(){
 	   
@@ -49,8 +50,10 @@ function main_character(x, y ) {
 	   //console.log("left: "+tiles.left);
 	   //console.log(toMapX(this.canvasX)+" , "+toMapY(this.canvasY));
 	   
-	   console.log("this.xSpeed "+this.canvasXSpeed+ " ,this.ySpeed "+this.canvasYSpeed);
+	   //console.log("this.xSpeed "+this.canvasXSpeed+ " ,this.ySpeed "+this.canvasYSpeed);
 	   //console.log(MC.canvasX+" , "+MC.canvasY);
+	   
+	   console.log(this.dashing);
 	   
 	    if(this.dashing == false){
 			//reset the dashing values
@@ -200,6 +203,7 @@ function main_character(x, y ) {
     }
 	
 	this.dash = function(){
+		console.log("this.dash called")
 		if(this.dashing == false){
 			//move towards
 			//mouseX and mouseY
@@ -214,8 +218,8 @@ function main_character(x, y ) {
 			this.canvasXSpeed = (this.dashXInc) * this.dashTimer;
 			this.canvasYSpeed = (this.dashYInc) * this.dashTimer;
 			
-			this.dashXInc = Math.abs(this.dashXInc);
-			this.dashYInc = Math.abs(this.dashYInc);
+			this.dashXInc = Math.abs(this.dashXInc) * this.dashWindD;
+			this.dashYInc = Math.abs(this.dashYInc) * this.dashWindD;
 			
 			this.dashing = true;
 		}
