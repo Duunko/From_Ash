@@ -40,13 +40,19 @@ function main_character(x, y ) {
 	
 	this.dashing = false;
 	
+	var self = this;
+	
+	var char_hitbox = new hitbox('rectangle', self, 0, 0, 40, 40);
+	main_stage.push(char_hitbox);
+	renderer.need_sort = true;
+	
 	this.update = function(){
 	   
 	   //console.log(this.mapX+" , "+this.mapY);
 	   //console.log("left: "+tiles.left);
 	   //console.log(toMapX(this.canvasX)+" , "+toMapY(this.canvasY));
-	   console.log("this.xSpeed "+this.canvasXSpeed+ " ,this.ySpeed "+this.canvasYSpeed);
-	   console.log(MC.canvasX+" , "+MC.canvasY);
+	   //console.log("this.xSpeed "+this.canvasXSpeed+ " ,this.ySpeed "+this.canvasYSpeed);
+	   //console.log(MC.canvasX+" , "+MC.canvasY);
 	   
 	    if(this.dashing == false){
 		   

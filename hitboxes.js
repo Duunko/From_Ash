@@ -2,7 +2,7 @@
  * @author Duunko
  */
 
-function hitbox(shape, opt1, opt2, opt3, opt4) {
+function hitbox(shape, opt1, opt2, opt3, opt4, opt5) {
 	this.depth = -100;
 	if (shape == 'arc') {
 		this.direc = 180;
@@ -12,9 +12,7 @@ function hitbox(shape, opt1, opt2, opt3, opt4) {
 			this.direc = 0;
 		} else if (opt1 == 'east'){
 			this.direc = 270;
-		} else {
-			
-		}
+		} 
 		this.numFrames = opt2;
 		this.shape = shape;
 		this.currframe = 0;
@@ -22,6 +20,19 @@ function hitbox(shape, opt1, opt2, opt3, opt4) {
 	    var self = this;
 		this.xy1 = findc1(self);
 		this.xy2 = 0;
+	} else if (shape == 'rectangle'){
+		this.sprite = new Image();
+		this.shape = shape;
+		this.bound_object = opt1;
+		this.offsetX = opt2;
+		this.offsetY = opt3;
+		this.canvasX = this.bound_object.canvasX + this.offsetX;
+		this.canvasY = this.bound_object.canvasY + this.offsetY;
+		this.mapX = toMapX(this.canvasX);
+		this.mapY = toMapY(this.canvasY);
+		this.sprite.width = opt4;
+		this.sprite.height = opt5;
+		
 	}
 	
 	this.update = function(){
@@ -36,6 +47,12 @@ function hitbox(shape, opt1, opt2, opt3, opt4) {
 				MC.can_melee = true;
 				this.destroy();
 			}
+		} else if(this.shape == 'rectangle'){
+			this.canvasX = this.bound_object.canvasX + this.offsetX;
+		    this.canvasY = this.bound_object.canvasY + this.offsetY;
+		    this.mapX = toMapX(this.canvasX);
+		    this.mapY = toMapY(this.canvasY);
+		    console.log("canvas values: " + this.canvasX + " " + this.canvasY);
 		}
 	}
 	
@@ -45,10 +62,17 @@ function hitbox(shape, opt1, opt2, opt3, opt4) {
 		console.log('xy pairs:');
 		console.log(this.xy1);
 		console.log(this.xy2); */
-		context.fillStyle = '#CF0D42';
-		context.moveTo(this.xy1.x, this.xy1.y);
-		context.lineTo(this.xy2.x, this.xy2.y);
-		context.stroke();
+		if (this.shape == 'arc'){
+		    context.fillStyle = '#CF0D42';
+		    context.moveTo(this.xy1.x, this.xy1.y);
+		    context.lineTo(this.xy2.x, this.xy2.y);
+		    context.stroke();
+		} /*else if(this.shape == 'rectangle'){
+			console.log("canvas values: " + this.canvasX + " " + this.canvasY);
+			context.fillStyle = '#CF0D42';
+			context.fillRect(this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
+			context.fill();
+		} */
 	}
 	
 	function findc1 (self) {

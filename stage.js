@@ -110,7 +110,26 @@ function game_draw(renderer) {
 		        	    renderer.need_sort = false;
 		        	}
 		        	if (renderer.stages[i].owned_objects[j] != undefined){
-		        	    renderer.stages[i].owned_objects[j].draw();
+		        		if(renderer.stages[i].owned_objects[j].canvasX != undefined && 
+		        			renderer.stages[i].owned_objects[j].canvasY != undefined) {
+		        				// Check to see if the canvasX of an object is inside the canvas.
+		        				if (renderer.stages[i].owned_objects[j].canvasX +
+		        					renderer.stages[i].owned_objects[j].sprite.width > 0
+		        					||  renderer.stages[i].owned_objects[j].canvasX  < canvas.width){
+		        						renderer.stages[i].owned_objects[j].draw();
+		        						// Else check canvasY
+		        					} else if (renderer.stages[i].owned_objects[j].canvasY +
+		        					           renderer.stages[i].owned_objects[j].sprite.height > 0
+		        					           ||  renderer.stages[i].owned_objects[j].canvasY  < 
+		        					           canvas.height){
+		        						   renderer.stages[i].owned_objects[j].draw();
+		        					}
+		        				
+		        			} else {
+		        				renderer.stages[i].owned_objects[j].draw();
+		        			}
+		        	
+		        	    
 		        	}
 		        }
 		    }
