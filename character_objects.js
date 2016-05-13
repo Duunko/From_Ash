@@ -39,6 +39,10 @@ function main_character(x, y ) {
 	this.can_dash = true;
 	
 	this.dashing = false;
+	this.dashTimer = 20;
+	this.dashXInc;
+	this.dashYInc;
+	this.dashWindD = 1.25;
 	
 	var self = this;
 	
@@ -55,6 +59,9 @@ function main_character(x, y ) {
 	   //console.log(MC.canvasX+" , "+MC.canvasY);
 	   
 	    if(this.dashing == false){
+			//reset the dashing values
+			this.dashXInc = 0;
+			this.dashYInc = 0;
 		   
 			if (keysPressed[RIGHT_KEY_CODE] == true) {
 				if(this.canvasX + this.sprite.width <= canvas.width){
@@ -102,11 +109,11 @@ function main_character(x, y ) {
 		//wind-down proportionally for dash
 	    else{
 			//assuming xSpeed is larger
-			if(this.canvasXSpeed > 0){ this.canvasXSpeed -= this.speedInc }
-			if(this.canvasXSpeed < 0){ this.canvasXSpeed += this.speedInc }
+			if(this.canvasXSpeed > 0){ this.canvasXSpeed -= this.dashXInc }
+			if(this.canvasXSpeed < 0){ this.canvasXSpeed += this.dashXInc }
 			
-			if(this.canvasYSpeed > 0){ this.canvasYSpeed -= this.speedInc /* / (this.canvasXSpeed / this.canvasYSpeed)*/}
-			if(this.canvasYSpeed < 0){ this.canvasYSpeed += this.speedInc /* / (this.canvasXSpeed / this.canvasYSpeed)*/}
+			if(this.canvasYSpeed > 0){ this.canvasYSpeed -= this.dashYInc }
+			if(this.canvasYSpeed < 0){ this.canvasYSpeed += this.dashYInc }
 	    }
 	
 	   
@@ -126,8 +133,11 @@ function main_character(x, y ) {
 		}
 		
 		//failsafe for speed wind-down
-		if((this.canvasXSpeed > 0 && this.canvasXSpeed < this.speedInc) && (this.canvasYSpeed > 0 && this.canvasYSpeed < this.speedInc)){
+		if(this.canvasXSpeed >= 0 && (this.canvasXSpeed < this.speedInc || this.canvasXSpeed < this.dashXInc)){
 			this.canvasXSpeed = 0;
+		}
+
+		if(this.canvasYSpeed >= 0 && (this.canvasYSpeed < this.speedInc || this.canvasYSpeed < this.dashYInc)){
 			this.canvasYSpeed = 0;
 		}
 		
@@ -185,8 +195,15 @@ function main_character(x, y ) {
 			var slopeY = mouseY - this.canvasY;
 			var distance = Math.sqrt(Math.pow((mouseX - this.canvasX), 2)
 								 + Math.pow((mouseY - this.canvasY), 2));
-			this.canvasXSpeed = (slopeX / distance) * 20;
-			this.canvasYSpeed = (slopeY / distance) * 20;
+			
+			this.dashXInc = slopeX / distance;
+			this.dashYInc = slopeY /distance;
+			
+			this.canvasXSpeed = (this.dashXInc) * this.dashTimer;
+			this.canvasYSpeed = (this.dashYInc) * this.dashTimer;
+			
+			this.dashXInc = Math.abs(this.dashXInc) * this.dashWindD;
+			this.dashYInc = Math.abs(this.dashYInc) * this.dashWindD;
 			
 			this.dashing = true;
 		}
