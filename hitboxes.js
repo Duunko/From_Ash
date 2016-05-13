@@ -2,7 +2,7 @@
  * @author Duunko
  */
 
-function hitbox(shape, opt1, opt2, opt3, opt4, opt5) {
+function hitbox(shape, opt1, opt2, opt3, opt4, opt5, opt6) {
 	this.depth = -100;
 	if (shape == 'arc') {
 		this.direc = 180;
@@ -32,7 +32,22 @@ function hitbox(shape, opt1, opt2, opt3, opt4, opt5) {
 		this.mapY = toMapY(this.canvasY);
 		this.sprite.width = opt4;
 		this.sprite.height = opt5;
+		this.type = opt6;
 		
+	} else if (shape == 'circle'){
+		this.sprite = new Image();
+		this.shape = shape;
+		this.bound_object = opt1;
+		this.offsetX = opt2;
+		this.offsetY = opt3;
+		this.canvasX = this.bound_object.canvasX + this.offsetX;
+		this.canvasY = this.bound_object.canvasY + this.offsetY;
+		this.mapX = toMapX(this.canvasX);
+		this.mapY = toMapY(this.canvasY);
+		this.sprite.height = opt4;
+		this.sprite.width = opt4;
+		this.radius = opt4;
+		this.type = opt5;
 	}
 	
 	this.update = function(){
@@ -52,8 +67,13 @@ function hitbox(shape, opt1, opt2, opt3, opt4, opt5) {
 		    this.canvasY = this.bound_object.canvasY + this.offsetY;
 		    this.mapX = toMapX(this.canvasX);
 		    this.mapY = toMapY(this.canvasY);
-		    console.log("canvas values: " + this.canvasX + " " + this.canvasY);
+		} else if (this.shape == 'circle'){
+			this.canvasX = this.bound_object.canvasX + this.offsetX;
+		    this.canvasY = this.bound_object.canvasY + this.offsetY;
+		    this.mapX = toMapX(this.canvasX);
+		    this.mapY = toMapY(this.canvasY);
 		}
+		
 	}
 	
 	this.draw = function(){

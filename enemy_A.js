@@ -20,12 +20,15 @@ function enemy_a(x, y){
 	this.move_direc = 'south';
 	this.look_direc = 'south';
 	
-	this.canvasX = x;
-	this.canvasY = y;
-	this.mapX = toMapX(this.canvasX);
-	this.mapY = toMapY(this.canvasY);
+	
+	this.mapX = x;
+	this.mapY = y;
+	this.canvasX = toCanvasX(this.mapX);
+	this.canvasY = toCanvasY(this.mapY);
 	
 	this.speed = 5;
+	
+	this.hp = 40;
 	
 	this.update = function(){
 		//if main character is alive

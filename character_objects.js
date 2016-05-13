@@ -42,7 +42,7 @@ function main_character(x, y ) {
 	
 	var self = this;
 	
-	var char_hitbox = new hitbox('rectangle', self, 0, 0, 40, 40);
+	var char_hitbox = new hitbox('rectangle', self, 0, 0, 40, 40, 'HP');
 	main_stage.push(char_hitbox);
 	renderer.need_sort = true;
 	
@@ -154,24 +154,6 @@ function main_character(x, y ) {
 		var cADBL = angleDeg(bottomLeft.x,bottomLeft.y,this.canvasX + this.sprite.width/2,this.canvasY + this.sprite.height/2);
 		var cADBR = angleDeg(bottomRight.x,bottomRight.y,this.canvasX + this.sprite.width/2,this.canvasY + this.sprite.height/2);
 		
-		/* context.beginPath();
-		context.moveTo(this.canvasX + this.sprite.width/2,this.canvasY + this.sprite.height/2);
-		context.lineTo(mouseX,mouseY);
-		context.strokeStyle = '#ff0000';
-		context.stroke();
-		context.moveTo(topLeft.x,topLeft.y);
-		context.lineTo(this.canvasX + this.sprite.width/2,this.canvasY + this.sprite.height/2);
-		context.stroke();
-		context.moveTo(topRight.x,topRight.y);
-		context.lineTo(this.canvasX + this.sprite.width/2,this.canvasY + this.sprite.height/2);
-		context.stroke();	
-		context.moveTo(bottomLeft.x,bottomLeft.y);
-		context.lineTo(this.canvasX + this.sprite.width/2,this.canvasY + this.sprite.height/2);
-		context.stroke();	
-		context.moveTo(bottomRight.x,bottomRight.y);
-		context.lineTo(this.canvasX + this.sprite.width/2,this.canvasY + this.sprite.height/2);
-		context.stroke();	
-		 */
 		
 		if(mADTL <= cADTL && mADTR > cADTR ){
 			this.look_direc = 'north';
