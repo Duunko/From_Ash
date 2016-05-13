@@ -89,6 +89,7 @@ function onMouseMove(e){
 }
 
 function onMouseDown(e){
+	console.log("mouse down");
 	//MC.attack();
 	MC.dash();
 }
