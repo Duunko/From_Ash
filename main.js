@@ -90,9 +90,16 @@ function onMouseMove(e){
 
 function onMouseDown(e){
 	console.log("mouse down");
-	//MC.attack();
-	MC.dash();
+	if (e.button == 0){	
+		MC.attack();
+	} else if (e.button == 2){
+	    MC.dash();
+	}
+
+
 }
+
+canvas.oncontextmenu = function(){ return false;}
 
 function keyDown(e) {
   if (e.keyCode in keysPressed){
