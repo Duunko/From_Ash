@@ -32,6 +32,10 @@ function stage(top) {
     this.always_update = true;
     this.always_draw = true;
     
+    this.clear = function(){
+    	this.owned_objects = [];
+    }
+    
 }
 
 /* make_loop

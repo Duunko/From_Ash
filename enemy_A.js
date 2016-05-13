@@ -20,15 +20,15 @@ function enemy_a(x, y){
 	this.move_direc = 'south';
 	this.look_direc = 'south';
 	
-
 	this.mapX = x;
 	this.mapY = y;
-
-	this.canvasX = toCanvasX(x);
-	this.canvasY = toCanvasY(y);
-
+	
+	this.canvasX = toCanvasX(this.mapX);
+	this.canvasY = toCanvasY(this.mapY);
 	
 	this.speed = 1;
+	
+	this.hp = 40;
 	
 	this.update = function(){
 		if(MC.hp > 0){
