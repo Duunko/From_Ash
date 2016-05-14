@@ -84,8 +84,8 @@ document.addEventListener('mousedown', onMouseDown);
 //document.addEventListener('mouseup', onMouseUp);
 
 function onMouseMove(e){
-	mouseX = e.offsetX || e.pageX - rect.left - window.scrollX;
-	mouseY = e.offsetY || e.pageY - rect.top - window.scrollY;
+	mouseX = e.offsetX || e.pageX - window.scrollX;
+	mouseY = e.offsetY || e.pageY  - window.scrollY;
 }
 
 function onMouseDown(e){
