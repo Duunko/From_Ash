@@ -111,8 +111,12 @@ function main_character(x, y ) {
 			}
 	    }
 
-		//wind-down proportionally for dash
 	    else{
+			//spawn fireball effect
+			var f = new fireParticle(this.mapX, this.mapY, this.sprite.height, 10);
+			main_stage.push(f);
+			
+			//wind-down proportionally for dash
 			//assuming xSpeed is larger
 			if(this.canvasXSpeed > 0){ this.canvasXSpeed -= this.dashXInc }
 			if(this.canvasXSpeed < 0){ this.canvasXSpeed += this.dashXInc }
