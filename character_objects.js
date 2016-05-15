@@ -51,6 +51,7 @@ function main_character(x, y ) {
 	var self = this;
 	
 	var char_hitbox = new hitbox('rectangle', self, 0, 0, 40, 40, 'HP');
+	char_hitbox.active = true;
 	main_stage.push(char_hitbox);
 	renderer.need_sort = true;
 	
