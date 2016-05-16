@@ -249,6 +249,9 @@ function main_character(x, y ) {
 		    context.lineTo(this.attack_hitbox.col_data.points[2].x, this.attack_hitbox.col_data.points[2].y);
 		    context.closePath();
 		    context.fill();
+			
+			var f = new fireParticle(this.attack_hitbox.col_data.points[1].x - 7, this.attack_hitbox.col_data.points[1].y - 7, 15, 15);
+			main_stage.push(f);
 		}
 		
 		context.fillStyle = 'white';
@@ -355,8 +358,13 @@ function main_character(x, y ) {
     }
     
     this.collide = function(){
-    	console.log("collided with enemy");
-		MC.on_hit(5);
+		if(this.dashing == false){
+			console.log("collided with enemy");
+			MC.on_hit(5);
+		}
+		else{
+			
+		}
     }
 }
     
