@@ -13,14 +13,14 @@
 
 function main_character(x, y ) {
 	this.sprite = new Image();
-	this.sprite.src = 'http://people.ucsc.edu/~djchambe/cm120/mc_down.png'
+	this.sprite.src = assets[0];
 	this.sprite.width = 60;
 	this.sprite.height = 80;
 	
 	this.fp = 40;
 	
 	this.meleeCost = 1;
-	this.meleeCoolMax = 100;
+	this.meleeCoolMax = 50;
 	this.meleeCool = 0;
 	
 	this.dashCost = 2;
@@ -40,7 +40,7 @@ function main_character(x, y ) {
 	this.safetyTimer = 0;
 	
 	//speed rounds up to the nearest multiple of the incriment
-	this.speed = 5;
+	this.speed = 6;
 	this.speedInc = 0.5;
 	
 	this.canvasXSpeed = 0;
@@ -52,7 +52,7 @@ function main_character(x, y ) {
 	this.can_dash = true;
 	
 	this.dashing = false;
-	this.dashTimer = 20;
+	this.dashTimer = 25;     //affects the distance
 	this.dashXInc;
 	this.dashYInc;
 	this.dashWindD = 1.25;
@@ -255,14 +255,15 @@ function main_character(x, y ) {
 		context.fillText(this.look_direc,10,100);
 		
 		//fire point display
-		context.fillText(this.fp, 10, 50);
+		context.fillText("Fire Points: "+this.fp, 10, 50);
+		
+		//hit point display
+		context.fillText("Hit Points: "+this.hp, 10, 75);
     }
     
     this.attack = function(){
 		if(this.can_melee == true && this.meleeCool == 0){
-			var hit = new hitbox('arc', this.look_direc, 10);
-			main_stage.push(hit);
-		
+
 			var opt1 = this.look_direc;
 			var direction = 180;
 		    if (opt1 == 'west') {
@@ -278,7 +279,7 @@ function main_character(x, y ) {
 				currframe:0,
 				col_data:0,
 				numFrames:10,
-				radius:60,
+				radius:100,
 				self:this,
 				direc:direction,
 				xy1:0,
@@ -303,7 +304,7 @@ function main_character(x, y ) {
 								 + Math.pow((mouseY - this.canvasY), 2));
 			
 			this.dashXInc = slopeX / distance;
-			this.dashYInc = slopeY /distance;
+			this.dashYInc = slopeY / distance;
 			
 			this.canvasXSpeed = (this.dashXInc) * this.dashTimer;
 			this.canvasYSpeed = (this.dashYInc) * this.dashTimer;
@@ -344,7 +345,8 @@ function main_character(x, y ) {
     }
     
     this.collide = function(){
-    	
+    	console.log("collided with enemy");
+		MC.on_hit(5);
     }
 }
     
