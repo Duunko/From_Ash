@@ -13,7 +13,7 @@
 
 function main_character(x, y ) {
 	this.sprite = new Image();
-	this.sprite.src = 'http://people.ucsc.edu/~djchambe/cm120/mc_down.png'
+	this.sprite.src = assets[0];
 	this.sprite.width = 60;
 	this.sprite.height = 80;
 	
@@ -255,10 +255,10 @@ function main_character(x, y ) {
 		context.fillText(this.look_direc,10,100);
 		
 		//fire point display
-		context.fillText(this.fp, 10, 50);
+		context.fillText("Fire Points: "+this.fp, 10, 50);
 		
 		//hit point display
-		context.fillText(this.hp, 10, 75);
+		context.fillText("Hit Points: "+this.hp, 10, 75);
     }
     
     this.attack = function(){

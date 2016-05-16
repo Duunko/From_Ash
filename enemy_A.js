@@ -13,7 +13,7 @@
  
 function enemy_a(x, y){
 	this.sprite = new Image();
-	this.sprite.src = 'http://people.ucsc.edu/~djchambe/cm120/sun.png';
+	this.sprite.src = assets[1];
 	this.sprite.width = 40;
 	this.sprite.height = 40;
 	
@@ -36,6 +36,8 @@ function enemy_a(x, y){
 	this.stunTimerMax = 25;
 	this.stunTimer = 0;
 	this.knockbackSpeed = 6;
+	
+	this.vulnerable = true;
 	
 	this.hp = 40;
 	
@@ -115,7 +117,26 @@ function enemy_a(x, y){
 		//if not stunned
 		if(this.stunned == false){
 			this.knockback();
+			this.on_hit(5);
 		}
+	}
+	
+	this.on_hit = function(dmg){
+		if(this.vulnerable == true){
+			if(this.hp > 0){
+				this.hp -= dmg;
+				console.log("EN took "+dmg+" damage");
+				console.log("New health is "+this.hp);
+			}
+			else{
+				this.die();
+			}
+		}
+	}
+	
+	this.die = function(){
+		console.log("enemy has died");
+		
 	}
 	
 	this.hitbox = {
