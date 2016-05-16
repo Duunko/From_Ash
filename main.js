@@ -156,8 +156,10 @@ function angleDeg(x1,y1,x2,y2){
  //-----------------------------------------------------------
 var MC = new main_character(tiles.playerX, tiles.playerY);
 var EN = new enemy_a(100,100);
+var SC = new sound_control();
 main_stage.push(MC);
 main_stage.push(EN);
+main_stage.push(SC);
 
 //overlays
 var dash_sprite = new Image();

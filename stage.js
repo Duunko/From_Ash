@@ -159,8 +159,8 @@ function game_draw(renderer) {
 				                if (renderer.stages[i].owned_objects[k].attack_hitbox != undefined){
 					                var response = new SAT.Response();
 					                if(SAT.testPolygonPolygon(renderer.stages[i].owned_objects[j].hitbox.col_data.toPolygon(),
-						                renderer.stages[i].owned_objects[k].attack_hitbox.col_data), response){
-							                renderer.stages[i].owned_objects[j].collide_damage();
+						                renderer.stages[i].owned_objects[k].attack_hitbox.col_data, response) == true){
+							                renderer.stages[i].owned_objects[j].collide_damage(); 
 						            }
 				                } else if (renderer.stages[i].owned_objects[j].attack_hitbox != undefined){
 					                var response = new SAT.Response();
