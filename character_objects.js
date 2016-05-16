@@ -263,9 +263,7 @@ function main_character(x, y ) {
     
     this.attack = function(){
 		if(this.can_melee == true && this.meleeCool == 0){
-			var hit = new hitbox('arc', this.look_direc, 15);
-			main_stage.push(hit);
-		
+
 			var opt1 = this.look_direc;
 			var direction = 180;
 		    if (opt1 == 'west') {

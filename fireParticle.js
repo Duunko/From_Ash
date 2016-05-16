@@ -54,7 +54,6 @@ function fireParticle(x, y, r, t){
 	
 	this.destroy = function(){
 		//console.log(main_stage);
-		var i = main_stage.owned_objects.indexOf(this);
-		main_stage.owned_objects.splice(i, 1);
+		main_stage.destroy(this);
 	}
 }
