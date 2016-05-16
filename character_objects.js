@@ -68,6 +68,7 @@ function main_character(x, y ) {
     }
 	
 	this.attack_hitbox = false;
+
 	
 	this.update = function(){
 	   
