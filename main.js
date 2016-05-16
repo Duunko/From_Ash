@@ -168,6 +168,7 @@ main_stage.push(MC);
 main_stage.push(EN1);
 main_stage.push(EN2)
 main_stage.push(SC);
+main_stage.push(SC);
 
 //overlays
 var dash_sprite = new Image();

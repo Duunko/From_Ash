@@ -251,13 +251,23 @@ function main_character(x, y ) {
 		    context.fill();
 		}
 		
+		context.fillStyle = 'white';
 		//placeholder for directions
 		context.fillText(this.look_direc,10,100);
 		
 		//fire point display
+		context.font = '25px Verdana'; //font and size
+		if(this.can_melee == false){
+			context.fillStyle = '#CF0D42';
+		}
 		context.fillText("Fire Points: "+this.fp, 10, 50);
 		
 		//hit point display
+		if(this.safetyTimer > 0){
+			context.fillStyle = '#CF0D42';
+		} else {
+			context.fillStyle = 'white';
+		} 
 		context.fillText("Hit Points: "+this.hp, 10, 75);
     }
     
