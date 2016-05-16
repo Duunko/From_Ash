@@ -37,7 +37,9 @@ function enemy_a(x, y){
 	this.stunTimer = 0;
 	this.knockbackSpeed = 6;
 	
-	this.hp = 40;
+	this.vulnerable = true;
+	
+	this.hp = 10;
 	
 	this.update = function(){
 		if(this.stunned == false){
@@ -102,21 +104,43 @@ function enemy_a(x, y){
 	}
 	
 	this.destroy = function(){
-		
+		this.hp = 10;
+		this.mapX = x;
+		this.mapY = y;
+		var a = new enemy_a(x, y+50);
+		main_stage.push(a);
 	}
 	
 	this.collide = function(){
-		//this is called when the enemy collides with the player
-		console.log("collide");
+		
 	}
 	
 	this.collide_damage = function(){
 		//this is called when the enemy collides with the melee
-		console.log("damage");
+		//console.log("damage");
 		//if not stunned
 		if(this.stunned == false){
 			this.knockback();
+			this.on_hit(5);
 		}
+	}
+	
+	this.on_hit = function(dmg){
+		if(this.vulnerable == true){
+			if(this.hp > 0){
+				this.hp -= dmg;
+				console.log("EN took "+dmg+" damage");
+				console.log("New health is "+this.hp);
+			}
+			else{
+				this.die();
+				this.destroy();
+			}
+		}
+	}
+	
+	this.die = function(){
+		console.log("enemy has died");		
 	}
 	
 	this.hitbox = {
