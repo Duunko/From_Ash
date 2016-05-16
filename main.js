@@ -18,7 +18,7 @@ var renderer = new renderer(canvas, context);
 //preload of assets
 var assets = new Array();
 assets.push('http://people.ucsc.edu/~djchambe/cm120/mc_down.png'); //character
-assets.push('http://people.ucsc.edu/~djchambe/cm120/sun.png'); //enemy_a
+assets.push('http://people.ucsc.edu/~dursmith/cmpm120/seascorpion%20-%20selfishness_remade.png'); //enemy_a
 assets.push('http://people.ucsc.edu/~djchambe/cm120/dash_overlay.png'); //initial overlay
 
 // Create and push the main stage.
