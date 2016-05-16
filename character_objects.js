@@ -48,6 +48,18 @@ function main_character(x, y ) {
 	this.dashYInc;
 	this.dashWindD = 1.25;
 	
+	this.hitbox = {
+    	active:true,
+    	shape:'rectangle',
+    	offsetX:0,
+    	offsetY:0,
+    	width:this.sprite.width,
+    	height:this.sprite.height,
+    	col_data: new SAT.Box(new SAT.Vector(this.mapX, this.mapY), this.sprite.width, this.sprite.height)
+    }
+    
+    this.attack_hitbox = false;
+	
 	
 	this.update = function(){
 	   
@@ -152,7 +164,6 @@ function main_character(x, y ) {
 		this.mapX = toMapX(this.canvasX);
 	    this.mapY = toMapY(this.canvasY);
 		
-<<<<<<< HEAD
 		this.hitbox.col_data.pos.x = this.mapX;
 		this.hitbox.col_data.pos.y = this.mapY;
 		
@@ -172,7 +183,6 @@ function main_character(x, y ) {
 				MC.can_melee = true;
 				this.attack_hitbox = false;
 			}
-=======
 		//-----------------------TIMERS-------------------------------------------------------------------------
 		if(this.safetyTimer > 0){
 			this.safetyTimer--;
@@ -180,7 +190,6 @@ function main_character(x, y ) {
 		}
 		else{
 			this.vulnerable = true;
->>>>>>> origin/master
 		}
 		
 	}//Update
@@ -303,17 +312,9 @@ function main_character(x, y ) {
     	
     }
     
-    this.hitbox = {
-    	active:true,
-    	shape:'rectangle',
-    	offsetX:0,
-    	offsetY:0,
-    	width:this.sprite.width,
-    	height:this.sprite.height,
-    	col_data: new SAT.Box(new SAT.Vector(this.mapX, this.mapY), this.sprite.width, this.sprite.height)
-    }
     
-    this.attack_hitbox = false;
+    
+
     
     function findc1 (obj) {
 		var cx = MC.canvasX + (MC.sprite.width / 2);
@@ -343,6 +344,7 @@ function main_character(x, y ) {
 		//newval.y -= MC.mapY;
 		return newval;
 	}
+}
 }
 
 function degrees(number){
