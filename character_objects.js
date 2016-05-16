@@ -20,7 +20,7 @@ function main_character(x, y ) {
 	this.fp = 40;
 	
 	this.meleeCost = 1;
-	this.meleeCoolMax = 100;
+	this.meleeCoolMax = 50;
 	this.meleeCool = 0;
 	
 	this.dashCost = 2;
@@ -52,7 +52,7 @@ function main_character(x, y ) {
 	this.can_dash = true;
 	
 	this.dashing = false;
-	this.dashTimer = 20;
+	this.dashTimer = 25;     //affects the distance
 	this.dashXInc;
 	this.dashYInc;
 	this.dashWindD = 1.25;
@@ -260,7 +260,7 @@ function main_character(x, y ) {
     
     this.attack = function(){
 		if(this.can_melee == true && this.meleeCool == 0){
-			var hit = new hitbox('arc', this.look_direc, 10);
+			var hit = new hitbox('arc', this.look_direc, 15);
 			main_stage.push(hit);
 		
 			var opt1 = this.look_direc;
@@ -278,7 +278,7 @@ function main_character(x, y ) {
 				currframe:0,
 				col_data:0,
 				numFrames:10,
-				radius:60,
+				radius:100,
 				self:this,
 				direc:direction,
 				xy1:0,
@@ -303,7 +303,7 @@ function main_character(x, y ) {
 								 + Math.pow((mouseY - this.canvasY), 2));
 			
 			this.dashXInc = slopeX / distance;
-			this.dashYInc = slopeY /distance;
+			this.dashYInc = slopeY / distance;
 			
 			this.canvasXSpeed = (this.dashXInc) * this.dashTimer;
 			this.canvasYSpeed = (this.dashYInc) * this.dashTimer;

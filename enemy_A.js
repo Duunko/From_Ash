@@ -26,16 +26,30 @@ function enemy_a(x, y){
 	this.canvasX = toCanvasX(this.mapX);
 	this.canvasY = toCanvasY(this.mapY);
 	
-	this.speed = 1;
+	this.speed = 3;
+	this.mapXSpeed = 0;
+	this.mapYSpeed = 0;
 	
 	this.self = this;
 	
+	this.stunned = false;
+	this.stunTimerMax = 25;
+	this.stunTimer = 0;
+	this.knockbackSpeed = 6;
 	
 	this.hp = 40;
 	
 	this.update = function(){
-		if(MC.hp > 0){
-			this.moveTowards(MC);
+		if(this.stunned == false){
+			if(MC.hp > 0){
+				this.moveTowards(MC);
+			}
+			this.mapX += this.mapXSpeed * this.speed;
+			this.mapY += this.mapYSpeed * this.speed;
+		}
+		else{
+			this.mapX += this.mapXSpeed * this.knockbackSpeed;
+			this.mapY += this.mapYSpeed * this.knockbackSpeed;
 		}
 		
 		this.canvasX = toCanvasX(this.mapX);
@@ -44,6 +58,14 @@ function enemy_a(x, y){
 	    this.hitbox.col_data.pos.x = this.mapX;
 		this.hitbox.col_data.pos.y = this.mapY;
 		
+		//------------TIMERS-----------------
+		if(this.stunTimer > 0){
+			this.stunTimer--;
+		}
+		else{
+			this.stunned = false;
+		}
+		
 	}
 	
 	this.draw = function(){
@@ -51,22 +73,28 @@ function enemy_a(x, y){
 	}
 	
 	this.moveTowards = function(target){
-		//always following
-		if(target.mapX > this.mapX){
-			this.mapX += this.speed;
-		}else if(target.mapX == this.mapX){
-			this.mapX = this.mapX;
-		}else if(target.mapX < this.mapX){
-			this.mapX -= this.speed;
+		if(!isNaN(target.mapX)){
+			var slopeX = target.mapX - this.mapX;
+			var slopeY = target.mapY - this.mapY;
+				
+			var distance = Math.sqrt(Math.pow((target.mapX - this.mapX), 2)
+								+ Math.pow((target.mapY - this.mapY), 2));
+				
+			this.mapXSpeed = slopeX / distance;
+			this.mapYSpeed = slopeY / distance;
+				
 		}
+		else{
+			console.log("Nan detected");
+		}
+	}
+	
+	this.knockback = function(){
+		this.mapXSpeed = -this.mapXSpeed;
+		this.mapYSpeed = -this.mapYSpeed;
 		
-		if(target.mapY > this.mapY){
-			this.mapY += this.speed;
-		}else if(target.mapY == this.mapY){
-			this.mapY = this.mapY;
-		}else if(target.mapY < this.mapY){
-			this.mapY -= this.speed;
-		}
+		this.stunned = true;
+		this.stunTimer = this.stunTimerMax;
 	}
 	
 	this.attack = function(){
@@ -85,6 +113,10 @@ function enemy_a(x, y){
 	this.collide_damage = function(){
 		//this is called when the enemy collides with the melee
 		console.log("damage");
+		//if not stunned
+		if(this.stunned == false){
+			this.knockback();
+		}
 	}
 	
 	this.hitbox = {

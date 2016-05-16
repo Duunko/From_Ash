@@ -19,7 +19,7 @@ function hitbox(shape, opt1, opt2, opt3, opt4, opt5, opt6) {
 		this.numFrames = opt2;
 		this.shape = shape;
 		this.currframe = 0;
-	    this.radius = 60;
+	    this.radius = 100;   //<------ Changes the visual size of the hitbox
         this.type = 'damage';
 		this.xy1 = findc1(this.self);
 		this.xy2 = 0;
@@ -71,7 +71,7 @@ function hitbox(shape, opt1, opt2, opt3, opt4, opt5, opt6) {
 		        	this.xy2 = findc2(this.self);
 		        }
 		        var dat = new SAT.Vector(MC.canvasX + (MC.sprite.width / 2), MC.canvasY + (MC.sprite.height / 2))
-		        console.log(dat);
+		        //console.log(dat);
 		        this.col_data = new SAT.Polygon(new SAT.Vector(), [
 		        this.xy1, this.xy2, 
 		        dat]);
@@ -117,7 +117,7 @@ function hitbox(shape, opt1, opt2, opt3, opt4, opt5, opt6) {
 		    context.fill();
 			
 			//fire effect
-			var f = new fireParticle(this.col_data.points[1].x, this.col_data.points[1].y, 10, 10);
+			var f = new fireParticle(this.col_data.points[1].x - 7, this.col_data.points[1].y - 7, 15, 15);
 			main_stage.push(f);
 			//var f2 = new fireParticle(this.col_data.points[1].x, this.col_data.points[1].y, 10, 10);
 			//main_stage.push(f2);
