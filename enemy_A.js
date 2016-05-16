@@ -105,9 +105,9 @@ function enemy_a(x, y){
 	
 	this.destroy = function(){
 		this.hp = 10;
-		this.mapX = x;
-		this.mapY = y;
-		var a = new enemy_a(x, y+50);
+		this.mapX = -this.sprite.width;
+		this.mapY = -this.sprite.width;
+		var a = new enemy_a(this.mapX, this.mapY-50);
 		main_stage.push(a);
 	}
 	
