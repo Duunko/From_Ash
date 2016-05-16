@@ -151,17 +151,19 @@ function angleDeg(x1,y1,x2,y2){
 	
  }
  
- //-----------------------------------------------------------
- //---------INSTANCES-----------------------------------------
- //-----------------------------------------------------------
+//-----------------------------------------------------------
+//---------INSTANCES-----------------------------------------
+//-----------------------------------------------------------
 var MC = new main_character(tiles.playerX, tiles.playerY);
 var EN = new enemy_a(100,100);
+var EN2 = new enemy_a(200, 200);
 main_stage.push(MC);
 main_stage.push(EN);
+main_stage.push(EN2);
 
 //overlays
 var dash_sprite = new Image();
-dash_sprite.src = 'http://people.ucsc.edu/~djchambe/cm120/dash_overlay.png'
+dash_sprite.src = 'http://people.ucsc.edu/~djchambe/cm120/dash_overlay.png';
 dash_sprite.width = 150;
 dash_sprite.height = 150;
  

@@ -40,7 +40,7 @@ function main_character(x, y ) {
 	this.safetyTimer = 0;
 	
 	//speed rounds up to the nearest multiple of the incriment
-	this.speed = 5;
+	this.speed = 6;
 	this.speedInc = 0.5;
 	
 	this.canvasXSpeed = 0;
@@ -256,6 +256,9 @@ function main_character(x, y ) {
 		
 		//fire point display
 		context.fillText(this.fp, 10, 50);
+		
+		//hit point display
+		context.fillText(this.hp, 10, 75);
     }
     
     this.attack = function(){
@@ -344,7 +347,8 @@ function main_character(x, y ) {
     }
     
     this.collide = function(){
-    	
+    	console.log("collided with enemy");
+		MC.on_hit(5);
     }
 }
     

@@ -106,8 +106,7 @@ function enemy_a(x, y){
 	}
 	
 	this.collide = function(){
-		//this is called when the enemy collides with the player
-		console.log("collide");
+		
 	}
 	
 	this.collide_damage = function(){
