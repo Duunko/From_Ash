@@ -15,6 +15,11 @@ function create_board(world_width, world_height, tile_size){
 	this.NUM_TILE_TYPES = 2;
 
 	this.TILE_COLORS = ['#0000DD', '#00CC00'];
+	
+	this.sprite = new Image();
+	this.sprite.src = 'http://people.ucsc.edu/~djchambe/cm120/ash_tile.png';
+	
+	this.TILE_SPRITES = [this.sprite];
 
 	this.TILE_SIZE = tile_size;
 	this.WORLD_WIDTH = world_width;
@@ -89,15 +94,19 @@ function create_board(world_width, world_height, tile_size){
 		        var tileColor = '#000000';
 		        if(this.tileGrid.length - 1 >= leftTile+i){
 			        if(this.tileGrid[leftTile+i].length - 1 >= topTile+j){
-				        var tileColor = this.tileGrid[leftTile+i][topTile +j];
+						context.drawImage(this.TILE_SPRITES[0], i*this.TILE_SIZE - tileOffsetX, j*this.TILE_SIZE - tileOffsetY, this.TILE_SIZE, this.TILE_SIZE);
 			        }
 		        }
+				/*
 				context.beginPath();
 		        context.fillStyle = this.TILE_COLORS[tileColor];
 		        context.fillRect(i*this.TILE_SIZE - tileOffsetX, j*this.TILE_SIZE - tileOffsetY, this.TILE_SIZE, this.TILE_SIZE);
+				*/
+				/*
 				context.lineWidth = 3;
 				context.strokeStyle = "#000000";
 				context.strokeRect(i*this.TILE_SIZE - tileOffsetX, j*this.TILE_SIZE - tileOffsetY, this.TILE_SIZE, this.TILE_SIZE);
+				*/
             }
         }
   

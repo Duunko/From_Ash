@@ -31,10 +31,15 @@ function fireParticle(x, y, r, t){
 			this.timer--;
 			this.sprite.width -= this.shrinker;
 			this.sprite.height -= this.shrinker;
+			this.mapX += this.shrinker / 2;
+			this.mapY += this.shrinker / 2;
 		}
 		else{
 			this.destroy();
 		}
+		
+		this.canvasX = toCanvasX(this.mapX);
+		this.canvasY = toCanvasY(this.mapY);
 	}
 	
 	this.draw = function(){

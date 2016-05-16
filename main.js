@@ -127,7 +127,6 @@ function angleDeg(x1,y1,x2,y2){
  
  //converters
  function toCanvasX(old){
-	console.log(old);
 	return old - tiles.left; 
  }
  
@@ -163,4 +162,16 @@ var EN = new enemy_a(100,100);
 
 main_stage.push(MC);
 main_stage.push(EN);
+
+//overlays
+var dash_sprite = new Image();
+dash_sprite.src = 'http://people.ucsc.edu/~djchambe/cm120/dash_overlay.png'
+dash_sprite.width = 150;
+dash_sprite.height = 150;
+ 
+var DO = new overlay(0 + 10, canvas.height - 160, dash_sprite, "dash");
+main_stage.push(DO);
+
+var MO = new overlay(160 + 10, canvas.height - 160, dash_sprite, "melee");
+main_stage.push(MO);
 

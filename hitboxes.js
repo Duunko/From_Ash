@@ -99,6 +99,13 @@ function hitbox(shape, opt1, opt2, opt3, opt4, opt5, opt6) {
 		    context.lineTo(this.col_data.points[2].x, this.col_data.points[2].y);
 		    context.closePath();
 		    context.fill();
+			
+			//fire effect
+			var f = new fireParticle(this.col_data.points[1].x, this.col_data.points[1].y, 10, 10);
+			main_stage.push(f);
+			//var f2 = new fireParticle(this.col_data.points[1].x, this.col_data.points[1].y, 10, 10);
+			//main_stage.push(f2);
+			
 		} /*else if(this.shape == 'rectangle'){
 			console.log("canvas values: " + this.canvasX + " " + this.canvasY);
 			context.fillStyle = '#CF0D42';

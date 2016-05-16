@@ -13,11 +13,20 @@
 
 function main_character(x, y ) {
 	this.sprite = new Image();
-	this.sprite.src = 'https://image.freepik.com/free-icon/arrow-bold-down--ios-7-interface-symbol_318-34310.png'
-	this.sprite.width = 40;
-	this.sprite.height = 40;
+	this.sprite.src = 'http://people.ucsc.edu/~djchambe/cm120/mc_down.png'
+	this.sprite.width = 60;
+	this.sprite.height = 80;
 	
 	this.fp = 40;
+	
+	this.meleeCost = 1;
+	this.meleeCoolMax = 100;
+	this.meleeCool = 0;
+	
+	this.dashCost = 2;
+	this.dashCoolMax = 200;
+	this.dashCool = 0;
+	
 	this.hp = 40;
 	this.move_direc = 'south';
 	this.look_direc = 'south';
@@ -113,7 +122,7 @@ function main_character(x, y ) {
 
 	    else{
 			//spawn fireball effect
-			var f = new fireParticle(this.mapX, this.mapY, this.sprite.height, 10);
+			var f = new fireParticle(this.mapX - this.sprite.width / 2, this.mapY - this.sprite.height / 2, this.sprite.height, 10);
 			main_stage.push(f);
 			
 			//wind-down proportionally for dash
@@ -167,6 +176,14 @@ function main_character(x, y ) {
 			this.vulnerable = true;
 		}
 		
+		if(this.dashCool > 0){
+			this.dashCool--;
+		}
+		
+		if(this.meleeCool > 0){
+			this.meleeCool--;
+		}
+		
 	}//Update
 	
     this.draw = function() {
@@ -194,19 +211,26 @@ function main_character(x, y ) {
 		}
 		//placeholder for directions
 		context.fillText(this.look_direc,10,100);
+		
+		//fire point display
+		context.fillText(this.fp, 10, 50);
     }
     
     this.attack = function(){
-		if(this.can_melee == true){
+		if(this.can_melee == true && this.meleeCool == 0){
 			var hit = new hitbox('arc', this.look_direc, 10);
 			main_stage.push(hit);
 		
 			this.can_melee = false;
+			
+			this.fp -= this.meleeCost;
+			this.meleeCool = this.meleeCoolMax;
+			console.log(this.meleeCool);
 		}
     }
 	
 	this.dash = function(){
-		if(this.dashing == false){
+		if(this.dashing == false && this.dashCool == 0){
 			//move towards
 			//mouseX and mouseY
 			var slopeX = mouseX - this.canvasX;
@@ -224,6 +248,9 @@ function main_character(x, y ) {
 			this.dashYInc = Math.abs(this.dashYInc) * this.dashWindD;
 			
 			this.dashing = true;
+			
+			this.fp -= this.dashCost;
+			this.dashCool = this.dashCoolMax;
 		}
 	}
 	
