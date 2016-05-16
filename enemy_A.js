@@ -11,11 +11,6 @@
  * 
  */
  
- var en_pos = [[-50, 0],
-					[tiles.WORLD_WIDTH + 50,0],
-					[-50,tiles.WORLD_HEIGHT+50],
-					[tiles.WORLD_WIDTH + 50, tiles.WORLD_HEIGHT+50]]; 
- 
 function enemy_a(x, y){
 	this.sprite = new Image();
 	this.sprite.src = assets[1];
@@ -45,6 +40,11 @@ function enemy_a(x, y){
 	this.vulnerable = true;
 	
 	this.hp = 10;
+	
+	var en_pos = [[-50, 0],
+					[tiles.WORLD_WIDTH + 50,0],
+					[-50,tiles.WORLD_HEIGHT+50],
+					[tiles.WORLD_WIDTH + 50, tiles.WORLD_HEIGHT+50]]; 
 	
 	this.update = function(){
 		if(this.stunned == false){
