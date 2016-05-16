@@ -26,6 +26,10 @@ function main_character(x, y ) {
 	this.mapX = tiles.WORLD_WIDTH/2;
 	this.mapY = tiles.WORLD_HEIGHT/2;
 	
+	this.vulnerable = true;
+	this.safetyTimerMax = 30;
+	this.safetyTimer = 0;
+	
 	//speed rounds up to the nearest multiple of the incriment
 	this.speed = 5;
 	this.speedInc = 0.5;
@@ -101,8 +105,12 @@ function main_character(x, y ) {
 			}
 	    }
 
-		//wind-down proportionally for dash
 	    else{
+			//spawn fireball effect
+			var f = new fireParticle(this.mapX, this.mapY, this.sprite.height, 10);
+			main_stage.push(f);
+			
+			//wind-down proportionally for dash
 			//assuming xSpeed is larger
 			if(this.canvasXSpeed > 0){ this.canvasXSpeed -= this.dashXInc }
 			if(this.canvasXSpeed < 0){ this.canvasXSpeed += this.dashXInc }
@@ -144,6 +152,7 @@ function main_character(x, y ) {
 		this.mapX = toMapX(this.canvasX);
 	    this.mapY = toMapY(this.canvasY);
 		
+<<<<<<< HEAD
 		this.hitbox.col_data.pos.x = this.mapX;
 		this.hitbox.col_data.pos.y = this.mapY;
 		
@@ -163,6 +172,15 @@ function main_character(x, y ) {
 				MC.can_melee = true;
 				this.attack_hitbox = false;
 			}
+=======
+		//-----------------------TIMERS-------------------------------------------------------------------------
+		if(this.safetyTimer > 0){
+			this.safetyTimer--;
+			console.log("invulnerable");
+		}
+		else{
+			this.vulnerable = true;
+>>>>>>> origin/master
 		}
 		
 	}//Update
@@ -254,6 +272,27 @@ function main_character(x, y ) {
 			
 			this.dashing = true;
 		}
+	}
+	
+	this.on_hit = function(dmg){
+		if(this.vulnerable == true){
+			if(this.hp > 0){
+				this.hp -= dmg;
+				console.log("MC took "+dmg+" damage");
+				console.log("New health is "+this.hp);
+				
+				this.safetyTimer = this.safetyTimerMax;
+				this.vulnerable = false;
+			}
+			else{
+				this.die();
+			}
+		}
+	}
+	
+	this.die = function(){
+		//reset the game
+		console.log("you are dead");
 	}
 	
     this.special = function(param){

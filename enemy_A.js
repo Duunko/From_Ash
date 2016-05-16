@@ -48,8 +48,12 @@ function enemy_a(x, y){
 	
 	this.draw = function(){
 		context.drawImage(this.sprite, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
+<<<<<<< HEAD
 		//console.log("mapX: " + this.mapX + " mapY: " + this.mapY);
 		
+=======
+		console.log("mapX: " + this.mapX + " mapY: " + this.mapY);
+>>>>>>> origin/master
 	}
 	
 	this.moveTowards = function(target){

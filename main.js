@@ -1,6 +1,4 @@
 //Main file for the game
-//This a test to make sure Daniel "GETS" github. *wink wink* *nudge nudge*
-
 
 /* Basic setup functions.
  * 
@@ -94,6 +92,7 @@ function onMouseDown(e){
 		MC.attack();
 	} else if (e.button == 2){
 	    MC.dash();
+		//MC.on_hit(5);
 	}
 
 
@@ -142,6 +141,18 @@ function angleDeg(x1,y1,x2,y2){
  
  function toMapY(old){
 	return old + tiles.top;
+ }
+ 
+ //-----------------------------------------------------------
+ //---------MAIN GAME FUNCTIONS-------------------------------
+ //-----------------------------------------------------------
+ 
+ function start_game(){
+	 
+ }
+ 
+ function reset_game(){
+	
  }
  
  //-----------------------------------------------------------
