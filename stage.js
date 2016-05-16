@@ -104,11 +104,88 @@ function game_draw(renderer) {
 	
 	for(var i = 0; i < renderer.stages.length; i++){
 	    if(renderer.stages[i].always_update == true || renderer.stages[i].always_draw == true){
+	    	if (renderer.stages[i].owned_objects.indexOf(MC) != -1){
+	    		renderer.stages[i].owned_objects[renderer.stages[i].owned_objects.indexOf(MC)].update();
+	    	}
 		    for (var j = 0; j < renderer.stages[i].owned_objects.length; j++){
 		        if(renderer.stages[i].always_update == true){
-		        	renderer.stages[i].owned_objects[j].update();
+		        	if(renderer.stages[i].owned_objects[j] != MC){
+		        	    renderer.stages[i].owned_objects[j].update();
+		        	}
 		        }
-		        if (renderer.stages[i].always_draw == true) {
+		       
+		    } //For1
+		    for(var j = 0; j < renderer.stages[i].owned_objects.length; j++){
+		    	if(renderer.stages[i].owned_objects[j].hitbox == undefined){
+		    		//console.log(renderer.stages[i].owned_objects[j]);
+		    		//console.log("nohitbox");
+		    		continue;
+		    	}
+		    	for(var k = j + 1; k < renderer.stages[i].owned_objects.length; k++){
+		    		if(renderer.stages[i].always_update == true){
+		    			if(renderer.stages[i].owned_objects[k].hitbox == undefined){
+		    				//console.log('nohitbox2');
+		    				continue;
+		    			}
+		    			//console.log('hitbox');
+		    	
+		    			var check1 = renderer.stages[i].owned_objects[j].hitbox.shape;
+		    			var check2 = renderer.stages[i].owned_objects[k].hitbox.shape;
+		    		    if (check1 == 'rectangle' && check2 == 'rectangle'){
+		    		    	var response = new SAT.Response();
+		    		    	var t1 = renderer.stages[i].owned_objects[j].hitbox.col_data.toPolygon();
+		    		    	var t2 = renderer.stages[i].owned_objects[k].hitbox.col_data.toPolygon();
+					        if(SAT.testPolygonPolygon(t1, t2, response)){
+							        renderer.stages[i].owned_objects[j].collide();
+							        renderer.stages[i].owned_objects[k].collide();
+						        }
+						}else if (check1 == 'rectangle' && check2 == 'circle'){
+					        var response = new SAT.Response();
+					        if(SAT.testPolygonCircle(renderer.stages[i].owned_objects[j].hitbox.col_data.toPolygon(),
+						        renderer.stages[i].owned_objects[k].hitbox.col_data), response){
+							        renderer.stages[i].owned_objects[j].collide();
+							        renderer.stages[i].owned_objects[k].collide();
+						        }
+			            }else if (check1 == 'circle' && check2 == 'rectangle'){
+					        var response = new SAT.Response();
+					        if(SAT.testCirclePolygon(renderer.stages[i].owned_objects[j].hitbox.col_data,
+						        renderer.stages[i].owned_objects[k].hitbox.col_data.toPolygon()), response){
+							        renderer.stages[i].owned_objects[j].collide();
+							        renderer.stages[i].owned_objects[k].collide();
+						        }
+				        } 
+				        if(renderer.stages[i].owned_objects[j] == MC || renderer.stages[i].owned_objects[k] == MC){
+				            if(MC.attack_hitbox != false){
+				                if (renderer.stages[i].owned_objects[k].attack_hitbox != undefined){
+					                var response = new SAT.Response();
+					                if(SAT.testPolygonPolygon(renderer.stages[i].owned_objects[j].hitbox.col_data.toPolygon(),
+						                renderer.stages[i].owned_objects[k].attack_hitbox.col_data), response){
+							                renderer.stages[i].owned_objects[j].collide_damage();
+						            }
+				                }else if (renderer.stages[i].owned_objects[j].attack_hitbox != undefined){
+					                var response = new SAT.Response();
+					                //console.log(renderer.stages[i].owned_objects[j].attack_hitbox.col_data);
+					                var respo = renderer.stages[i].owned_objects[k].hitbox.col_data;
+					                var newpo = new SAT.Box(new SAT.Vector(toCanvasX(respo.pos.x), toCanvasY(respo.pos.y)), 
+					                respo.w, respo.h).toPolygon();
+					                //console.log(newpo);
+					                
+					                
+					                	                 
+					                if(SAT.testPolygonPolygon(renderer.stages[i].owned_objects[j].attack_hitbox.col_data,
+						                newpo, response) == true){
+							                renderer.stages[i].owned_objects[k].collide_damage();
+						            }
+						            //console.log(response);
+				                }
+				            }
+				        }
+		    	    }
+		    	}
+		    	
+		    } //For2
+		    for(var j = 0; j < renderer.stages[i].owned_objects.length; j++){
+		    	 if (renderer.stages[i].always_draw == true) {
 		        	if(renderer.need_sort == true){
 		        	    sort_array(renderer.stages[i].owned_objects);
 		        	    renderer.need_sort = false;
@@ -132,11 +209,9 @@ function game_draw(renderer) {
 		        			} else {
 		        				renderer.stages[i].owned_objects[j].draw();
 		        			}
-		        	
-		        	    
 		        	}
 		        }
-		    }
+		    } //For3
 		
 		}
 		

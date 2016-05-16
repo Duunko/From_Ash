@@ -28,6 +28,9 @@ function enemy_a(x, y){
 	
 	this.speed = 1;
 	
+	this.self = this;
+	
+	
 	this.hp = 40;
 	
 	this.update = function(){
@@ -38,11 +41,14 @@ function enemy_a(x, y){
 		this.canvasX = toCanvasX(this.mapX);
 		this.canvasY = toCanvasY(this.mapY);
 		
+	    this.hitbox.col_data.pos.x = this.mapX;
+		this.hitbox.col_data.pos.y = this.mapY;
+		
 	}
 	
 	this.draw = function(){
 		context.drawImage(this.sprite, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
-		console.log("mapX: " + this.mapX + " mapY: " + this.mapY);
+		//console.log("mapX: " + this.mapX + " mapY: " + this.mapY);
 		
 	}
 	
@@ -72,4 +78,22 @@ function enemy_a(x, y){
 	this.destroy = function(){
 		
 	}
+	
+	this.collide = function(){
+		console.log("collide");
+	}
+	
+	this.collide_damage = function(){
+		console.log("damage");
+	}
+	
+	this.hitbox = {
+    	active:true,
+    	shape:'rectangle',
+    	offsetX:0,
+    	offsetY:0,
+    	width:this.sprite.width,
+    	height:this.sprite.height,
+    	col_data: new SAT.Box(new SAT.Vector(this.mapX, this.mapY), this.sprite.width, this.sprite.height)
+    }
 }
