@@ -358,8 +358,13 @@ function main_character(x, y ) {
     }
     
     this.collide = function(){
-    	console.log("collided with enemy");
-		MC.on_hit(5);
+		if(this.dashing == false){
+			console.log("collided with enemy");
+			MC.on_hit(5);
+		}
+		else{
+			
+		}
     }
 }
     
