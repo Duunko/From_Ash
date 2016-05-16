@@ -16,11 +16,17 @@ function fireParticle(x, y, r, t){
 	this.sprite.width = r * 2;
 	this.sprite.height = r * 2;
 	
-	this.mapX = x;
-	this.mapY = y;
+	//this.mapX = x;
+	//this.mapY = y;
 	
-	this.canvasX = toCanvasX(this.mapX);
-	this.canvasY = toCanvasY(this.mapY);
+	//this.canvasX = toCanvasX(this.mapX);
+	//this.canvasY = toCanvasY(this.mapY);
+	
+	this.canvasX = x;
+	this.canvasY = y;
+	
+	this.mapX = toMapX(this.canvasX);
+	this.mapY = toMapY(this.canvasY);
 	
 	this.timer = t;
 	

@@ -34,7 +34,7 @@ function overlay(x, y, spr, target){
 		}
 		
 		this.shade.height = theirPer * this.sprite.height;
-		console.log(this.shade.height + " , "+ this.theirPer)
+		//console.log(this.shade.height + " , "+ this.theirPer)
 	}
 	
 	this.draw = function(){

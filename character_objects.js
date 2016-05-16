@@ -57,12 +57,17 @@ function main_character(x, y ) {
 	this.dashYInc;
 	this.dashWindD = 1.25;
 	
-	var self = this;
+	this.hitbox = {
+    	active:true,
+    	shape:'rectangle',
+    	offsetX:0,
+    	offsetY:0,
+    	width:this.sprite.width,
+    	height:this.sprite.height,
+    	col_data: new SAT.Box(new SAT.Vector(this.mapX, this.mapY), this.sprite.width, this.sprite.height)
+    }
 	
-	var char_hitbox = new hitbox('rectangle', self, 0, 0, 40, 40, 'HP');
-	char_hitbox.active = true;
-	main_stage.push(char_hitbox);
-	renderer.need_sort = true;
+	this.attack_hitbox = false;
 	
 	this.update = function(){
 	   
@@ -167,6 +172,27 @@ function main_character(x, y ) {
 		this.mapX = toMapX(this.canvasX);
 	    this.mapY = toMapY(this.canvasY);
 		
+		this.hitbox.col_data.pos.x = this.mapX;
+		this.hitbox.col_data.pos.y = this.mapY;
+		
+		if(this.attack_hitbox != false){
+			if (this.attack_hitbox.currframe < this.attack_hitbox.numFrames + 2){
+				this.attack_hitbox.currframe++;
+				this.attack_hitbox.xy1 = findc1(this.attack_hitbox);
+			}
+		    if (this.attack_hitbox.currframe < this.attack_hitbox.numFrames + 1){
+		        	this.attack_hitbox.xy2 = findc2(this.attack_hitbox);
+		    }
+		    var dat = new SAT.Vector(MC.canvasX + (MC.sprite.width / 2), MC.canvasY + (MC.sprite.height / 2));
+		    //console.log(dat);
+		    this.attack_hitbox.col_data = new SAT.Polygon(new SAT.Vector(), [
+		    this.attack_hitbox.xy1, this.attack_hitbox.xy2, 
+		    dat]);
+		} else {
+			MC.can_melee = true;
+			this.attack_hitbox = false;
+		}
+		
 		//-----------------------TIMERS-------------------------------------------------------------------------
 		if(this.safetyTimer > 0){
 			this.safetyTimer--;
@@ -209,6 +235,20 @@ function main_character(x, y ) {
 		} else {
 			this.look_direc = 'west';
 		}
+		
+		if (this.attack_hitbox != false){
+			var posx = this.mapX + (this.sprite.width / 2);
+			var posy = this.mapY + (this.sprite.height / 2);
+		    context.fillStyle = '#CF0D42';
+		    context.beginPath()
+		    context.moveTo(this.attack_hitbox.col_data.points[2].x, this.attack_hitbox.col_data.points[2].y);
+		    context.lineTo(this.attack_hitbox.col_data.points[0].x, this.attack_hitbox.col_data.points[0].y);
+		    context.lineTo(this.attack_hitbox.col_data.points[1].x, this.attack_hitbox.col_data.points[1].y);
+		    context.lineTo(this.attack_hitbox.col_data.points[2].x, this.attack_hitbox.col_data.points[2].y);
+		    context.closePath();
+		    context.fill();
+		}
+		
 		//placeholder for directions
 		context.fillText(this.look_direc,10,100);
 		
@@ -221,6 +261,28 @@ function main_character(x, y ) {
 			var hit = new hitbox('arc', this.look_direc, 10);
 			main_stage.push(hit);
 		
+			var opt1 = this.look_direc;
+			var direction = 180;
+		    if (opt1 == 'west') {
+			    direction = 90;
+		    } else if (opt1 == 'south'){
+			    direction = 0;
+		    } else if (opt1 == 'east'){
+			    direction = 270;
+		    } 
+			this.attack_hitbox = {
+				active:true,
+				shape:'arc',
+				currframe:0,
+				col_data:0,
+				numFrames:10,
+				radius:60,
+				self:this,
+				direc:direction,
+				xy1:0,
+				xy2:0
+			}
+		    
 			this.can_melee = false;
 			
 			this.fp -= this.meleeCost;
@@ -228,7 +290,7 @@ function main_character(x, y ) {
 			console.log(this.meleeCool);
 		}
     }
-	
+    
 	this.dash = function(){
 		if(this.dashing == false && this.dashCool == 0){
 			//move towards
@@ -278,4 +340,41 @@ function main_character(x, y ) {
     this.special = function(param){
     	
     }
+    
+    this.collide = function(){
+    	
+    }
+}
+    
+    function findc1 (obj) {
+		var cx = MC.canvasX + (MC.sprite.width / 2);
+		var cy = MC.canvasY + (MC.sprite.height / 2);
+		if (obj.currframe < 3) {
+			var newval = new SAT.Vector(Math.round(cx +(obj.radius * (Math.cos(degrees(45 + obj.direc))))),
+				    Math.round(cy + (obj.radius * (Math.sin(degrees(45 + obj.direc))))));
+		    //newval.x -= MC.mapX;
+		    //newval.y -= MC.mapY;
+			return newval;
+		} else {
+			var angle = (obj.currframe - 2) * (90 / obj.numFrames);
+			var newval = new SAT.Vector(Math.round(cx + (obj.radius * (Math.cos(degrees(45 + obj.direc + angle))))),
+				    Math.round(cy + (obj.radius * (Math.sin(degrees(45 + obj.direc + angle))))));
+		   // newval.x -= MC.mapX;
+		    //newval.y -= MC.mapY;
+		    return newval;
+		}
+	}
+	function findc2 (obj) {
+		var cx = MC.canvasX + (MC.sprite.width / 2);
+		var cy = MC.canvasY + (MC.sprite.height / 2);
+		var angle = (obj.currframe) * (90 / obj.numFrames);
+		var newval = new SAT.Vector(Math.round(cx + (obj.radius * (Math.cos(degrees(45 + obj.direc + angle))))),
+				    Math.round(cy + (obj.radius * (Math.sin(degrees(45 + obj.direc + angle))))));
+		//newval.x -= MC.mapX;
+		//newval.y -= MC.mapY;
+		return newval;
+	}
+
+function degrees(number){
+	return number * Math.PI / 180;
 }

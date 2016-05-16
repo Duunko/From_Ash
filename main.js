@@ -87,15 +87,12 @@ function onMouseMove(e){
 }
 
 function onMouseDown(e){
-	console.log("mouse down");
 	if (e.button == 0){	
 		MC.attack();
 	} else if (e.button == 2){
 	    MC.dash();
 		//MC.on_hit(5);
 	}
-
-
 }
 
 canvas.oncontextmenu = function(){ return false;}
@@ -159,7 +156,6 @@ function angleDeg(x1,y1,x2,y2){
  //-----------------------------------------------------------
 var MC = new main_character(tiles.playerX, tiles.playerY);
 var EN = new enemy_a(100,100);
-
 main_stage.push(MC);
 main_stage.push(EN);
 
