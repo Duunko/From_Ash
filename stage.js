@@ -162,19 +162,18 @@ function game_draw(renderer) {
 						                renderer.stages[i].owned_objects[k].attack_hitbox.col_data), response){
 							                renderer.stages[i].owned_objects[j].collide_damage();
 						            }
-				                }else if (renderer.stages[i].owned_objects[j].attack_hitbox != undefined){
+				                } else if (renderer.stages[i].owned_objects[j].attack_hitbox != undefined){
 					                var response = new SAT.Response();
 					                //console.log(renderer.stages[i].owned_objects[j].attack_hitbox.col_data);
 					                var respo = renderer.stages[i].owned_objects[k].hitbox.col_data;
 					                var newpo = new SAT.Box(new SAT.Vector(toCanvasX(respo.pos.x), toCanvasY(respo.pos.y)), 
 					                respo.w, respo.h).toPolygon();
 					                //console.log(newpo);
-					                
-					                
-					                	                 
-					                if(SAT.testPolygonPolygon(renderer.stages[i].owned_objects[j].attack_hitbox.col_data,
-						                newpo, response) == true){
-							                renderer.stages[i].owned_objects[k].collide_damage();
+					                if(renderer.stages[i].owned_objects[j].attack_hitbox != undefined){                
+					                    if(SAT.testPolygonPolygon(renderer.stages[i].owned_objects[j].attack_hitbox.col_data,
+						                    newpo, response) == true){
+							                    renderer.stages[i].owned_objects[k].collide_damage();
+						                }
 						            }
 						            //console.log(response);
 				                }

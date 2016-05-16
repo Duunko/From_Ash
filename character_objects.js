@@ -128,7 +128,7 @@ function main_character(x, y ) {
 
 	    else{
 			//spawn fireball effect
-			var f = new fireParticle(this.mapX - this.sprite.width / 2, this.mapY - this.sprite.height / 2, this.sprite.height, 10);
+			var f = new fireParticle(this.canvasX- this.sprite.width / 2, this.canvasY - this.sprite.height / 2, this.sprite.height, 10);
 			main_stage.push(f);
 			
 			//wind-down proportionally for dash
@@ -180,7 +180,7 @@ function main_character(x, y ) {
 			if (this.attack_hitbox.currframe < this.attack_hitbox.numFrames + 2){
 				this.attack_hitbox.currframe++;
 				this.attack_hitbox.xy1 = findc1(this.attack_hitbox);
-			}
+			
 		    if (this.attack_hitbox.currframe < this.attack_hitbox.numFrames + 1){
 		        	this.attack_hitbox.xy2 = findc2(this.attack_hitbox);
 		    }
@@ -188,10 +188,11 @@ function main_character(x, y ) {
 		    //console.log(dat);
 		    this.attack_hitbox.col_data = new SAT.Polygon(new SAT.Vector(), [
 		    this.attack_hitbox.xy1, this.attack_hitbox.xy2, 
-		    dat]);
-		} else {
-			MC.can_melee = true;
-			this.attack_hitbox = false;
+		    dat]); 
+		    }else {
+			    MC.can_melee = true;
+			    this.attack_hitbox = false;
+			}
 		}
 		
 		//-----------------------TIMERS-------------------------------------------------------------------------
