@@ -55,7 +55,7 @@ function enemy_a(x, y){
 		this.canvasX = toCanvasX(this.mapX);
 		this.canvasY = toCanvasY(this.mapY);
 		
-	    this.hitbox.col_data.pos.x = this.mapX;
+	   this.hitbox.col_data.pos.x = this.mapX;
 		this.hitbox.col_data.pos.y = this.mapY;
 		
 		//------------TIMERS-----------------
