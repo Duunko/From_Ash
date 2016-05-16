@@ -15,6 +15,12 @@ var context = canvas.getContext('2d');
 // Set up the renderer
 var renderer = new renderer(canvas, context);
 
+//preload of assets
+var assets = new Array();
+assets.push('http://people.ucsc.edu/~djchambe/cm120/mc_down.png'); //character
+assets.push('http://people.ucsc.edu/~djchambe/cm120/sun.png'); //enemy_a
+assets.push('http://people.ucsc.edu/~djchambe/cm120/dash_overlay.png'); //initial overlay
+
 // Create and push the main stage.
 // This stage will be the main game, we will do this later
 // when we have a menu screen to work with.
@@ -161,7 +167,7 @@ main_stage.push(EN);
 
 //overlays
 var dash_sprite = new Image();
-dash_sprite.src = 'http://people.ucsc.edu/~djchambe/cm120/dash_overlay.png'
+dash_sprite.src = assets[2];
 dash_sprite.width = 150;
 dash_sprite.height = 150;
  

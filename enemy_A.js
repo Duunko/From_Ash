@@ -13,7 +13,7 @@
  
 function enemy_a(x, y){
 	this.sprite = new Image();
-	this.sprite.src = 'http://people.ucsc.edu/~djchambe/cm120/sun.png';
+	this.sprite.src = assets[1];
 	this.sprite.width = 40;
 	this.sprite.height = 40;
 	

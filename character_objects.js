@@ -13,7 +13,7 @@
 
 function main_character(x, y ) {
 	this.sprite = new Image();
-	this.sprite.src = 'http://people.ucsc.edu/~djchambe/cm120/mc_down.png'
+	this.sprite.src = assets[0];
 	this.sprite.width = 60;
 	this.sprite.height = 80;
 	
