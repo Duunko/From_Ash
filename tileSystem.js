@@ -109,10 +109,6 @@ function create_board(world_width, world_height, tile_size){
 				*/
             }
         }
-  
-        context.fillStyle = 'white';
-        context.fillRect(this.VIEW_WIDTH/2, this.VIEW_HEIGHT/2, 15, 15);
-  
     }
 	
 }

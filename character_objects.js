@@ -258,15 +258,16 @@ function main_character(x, y ) {
 		}
 		
 		context.fillStyle = 'white';
-		//placeholder for directions
-		context.fillText(this.look_direc,10,100);
 		
 		//fire point display
 		context.font = '25px Verdana'; //font and size
-		if(this.can_melee == false){
+		if(this.can_melee == false || this.dashing == true){
 			context.fillStyle = '#CF0D42';
 		}
 		context.fillText("Fire Points: "+this.fp, 10, 50);
+		
+		context.fillStyle = 'white';
+		context.fillText("Next Fire Points: "+Math.floor(this.nextFp), 10, 75);
 		
 		//hit point display
 		if(this.safetyTimer > 0){
@@ -274,7 +275,7 @@ function main_character(x, y ) {
 		} else {
 			context.fillStyle = 'white';
 		} 
-		context.fillText("Hit Points: "+this.hp, 10, 75);
+		context.fillText("Hit Points: "+this.hp, 10, 100);
     }
     
     this.attack = function(){

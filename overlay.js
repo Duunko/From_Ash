@@ -26,11 +26,21 @@ function overlay(x, y, spr, target){
 	
 	this.update = function(){
 		if(target == "dash"){
-			var theirPer = (MC.dashCool / MC.dashCoolMax);
+			if(MC.fp > MC.dashCost){
+				var theirPer = (MC.dashCool / MC.dashCoolMax);
+			}
+			else{
+				var theirPer = 1;
+			}
 		}
 		
 		if(target == "melee"){
-			var theirPer = (MC.meleeCool / MC.meleeCoolMax);
+			if(MC.fp > MC.meleeCost){
+				var theirPer = (MC.meleeCool / MC.meleeCoolMax);
+			}
+			else{
+				var theirPer = 1;
+			}
 		}
 		
 		this.shade.height = theirPer * this.sprite.height;

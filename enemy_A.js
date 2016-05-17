@@ -17,8 +17,8 @@ function enemy_a(x, y){
 	
 	this.sprite = new Image();
 	this.sprite.src = assets[1];
-	this.sprite.width = 40;
-	this.sprite.height = 40;
+	this.sprite.width = 50;
+	this.sprite.height = 50;
 	
 	this.move_direc = 'south';
 	this.look_direc = 'south';
