@@ -161,7 +161,7 @@ function angleDeg(x1,y1,x2,y2){
 	SC = new sound_control();
 	main_stage.push(MC);
 	main_stage.push(EN1);
-	main_stage.push(EN2)
+	main_stage.push(EN2);
 	main_stage.push(SC);
 	main_stage.push(SC);
 
@@ -185,7 +185,14 @@ function angleDeg(x1,y1,x2,y2){
  
  function reset_game(){
 	MC.hp = MC.hpMax;
+	MC.fp = Math.floor(MC.nextFp);
+	main_stage.remove_enemies();
 	
+	EN1 = new enemy_a(100,100);
+	EN2 = new enemy_a(200, 200);
+	
+	main_stage.push(EN1);
+	main_stage.push(EN2);
  }
 
 start_game();

@@ -119,10 +119,17 @@ function enemy_a(x, y){
 		this.mapY = en_pos[int1][1];
 		var a = new enemy_a(en_pos[int2][0], en_pos[int2][1]);
 		main_stage.push(a);
+		
+		MC.nextFp += 0.5;
 	}
 	
 	this.collide = function(target){
-		
+		if(target == MC){
+			if(MC.dashing == true){
+				this.knockback();
+				this.on_hit(5);
+			}
+		}
 	}
 	
 	this.collide_damage = function(){
@@ -150,7 +157,7 @@ function enemy_a(x, y){
 	}
 	
 	this.die = function(){
-		console.log("enemy has died");		
+		
 	}
 	
 	this.hitbox = {

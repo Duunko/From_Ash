@@ -17,13 +17,14 @@ function main_character(x, y ) {
 	this.sprite.width = 60;
 	this.sprite.height = 80;
 	
-	this.fp = 40;
+	this.fp = 30;
+	this.nextFp = this.fp;
 	
-	this.meleeCost = 1;
+	this.meleeCost = 2;
 	this.meleeCoolMax = 50;
 	this.meleeCool = 0;
 	
-	this.dashCost = 2;
+	this.dashCost = 4;
 	this.dashCoolMax = 200;
 	this.dashCool = 0;
 	
@@ -277,7 +278,7 @@ function main_character(x, y ) {
     }
     
     this.attack = function(){
-		if(this.can_melee == true && this.meleeCool == 0){
+		if((this.can_melee == true && this.meleeCool == 0) && this.fp >= this.meleeCost){
 
 			var opt1 = this.look_direc;
 			var direction = 180;
@@ -310,7 +311,7 @@ function main_character(x, y ) {
     }
     
 	this.dash = function(){
-		if(this.dashing == false && this.dashCool == 0){
+		if((this.dashing == false && this.dashCool == 0) && this.fp >= this.dashCost){
 			//move towards
 			//mouseX and mouseY
 			var slopeX = mouseX - this.canvasX;
