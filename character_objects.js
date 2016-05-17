@@ -27,7 +27,9 @@ function main_character(x, y ) {
 	this.dashCoolMax = 200;
 	this.dashCool = 0;
 	
-	this.hp = 40;
+	this.hpMax = 40;
+	this.hp = this.hpMax;
+
 	this.move_direc = 'south';
 	this.look_direc = 'south';
 	this.canvasX = canvas.width/2;
@@ -351,13 +353,14 @@ function main_character(x, y ) {
 	this.die = function(){
 		//reset the game
 		console.log("you are dead");
+		reset_game();
 	}
 	
     this.special = function(param){
     	
     }
     
-    this.collide = function(){
+    this.collide = function(target){
 		if(this.dashing == false){
 			console.log("collided with enemy");
 			MC.on_hit(5);

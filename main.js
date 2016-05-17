@@ -150,35 +150,33 @@ function angleDeg(x1,y1,x2,y2){
  //-----------------------------------------------------------
  
  function start_game(){
+	MC = new main_character(tiles.playerX, tiles.playerY);
+	EN1 = new enemy_a(100,100);
+	EN2 = new enemy_a(200, 200);
+	SC = new sound_control();
+	main_stage.push(MC);
+	main_stage.push(EN1);
+	main_stage.push(EN2)
+	main_stage.push(SC);
+	main_stage.push(SC);
+
+	//overlays
+	dash_sprite = new Image();
+	dash_sprite.src = assets[2];
+	dash_sprite.width = 150;
+	dash_sprite.height = 150;
 	 
+	DO = new overlay(0 + 10, canvas.height - 160, dash_sprite, "dash");
+	main_stage.push(DO);
+
+	MO = new overlay(160 + 10, canvas.height - 160, dash_sprite, "melee");
+	main_stage.push(MO);
  }
  
  function reset_game(){
+	MC.hp = MC.hpMax;
 	
  }
- 
-//-----------------------------------------------------------
-//---------INSTANCES-----------------------------------------
-//-----------------------------------------------------------
-var MC = new main_character(tiles.playerX, tiles.playerY);
-var EN1 = new enemy_a(100,100);
-var EN2 = new enemy_a(200, 200);
-var SC = new sound_control();
-main_stage.push(MC);
-main_stage.push(EN1);
-main_stage.push(EN2)
-main_stage.push(SC);
-main_stage.push(SC);
 
-//overlays
-var dash_sprite = new Image();
-dash_sprite.src = assets[2];
-dash_sprite.width = 150;
-dash_sprite.height = 150;
- 
-var DO = new overlay(0 + 10, canvas.height - 160, dash_sprite, "dash");
-main_stage.push(DO);
-
-var MO = new overlay(160 + 10, canvas.height - 160, dash_sprite, "melee");
-main_stage.push(MO);
+start_game();
 

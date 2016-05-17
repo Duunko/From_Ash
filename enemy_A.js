@@ -12,6 +12,9 @@
  */
  
 function enemy_a(x, y){
+	
+	this.type = "enemy";
+	
 	this.sprite = new Image();
 	this.sprite.src = assets[1];
 	this.sprite.width = 40;
@@ -43,9 +46,9 @@ function enemy_a(x, y){
 	
 	this.update = function(){
 		if(this.stunned == false){
-			if(MC.hp > 0){
-				this.moveTowards(MC);
-			}
+			
+			this.moveTowards(MC);
+			
 			this.mapX += this.mapXSpeed * this.speed;
 			this.mapY += this.mapYSpeed * this.speed;
 		}
@@ -111,7 +114,7 @@ function enemy_a(x, y){
 		main_stage.push(a);
 	}
 	
-	this.collide = function(){
+	this.collide = function(target){
 		
 	}
 	
