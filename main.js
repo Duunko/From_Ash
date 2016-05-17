@@ -20,6 +20,7 @@ var assets = new Array();
 assets.push('http://people.ucsc.edu/~djchambe/cm120/mc_down.png'); //character
 assets.push('http://people.ucsc.edu/~dursmith/cmpm120/seascorpion%20-%20selfishness_remade.png'); //enemy_a
 assets.push('http://people.ucsc.edu/~djchambe/cm120/dash_overlay.png'); //initial overlay
+assets.push('http://people.ucsc.edu/~djchambe/cm120/melee_overlay.png');
 
 // Create and push the main stage.
 // This stage will be the main game, we will do this later
@@ -167,14 +168,19 @@ function angleDeg(x1,y1,x2,y2){
 	//overlays
 	dash_sprite = new Image();
 	dash_sprite.src = assets[2];
-	dash_sprite.width = 150;
-	dash_sprite.height = 150;
-	 
-	DO = new overlay(0 + 10, canvas.height - 160, dash_sprite, "dash");
-	main_stage.push(DO);
-
-	MO = new overlay(160 + 10, canvas.height - 160, dash_sprite, "melee");
+	dash_sprite.width = 64;
+	dash_sprite.height = 64;
+	
+	melee_sprite = new Image();
+	melee_sprite.src = assets[3];
+	melee_sprite.width = 64;
+	melee_sprite.height = 64;
+	
+	MO = new overlay(10, 125, melee_sprite, "melee");
 	main_stage.push(MO);
+	
+	DO = new overlay(10, 200, dash_sprite, "dash");
+	main_stage.push(DO);
  }
  
  function reset_game(){

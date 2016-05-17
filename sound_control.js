@@ -5,7 +5,7 @@ function sound_control(){
 	this.depth = -1000000;
 	this.loaded = false;
     var sound = new Howl({
-        urls: ['http://people.ucsc.edu/~zgregori/project/theme.ogg'],
+        urls: ['music/battle.ogg'],
         loop: true,
         volume: 0.5
     });
