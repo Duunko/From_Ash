@@ -38,8 +38,8 @@ function stage(top) {
     	}
     	for(var i = 0; i < removal_array.length; i++){
     		this.owned_objects.splice(removal_array[i], 1);
-    		for(var i = 0; i < removal_array.length; i++){
-    			removal_array[i] -= 1;
+    		for(var j = 0; j < removal_array.length; j++){
+    			removal_array[j] -= 1;
     		}
     	}
     }
