@@ -29,6 +29,21 @@ function stage(top) {
     	return this.owned_objects[this.owned_objects.indexOf(obj)];
     }
     
+    this.remove_enemies = function(){
+    	var removal_array = [];
+    	for(var i = 0; i < this.owned_objects.length; i++){
+    		if(this.owned_objects[i].type == "enemy"){
+    			removal_array.push(i);
+    		}
+    	}
+    	for(var i = 0; i < removal_array.length; i++){
+    		this.owned_objects.splice(removal_array[i], 1);
+    		for(var j = 0; j < removal_array.length; j++){
+    			removal_array[j] -= 1;
+    		}
+    	}
+    }
+    
     this.always_update = true;
     this.always_draw = true;
     
@@ -136,22 +151,22 @@ function game_draw(renderer) {
 		    		    	var t1 = renderer.stages[i].owned_objects[j].hitbox.col_data.toPolygon();
 		    		    	var t2 = renderer.stages[i].owned_objects[k].hitbox.col_data.toPolygon();
 					        if(SAT.testPolygonPolygon(t1, t2, response)){
-							        renderer.stages[i].owned_objects[j].collide();
-							        renderer.stages[i].owned_objects[k].collide();
+							        renderer.stages[i].owned_objects[j].collide(renderer.stages[i].owned_objects[k]);
+							        renderer.stages[i].owned_objects[k].collide(renderer.stages[i].owned_objects[j]);
 						        }
 						}else if (check1 == 'rectangle' && check2 == 'circle'){
 					        var response = new SAT.Response();
 					        if(SAT.testPolygonCircle(renderer.stages[i].owned_objects[j].hitbox.col_data.toPolygon(),
-						        renderer.stages[i].owned_objects[k].hitbox.col_data), response){
-							        renderer.stages[i].owned_objects[j].collide();
-							        renderer.stages[i].owned_objects[k].collide();
+						        renderer.stages[i].owned_objects[k].hitbox.col_data, response)){
+							        renderer.stages[i].owned_objects[j].collide(renderer.stages[i].owned_objects[k]);
+							        renderer.stages[i].owned_objects[k].collide(renderer.stages[i].owned_objects[j]);
 						        }
 			            }else if (check1 == 'circle' && check2 == 'rectangle'){
 					        var response = new SAT.Response();
 					        if(SAT.testCirclePolygon(renderer.stages[i].owned_objects[j].hitbox.col_data,
-						        renderer.stages[i].owned_objects[k].hitbox.col_data.toPolygon()), response){
-							        renderer.stages[i].owned_objects[j].collide();
-							        renderer.stages[i].owned_objects[k].collide();
+						        renderer.stages[i].owned_objects[k].hitbox.col_data.toPolygon(), response)){
+							        renderer.stages[i].owned_objects[j].collide(renderer.stages[i].owned_objects[k]);
+							        renderer.stages[i].owned_objects[k].collide(renderer.stages[i].owned_objects[j]);
 						        }
 				        } 
 				        if(renderer.stages[i].owned_objects[j] == MC || renderer.stages[i].owned_objects[k] == MC){
