@@ -44,6 +44,11 @@ function enemy_a(x, y){
 	
 	this.hp = 10;
 	
+	var en_pos = [[-50, 0],
+					[tiles.WORLD_WIDTH + 50,0],
+					[-50,tiles.WORLD_HEIGHT+50],
+					[tiles.WORLD_WIDTH + 50, tiles.WORLD_HEIGHT+50]]; 
+	
 	this.update = function(){
 		if(this.stunned == false){
 			
@@ -108,9 +113,11 @@ function enemy_a(x, y){
 	
 	this.destroy = function(){
 		this.hp = 10;
-		this.mapX = -this.sprite.width;
-		this.mapY = -this.sprite.width;
-		var a = new enemy_a(this.mapX, this.mapY-50);
+		var int1 = getRandomInt(0,3);
+		var int2 = getRandomInt(0,3);
+		this.mapX = en_pos[int1][0];
+		this.mapY = en_pos[int1][1];
+		var a = new enemy_a(en_pos[int2][0], en_pos[int2][1]);
 		main_stage.push(a);
 	}
 	
