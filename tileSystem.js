@@ -6,20 +6,23 @@
  *
  */
  
-function create_board(world_width, world_height, tile_size){
+function create_board(world_width, world_height, tile_size, non_ash){
 	
 	this.depth = 100000;
-	this.TILE_TYPE_WATER = 0;
-	this.TILE_TYPE_GRASS = 1;
+	this.TILE_TYPE_ASH = 0;
+	this.TILE_TYPE_VOID = 1;
+	this.TILE_TYPE_OBS = 2;
 
-	this.NUM_TILE_TYPES = 2;
-
-	this.TILE_COLORS = ['#0000DD', '#00CC00'];
+	this.NUM_TILE_TYPES = 3;
 	
-	this.sprite = new Image();
-	this.sprite.src = 'http://people.ucsc.edu/~djchambe/cm120/ash_tile.png';
+	sprite_ash = new Image();
+	sprite_ash.src = 'http://people.ucsc.edu/~djchambe/cm120/ash_tile.png';
+	sprite_darkness = new Image();
+	sprite_darkness.src = 'https://c1.staticflickr.com/5/4034/4544827697_6f73866999_b.jpg';
+	sprite_darkness.width = 64;
+	sprite_darkness.height = 64;
 	
-	this.TILE_SPRITES = [this.sprite];
+	this.TILE_SPRITES = [sprite_ash, sprite_darkness];
 
 	this.TILE_SIZE = tile_size;
 	this.WORLD_WIDTH = world_width;
@@ -51,16 +54,16 @@ function create_board(world_width, world_height, tile_size){
 		var column = new Array();
 	  for(var j=0; j < this.TILES_IN_A_COL; j++){
 		//column[j] = Math.floor(Math.random()*NUM_TILE_TYPES);
-		if((i == 0 || j == 0) || (i == this.TILES_IN_A_ROW - 1 || j == this.TILES_IN_A_COL - 1)){
-			column[j] = 0;
-		}
-		else{
-			column[j] = 1;
-		}
+	    column[j] = 0;
 	  } //INNER
-	  
 	  this.tileGrid[i] = column;
 	} //OUTER
+	
+	if (non_ash != undefined){
+		for(var i = 0; i < non_ash.length; i++){
+			this.tileGrid[non_ash[i][0]][non_ash[i][1]] = non_ash[i][2];
+		}
+	}
 	
 	this.update = function(){
 		
@@ -94,7 +97,7 @@ function create_board(world_width, world_height, tile_size){
 		        var tileColor = '#000000';
 		        if(this.tileGrid.length - 1 >= leftTile+i){
 			        if(this.tileGrid[leftTile+i].length - 1 >= topTile+j){
-						context.drawImage(this.TILE_SPRITES[0], i*this.TILE_SIZE - tileOffsetX, j*this.TILE_SIZE - tileOffsetY, this.TILE_SIZE, this.TILE_SIZE);
+						context.drawImage(this.TILE_SPRITES[this.tileGrid[leftTile+i][topTile+j]], i*this.TILE_SIZE - tileOffsetX, j*this.TILE_SIZE - tileOffsetY, this.TILE_SIZE, this.TILE_SIZE);
 			        }
 		        }
 				/*
