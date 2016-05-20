@@ -21,6 +21,7 @@ assets.push('http://people.ucsc.edu/~djchambe/cm120/mc_down.png'); //character
 assets.push('http://people.ucsc.edu/~dursmith/cmpm120/seascorpion%20-%20selfishness_remade.png'); //enemy_a
 assets.push('http://people.ucsc.edu/~djchambe/cm120/dash_overlay.png'); //initial overlay
 assets.push('http://people.ucsc.edu/~djchambe/cm120/melee_overlay.png');
+assets.push('http://people.ucsc.edu/~dursmith/cmpm120/treestump_nest1.png')
 
 // Create and push the main stage.
 // This stage will be the main game, we will do this later
@@ -29,7 +30,8 @@ var main_stage = new stage();
 renderer.push(main_stage);
 
 //Set up the tile system
-var tiles = new create_board(900, 900, 64);
+var non_ash = [[10, 10, 1],[5, 5, 2]];
+var tiles = new create_board(900, 900, 64, non_ash);
 main_stage.push(tiles);
 
 // Start the game loop. 

@@ -8,6 +8,7 @@
  
 function create_board(world_width, world_height, tile_size, non_ash){
 	
+	var initial_generation = false;
 	this.depth = 100000;
 	this.TILE_TYPE_ASH = 0;
 	this.TILE_TYPE_VOID = 1;
@@ -94,11 +95,25 @@ function create_board(world_width, world_height, tile_size, non_ash){
   
         for(var i = 0; i < this.VIEW_TILE_WIDTH+1; i++){
   	        for(var j = 0; j < this.VIEW_TILE_HEIGHT+1; j++){
-		        var tileColor = '#000000';
+		        var tileSprite = this.TILE_SPRITES[0];
+		        var drawObs = false;
 		        if(this.tileGrid.length - 1 >= leftTile+i){
 			        if(this.tileGrid[leftTile+i].length - 1 >= topTile+j){
-						context.drawImage(this.TILE_SPRITES[this.tileGrid[leftTile+i][topTile+j]], i*this.TILE_SIZE - tileOffsetX, j*this.TILE_SIZE - tileOffsetY, this.TILE_SIZE, this.TILE_SIZE);
+						if(this.tileGrid[leftTile+i][topTile+j] == 1){
+							tileSprite = this.TILE_SPRITES[1];
+						} else if(this.tileGrid[leftTile+i][topTile+j] == 2){
+							drawObs = true;
+						}
+						
 			        }
+		        }
+		        
+		        context.drawImage(tileSprite, i*this.TILE_SIZE - tileOffsetX, j*this.TILE_SIZE - tileOffsetY, this.TILE_SIZE, this.TILE_SIZE);
+		        if(initial_generation == false){
+		            if (drawObs == true){
+		        	    var newObs = new obstacle(i*this.TILE_SIZE, j*this.TILE_SIZE, "test");
+		        	    main_stage.push(newObs);
+		            }
 		        }
 				/*
 				context.beginPath();
@@ -112,6 +127,8 @@ function create_board(world_width, world_height, tile_size, non_ash){
 				*/
             }
         }
+        
+        initial_generation = true;
     }
 	
 }

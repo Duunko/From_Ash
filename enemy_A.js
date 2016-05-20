@@ -124,6 +124,15 @@ function enemy_a(x, y){
 	}
 	
 	this.collide = function(target){
+		if (target.is_obstacle != undefined){
+				var response = new SAT.Response();
+				SAT.testPolygonPolygon(this.hitbox.col_data.toPolygon(), target.hitbox.col_data.toPolygon(), response);
+				console.log(response);
+				this.canvasX -= response.overlapV.x;
+				this.canvasY -= response.overlapV.y
+				this.mapX = toMapX(this.canvasX);
+				this.mapY = toMapY(this.canvasY);
+	    }
 		if(target == MC){
 			if(MC.dashing == true){
 				this.knockback();

@@ -363,9 +363,20 @@ function main_character(x, y ) {
     }
     
     this.collide = function(target){
+    	console.log(target);
 		if(this.dashing == false){
-			console.log("collided with enemy");
-			MC.on_hit(5);
+			if (target.is_obstacle != undefined){
+				var response = new SAT.Response();
+				SAT.testPolygonPolygon(this.hitbox.col_data.toPolygon(), target.hitbox.col_data.toPolygon(), response);
+				console.log(response);
+				this.canvasX -= response.overlapV.x;
+				this.canvasY -= response.overlapV.y
+				this.mapX = toMapX(this.canvasX);
+				this.mapY = toMapY(this.canvasY);
+			} else {
+			    console.log("collided with enemy");
+			    MC.on_hit(5);
+			}
 		}
 		else{
 			
