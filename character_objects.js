@@ -12,8 +12,7 @@
  */
 
 function main_character(x, y ) {
-	this.sprite = new Image();
-	this.sprite.src = assets[0];
+	this.sprite = assets[0];
 	this.sprite.width = 60;
 	this.sprite.height = 80;
 	
