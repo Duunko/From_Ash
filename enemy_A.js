@@ -15,8 +15,7 @@ function enemy_a(x, y){
 	
 	this.type = "enemy";
 	
-	this.sprite = new Image();
-	this.sprite.src = assets[1];
+	this.sprite = assets[1];
 	this.sprite.width = 50;
 	this.sprite.height = 50;
 	

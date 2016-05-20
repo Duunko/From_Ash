@@ -19,8 +19,7 @@ function overlay(x, y, spr, target){
 	
 	//create the overlay shade that will be used by the overlay
 	//to display the remaining cooldown
-	this.shade = new Image();
-	this.shade.src = 'http://people.ucsc.edu/~djchambe/cm120/overlay_cover.png';
+	this.shade = assets[5];
 	this.shade.width = this.sprite.width;
 	this.shade.height = this.sprite.height;
 	

@@ -17,11 +17,31 @@ var renderer = new renderer(canvas, context);
 
 //preload of assets
 var assets = new Array();
-assets.push('http://people.ucsc.edu/~djchambe/cm120/mc_down.png'); //character
-assets.push('http://people.ucsc.edu/~dursmith/cmpm120/seascorpion%20-%20selfishness_remade.png'); //enemy_a
-assets.push('http://people.ucsc.edu/~djchambe/cm120/dash_overlay.png'); //initial overlay
-assets.push('http://people.ucsc.edu/~djchambe/cm120/melee_overlay.png');
-assets.push('http://people.ucsc.edu/~dursmith/cmpm120/treestump_nest1.png')
+var im1 = new Image();
+im1.src = 'http://people.ucsc.edu/~djchambe/cm120/mc_down.png';
+var im2 = new Image();
+im2.src = 'http://people.ucsc.edu/~dursmith/cmpm120/seascorpion%20-%20selfishness_remade.png';
+var im3 = new Image();
+im3.src = 'http://people.ucsc.edu/~djchambe/cm120/dash_overlay.png';
+var im4 = new Image();
+im4.src = 'http://people.ucsc.edu/~djchambe/cm120/melee_overlay.png';
+var im5 = new Image();
+im5.src = 'http://people.ucsc.edu/~dursmith/cmpm120/treestump_nest1.png';
+var im6 = new Image();
+im6.src = 'http://people.ucsc.edu/~djchambe/cm120/overlay_cover.png';
+var im7 = new Image();
+im7.src = 'http://people.ucsc.edu/~djchambe/cm120/ash_tile.png';
+var im8 = new Image();
+im8.src = 'http://people.ucsc.edu/~dursmith/cmpm120/black_square.png';
+assets.push(im1); //Character
+assets.push(im2); //Enemy_a
+assets.push(im3); //Dash overlay
+assets.push(im4); //Melee overlay 
+assets.push(im5); //Obstacle sprite
+assets.push(im6); //Overlay rectangular cover
+assets.push(im7); //Ash tiles
+assets.push(im8); //Black square
+
 
 // Create and push the main stage.
 // This stage will be the main game, we will do this later
@@ -30,7 +50,7 @@ var main_stage = new stage();
 renderer.push(main_stage);
 
 //Set up the tile system
-var non_ash = [[10, 10, 1],[5, 5, 2]];
+var non_ash = [[10, 10, 1],[5, 5, 2], [8, 1, 1, 'y',5]];
 var tiles = new create_board(900, 900, 64, non_ash);
 main_stage.push(tiles);
 
@@ -168,13 +188,11 @@ function angleDeg(x1,y1,x2,y2){
 	main_stage.push(SC);
 
 	//overlays
-	dash_sprite = new Image();
-	dash_sprite.src = assets[2];
+	dash_sprite = assets[2];
 	dash_sprite.width = 64;
 	dash_sprite.height = 64;
 	
-	melee_sprite = new Image();
-	melee_sprite.src = assets[3];
+	melee_sprite = assets[3];
 	melee_sprite.width = 64;
 	melee_sprite.height = 64;
 	
