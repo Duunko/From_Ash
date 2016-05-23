@@ -27,8 +27,6 @@ function obstacle(x,y, type){
 	}
 	
 	this.draw = function(){
-		
-		console.log(this.sprite);
 		context.drawImage(this.sprite, this.canvasX, this.canvasY, 64, 64);
 		//context.fillStyle = '#CF0D42';
 		//context.fillRect(toCanvasX(this.hitbox.col_data.pos.x), toCanvasY(this.hitbox.col_data.pos.y), this.sprite.width, this.sprite.height);
@@ -42,7 +40,7 @@ function obstacle(x,y, type){
     	offsetY:32,
     	width:this.sprite.width,
     	height:this.sprite.height,
-    	col_data: new SAT.Box(new SAT.Vector(this.mapX, this.mapY), this.sprite.width, this.sprite.height)
+    	col_data: new SAT.Box(new SAT.Vector(this.mapX - 1, this.mapY - 1), this.sprite.width + 2, this.sprite.height + 2)
 	}
 	
 	this.collide = function(target){

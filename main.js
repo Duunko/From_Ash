@@ -50,8 +50,8 @@ var main_stage = new stage();
 renderer.push(main_stage);
 
 //Set up the tile system
-//var non_ash = [[10, 10, 1],[5, 5, 2], [8, 1, 1, 'y',5]];
-var tiles = new create_board(900, 900, 64);
+var non_ash = [[10, 10, 1],[5, 5, 2], [8, 1, 1, 'y',5]];
+var tiles = new create_board(900, 900, 64, non_ash);
 main_stage.push(tiles);
 
 // Start the game loop. 

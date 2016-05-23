@@ -59,6 +59,12 @@ function main_character(x, y ) {
 	this.dashYInc;
 	this.dashWindD = 1.25;
 	
+	this.recently_checked = false;
+	this.can_move_left = true;
+	this.can_move_right = true;
+	this.can_move_down = true;
+	this.can_move_up = true;
+	
 	this.hitbox = {
     	active:true,
     	shape:'rectangle',
@@ -73,6 +79,15 @@ function main_character(x, y ) {
 
 	
 	this.update = function(){
+		
+		if(this.recently_checked == true){
+			this.recently_checked = false;
+		} else {
+			this.can_move_down = true;
+			this.can_move_up = true;
+			this.can_move_left = true;
+			this.can_move_right = true;
+		}
 	   
 	   //console.log(this.mapX+" , "+this.mapY);
 	   //console.log("left: "+tiles.left);
@@ -86,45 +101,85 @@ function main_character(x, y ) {
 			this.dashYInc = 0;
 		   
 			if (keysPressed[RIGHT_KEY_CODE] == true) {
-				if(this.canvasX + this.sprite.width <= canvas.width){
-					//this.canvasX += this.speed;
-					if(this.canvasXSpeed < this.speed){ this.canvasXSpeed += this.speedInc }
+				if(this.can_move_right == true){
+				    if(this.canvasX + this.sprite.width <= canvas.width){
+					    //this.canvasX += this.speed;
+					    if(this.canvasXSpeed < this.speed){ this.canvasXSpeed += this.speedInc }
+				    }
+				} else {
+					this.canvasXSpeed = 0;
 				}
 			}
 		   
 			else {
-			   if(this.canvasXSpeed > 0){ this.canvasXSpeed -= this.speedInc }
+			   if(this.canvasXSpeed > 0){ 
+			   	   if(this.can_move_right == true){
+			           this.canvasXSpeed -= this.speedInc 
+			       } else {
+			       	   this.canvasXSpeed = 0;
+			       }
+			   }
 			}
 		   
 			if (keysPressed[LEFT_KEY_CODE] == true) {
-				if(this.canvasX > 0){
-					//this.canvasX -= this.speed;
-					if(this.canvasXSpeed > -this.speed){ this.canvasXSpeed -= this.speedInc }
+				if(this.can_move_left == true){
+				    if(this.canvasX > 0){
+					    //this.canvasX -= this.speed;
+					    if(this.canvasXSpeed > -this.speed){ this.canvasXSpeed -= this.speedInc; console.log(this.canvasXSpeed);}
+				    }
+				} else {
+					this.canvasXSpeed = 0;
 				}
 			}
 		   
 			else {
-			   if(this.canvasXSpeed < 0){ this.canvasXSpeed += this.speedInc }
+			   if(this.canvasXSpeed < 0){ 
+			   	   if(this.can_move_left == true){
+			   	       this.canvasXSpeed += this.speedInc;
+			   	   } else {
+			   	   	   this.canvasXSpeed = 0;
+			   	   }
+			   	}
 			}
 		   
 			if (keysPressed[DOWN_KEY_CODE] == true) {
-				if(this.canvasY + this.sprite.height < canvas.height){
-					//this.canvasY += this.speed;
-					if(this.canvasYSpeed < this.speed){ this.canvasYSpeed += this.speedInc }
+				if (this.can_move_down == true){
+				    if(this.canvasY + this.sprite.height < canvas.height){
+					    //this.canvasY += this.speed;
+					    if(this.canvasYSpeed < this.speed){ this.canvasYSpeed += this.speedInc }
+				    }
+				} else {
+					this.canvasYSpeed = 0;
 				}
 			}
 			else{
-				if(this.canvasYSpeed > 0){ this.canvasYSpeed -= this.speedInc }
+				if(this.canvasYSpeed > 0){ 
+					if (this.can_move_down == true){
+					    this.canvasYSpeed -= this.speedInc 
+					} else {
+						this.canvasYSpeed = 0;
+					}
+			   }
 			}
 			
 			if (keysPressed[UP_KEY_CODE] == true) {
-				if(this.canvasY > 0){
-					//this.canvasY -= this.speed;
-					if(this.canvasYSpeed > -this.speed){ this.canvasYSpeed -= this.speedInc }
+				if (this.can_move_up == true){
+				    if(this.canvasY > 0){
+					    //this.canvasY -= this.speed;
+					    if(this.canvasYSpeed > -this.speed){ this.canvasYSpeed -= this.speedInc }
+				    }
+				} else {
+					this.canvasYSpeed = 0;
 				}
 			}
 			else{
-				if(this.canvasYSpeed  < 0){ this.canvasYSpeed += this.speedInc }
+				if(this.canvasYSpeed  < 0){ 
+					if (this.can_move_up == true){
+					    this.canvasYSpeed += this.speedInc;
+					} else {
+						this.canvasYSpeed = 0;
+					}
+			    }
 			}
 	    }
 
@@ -145,9 +200,11 @@ function main_character(x, y ) {
 	   
 	    //if within bounds add directional changes
 	    if(this.canvasX > 0 && this.canvasXSpeed < 0){
+	    	console.log(this.canvasXSpeed);
 			this.canvasX += this.canvasXSpeed;
 		}
 		if(this.canvasX + this.sprite.width < canvas.width && this.canvasXSpeed > 0){
+			console.log(this.canvasXSpeed);
 			this.canvasX += this.canvasXSpeed;
 		}
 		
@@ -275,6 +332,7 @@ function main_character(x, y ) {
 			context.fillStyle = 'white';
 		} 
 		context.fillText("Hit Points: "+this.hp, 10, 100);
+		
     }
     
     this.attack = function(){
@@ -362,16 +420,36 @@ function main_character(x, y ) {
     }
     
     this.collide = function(target){
-    	console.log(target);
 		if(this.dashing == false){
 			if (target.is_obstacle != undefined){
+				if(this.recently_checked == false){
 				var response = new SAT.Response();
 				SAT.testPolygonPolygon(this.hitbox.col_data.toPolygon(), target.hitbox.col_data.toPolygon(), response);
-				console.log(response);
-				this.canvasX -= response.overlapV.x;
-				this.canvasY -= response.overlapV.y
-				this.mapX = toMapX(this.canvasX);
-				this.mapY = toMapY(this.canvasY);
+				
+				this.mapX -= response.overlapV.x;
+				this.mapY -= response.overlapV.y;
+				 
+				
+				if(response.overlapV.x > 0){
+					this.recently_checked = true;
+					this.can_move_right = false;
+				} else if(response.overlapV.x < 0){
+					this.recently_checked = true;
+					this.can_move_left = false;
+				}
+				if (response.overlapV.y > 0){
+					this.recently_checked = true;
+					this.can_move_down = false;
+				} else if(response.overlapV.y < 0){
+					this.recently_checked = true;
+					this.can_move_up = false;
+				}
+				}
+				
+				this.canvasX = toCanvasX(this.mapX);
+				this.canvasY = toCanvasY(this.mapY);
+				
+			
 			} else {
 			    console.log("collided with enemy");
 			    MC.on_hit(5);
