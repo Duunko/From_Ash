@@ -15,7 +15,7 @@ function enemy_a(x, y){
 	
 	this.type = "enemy";
 	
-	this.sprite = assets[1];
+	this.sprite = assets["sScorpion"];
 	this.sprite.width = 50;
 	this.sprite.height = 50;
 	
@@ -126,7 +126,6 @@ function enemy_a(x, y){
 		if (target.is_obstacle != undefined){
 				var response = new SAT.Response();
 				SAT.testPolygonPolygon(this.hitbox.col_data.toPolygon(), target.hitbox.col_data.toPolygon(), response);
-				console.log(response);
 				this.canvasX -= response.overlapV.x;
 				this.canvasY -= response.overlapV.y
 				this.mapX = toMapX(this.canvasX);
@@ -134,7 +133,6 @@ function enemy_a(x, y){
 	   } else if(target.type == "enemy"){
 	   	        var response = new SAT.Response();
 				SAT.testPolygonPolygon(this.hitbox.col_data.toPolygon(), target.hitbox.col_data.toPolygon(), response);
-				console.log(response);
 				this.canvasX -= response.overlapV.x;
 				this.canvasY -= response.overlapV.y
 				this.mapX = toMapX(this.canvasX);

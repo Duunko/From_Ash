@@ -9,11 +9,10 @@ function obstacle(x,y, type){
 	this.canvasX = toCanvasX(this.mapX);
 	this.canvasY = toCanvasY(this.mapY);
     this.type = type;
-    console.log(type);
     if(this.type == 'environment'){
-        this.sprite = assets[4];
+        this.sprite = assets["enviro_tree"];
     } else {
-    	this.sprite = assets[7];
+    	this.sprite = assets["black_square"];
     }
 
 	this.sprite.width = 64;

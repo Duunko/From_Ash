@@ -16,8 +16,8 @@ function create_board(world_width, world_height, tile_size, non_ash){
 
 	this.NUM_TILE_TYPES = 3;
 	
-	sprite_ash = assets[6];
-	sprite_darkness = assets[7];
+	sprite_ash = assets["tile_ash"];
+	sprite_darkness = assets["black_square"];
 	
 	this.TILE_SPRITES = [sprite_ash, sprite_darkness];
 
@@ -121,7 +121,6 @@ function create_board(world_width, world_height, tile_size, non_ash){
 		        context.drawImage(tileSprite, i*this.TILE_SIZE - tileOffsetX, j*this.TILE_SIZE - tileOffsetY, this.TILE_SIZE, this.TILE_SIZE);
 		        if(initial_generation == false){
 		            if (drawObs == true){
-		            	console.log(obsType);
 		        	    var newObs = new obstacle(i*this.TILE_SIZE, j*this.TILE_SIZE, obsType);
 		        	    main_stage.push(newObs);
 		            }
