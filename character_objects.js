@@ -16,6 +16,14 @@ function main_character(x, y ) {
 	this.sprite.width = 60;
 	this.sprite.height = 80;
 	
+	this.left_walk = new Array;
+	this.left_walk.push(assets[0]);
+	this.left_walk.push(assets[1]);
+	
+	this.image_index = 0;
+	this.image_speed_max = 60;  
+	this.image_speed_counter = 0;
+	
 	this.fp = 30;
 	this.nextFp = this.fp;
 	
@@ -274,7 +282,9 @@ function main_character(x, y ) {
 	}//Update
 	
     this.draw = function() {
-    	context.drawImage(this.sprite, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
+    	//context.drawImage(this.sprite, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
+		draw_animated_sprite(this.left_walk, this, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
+		
 		//drawing imaginary line from corners to mouse coordinates
 		var mADTR = angleDeg(topRight.x,topRight.y,mouseX,mouseY);
 		var mADTL = angleDeg(topLeft.x,topLeft.y,mouseX,mouseY);

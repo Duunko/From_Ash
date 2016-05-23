@@ -9,7 +9,7 @@
 //image_speed_max   (The gap between each image switching to the next in the animation)
 //image_speed_counter
 
-function draw_animated_sprite(spr_arr, owner, cX, cY, spr_w, spw_h){
+function draw_animated_sprite(spr_arr, owner, cX, cY, spr_w, spr_h){
 	
 	if(owner.image_speed_counter > 0){
 		owner.image_speed_counter--;
