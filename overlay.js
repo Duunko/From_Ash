@@ -19,7 +19,7 @@ function overlay(x, y, spr, target){
 	
 	//create the overlay shade that will be used by the overlay
 	//to display the remaining cooldown
-	this.shade = assets[5];
+	this.shade = assets["gui_shade"];
 	this.shade.width = this.sprite.width;
 	this.shade.height = this.sprite.height;
 	

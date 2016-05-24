@@ -17,33 +17,84 @@ var renderer = new renderer(canvas, context);
 
 //preload of assets
 var assets = new Array();
-var im1 = new Image();
-im1.src = 'http://people.ucsc.edu/~djchambe/cm120/mc_down.png';
-var im2 = new Image();
-im2.src = 'http://people.ucsc.edu/~dursmith/cmpm120/seascorpion%20-%20selfishness_remade.png';
-var im3 = new Image();
-im3.src = 'http://people.ucsc.edu/~djchambe/cm120/dash_overlay.png';
-var im4 = new Image();
-im4.src = 'http://people.ucsc.edu/~djchambe/cm120/melee_overlay.png';
-var im5 = new Image();
-im5.src = 'http://people.ucsc.edu/~dursmith/cmpm120/treestump_nest1.png';
-var im6 = new Image();
-im6.src = 'http://people.ucsc.edu/~djchambe/cm120/overlay_cover.png';
-var im7 = new Image();
-im7.src = 'http://people.ucsc.edu/~djchambe/cm120/ash_tile.png';
-var im8 = new Image();
-im8.src = 'http://people.ucsc.edu/~dursmith/cmpm120/black_square.png';
-var im9 = new Image();
-im9.src = 'http://people.ucsc.edu/~dursmith/cmpm120/decay.png';
-assets.push(im1); //Character
-assets.push(im2); //Enemy_a
-assets.push(im3); //Dash overlay
-assets.push(im4); //Melee overlay 
-assets.push(im5); //Obstacle sprite
-assets.push(im6); //Overlay rectangular cover
-assets.push(im7); //Ash tiles
-assets.push(im8); //Black square
-assets.push(im9); //Enemy_b
+
+
+var mc_up_1 = new Image();
+mc_up_1.src = 'images/walk_top/phoenix_away1.png';
+var mc_up_2 = new Image();
+mc_up_2.src = 'images/walk_top/phoenix_away2.png';
+var mc_up_3 = new Image();
+mc_up_3.src = 'images/walk_top/phoenix_away3.png';
+
+var mc_down_1 = new Image();
+mc_down_1.src = 'images/walk_down/phoenix_walkforward1.png';
+var mc_down_2 = new Image();
+mc_down_2.src = 'images/walk_down/phoenix_walkforward2.png';
+var mc_down_3 = new Image();
+mc_down_3.src = 'images/walk_down/phoenix_walkforward3.png';
+
+var mc_right_1 = new Image();
+mc_right_1.src = 'images/walk_right/phoenix_walkright1.png';
+var mc_right_2 = new Image();
+mc_right_2.src = 'images/walk_right/phoenix_walkright2.png';
+var mc_right_3 = new Image();
+mc_right_3.src = 'images/walk_right/phoenix_walkright3.png';
+
+var mc_left_1 = new Image();
+mc_left_1.src = 'images/walk_left/phoenix_walkleft1.png';
+var mc_left_2 = new Image();
+mc_left_2.src = 'images/walk_left/phoenix_walkleft2.png';
+var mc_left_3 = new Image();
+mc_left_3.src = 'images/walk_left/phoenix_walkleft3.png';
+
+var sScorpion = new Image();
+sScorpion.src = 'images/enemies/seascorpion.png';
+
+var gui_dash = new Image();
+gui_dash.src = 'images/gui/dash_overlay.png';
+var gui_melee = new Image();
+gui_melee.src = 'images/gui/melee_overlay.png';
+
+var enviro_tree = new Image();
+enviro_tree.src = 'images/environment/treestump_nest1.png';
+
+var gui_shade = new Image();
+gui_shade.src = 'images/gui/overlay_cover.png';
+
+var tile_ash = new Image();
+tile_ash.src = 'images/environment/ash_tile.png';
+
+var black_square = new Image();
+black_square.src = 'images/black_square.png';
+
+assets.push(mc_up_1);     //0
+
+assets["mc_up_1"] = mc_up_1;
+assets["mc_up_2"] = mc_up_2;
+assets["mc_up_3"] = mc_up_3;
+
+assets["mc_down_1"] = mc_down_1;
+assets["mc_down_2"] = mc_down_2;
+assets["mc_down_3"] = mc_down_3;
+
+assets["mc_right_1"] = mc_right_1;
+assets["mc_right_2"] = mc_right_2;
+assets["mc_right_3"] = mc_right_3;
+
+assets["mc_left_1"] = mc_left_1;
+assets["mc_left_2"] = mc_left_2;
+assets["mc_left_3"] = mc_left_3;
+
+assets["sScorpion"] = sScorpion;
+
+assets["gui_dash"] = gui_dash;
+assets["gui_melee"] = gui_melee;
+assets["gui_shade"] = gui_shade;
+
+assets["enviro_tree"] = enviro_tree;
+assets["tile_ash"] = tile_ash;
+
+assets["black_square"] = black_square;
 
 
 // Create and push the main stage.
@@ -191,11 +242,11 @@ function angleDeg(x1,y1,x2,y2){
 	main_stage.push(SC);
 
 	//overlays
-	dash_sprite = assets[2];
+	dash_sprite = assets["gui_dash"];
 	dash_sprite.width = 64;
 	dash_sprite.height = 64;
 	
-	melee_sprite = assets[3];
+	melee_sprite = assets["gui_melee"];
 	melee_sprite.width = 64;
 	melee_sprite.height = 64;
 	
@@ -211,11 +262,11 @@ function angleDeg(x1,y1,x2,y2){
 	MC.fp = Math.floor(MC.nextFp);
 	main_stage.remove_enemies();
 	
-	EN1 = new enemy_a(100,100);
-	EN2 = new enemy_a(200, 200);
+	//EN1 = new enemy_a(100,100);
+	//EN2 = new enemy_a(200, 200);
 	
-	main_stage.push(EN1);
-	main_stage.push(EN2);
+	//main_stage.push(EN1);
+	//main_stage.push(EN2);
  }
 
 start_game();
