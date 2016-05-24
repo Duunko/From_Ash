@@ -33,6 +33,8 @@ var im7 = new Image();
 im7.src = 'http://people.ucsc.edu/~djchambe/cm120/ash_tile.png';
 var im8 = new Image();
 im8.src = 'http://people.ucsc.edu/~dursmith/cmpm120/black_square.png';
+var im9 = new Image();
+im9.src = 'http://people.ucsc.edu/~dursmith/cmpm120/decay.png';
 assets.push(im1); //Character
 assets.push(im2); //Enemy_a
 assets.push(im3); //Dash overlay
@@ -41,6 +43,7 @@ assets.push(im5); //Obstacle sprite
 assets.push(im6); //Overlay rectangular cover
 assets.push(im7); //Ash tiles
 assets.push(im8); //Black square
+assets.push(im9); //Enemy_b
 
 
 // Create and push the main stage.
@@ -51,7 +54,7 @@ renderer.push(main_stage);
 
 //Set up the tile system
 var non_ash = [[10, 10, 1],[5, 5, 2], [8, 1, 1, 'y',5]];
-var tiles = new create_board(900, 900, 64, non_ash);
+var tiles = new create_board(1280, 1280, 64, non_ash);
 main_stage.push(tiles);
 
 // Start the game loop. 
