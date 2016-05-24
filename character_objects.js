@@ -21,8 +21,23 @@ function main_character(x, y ) {
 	this.up_walk.push(assets["mc_up_2"]);
 	this.up_walk.push(assets["mc_up_3"]);
 	
+	this.down_walk = new Array;
+	this.down_walk.push(assets["mc_down_1"]);
+	this.down_walk.push(assets["mc_down_2"]);
+	this.down_walk.push(assets["mc_down_3"]);
+	
+	this.right_walk = new Array;
+	this.right_walk.push(assets["mc_right_1"]);
+	this.right_walk.push(assets["mc_right_2"]);
+	this.right_walk.push(assets["mc_right_3"]);
+	
+	this.left_walk = new Array;
+	this.left_walk.push(assets["mc_left_1"]);
+	this.left_walk.push(assets["mc_left_2"]);
+	this.left_walk.push(assets["mc_left_3"]);
+	
 	this.image_index = 0;
-	this.image_speed_max = 60;  
+	this.image_speed_max = 7;  
 	this.image_speed_counter = 0;
 	
 	this.active_animation = this.up_walk;
@@ -90,6 +105,20 @@ function main_character(x, y ) {
 
 	
 	this.update = function(){
+		
+		//animation handlers
+		if(this.look_direc == 'west' && this.active_animation != this.left_walk){
+			this.active_animation = this.left_walk;
+		}
+		if(this.look_direc == 'south' && this.active_animation != this.down_walk){
+			this.active_animation = this.down_walk;
+		}
+		if(this.look_direc == 'north' && this.active_animation != this.up_walk){
+			this.active_animation = this.up_walk;
+		}
+		if(this.look_direc == 'east' && this.active_animation != this.right_walk){
+			this.active_animation = this.right_walk;
+		}
 		
 		if(this.recently_checked == true){
 			this.recently_checked = false;

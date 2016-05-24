@@ -21,9 +21,30 @@ var assets = new Array();
 var mc_up_1 = new Image();
 mc_up_1.src = 'images/walk_top/phoenix_away1.png';
 var mc_up_2 = new Image();
-mc_up_2.src = 'images/walk_top/phoenix_away4.png';
+mc_up_2.src = 'images/walk_top/phoenix_away2.png';
 var mc_up_3 = new Image();
-mc_up_3.src = 'images/walk_top/phoenix_away5.png';
+mc_up_3.src = 'images/walk_top/phoenix_away3.png';
+
+var mc_down_1 = new Image();
+mc_down_1.src = 'images/walk_down/phoenix_walkforward1.png';
+var mc_down_2 = new Image();
+mc_down_2.src = 'images/walk_down/phoenix_walkforward2.png';
+var mc_down_3 = new Image();
+mc_down_3.src = 'images/walk_down/phoenix_walkforward3.png';
+
+var mc_right_1 = new Image();
+mc_right_1.src = 'images/walk_right/phoenix_walkright1.png';
+var mc_right_2 = new Image();
+mc_right_2.src = 'images/walk_right/phoenix_walkright2.png';
+var mc_right_3 = new Image();
+mc_right_3.src = 'images/walk_right/phoenix_walkright3.png';
+
+var mc_left_1 = new Image();
+mc_left_1.src = 'images/walk_left/phoenix_walkleft1.png';
+var mc_left_2 = new Image();
+mc_left_2.src = 'images/walk_left/phoenix_walkleft2.png';
+var mc_left_3 = new Image();
+mc_left_3.src = 'images/walk_left/phoenix_walkleft3.png';
 
 var sScorpion = new Image();
 sScorpion.src = 'images/enemies/seascorpion.png';
@@ -50,6 +71,18 @@ assets.push(mc_up_1);     //0
 assets["mc_up_1"] = mc_up_1;
 assets["mc_up_2"] = mc_up_2;
 assets["mc_up_3"] = mc_up_3;
+
+assets["mc_down_1"] = mc_down_1;
+assets["mc_down_2"] = mc_down_2;
+assets["mc_down_3"] = mc_down_3;
+
+assets["mc_right_1"] = mc_right_1;
+assets["mc_right_2"] = mc_right_2;
+assets["mc_right_3"] = mc_right_3;
+
+assets["mc_left_1"] = mc_left_1;
+assets["mc_left_2"] = mc_left_2;
+assets["mc_left_3"] = mc_left_3;
 
 assets["sScorpion"] = sScorpion;
 
@@ -198,12 +231,12 @@ function angleDeg(x1,y1,x2,y2){
  
  function start_game(){
 	MC = new main_character(tiles.playerX, tiles.playerY);
-	EN1 = new enemy_a(100,100);
-	EN2 = new enemy_a(200, 200);
+	//EN1 = new enemy_a(100,100);
+	//EN2 = new enemy_a(200, 200);
 	SC = new sound_control();
 	main_stage.push(MC);
-	main_stage.push(EN1);
-	main_stage.push(EN2);
+	//main_stage.push(EN1);
+	//main_stage.push(EN2);
 	main_stage.push(SC);
 	main_stage.push(SC);
 
@@ -228,11 +261,11 @@ function angleDeg(x1,y1,x2,y2){
 	MC.fp = Math.floor(MC.nextFp);
 	main_stage.remove_enemies();
 	
-	EN1 = new enemy_a(100,100);
-	EN2 = new enemy_a(200, 200);
+	//EN1 = new enemy_a(100,100);
+	//EN2 = new enemy_a(200, 200);
 	
-	main_stage.push(EN1);
-	main_stage.push(EN2);
+	//main_stage.push(EN1);
+	//main_stage.push(EN2);
  }
 
 start_game();
