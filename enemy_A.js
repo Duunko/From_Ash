@@ -34,6 +34,8 @@ function enemy_a(x, y){
 	this.mapXSpeed = 0;
 	this.mapYSpeed = 0;
 	
+	this.path = 0;
+	
 	this.self = this;
 	
 	this.stunned = false;
@@ -98,6 +100,17 @@ function enemy_a(x, y){
 		context.rotate(this.rotateEnemy()*(Math.PI/180) + Math.PI/2);
 		context.drawImage(this.sprite, -this.sprite.width/2, -this.sprite.height/2, this.sprite.width, this.sprite.height);
 		context.restore();
+		
+		
+	}
+	
+	this.aStar = function(target){
+		var map = tiles.tileGrid;
+		var value_map = [];
+		var tlocX = Math.floor(target.mapX/64);
+		var locX = Math.floor(this.mapX / 64);
+		var locY = Math.floor(this.mapY / 64);
+		
 		
 		
 	}
@@ -210,9 +223,15 @@ function enemy_a(x, y){
     	col_data: new SAT.Box(new SAT.Vector(this.mapX, this.mapY), this.sprite.width, this.sprite.height)
     }
     
-    this.distanceToObject = function(target){
+    this.distanceToObject = function(target, offX, offY){
 	    var slopeX = target.mapX - this.mapX;
+	    if(offX != undefined){
+	    	slopeX += offX * 32;
+	    }
 	    var slopeY = target.mapY - this.mapY;
+	    if(offY != undefined){
+	    	slopeY += offY * 32;
+	    }
 	    var distance = Math.sqrt(Math.pow((target.mapX - this.mapX), 2)
 								+ Math.pow((target.mapY - this.mapY), 2));
 	    return distance;

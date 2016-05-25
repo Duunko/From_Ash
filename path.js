@@ -2,17 +2,19 @@
  * @author Duunko
  */
 
-function path(bound_obj, x1, y1, x2, y2, x3, y3){
+function path(bound_obj, argar){
 	this.obj = bound_obj;
-	this.mapX = x1;
-	this.mapY = y1;
-	this.x2 = x2;
-	this.y2 = y2;
-	this.x3 = x3;
-	this.y3 = y3;
+	this.args = argar;
+	this.argind = 0;
+	this.point = new SAT.Vector(this.args[this.argind], this.args[this.argind + 1]);
+	this.argind += 2;
+	this.mapX = this.point.pos.x;
+	this.mapY = this.point.pos.y;
 	
 	this.next = function(){
-		this.mapX = this.x2;
-		this.mapY = this.y2;
+		this.point = new SAT.Vector(this.args[argind], this.args[argind + 1]);
+	    this.argind += 2;
+	    this.mapX = this.point.pos.x;
+	    this.mapY = this.point.pos.y;
 	}
 }
