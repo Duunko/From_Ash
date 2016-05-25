@@ -16,16 +16,47 @@ function main_character(x, y ) {
 	this.sprite.width = 60;
 	this.sprite.height = 80;
 	
+	this.up_walk = new Array;
+	this.up_walk.push(assets["mc_up_1"]);
+	this.up_walk.push(assets["mc_up_2"]);
+	this.up_walk.push(assets["mc_up_3"]);
+	
+	this.down_walk = new Array;
+	this.down_walk.push(assets["mc_down_1"]);
+	this.down_walk.push(assets["mc_down_2"]);
+	this.down_walk.push(assets["mc_down_3"]);
+	
+	this.right_walk = new Array;
+	this.right_walk.push(assets["mc_right_1"]);
+	this.right_walk.push(assets["mc_right_2"]);
+	this.right_walk.push(assets["mc_right_3"]);
+	
+	this.left_walk = new Array;
+	this.left_walk.push(assets["mc_left_1"]);
+	this.left_walk.push(assets["mc_left_2"]);
+	this.left_walk.push(assets["mc_left_3"]);
+	
+	this.image_index = 0;
+	this.image_speed_max = 7;  
+	this.image_speed_counter = 0;
+	
+	this.active_animation = this.up_walk;
+	this.animated = false;
+	
 	this.fp = 30;
 	this.nextFp = this.fp;
 	
 	this.meleeCost = 2;
-	this.meleeCoolMax = 50;
+	this.meleeCoolMax = 30;
 	this.meleeCool = 0;
 	
 	this.dashCost = 4;
-	this.dashCoolMax = 200;
+	this.dashCoolMax = 150;
 	this.dashCool = 0;
+	
+	this.beamCost = 8;
+	this.beamCoolMax = 200;
+	this.beamCool = 0;
 	
 	this.hpMax = 40;
 	this.hp = this.hpMax;
@@ -52,12 +83,19 @@ function main_character(x, y ) {
 	
 	this.can_melee = true;
 	this.can_dash = true;
+	this.can_beam = true;
 	
 	this.dashing = false;
 	this.dashTimer = 25;     //affects the distance
 	this.dashXInc;
 	this.dashYInc;
 	this.dashWindD = 1.25;
+	
+	this.beaming = false;
+	this.beamLength = 500;
+	this.beamGerth = 10;
+	this.beamDuration = 50;
+	this.beamTimer = this.beamDuration;
 	
 	this.recently_checked = false;
 	this.can_move_left = true;
@@ -80,6 +118,28 @@ function main_character(x, y ) {
 	
 	this.update = function(){
 		
+		//animation handlers
+		if(this.look_direc == 'west' && this.active_animation != this.left_walk){
+			this.active_animation = this.left_walk;
+		}
+		if(this.look_direc == 'south' && this.active_animation != this.down_walk){
+			this.active_animation = this.down_walk;
+		}
+		if(this.look_direc == 'north' && this.active_animation != this.up_walk){
+			this.active_animation = this.up_walk;
+		}
+		if(this.look_direc == 'east' && this.active_animation != this.right_walk){
+			this.active_animation = this.right_walk;
+		}
+		
+		if(this.canvasXSpeed == 0 && this.canvasYSpeed == 0){
+			this.animated = false;
+			this.image_index = 0;
+		}
+		else{
+			this.animated = true;
+		}
+		
 		if(this.recently_checked == true){
 			this.recently_checked = false;
 		} else {
@@ -88,12 +148,10 @@ function main_character(x, y ) {
 			this.can_move_left = true;
 			this.can_move_right = true;
 		}
-	   
-	   //console.log(this.mapX+" , "+this.mapY);
-	   //console.log("left: "+tiles.left);
-	   //console.log(toMapX(this.canvasX)+" , "+toMapY(this.canvasY));
-	   //console.log("this.xSpeed "+this.canvasXSpeed+ " ,this.ySpeed "+this.canvasYSpeed);
-	   //console.log(MC.canvasX+" , "+MC.canvasY);
+		
+		if (keysPressed[BEAM_KEY_CODE] == true){
+			MC.beam();
+		}
 	   
 	    if(this.dashing == false){
 			//reset the dashing values
@@ -125,7 +183,7 @@ function main_character(x, y ) {
 				if(this.can_move_left == true){
 				    if(this.canvasX > 0){
 					    //this.canvasX -= this.speed;
-					    if(this.canvasXSpeed > -this.speed){ this.canvasXSpeed -= this.speedInc; console.log(this.canvasXSpeed);}
+					    if(this.canvasXSpeed > -this.speed){ this.canvasXSpeed -= this.speedInc;}
 				    }
 				} else {
 					this.canvasXSpeed = 0;
@@ -200,11 +258,9 @@ function main_character(x, y ) {
 	   
 	    //if within bounds add directional changes
 	    if(this.canvasX > 0 && this.canvasXSpeed < 0){
-	    	console.log(this.canvasXSpeed);
 			this.canvasX += this.canvasXSpeed;
 		}
 		if(this.canvasX + this.sprite.width < canvas.width && this.canvasXSpeed > 0){
-			console.log(this.canvasXSpeed);
 			this.canvasX += this.canvasXSpeed;
 		}
 		
@@ -244,7 +300,6 @@ function main_character(x, y ) {
 		        	this.attack_hitbox.xy2 = findc2(this.attack_hitbox);
 		    }
 		    var dat = new SAT.Vector(MC.canvasX + (MC.sprite.width / 2), MC.canvasY + (MC.sprite.height / 2));
-		    //console.log(dat);
 		    this.attack_hitbox.col_data = new SAT.Polygon(new SAT.Vector(), [
 		    this.attack_hitbox.xy1, this.attack_hitbox.xy2, 
 		    dat]); 
@@ -257,7 +312,6 @@ function main_character(x, y ) {
 		//-----------------------TIMERS-------------------------------------------------------------------------
 		if(this.safetyTimer > 0){
 			this.safetyTimer--;
-			console.log("invulnerable");
 		}
 		else{
 			this.vulnerable = true;
@@ -271,10 +325,36 @@ function main_character(x, y ) {
 			this.meleeCool--;
 		}
 		
+		if(this.beaming == true){
+			if(this.beamTimer > 0){
+				this.beamTimer--;
+			}
+			else{
+				this.beaming = false;
+				this.beamTimer = this.beamDuration;
+			}
+		}
+		
 	}//Update
 	
     this.draw = function() {
-    	context.drawImage(this.sprite, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
+    	//drawing the player sprite
+		if(this.animated == true){
+			draw_animated_sprite(this.active_animation, this, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
+		}
+		else{
+			context.drawImage(this.active_animation[this.image_index], this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
+		}
+		
+		//if beam active, draw beam
+		if(this.beaming == true){
+			context.beginPath();
+			context.moveTo(this.beamStartX, this.beamStartY);
+			context.lineTo(this.beamEndX, this.beamEndY);
+			context.lineWidth = this.beamGerth;
+			context.stroke();
+		}
+		
 		//drawing imaginary line from corners to mouse coordinates
 		var mADTR = angleDeg(topRight.x,topRight.y,mouseX,mouseY);
 		var mADTL = angleDeg(topLeft.x,topLeft.y,mouseX,mouseY);
@@ -364,7 +444,6 @@ function main_character(x, y ) {
 			
 			this.fp -= this.meleeCost;
 			this.meleeCool = this.meleeCoolMax;
-			console.log(this.meleeCool);
 		}
     }
     
@@ -393,12 +472,33 @@ function main_character(x, y ) {
 		}
 	}
 	
+	this.beam = function(){
+		console.log("Beam called");
+		if(this.dashing == false && this.fp >= this.beamCost){
+			//Create a beam of set length in the direction
+			//of mousex and mousey
+			this.beaming = true;
+			
+			this.beamStartX = this.canvasX + this.sprite.width/2;
+			this.beamStartY = this.canvasY + this.sprite.height/2;
+			
+			var slopeX = mouseX - this.beamStartX;
+			var slopeY = mouseY - this.beamStartY;
+			var distance = Math.sqrt(Math.pow((mouseX - this.beamStartX), 2)
+								 + Math.pow((mouseY - this.beamStartY), 2));
+			
+			var beamXInc = slopeX / distance;
+			var beamYInc = slopeY / distance;
+			
+			this.beamEndX = this.beamStartX + beamXInc * this.beamLength;
+			this.beamEndY = this.beamStartY + beamYInc * this.beamLength;
+		}
+	}
+	
 	this.on_hit = function(dmg){
 		if(this.vulnerable == true){
 			if(this.hp > 0){
 				this.hp -= dmg;
-				console.log("MC took "+dmg+" damage");
-				console.log("New health is "+this.hp);
 				
 				this.safetyTimer = this.safetyTimerMax;
 				this.vulnerable = false;
@@ -411,7 +511,6 @@ function main_character(x, y ) {
 	
 	this.die = function(){
 		//reset the game
-		console.log("you are dead");
 		reset_game();
 	}
 	
@@ -451,7 +550,6 @@ function main_character(x, y ) {
 				
 			
 			} else {
-			    console.log("collided with enemy");
 			    MC.on_hit(5);
 			}
 		}

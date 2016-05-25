@@ -111,10 +111,6 @@ function game_draw(renderer) {
 	renderer.ctx.fillRect(0, 0, renderer.can.width, renderer.can.height);
 	renderer.ctx.fill();
 	
-	if(keysPressed[ACTION_KEY_CODE] == true){
-		create_board();
-	}
-	
 	//this draws the tiles to the floor
 	
 	for(var i = 0; i < renderer.stages.length; i++){
@@ -143,6 +139,9 @@ function game_draw(renderer) {
 		    				continue;
 		    			}
 		    			//console.log('hitbox');
+		    			if(renderer.stages[i].owned_objects[k].hitbox.active == false){
+		    				continue;
+		    			}
 		    	
 		    			var check1 = renderer.stages[i].owned_objects[j].hitbox.shape;
 		    			var check2 = renderer.stages[i].owned_objects[k].hitbox.shape;

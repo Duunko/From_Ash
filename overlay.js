@@ -19,19 +19,12 @@ function overlay(x, y, spr, target){
 	
 	//create the overlay shade that will be used by the overlay
 	//to display the remaining cooldown
-	this.shade = assets[5];
+	this.shade = new Image();
+	this.shade.src = assets["gui_shade"].src;
 	this.shade.width = this.sprite.width;
 	this.shade.height = this.sprite.height;
 	
 	this.update = function(){
-		if(target == "dash"){
-			if(MC.fp > MC.dashCost){
-				var theirPer = (MC.dashCool / MC.dashCoolMax);
-			}
-			else{
-				var theirPer = 1;
-			}
-		}
 		
 		if(target == "melee"){
 			if(MC.fp > MC.meleeCost){
@@ -42,8 +35,18 @@ function overlay(x, y, spr, target){
 			}
 		}
 		
+		if(target == "dash"){
+			if(MC.fp > MC.dashCost){
+				var theirPer = (MC.dashCool / MC.dashCoolMax);
+			}
+			else{
+				var theirPer = 1;
+			}
+		}
 		this.shade.height = theirPer * this.sprite.height;
-		//console.log(this.shade.height + " , "+ this.theirPer)
+		
+		//console.log(this.shade.height + " , "+ theirPer);
+		//console.log(MC.meleeCool + " , "+ MC.meleeCoolMax);
 	}
 	
 	this.draw = function(){

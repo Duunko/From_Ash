@@ -1,25 +1,15 @@
 /**
- * @author Bion719
+ * @author Duunko
  */
 
-/* Basic character object
- * This is the object for the basic enemy type. Contains a sprite,
- * fire point value, hit point value, directional data (for bookeeping),
- * x and y coordinates, and an update and draw method. 
- * 
- * Also contains an attack() and special() method that are unimpelemented.
- * 
- */
- 
-function enemy_a(x, y){
+
+function enemy_b(x, y){
 	
 	this.type = "enemy";
 	
-	this.sprite = assets["sScorpion"];
-	this.sprite.width = 96;
-	this.sprite.height = 96;
-	
-	this.vision_range = 800;
+	this.sprite = assets[8];
+	this.sprite.width = 64;
+	this.sprite.height = 64;
 	
 	this.move_direc = 'south';
 	this.look_direc = 'south';
@@ -30,7 +20,7 @@ function enemy_a(x, y){
 	this.canvasX = toCanvasX(this.mapX);
 	this.canvasY = toCanvasY(this.mapY);
 	
-	this.speed = 1;
+	this.speed = 4;
 	this.mapXSpeed = 0;
 	this.mapYSpeed = 0;
 	
@@ -45,31 +35,18 @@ function enemy_a(x, y){
 	
 	this.hp = 10;
 	
-	this.t2 = 0;
-	
 	var en_pos = [[-50, 0],
 					[tiles.WORLD_WIDTH + 50,0],
 					[-50,tiles.WORLD_HEIGHT+50],
 					[tiles.WORLD_WIDTH + 50, tiles.WORLD_HEIGHT+50]]; 
 	
 	this.update = function(){
-		
-		if(this.hitbox.active != true){
-			var distance = this.distanceToObject(MC);
-			if (distance < this.vision_range){
-				this.hitbox.active = true;
-			}
-		}
-		
-		
 		if(this.stunned == false){
 			
-			if(this.hitbox.active == true){
-			    this.moveTowards(MC);
+			this.moveTowards(MC);
 			
-			    this.mapX += this.mapXSpeed * this.speed;
-			    this.mapY += this.mapYSpeed * this.speed;
-			}
+			this.mapX += this.mapXSpeed * this.speed;
+			this.mapY += this.mapYSpeed * this.speed;
 		}
 		else{
 			this.mapX += this.mapXSpeed * this.knockbackSpeed;
@@ -89,30 +66,21 @@ function enemy_a(x, y){
 		else{
 			this.stunned = false;
 		}
+		
 	}
 	
 	this.draw = function(){
-		var tm = angleDeg(this.canvasX + this.sprite.width/2,this.canvasY + this.sprite.height/2,
-								MC.mapX,MC.mapY); //* (Math.PI/180);
-		if(tm < 0){
-			tm = 360 - (-tm);
-		}
-		
-		context.fillText("Angle: "+tm, 10, 150);
-		context.save();
-		context.translate(this.canvasX + this.sprite.width/2, this.canvasY + this.sprite.height/2);
-		context.rotate(tm*(Math.PI/180) + Math.PI/2);
-		context.drawImage(this.sprite, -this.sprite.width/2, -this.sprite.height/2, this.sprite.width, this.sprite.height);
-		context.restore();
-		
-		
+		context.drawImage(this.sprite, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
 	}
 	
 	this.moveTowards = function(target){
 		if(!isNaN(target.mapX)){
 			var slopeX = target.mapX - this.mapX;
-	        var slopeY = target.mapY - this.mapY;
-			var distance = this.distanceToObject(target);
+			var slopeY = target.mapY - this.mapY;
+				
+			var distance = Math.sqrt(Math.pow((target.mapX - this.mapX), 2)
+								+ Math.pow((target.mapY - this.mapY), 2));
+				
 			this.mapXSpeed = slopeX / distance;
 			this.mapYSpeed = slopeY / distance;
 				
@@ -120,22 +88,6 @@ function enemy_a(x, y){
 		else{
 			console.log("Nan detected");
 		}
-	}
-	
-	this.rotateEnemy = function(){
-		var tm; //rotation angle in radians
-		
-		//[this.mapX + this.sprite.width/2, this.mapY + this.sprite.height/2];
-		
-		//if(this.look_direc == 'east'){
-		//	tm = 90*(Math.PI/180);
-		//} else if(this.look_direc == 'west'){
-		//	tm = 270*(Math.PI/180);
-		//} else if(this.look_direc == 'south'){
-		//	tm = 180*(Math.PI/180);
-		//} else {
-		//	tm = 0;
-		//}
 	}
 	
 	this.knockback = function(){
@@ -166,13 +118,15 @@ function enemy_a(x, y){
 		if (target.is_obstacle != undefined){
 				var response = new SAT.Response();
 				SAT.testPolygonPolygon(this.hitbox.col_data.toPolygon(), target.hitbox.col_data.toPolygon(), response);
+				console.log(response);
 				this.canvasX -= response.overlapV.x;
 				this.canvasY -= response.overlapV.y
 				this.mapX = toMapX(this.canvasX);
 				this.mapY = toMapY(this.canvasY);
 	   } else if(target.type == "enemy"){
-	   	   var response = new SAT.Response();
+	   	        var response = new SAT.Response();
 				SAT.testPolygonPolygon(this.hitbox.col_data.toPolygon(), target.hitbox.col_data.toPolygon(), response);
+				console.log(response);
 				this.canvasX -= response.overlapV.x;
 				this.canvasY -= response.overlapV.y
 				this.mapX = toMapX(this.canvasX);
@@ -214,7 +168,7 @@ function enemy_a(x, y){
 	}
 	
 	this.hitbox = {
-    	active:false,
+    	active:true,
     	shape:'rectangle',
     	offsetX:0,
     	offsetY:0,
@@ -222,14 +176,4 @@ function enemy_a(x, y){
     	height:this.sprite.height,
     	col_data: new SAT.Box(new SAT.Vector(this.mapX, this.mapY), this.sprite.width, this.sprite.height)
     }
-    
-    this.distanceToObject = function(target){
-	    var slopeX = target.mapX - this.mapX;
-	    var slopeY = target.mapY - this.mapY;
-	    var distance = Math.sqrt(Math.pow((target.mapX - this.mapX), 2)
-								+ Math.pow((target.mapY - this.mapY), 2));
-	    return distance;
-    }
 }
-
-
