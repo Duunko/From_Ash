@@ -43,6 +43,8 @@ function enemy_a(x, y){
 	
 	this.hp = 10;
 	
+	this.t2 = 0;
+	
 	var en_pos = [[-50, 0],
 					[tiles.WORLD_WIDTH + 50,0],
 					[-50,tiles.WORLD_HEIGHT+50],
@@ -74,11 +76,23 @@ function enemy_a(x, y){
 		else{
 			this.stunned = false;
 		}
-		
 	}
 	
 	this.draw = function(){
-		context.drawImage(this.sprite, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
+		var tm = angleDeg(this.canvasX + this.sprite.width/2,this.canvasY + this.sprite.height/2,
+								MC.mapX,MC.mapY); //* (Math.PI/180);
+		if(tm < 0){
+			tm = 360 - (-tm);
+		}
+		
+		context.fillText("Angle: "+tm, 10, 150);
+		context.save();
+		context.translate(this.canvasX + this.sprite.width/2, this.canvasY + this.sprite.height/2);
+		context.rotate(tm*(Math.PI/180) + Math.PI/2);
+		context.drawImage(this.sprite, -this.sprite.width/2, -this.sprite.height/2, this.sprite.width, this.sprite.height);
+		context.restore();
+		
+		
 	}
 	
 	this.moveTowards = function(target){
@@ -96,6 +110,22 @@ function enemy_a(x, y){
 		else{
 			console.log("Nan detected");
 		}
+	}
+	
+	this.rotateEnemy = function(){
+		var tm; //rotation angle in radians
+		
+		//[this.mapX + this.sprite.width/2, this.mapY + this.sprite.height/2];
+		
+		//if(this.look_direc == 'east'){
+		//	tm = 90*(Math.PI/180);
+		//} else if(this.look_direc == 'west'){
+		//	tm = 270*(Math.PI/180);
+		//} else if(this.look_direc == 'south'){
+		//	tm = 180*(Math.PI/180);
+		//} else {
+		//	tm = 0;
+		//}
 	}
 	
 	this.knockback = function(){
@@ -132,7 +162,7 @@ function enemy_a(x, y){
 				this.mapX = toMapX(this.canvasX);
 				this.mapY = toMapY(this.canvasY);
 	   } else if(target.type == "enemy"){
-	   	        var response = new SAT.Response();
+	   	   var response = new SAT.Response();
 				SAT.testPolygonPolygon(this.hitbox.col_data.toPolygon(), target.hitbox.col_data.toPolygon(), response);
 				console.log(response);
 				this.canvasX -= response.overlapV.x;
