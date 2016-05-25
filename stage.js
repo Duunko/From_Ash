@@ -51,6 +51,21 @@ function stage(top) {
     	this.owned_objects = [];
     }
     
+    this.remove_obstacles = function(){
+    	var removal_array = [];
+    	for(var i = 0; i < this.owned_objects.length; i++){
+    		if(this.owned_objects[i].is_obstacle == true){
+    			removal_array.push(i);
+    		}
+    	}
+    	for(var i = 0; i < removal_array.length; i++){
+    		this.owned_objects.splice(removal_array[i], 1);
+    		for(var j = 0; j < removal_array.length; j++){
+    			removal_array[j] -= 1;
+    		}
+    	}
+    }
+    
 }
 
 /* make_loop
