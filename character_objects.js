@@ -44,7 +44,7 @@ function main_character(x, y ) {
 	this.animated = false;
 	
 	this.fp = 30;
-	this.nextFp = this.fp;
+	this.nextFp = 10;
 	
 	this.meleeCost = 2;
 	this.meleeCoolMax = 30;
@@ -92,6 +92,7 @@ function main_character(x, y ) {
 	this.dashWindD = 1.25;
 	
 	this.beaming = false;
+	this.aiming = false;
 	this.beamLength = 500;
 	this.beamGerth = 10;
 	this.beamDuration = 50;
@@ -325,14 +326,19 @@ function main_character(x, y ) {
 			this.meleeCool--;
 		}
 		
-		if(this.beaming == true){
+		if(this.beaming == true && this.aiming == false){
 			if(this.beamTimer > 0){
 				this.beamTimer--;
+				console.log(this.beamTimer);
 			}
 			else{
 				this.beaming = false;
 				this.beamTimer = this.beamDuration;
 			}
+		}
+		
+		if(this.aiming == true && keysPressed[BEAM_KEY_CODE] == false){
+			this.aiming = false;
 		}
 		
 	}//Update
@@ -349,9 +355,15 @@ function main_character(x, y ) {
 		//if beam active, draw beam
 		if(this.beaming == true){
 			context.beginPath();
-			context.moveTo(this.beamStartX, this.beamStartY);
-			context.lineTo(this.beamEndX, this.beamEndY);
+			context.moveTo(toCanvasX(this.beamStartX), toCanvasY(this.beamStartY));
+			context.lineTo(toCanvasX(this.beamEndX), toCanvasY(this.beamEndY));
 			context.lineWidth = this.beamGerth;
+			if(this.aiming == false){
+				context.strokeStyle = '#ff0000';
+			}
+			else{
+				context.strokeStyle = '#000000';
+			}
 			context.stroke();
 		}
 		
@@ -478,12 +490,13 @@ function main_character(x, y ) {
 			//Create a beam of set length in the direction
 			//of mousex and mousey
 			this.beaming = true;
+			this.aiming = true;
 			
-			this.beamStartX = this.canvasX + this.sprite.width/2;
-			this.beamStartY = this.canvasY + this.sprite.height/2;
+			this.beamStartX = this.mapX + this.sprite.width/2;
+			this.beamStartY = this.mapY + this.sprite.height/2;
 			
-			var slopeX = mouseX - this.beamStartX;
-			var slopeY = mouseY - this.beamStartY;
+			var slopeX = toMapX(mouseX) - this.beamStartX;
+			var slopeY = toMapY(mouseY) - this.beamStartY;
 			var distance = Math.sqrt(Math.pow((mouseX - this.beamStartX), 2)
 								 + Math.pow((mouseY - this.beamStartY), 2));
 			

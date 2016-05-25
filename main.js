@@ -148,7 +148,7 @@ var LEFT_KEY_CODE = 65;
 var UP_KEY_CODE = 87;
 var DOWN_KEY_CODE = 83;
 
-var ACTION_KEY_CODE = 75;
+var ACTION_KEY_CODE = 69;
 var BEAM_KEY_CODE = 81;
 
 var keysPressed = {};
@@ -259,6 +259,7 @@ function angleDeg(x1,y1,x2,y2){
  
  function reset_game(){
 	MC.hp = MC.hpMax;
+	MC.nextFp = 10;
 	MC.fp = Math.floor(MC.nextFp);
 	main_stage.remove_enemies();
 	
