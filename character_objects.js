@@ -41,6 +41,7 @@ function main_character(x, y ) {
 	this.image_speed_counter = 0;
 	
 	this.active_animation = this.up_walk;
+	this.animated = false;
 	
 	this.fp = 30;
 	this.nextFp = this.fp;
@@ -118,6 +119,14 @@ function main_character(x, y ) {
 		}
 		if(this.look_direc == 'east' && this.active_animation != this.right_walk){
 			this.active_animation = this.right_walk;
+		}
+		
+		if(this.canvasXSpeed == 0 && this.canvasYSpeed == 0){
+			this.animated = false;
+			this.image_index = 0;
+		}
+		else{
+			this.animated = true;
 		}
 		
 		if(this.recently_checked == true){
@@ -305,7 +314,12 @@ function main_character(x, y ) {
 	
     this.draw = function() {
     	//context.drawImage(this.sprite, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
-		draw_animated_sprite(this.active_animation, this, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
+		if(this.animated == true){
+			draw_animated_sprite(this.active_animation, this, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
+		}
+		else{
+			context.drawImage(this.active_animation[this.image_index], this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
+		}
 		
 		//drawing imaginary line from corners to mouse coordinates
 		var mADTR = angleDeg(topRight.x,topRight.y,mouseX,mouseY);

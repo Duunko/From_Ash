@@ -13,8 +13,9 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	this.TILE_TYPE_ASH = 0;
 	this.TILE_TYPE_VOID = 1;
 	this.TILE_TYPE_OBS = 2;
+	this.TILE_TYPE_DEPO = 3;
 
-	this.NUM_TILE_TYPES = 3;
+	this.NUM_TILE_TYPES = 4;
 	
 	sprite_ash = assets["tile_ash"];
 	sprite_darkness = assets["black_square"];
@@ -113,6 +114,9 @@ function create_board(world_width, world_height, tile_size, non_ash){
 						} else if(this.tileGrid[leftTile+i][topTile+j] == 2){
 							drawObs = true;
 							obsType = 'environment';
+						} else if(this.tileGrid[leftTile+i][topTile+j] == 3){
+							drawObs = true;
+							obsType = 'depo';
 						}
 						
 			        }
@@ -121,8 +125,13 @@ function create_board(world_width, world_height, tile_size, non_ash){
 		        context.drawImage(tileSprite, i*this.TILE_SIZE - tileOffsetX, j*this.TILE_SIZE - tileOffsetY, this.TILE_SIZE, this.TILE_SIZE);
 		        if(initial_generation == false){
 		            if (drawObs == true){
-		        	    var newObs = new obstacle(i*this.TILE_SIZE, j*this.TILE_SIZE, obsType);
-		        	    main_stage.push(newObs);
+						if(obsType == 'depo'){
+							var newObs = new depo(i*this.TILE_SIZE, j*this.TILE_SIZE);
+						}
+						else{
+							var newObs = new obstacle(i*this.TILE_SIZE, j*this.TILE_SIZE, obsType);
+						}
+						main_stage.push(newObs);
 		            }
 		        }
 				/*
