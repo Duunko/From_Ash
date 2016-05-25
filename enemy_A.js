@@ -34,6 +34,8 @@ function enemy_a(x, y){
 	this.mapXSpeed = 0;
 	this.mapYSpeed = 0;
 	
+	this.path = 0;
+	
 	this.self = this;
 	
 	this.stunned = false;
@@ -44,6 +46,8 @@ function enemy_a(x, y){
 	this.vulnerable = true;
 	
 	this.hp = 10;
+	
+	this.t2 = 0;
 	
 	var en_pos = [[-50, 0],
 					[tiles.WORLD_WIDTH + 50,0],
@@ -87,11 +91,28 @@ function enemy_a(x, y){
 		else{
 			this.stunned = false;
 		}
+	}
+	
+	this.draw = function(){	
+		//rotation and drawing
+		context.save();
+		context.translate(this.canvasX + this.sprite.width/2, this.canvasY + this.sprite.height/2);
+		context.rotate(this.rotateEnemy()*(Math.PI/180) + Math.PI/2);
+		context.drawImage(this.sprite, -this.sprite.width/2, -this.sprite.height/2, this.sprite.width, this.sprite.height);
+		context.restore();
+		
 		
 	}
 	
-	this.draw = function(){
-		context.drawImage(this.sprite, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
+	this.aStar = function(target){
+		var map = tiles.tileGrid;
+		var value_map = [];
+		var tlocX = Math.floor(target.mapX/64);
+		var locX = Math.floor(this.mapX / 64);
+		var locY = Math.floor(this.mapY / 64);
+		
+		
+		
 	}
 	
 	this.moveTowards = function(target){
@@ -106,6 +127,15 @@ function enemy_a(x, y){
 		else{
 			console.log("Nan detected");
 		}
+	}
+	
+	this.rotateEnemy = function(){
+		var tm = angleDeg(this.canvasX + this.sprite.width/2,this.canvasY + this.sprite.height/2,
+								MC.mapX,MC.mapY); //* (Math.PI/180);
+		if(tm < 0){
+			tm = 360 - (-tm);
+		}
+		return tm
 	}
 	
 	this.knockback = function(){
@@ -141,7 +171,7 @@ function enemy_a(x, y){
 				this.mapX = toMapX(this.canvasX);
 				this.mapY = toMapY(this.canvasY);
 	   } else if(target.type == "enemy"){
-	   	        var response = new SAT.Response();
+	   	   var response = new SAT.Response();
 				SAT.testPolygonPolygon(this.hitbox.col_data.toPolygon(), target.hitbox.col_data.toPolygon(), response);
 				this.canvasX -= response.overlapV.x;
 				this.canvasY -= response.overlapV.y
@@ -193,9 +223,15 @@ function enemy_a(x, y){
     	col_data: new SAT.Box(new SAT.Vector(this.mapX, this.mapY), this.sprite.width, this.sprite.height)
     }
     
-    this.distanceToObject = function(target){
+    this.distanceToObject = function(target, offX, offY){
 	    var slopeX = target.mapX - this.mapX;
+	    if(offX != undefined){
+	    	slopeX += offX * 32;
+	    }
 	    var slopeY = target.mapY - this.mapY;
+	    if(offY != undefined){
+	    	slopeY += offY * 32;
+	    }
 	    var distance = Math.sqrt(Math.pow((target.mapX - this.mapX), 2)
 								+ Math.pow((target.mapY - this.mapY), 2));
 	    return distance;
