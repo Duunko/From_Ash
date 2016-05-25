@@ -29,23 +29,19 @@ function overlay(x, y, spr, target){
 		if(target == "melee"){
 			if(MC.fp > MC.meleeCost){
 				var theirPer = (MC.meleeCool / MC.meleeCoolMax);
-				//console.log(MC.meleeCool);
 			}
 			else{
 				var theirPer = 1;
 			}
-			console.log(this.shade.height + " , "+ theirPer);
 		}
 		
 		if(target == "dash"){
 			if(MC.fp > MC.dashCost){
 				var theirPer = (MC.dashCool / MC.dashCoolMax);
-				//console.log(this.shade.height);
 			}
 			else{
 				var theirPer = 1;
 			}
-			console.log(this.shade.height + " , "+ theirPer);
 		}
 		this.shade.height = theirPer * this.sprite.height;
 		

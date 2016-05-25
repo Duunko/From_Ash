@@ -149,7 +149,7 @@ var UP_KEY_CODE = 87;
 var DOWN_KEY_CODE = 83;
 
 var ACTION_KEY_CODE = 75;
-
+var BEAM_KEY_CODE = 81;
 
 var keysPressed = {};
 keysPressed[RIGHT_KEY_CODE] = false;
@@ -157,6 +157,7 @@ keysPressed[LEFT_KEY_CODE] = false;
 keysPressed[UP_KEY_CODE] = false;
 keysPressed[DOWN_KEY_CODE] = false;
 keysPressed[ACTION_KEY_CODE] = false;
+keysPressed[BEAM_KEY_CODE] = false;
 
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
@@ -174,7 +175,6 @@ function onMouseDown(e){
 		MC.attack();
 	} else if (e.button == 2){
 	    MC.dash();
-		//MC.on_hit(5);
 	}
 }
 

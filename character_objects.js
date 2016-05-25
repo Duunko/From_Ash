@@ -47,12 +47,16 @@ function main_character(x, y ) {
 	this.nextFp = this.fp;
 	
 	this.meleeCost = 2;
-	this.meleeCoolMax = 50;
+	this.meleeCoolMax = 30;
 	this.meleeCool = 0;
 	
 	this.dashCost = 4;
-	this.dashCoolMax = 200;
+	this.dashCoolMax = 150;
 	this.dashCool = 0;
+	
+	this.beamCost = 8;
+	this.beamCoolMax = 200;
+	this.beamCool = 0;
 	
 	this.hpMax = 40;
 	this.hp = this.hpMax;
@@ -79,12 +83,19 @@ function main_character(x, y ) {
 	
 	this.can_melee = true;
 	this.can_dash = true;
+	this.can_beam = true;
 	
 	this.dashing = false;
 	this.dashTimer = 25;     //affects the distance
 	this.dashXInc;
 	this.dashYInc;
 	this.dashWindD = 1.25;
+	
+	this.beaming = false;
+	this.beamLength = 500;
+	this.beamGerth = 10;
+	this.beamDuration = 50;
+	this.beamTimer = this.beamDuration;
 	
 	this.recently_checked = false;
 	this.can_move_left = true;
@@ -136,6 +147,10 @@ function main_character(x, y ) {
 			this.can_move_up = true;
 			this.can_move_left = true;
 			this.can_move_right = true;
+		}
+		
+		if (keysPressed[BEAM_KEY_CODE] == true){
+			MC.beam();
 		}
 	   
 	    if(this.dashing == false){
@@ -310,15 +325,34 @@ function main_character(x, y ) {
 			this.meleeCool--;
 		}
 		
+		if(this.beaming == true){
+			if(this.beamTimer > 0){
+				this.beamTimer--;
+			}
+			else{
+				this.beaming = false;
+				this.beamTimer = this.beamDuration;
+			}
+		}
+		
 	}//Update
 	
     this.draw = function() {
-    	//context.drawImage(this.sprite, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
+    	//drawing the player sprite
 		if(this.animated == true){
 			draw_animated_sprite(this.active_animation, this, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
 		}
 		else{
 			context.drawImage(this.active_animation[this.image_index], this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
+		}
+		
+		//if beam active, draw beam
+		if(this.beaming == true){
+			context.beginPath();
+			context.moveTo(this.beamStartX, this.beamStartY);
+			context.lineTo(this.beamEndX, this.beamEndY);
+			context.lineWidth = this.beamGerth;
+			context.stroke();
 		}
 		
 		//drawing imaginary line from corners to mouse coordinates
@@ -435,6 +469,29 @@ function main_character(x, y ) {
 			
 			this.fp -= this.dashCost;
 			this.dashCool = this.dashCoolMax;
+		}
+	}
+	
+	this.beam = function(){
+		console.log("Beam called");
+		if(this.dashing == false && this.fp >= this.beamCost){
+			//Create a beam of set length in the direction
+			//of mousex and mousey
+			this.beaming = true;
+			
+			this.beamStartX = this.canvasX + this.sprite.width/2;
+			this.beamStartY = this.canvasY + this.sprite.height/2;
+			
+			var slopeX = mouseX - this.beamStartX;
+			var slopeY = mouseY - this.beamStartY;
+			var distance = Math.sqrt(Math.pow((mouseX - this.beamStartX), 2)
+								 + Math.pow((mouseY - this.beamStartY), 2));
+			
+			var beamXInc = slopeX / distance;
+			var beamYInc = slopeY / distance;
+			
+			this.beamEndX = this.beamStartX + beamXInc * this.beamLength;
+			this.beamEndY = this.beamStartY + beamYInc * this.beamLength;
 		}
 	}
 	
