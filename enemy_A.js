@@ -91,17 +91,11 @@ function enemy_a(x, y){
 		}
 	}
 	
-	this.draw = function(){
-		var tm = angleDeg(this.canvasX + this.sprite.width/2,this.canvasY + this.sprite.height/2,
-								MC.mapX,MC.mapY); //* (Math.PI/180);
-		if(tm < 0){
-			tm = 360 - (-tm);
-		}
-		
-		context.fillText("Angle: "+tm, 10, 150);
+	this.draw = function(){	
+		//rotation and drawing
 		context.save();
 		context.translate(this.canvasX + this.sprite.width/2, this.canvasY + this.sprite.height/2);
-		context.rotate(tm*(Math.PI/180) + Math.PI/2);
+		context.rotate(this.rotateEnemy()*(Math.PI/180) + Math.PI/2);
 		context.drawImage(this.sprite, -this.sprite.width/2, -this.sprite.height/2, this.sprite.width, this.sprite.height);
 		context.restore();
 		
@@ -123,19 +117,12 @@ function enemy_a(x, y){
 	}
 	
 	this.rotateEnemy = function(){
-		var tm; //rotation angle in radians
-		
-		//[this.mapX + this.sprite.width/2, this.mapY + this.sprite.height/2];
-		
-		//if(this.look_direc == 'east'){
-		//	tm = 90*(Math.PI/180);
-		//} else if(this.look_direc == 'west'){
-		//	tm = 270*(Math.PI/180);
-		//} else if(this.look_direc == 'south'){
-		//	tm = 180*(Math.PI/180);
-		//} else {
-		//	tm = 0;
-		//}
+		var tm = angleDeg(this.canvasX + this.sprite.width/2,this.canvasY + this.sprite.height/2,
+								MC.mapX,MC.mapY); //* (Math.PI/180);
+		if(tm < 0){
+			tm = 360 - (-tm);
+		}
+		return tm
 	}
 	
 	this.knockback = function(){
