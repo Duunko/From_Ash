@@ -18,6 +18,7 @@ var renderer = new renderer(canvas, context);
 //preload of assets
 var assets = new Array();
 
+
 var mc_up_1 = new Image();
 mc_up_1.src = 'images/walk_top/phoenix_away1.png';
 var mc_up_2 = new Image();

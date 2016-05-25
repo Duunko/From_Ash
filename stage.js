@@ -139,6 +139,9 @@ function game_draw(renderer) {
 		    				continue;
 		    			}
 		    			//console.log('hitbox');
+		    			if(renderer.stages[i].owned_objects[k].hitbox.active == false){
+		    				continue;
+		    			}
 		    	
 		    			var check1 = renderer.stages[i].owned_objects[j].hitbox.shape;
 		    			var check2 = renderer.stages[i].owned_objects[k].hitbox.shape;

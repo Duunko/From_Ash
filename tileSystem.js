@@ -77,6 +77,59 @@ function create_board(world_width, world_height, tile_size, non_ash){
 		
 	}
 	
+	this.refresh = function(new_world_width, new_world_height, new_tile_size, new_non_ash){
+		this.TILE_SIZE = new_tile_size;
+	    this.WORLD_WIDTH = new_world_width;
+	    this.WORLD_HEIGHT = new_world_height;
+
+	    this.TILES_IN_A_ROW = Math.floor(this.WORLD_WIDTH/this.TILE_SIZE);
+	    this.TILES_IN_A_COL = Math.floor(this.WORLD_HEIGHT/this.TILE_SIZE);
+
+	    this.VIEW_WIDTH = canvas.width;
+	    this.VIEW_HEIGHT = canvas.height;
+
+	    this.VIEW_TILE_WIDTH = Math.floor(this.VIEW_WIDTH / this.TILE_SIZE);
+	    this.VIEW_TILE_HEIGHT = Math.floor(this.VIEW_HEIGHT / this.TILE_SIZE);
+
+	    this.playerX = this.WORLD_WIDTH/2;
+	    this.playerY = this.WORLD_HEIGHT/2;
+	    //playerX = VIEW_WIDTH/2;
+	    //playerY = VIEW_HEIGHT/2;
+	
+	    this.left;
+	    this.top;
+	
+	    console.log(this.playerX);
+
+	    this.tileGrid = [];
+	    this.tiles = [];
+
+	    for(var i = 0; i < this.TILES_IN_A_ROW; i++){
+		     var column = new Array();
+	         for(var j=0; j < this.TILES_IN_A_COL; j++){
+		     //column[j] = Math.floor(Math.random()*NUM_TILE_TYPES);
+	               column[j] = 0;
+	         } //INNER
+	    this.tileGrid[i] = column;
+	    } //OUTER
+	
+	    if (new_non_ash != undefined){
+		    for(var i = 0; i < new_non_ash.length; i++){
+			    if(new_non_ash[i].length == 3){
+			        this.tileGrid[new_non_ash[i][0]][new_non_ash[i][1]] = new_non_ash[i][2];
+			    } else if(new_non_ash[i][3] == 'x'){
+				    for(var j = new_non_ash[i][0]; j < new_non_ash[i][0] + new_non_ash[i][4]; j++){
+					    this.tileGrid[j][new_non_ash[i][1]] = new_non_ash[i][2];
+				    }
+			    } else if(new_non_ash[i][3] == 'y'){
+				    for(var j = new_non_ash[i][1]; j < new_non_ash[i][1] + new_non_ash[i][4]; j++){
+					   this.tileGrid[new_non_ash[i][0]][j] = new_non_ash[i][2];
+				    }
+			   }
+		    }
+	    }
+	}
+	
 	this.draw = function onEnterFrame(){
   
         this.left = MC.canvasX - this.VIEW_WIDTH / 2;
