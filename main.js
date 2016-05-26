@@ -120,7 +120,6 @@ assets["gui_shade"] = gui_shade;
 
 assets["enviro_tree"] = enviro_tree;
 assets["tile_ash"] = tile_ash;
-
 assets["black_square"] = black_square;
 
 
@@ -131,7 +130,7 @@ var main_stage = new stage();
 renderer.push(main_stage);
 
 //Set up the tile system
-var non_ash = [[10, 10, 1],[4, 4, 3], [8, 1, 1, 'y',5]];
+var non_ash = [[10, 10, 1],[4, 4, 3], [8, 2, 1, 'y',5]];
 var tiles = new create_board(900, 900, 64, non_ash);
 main_stage.push(tiles);
 
@@ -199,7 +198,9 @@ function onMouseMove(e){
 
 function onMouseDown(e){
 	if (e.button == 0){	
-		MC.attack();
+		//MC.attack();
+		var non_ash_2= [[10, 9, 1],[3, 4, 3], [8, 4, 1, 'y',2]];
+		tiles.refresh(900, 900, 64, non_ash_2);
 	} else if (e.button == 2){
 	    MC.dash();
 	}

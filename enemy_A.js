@@ -108,8 +108,11 @@ function enemy_a(x, y){
 		var map = tiles.tileGrid;
 		var value_map = [];
 		var tlocX = Math.floor(target.mapX/64);
-		var locX = Math.floor(this.mapX / 64);
-		var locY = Math.floor(this.mapY / 64);
+		var tlocY = Math.floor(target.mapY/64);
+		var locX = 0;
+		var locY = 0;
+		
+		
 		
 		
 		
