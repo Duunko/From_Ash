@@ -12,7 +12,7 @@
  */
 
 function main_character(x, y ) {
-	this.sprite = assets[0];
+	this.sprite = new Image();
 	this.sprite.width = 60;
 	this.sprite.height = 80;
 	
@@ -344,7 +344,6 @@ function main_character(x, y ) {
     	//drawing the player sprite
 		if(this.animated == true){
 			draw_animated_sprite(this.active_animation, this, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
-			console.log("drawing "+ this.active_animation);
 		}
 		else{
 			context.drawImage(this.active_animation[this.image_index], this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
@@ -450,7 +449,7 @@ function main_character(x, y ) {
 				shape:'arc',
 				currframe:0,
 				col_data:0,
-				numFrames:10,
+				numFrames:16,
 				radius:100,
 				self:this,
 				direc:direction,

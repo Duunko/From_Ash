@@ -17,8 +17,10 @@ function create_board(world_width, world_height, tile_size, non_ash){
 
 	this.NUM_TILE_TYPES = 4;
 	
-	sprite_ash = assets["tile_ash"];
-	sprite_darkness = assets["black_square"];
+	//sprite_ash = assets["tile_ash"];
+	//sprite_darkness = assets["black_square"];
+	sprite_ash = assets.tile_ash;
+	sprite_darkness = assets.black_square;
 	
 	this.TILE_SPRITES = [sprite_ash, sprite_darkness];
 
