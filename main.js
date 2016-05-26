@@ -18,34 +18,41 @@ var renderer = new renderer(canvas, context);
 //preload of assets
 var assets = new Array();
 
+var mc_up_1 = new Image();  mc_up_1.src = 'images/walk_top/phoenix_away1.png';
+var mc_up_2 = new Image();  mc_up_2.src = 'images/walk_top/phoenix_away2.png';
+var mc_up_3 = new Image();  mc_up_3.src = 'images/walk_top/phoenix_away3.png';
 
-var mc_up_1 = new Image();
-mc_up_1.src = 'images/walk_top/phoenix_away1.png';
-var mc_up_2 = new Image();
-mc_up_2.src = 'images/walk_top/phoenix_away2.png';
-var mc_up_3 = new Image();
-mc_up_3.src = 'images/walk_top/phoenix_away3.png';
+var mc_down_1 = new Image();  mc_down_1.src = 'images/walk_down/phoenix_walkforward1.png';
+var mc_down_2 = new Image();  mc_down_2.src = 'images/walk_down/phoenix_walkforward2.png';
+var mc_down_3 = new Image();  mc_down_3.src = 'images/walk_down/phoenix_walkforward3.png';
 
-var mc_down_1 = new Image();
-mc_down_1.src = 'images/walk_down/phoenix_walkforward1.png';
-var mc_down_2 = new Image();
-mc_down_2.src = 'images/walk_down/phoenix_walkforward2.png';
-var mc_down_3 = new Image();
-mc_down_3.src = 'images/walk_down/phoenix_walkforward3.png';
+var mc_right_1 = new Image();  mc_right_1.src = 'images/walk_right/phoenix_walkright1.png';
+var mc_right_2 = new Image();  mc_right_2.src = 'images/walk_right/phoenix_walkright2.png';
+var mc_right_3 = new Image();  mc_right_3.src = 'images/walk_right/phoenix_walkright3.png';
 
-var mc_right_1 = new Image();
-mc_right_1.src = 'images/walk_right/phoenix_walkright1.png';
-var mc_right_2 = new Image();
-mc_right_2.src = 'images/walk_right/phoenix_walkright2.png';
-var mc_right_3 = new Image();
-mc_right_3.src = 'images/walk_right/phoenix_walkright3.png';
+var mc_left_1 = new Image();  mc_left_1.src = 'images/walk_left/phoenix_walkleft1.png';
+var mc_left_2 = new Image();  mc_left_2.src = 'images/walk_left/phoenix_walkleft2.png';
+var mc_left_3 = new Image();  mc_left_3.src = 'images/walk_left/phoenix_walkleft3.png';
 
-var mc_left_1 = new Image();
-mc_left_1.src = 'images/walk_left/phoenix_walkleft1.png';
-var mc_left_2 = new Image();
-mc_left_2.src = 'images/walk_left/phoenix_walkleft2.png';
-var mc_left_3 = new Image();
-mc_left_3.src = 'images/walk_left/phoenix_walkleft3.png';
+var mc_melee_left_1 = new Image();  mc_melee_left_1.src = 'images/melee_left/phoenix_leftmelee1.png';
+var mc_melee_left_2 = new Image();  mc_melee_left_2.src = 'images/melee_left/phoenix_leftmelee2.png';
+var mc_melee_left_3 = new Image();  mc_melee_left_3.src = 'images/melee_left/phoenix_leftmelee3.png';
+var mc_melee_left_4 = new Image();  mc_melee_left_4.src = 'images/melee_left/phoenix_leftmelee4.png';
+
+var mc_melee_right_1 = new Image();  mc_melee_right_1.src = 'images/melee_right/phoenix_rightmelee1.png';
+var mc_melee_right_2 = new Image();  mc_melee_right_2.src = 'images/melee_right/phoenix_rightmelee2.png';
+var mc_melee_right_3 = new Image();  mc_melee_right_3.src = 'images/melee_right/phoenix_rightmelee3.png';
+var mc_melee_right_4 = new Image();  mc_melee_right_4.src = 'images/melee_right/phoenix_rightmelee4.png';
+
+var mc_melee_up_1 = new Image();  mc_melee_up_1.src = 'images/melee_top/phoenix_backmelee1.png';
+var mc_melee_up_2 = new Image();  mc_melee_up_2.src = 'images/melee_top/phoenix_backmelee2.png';
+var mc_melee_up_3 = new Image();  mc_melee_up_3.src = 'images/melee_top/phoenix_backmelee3.png';
+var mc_melee_up_4 = new Image();  mc_melee_up_4.src = 'images/melee_top/phoenix_backmelee4.png';
+
+var mc_melee_down_1 = new Image();  mc_melee_down_1.src = 'images/melee_down/phoenix_melee1.png';
+var mc_melee_down_2 = new Image();  mc_melee_down_2.src = 'images/melee_down/phoenix_melee2.png';
+var mc_melee_down_3 = new Image();  mc_melee_down_3.src = 'images/melee_down/phoenix_melee3.png';
+var mc_melee_down_4 = new Image();  mc_melee_down_4.src = 'images/melee_down/phoenix_melee4.png';
 
 var sScorpion = new Image();
 sScorpion.src = 'images/enemies/seascorpion.png';
@@ -84,6 +91,26 @@ assets["mc_right_3"] = mc_right_3;
 assets["mc_left_1"] = mc_left_1;
 assets["mc_left_2"] = mc_left_2;
 assets["mc_left_3"] = mc_left_3;
+
+assets["mc_melee_up_1"] = mc_melee_up_1;
+assets["mc_melee_up_2"] = mc_melee_up_2;
+assets["mc_melee_up_3"] = mc_melee_up_3;
+assets["mc_melee_up_4"] = mc_melee_up_4;
+
+assets["mc_melee_down_1"] = mc_melee_down_1;
+assets["mc_melee_down_2"] = mc_melee_down_2;
+assets["mc_melee_down_3"] = mc_melee_down_3;
+assets["mc_melee_down_4"] = mc_melee_down_4;
+
+assets["mc_melee_right_1"] = mc_melee_right_1;
+assets["mc_melee_right_2"] = mc_melee_right_2;
+assets["mc_melee_right_3"] = mc_melee_right_3;
+assets["mc_melee_right_4"] = mc_melee_right_4;
+
+assets["mc_melee_left_1"] = mc_melee_left_1;
+assets["mc_melee_left_2"] = mc_melee_left_2;
+assets["mc_melee_left_3"] = mc_melee_left_3;
+assets["mc_melee_left_4"] = mc_melee_left_4;
 
 assets["sScorpion"] = sScorpion;
 

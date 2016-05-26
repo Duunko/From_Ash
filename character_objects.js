@@ -16,32 +16,29 @@ function main_character(x, y ) {
 	this.sprite.width = 60;
 	this.sprite.height = 80;
 	
-	this.up_walk = new Array;
-	this.up_walk.push(assets["mc_up_1"]);
-	this.up_walk.push(assets["mc_up_2"]);
-	this.up_walk.push(assets["mc_up_3"]);
+	this.up_walk = new Array; this.up_walk.push(assets["mc_up_1"]); this.up_walk.push(assets["mc_up_2"]); this.up_walk.push(assets["mc_up_3"]);
 	
-	this.down_walk = new Array;
-	this.down_walk.push(assets["mc_down_1"]);
-	this.down_walk.push(assets["mc_down_2"]);
-	this.down_walk.push(assets["mc_down_3"]);
+	this.down_walk = new Array; this.down_walk.push(assets["mc_down_1"]); this.down_walk.push(assets["mc_down_2"]); this.down_walk.push(assets["mc_down_3"]);
 	
-	this.right_walk = new Array;
-	this.right_walk.push(assets["mc_right_1"]);
-	this.right_walk.push(assets["mc_right_2"]);
-	this.right_walk.push(assets["mc_right_3"]);
+	this.right_walk = new Array; this.right_walk.push(assets["mc_right_1"]); this.right_walk.push(assets["mc_right_2"]); this.right_walk.push(assets["mc_right_3"]);
 	
-	this.left_walk = new Array;
-	this.left_walk.push(assets["mc_left_1"]);
-	this.left_walk.push(assets["mc_left_2"]);
-	this.left_walk.push(assets["mc_left_3"]);
+	this.left_walk = new Array; this.left_walk.push(assets["mc_left_1"]); this.left_walk.push(assets["mc_left_2"]); this.left_walk.push(assets["mc_left_3"]);
 	
+	this.up_melee = new Array; this.up_melee.push(assets["mc_melee_up_1"]); this.up_melee.push(assets["mc_melee_up_2"]); this.up_melee.push(assets["mc_melee_up_3"]); this.up_melee.push(assets["mc_melee_up_4"]);
+	
+	this.down_melee = new Array; this.down_melee.push(assets["mc_melee_down_1"]); this.down_melee.push(assets["mc_melee_down_2"]); this.down_melee.push(assets["mc_melee_down_3"]); this.down_melee.push(assets["mc_melee_down_4"]);
+
+	this.right_melee = new Array; this.right_melee.push(assets["mc_melee_right_1"]); this.right_melee.push(assets["mc_melee_right_2"]); this.right_melee.push(assets["mc_melee_right_3"]); this.right_melee.push(assets["mc_melee_right_4"]);
+
+	this.left_melee = new Array; this.left_melee.push(assets["mc_melee_left_1"]); this.left_melee.push(assets["mc_melee_left_2"]); this.left_melee.push(assets["mc_melee_left_3"]); this.left_melee.push(assets["mc_melee_left_4"]);
+
 	this.image_index = 0;
 	this.image_speed_max = 7;  
 	this.image_speed_counter = 0;
 	
 	this.active_animation = this.up_walk;
-	this.animated = false;
+	this.animated = false;               //whether the draw animated sprite script should be called
+	this.animating = false;              //whether a high priority animation is active (not walking)
 	
 	this.fp = 30;
 	this.nextFp = 10;
@@ -120,20 +117,20 @@ function main_character(x, y ) {
 	this.update = function(){
 		
 		//animation handlers
-		if(this.look_direc == 'west' && this.active_animation != this.left_walk){
+		if(this.look_direc == 'west' && this.animating == false){
 			this.active_animation = this.left_walk;
 		}
-		if(this.look_direc == 'south' && this.active_animation != this.down_walk){
+		if(this.look_direc == 'south' && this.animating == false){
 			this.active_animation = this.down_walk;
 		}
-		if(this.look_direc == 'north' && this.active_animation != this.up_walk){
+		if(this.look_direc == 'north' && this.animating == false){
 			this.active_animation = this.up_walk;
 		}
-		if(this.look_direc == 'east' && this.active_animation != this.right_walk){
+		if(this.look_direc == 'east' && this.animating == false){
 			this.active_animation = this.right_walk;
 		}
 		
-		if(this.canvasXSpeed == 0 && this.canvasYSpeed == 0){
+		if((this.canvasXSpeed == 0 && this.canvasYSpeed == 0) && this.animating == false){
 			this.animated = false;
 			this.image_index = 0;
 		}
@@ -347,6 +344,7 @@ function main_character(x, y ) {
     	//drawing the player sprite
 		if(this.animated == true){
 			draw_animated_sprite(this.active_animation, this, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
+			console.log("drawing "+ this.active_animation);
 		}
 		else{
 			context.drawImage(this.active_animation[this.image_index], this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
@@ -432,13 +430,21 @@ function main_character(x, y ) {
 
 			var opt1 = this.look_direc;
 			var direction = 180;
+			this.animated = true;
+			this.animating = true;
 		    if (opt1 == 'west') {
 			    direction = 90;
+				this.active_animation = this.left_melee;
 		    } else if (opt1 == 'south'){
 			    direction = 0;
+				this.active_animation = this.down_melee;
 		    } else if (opt1 == 'east'){
 			    direction = 270;
-		    } 
+				this.active_animation = this.right_melee;
+		    } else if (opt1 == 'north'){
+				direction = 180;
+				this.active_animation = this.up_melee;
+			}
 			this.attack_hitbox = {
 				active:true,
 				shape:'arc',
@@ -525,6 +531,13 @@ function main_character(x, y ) {
 	this.die = function(){
 		//reset the game
 		reset_game();
+	}
+	
+	this.end_animation = function(target){
+		//called when the current animation ends
+		if(target == "melee"){
+			this.animating = false;
+		}
 	}
 	
     this.special = function(param){
