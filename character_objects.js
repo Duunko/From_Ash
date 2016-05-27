@@ -11,7 +11,7 @@
  * 
  */
 
-function main_character(x, y ) {
+function main_character() {
 	this.sprite = new Image();
 	this.sprite.width = 60;
 	this.sprite.height = 80;
@@ -62,8 +62,8 @@ function main_character(x, y ) {
 	this.look_direc = 'south';
 	this.canvasX = canvas.width/2;
 	this.canvasY = canvas.height/2;
-	this.mapX = tiles.WORLD_WIDTH/2;
-	this.mapY = tiles.WORLD_HEIGHT/2;
+	this.mapX;
+	this.mapY;
 	
 	this.vulnerable = true;
 	this.safetyTimerMax = 30;

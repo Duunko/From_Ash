@@ -58,8 +58,6 @@ function load_sprites(){
 
 	var black_square = new Image();
 	black_square.src = 'images/black_square.png';
-
-	assets2.push(mc_up_1);     //0
 	
 	assets = {
 		mc_up_1: mc_up_1,
@@ -112,15 +110,17 @@ function load_sprites(){
 	}
 	console.log(count + " sprites to load");
 	
-	var loaded = 0;
+	var loaded_imgs = 0;
 	
 	for (var property in assets) {
 		if (assets.hasOwnProperty(property)) {
 			assets[property].onload = function () {
 				console.log("image loaded");
-				loaded++;
-				if (loaded == count){
+				loaded_imgs++;
+				if (loaded_imgs == count){
 					console.log("all images loaded");
+					//start_game();
+					LS.loaded();
 				}
 			}
 		}

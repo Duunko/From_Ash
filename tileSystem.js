@@ -36,16 +36,9 @@ function create_board(world_width, world_height, tile_size, non_ash){
 
 	this.VIEW_TILE_WIDTH = Math.floor(this.VIEW_WIDTH / this.TILE_SIZE);
 	this.VIEW_TILE_HEIGHT = Math.floor(this.VIEW_HEIGHT / this.TILE_SIZE);
-
-	this.playerX = this.WORLD_WIDTH/2;
-	this.playerY = this.WORLD_HEIGHT/2;
-	//playerX = VIEW_WIDTH/2;
-	//playerY = VIEW_HEIGHT/2;
 	
 	this.left;
 	this.top;
-	
-	console.log(this.playerX);
 
 	this.tileGrid = [];
 	this.tiles = [];

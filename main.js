@@ -15,27 +15,14 @@ var context = canvas.getContext('2d');
 // Set up the renderer
 var renderer = new renderer(canvas, context);
 
-//preload of assets
-var assets2 = new Array();
-
-load_sprites();
-
-
 // Create and push the main stage.
 // This stage will be the main game, we will do this later
 // when we have a menu screen to work with.
 var main_stage = new stage();
 renderer.push(main_stage);
 
-//Set up the tile system
-var non_ash = [[10, 10, 1],[4, 4, 3], [8, 2, 1, 'y',5]];
-var tiles = new create_board(900, 900, 64, non_ash);
-main_stage.push(tiles);
-
 // Start the game loop. 
-//console.log(tiles.playerX);
 make_loop(renderer, 15);
-
 
 /* Making character movement
  * 
@@ -83,6 +70,8 @@ keysPressed[DOWN_KEY_CODE] = false;
 keysPressed[ACTION_KEY_CODE] = false;
 keysPressed[BEAM_KEY_CODE] = false;
 
+var anyKeyPress = false;
+
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
 document.addEventListener('mousemove', onMouseMove);
@@ -95,6 +84,7 @@ function onMouseMove(e){
 }
 
 function onMouseDown(e){
+	
 	if (e.button == 0){	
 		MC.attack();
 		//var non_ash_2= [[10, 9, 1],[3, 4, 3], [8, 4, 1, 'y',2]];
@@ -108,14 +98,16 @@ canvas.oncontextmenu = function(){ return false;}
 
 function keyDown(e) {
   if (e.keyCode in keysPressed){
-    keysPressed[e.keyCode] = true;
+		keysPressed[e.keyCode] = true;
   }
+  anyKeyPress = true;
 }
 
 function keyUp(e){
 	if (e.keyCode in keysPressed){
-    keysPressed[e.keyCode] = false;
-  }
+		keysPressed[e.keyCode] = false;
+	}
+	anyKeyPress = false;
 }
 
 function angleDeg(x1,y1,x2,y2){
@@ -157,29 +149,16 @@ function angleDeg(x1,y1,x2,y2){
  //-----------------------------------------------------------
  
  function start_game(){
-	MC = new main_character(tiles.playerX, tiles.playerY);
-	EN1 = new enemy_a(100,100);
-	EN2 = new enemy_a(200, 200);
-	SC = new sound_control();
+	//Set up the tile system
+	main_stage.push(tiles);
+	
 	main_stage.push(MC);
 	main_stage.push(EN1);
 	main_stage.push(EN2);
 	main_stage.push(SC);
 	main_stage.push(SC);
 
-	//overlays
-	dash_sprite = assets["gui_dash"];
-	dash_sprite.width = 64;
-	dash_sprite.height = 64;
-	
-	melee_sprite = assets["gui_melee"];
-	melee_sprite.width = 64;
-	melee_sprite.height = 64;
-	
-	MO = new overlay(10, 125, melee_sprite, "melee");
 	main_stage.push(MO);
-	
-	DO = new overlay(10, 200, dash_sprite, "dash");
 	main_stage.push(DO);
  }
  
@@ -195,6 +174,5 @@ function angleDeg(x1,y1,x2,y2){
 	main_stage.push(EN1);
 	main_stage.push(EN2);
  }
-
-start_game();
-
+ 
+ load_game();

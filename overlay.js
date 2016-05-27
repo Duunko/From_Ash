@@ -13,6 +13,8 @@
  
 function overlay(x, y, spr, target){
 	this.sprite = spr;
+	this.sprite.width = 64;
+	this.sprite.height = 64;
 	
 	this.canvasX = x;
 	this.canvasY = y;
