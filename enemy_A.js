@@ -192,10 +192,17 @@ function enemy_a(x, y){
 		//this is called when the enemy collides with the melee
 		//console.log("damage");
 		//if not stunned
-		if(this.stunned == false){
+		
+		if (MC.attack_hitbox.shape == 'arc'){
+			if(this.stunned == false){
+			    this.knockback();
+			    this.on_hit(5);
+		    }
+		} else if(MC.attack_hitbox.shape == 'polygon'){
 			this.knockback();
-			this.on_hit(5);
+			this.on_hit(10);
 		}
+		
 	}
 	
 	this.on_hit = function(dmg){

@@ -289,7 +289,7 @@ function main_character() {
 		this.hitbox.col_data.pos.x = this.mapX;
 		this.hitbox.col_data.pos.y = this.mapY;
 		
-		if(this.attack_hitbox != false){
+		if(this.attack_hitbox != false && this.attack_hitbox.shape == 'arc'){
 			if (this.attack_hitbox.currframe < this.attack_hitbox.numFrames + 2){
 				this.attack_hitbox.currframe++;
 				this.attack_hitbox.xy1 = findc1(this.attack_hitbox);
@@ -330,12 +330,27 @@ function main_character() {
 			}
 			else{
 				this.beaming = false;
+				this.attack_hitbox = false;
 				this.beamTimer = this.beamDuration;
 			}
 		}
 		
 		if(this.aiming == true && keysPressed[BEAM_KEY_CODE] == false){
 			this.aiming = false;
+			this.attack_hitbox = {
+				    active:true,
+				    shape:'polygon',
+				    col_data:0,
+				    self:this,
+				    type:'beam'
+			}
+			this.attack_hitbox.col_data = new SAT.Polygon(new SAT.Vector(), [
+			new SAT.Vector(this.beamStartX, this.beamStartY),
+			new SAT.Vector(this.beamStartX, this.beamStartY + this.beamGerth),
+			new SAT.Vector(this.beamStartX + this.beamGerth, this.beamStartY + this.beamGerth),
+			new SAT.Vector(this.beamStartX + this.beamGerth, this.beamStartY)]);
+			
+			console.log(this.attack_hitbox);
 		}
 		
 	}//Update
@@ -386,7 +401,7 @@ function main_character() {
 			this.look_direc = 'west';
 		}
 		
-		if (this.attack_hitbox != false){
+		if (this.attack_hitbox != false && this.attack_hitbox.shape == 'arc'){
 			var posx = this.mapX + (this.sprite.width / 2);
 			var posy = this.mapY + (this.sprite.height / 2);
 		    context.fillStyle = '#CF0D42';
@@ -454,7 +469,8 @@ function main_character() {
 				self:this,
 				direc:direction,
 				xy1:0,
-				xy2:0
+				xy2:0,
+				type:'melee'
 			}
 		    
 			this.can_melee = false;
