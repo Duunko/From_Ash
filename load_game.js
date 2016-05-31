@@ -18,6 +18,11 @@ function load_game(){
 	//Starting X of MC and starting Y of MC
 	//IMPORTANT NOTE!! The starting width and height cannot be larder than 1/2 of the canvas width
 	//and height!! Because of how our tile system is set up if its any larger than that stuff breaks.
+	//Current numbers for obstacle types:
+	//Walls are 1
+	//Depots are 3
+	//Default is 0
+	//If you want to add more obstacle types, ask me I'll do it.
 	levels = [];
 	levels.push([900, 900, [[10, 10, 1],[4, 4, 3], [8, 2, 1, 'y',5]], 400, 300]);
 	levels.push([900, 900, [[10, 9, 1],[3, 4, 3], [8, 4, 1, 'y',2]], 300, 300]);
