@@ -350,10 +350,10 @@ function main_character(x, y) {
 				    self:this,
 				    type:'beam'
 			}
-			var xad1 = this.beamStartX - this.mapX;
-			var xad2 = this.beamEndX - this.mapX;
-			var yad1 = this.beamStartY - this.mapY;
-			var yad2 = this.beamEndY - this.mapY;
+			var xad1 = this.beamStartX - this.mapX - this.sprite.width/2;
+			var xad2 = this.beamEndX - this.mapX - this.sprite.width/2;
+			var yad1 = this.beamStartY - this.mapY - this.sprite.height/2;
+			var yad2 = this.beamEndY - this.mapY - this.sprite.height/2;
 			console.log(xad1 + " " + xad2);
 			console.log(yad2 + " " + yad1);
 			var xDiff = xad2 - xad1;
@@ -364,99 +364,27 @@ function main_character(x, y) {
 			if (angle < 0){
 				angle = 360 +angle;
 			}
-			var xMod = 1;
-			var yMod = -1;
-			console.log("angle 1:" + angle);
-			if (angle == 0){
-				xMod = 0;
-				this.xfunc = function(val){
-					return this.beamGerth;
-				}
-				this.yfunc = function(val){
-					return this.beamGerth;
-				}
-			} else if(angle == 90){
-				xMod = 1;
-				yMod = 0;
-				this.xfunc = function(val){
-					return this.beamGerth;
-				}
-				this.yfunc = function(val){
-					return this.beamGerth;
-				}
-			} else if(angle == -180 || angle == 180){
-				yMod = 0;
-				xMod = 1;
-				this.xfunc = function(val){
-					return this.beamGerth;
-				}
-				this.yfunc = function(val){
-					return this.beamGerth;
-				}
-			} else if(angle == -90){
-				xMod = -1;
-				yMod = 0;
-				this.xfunc = function(val){
-					return this.beamGerth;
-				}
-				this.yfunc = function(val){
-					return this.beamGerth;
-				}
-			}else {
-			if (angle > 90){
-				if(angle > 180){
-					if (angle > 270){
-						this.xfunc = function(val){
-					         return this.beamGerth * Math.sin(val);
-				        }
-				        this.yfunc = function(val){
-					        return this.beamGerth * Math.cos(val);
-				        }
-				        angle -= 270;
-						
-					} else {
-						yMod = 1;
-						this.xfunc = function(val){
-							return this.beamGerth * Math.cos(val);
-						}
-						this.yfunc = function(val){
-							return this.beamGerth * Math.sin(val);
-						}
-						angle -= 180;
-						
-					}
-				} else {
-					yMod = 1;
-					xMod = -1;
-					this.xfunc = function(val){
-						return this.beamGerth * Math.sin(val);
-					}
-					this.yfunc = function(val){
-						return this.beamGerth * Math.cos(val);
-					}
-					angle -= 90;
-					
-				}
-			} else {
-				xMod = -1;
-				this.xfunc = function(val){
-					return this.beamGerth * Math.cos(val);
-				}
-				this.yfunc = function(val){
-					return this.beamGerth * Math.sin(val);
-				}
-			}
-			}
-			angle = 90 - angle;
-			console.log("angle 2: " + angle);
-			var xadjust = this.xfunc(angle) * xMod;
-			var yadjust = this.yfunc(angle) * yMod;
-			console.log(xadjust + " " + yadjust);
+			console.log("adjusted angle: " + angle);
+			var dist = Math.sqrt((xDiff*xDiff) + (yDiff*yDiff));
+			console.log(dist);
+			var p1 = [this.beamGerth, 0];
+			var p2 = [this.beamGerth, dist];
+			rotate_counter(p1, angle);
+			rotate_counter(p2, angle);
+			console.log(xad1 + " " + yad1);
+			console.log(xad2 + " " + yad2);
+			console.log(p1[0] + " " + p1[1]);
+			console.log(p2[0] + " " + p2[1]);
+			var adx1 = p1[0] + this.mapX + this.sprite.width/2;
+			var adx2 = p2[0] + this.mapX + this.sprite.width/2;
+			var ady1 = p1[1] + this.mapY + this.sprite.height/2;
+			var ady2 = p2[1] + this.mapY + this.sprite.height/2; 
 			this.attack_hitbox.col_data = new SAT.Polygon(new SAT.Vector(), [
 			new SAT.Vector(this.beamStartX, this.beamStartY),
-			new SAT.Vector(this.beamStartX + xadjust, this.beamStartY + yadjust),
-			new SAT.Vector(this.beamEndX + xadjust, this.beamEndY + yadjust),
+			new SAT.Vector(adx1, ady1),
+			new SAT.Vector(adx2, ady2),
 			new SAT.Vector(this.beamEndX, this.beamEndY)]);
+			
 			
 			console.log(this.attack_hitbox);
 		}
@@ -497,7 +425,7 @@ function main_character(x, y) {
 			context.lineTo(toCanvasX(this.attack_hitbox.col_data.points[3].x), toCanvasY(this.attack_hitbox.col_data.points[3].y));
 			context.lineTo(toCanvasX(this.attack_hitbox.col_data.points[0].x), toCanvasY(this.attack_hitbox.col_data.points[0].y));
 			context.closePath();
-			context.fill();
+			context.fill(); 
 		}
 		
 		//drawing imaginary line from corners to mouse coordinates
@@ -756,4 +684,11 @@ function degrees(number){
 
 function radians(number){
 	return number *  180 / Math.PI;
+}
+
+function rotate_counter(ar, angle){
+	var tx = ar[0];
+	var ty = ar[1];
+	ar[0] = ((tx * Math.cos(angle)) - (ty * (Math.sin(angle))));
+	ar[1] = ((tx * Math.sin(angle)) + (ty * Math.cos(angle))); 
 }

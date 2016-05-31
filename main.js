@@ -151,8 +151,8 @@ function angleDeg(x1,y1,x2,y2){
 	main_stage.push(tiles);
 	
 	main_stage.push(MC);
-	main_stage.push(EN1);
-	main_stage.push(EN2);
+	//main_stage.push(EN1);
+	//main_stage.push(EN2);
 	main_stage.push(SC);
 	main_stage.push(SC);
 
@@ -162,11 +162,7 @@ function angleDeg(x1,y1,x2,y2){
  
  function reset_game(){
  	current_level = 1;
- 	MC.mapX = levels[current_level][3];
- 	MC.mapY = levels[current_level][4];
- 	MC.canvasX = toCanvasX(MC.mapX);
- 	MC.canvasY = toCanvasY(MC.mapY);
- 	tiles.refresh(levels[current_level][0],levels[current_level][1], levels[current_level][2]);
+ 	tiles.refresh();
 	MC.hp = MC.hpMax;
 	MC.nextFp = 10;
 	MC.fp = Math.floor(MC.nextFp);
