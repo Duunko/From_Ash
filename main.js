@@ -87,8 +87,6 @@ function onMouseDown(e){
 	
 	if (e.button == 0){	
 		MC.attack();
-		//var non_ash_2= [[10, 9, 1],[3, 4, 3], [8, 4, 1, 'y',2]];
-		//tiles.refresh(900, 900, 64, non_ash_2);
 	} else if (e.button == 2){
 	    MC.dash();
 	}
@@ -163,6 +161,12 @@ function angleDeg(x1,y1,x2,y2){
  }
  
  function reset_game(){
+ 	current_level = 1;
+ 	MC.mapX = levels[current_level][3];
+ 	MC.mapY = levels[current_level][4];
+ 	MC.canvasX = toCanvasX(MC.mapX);
+ 	MC.canvasY = toCanvasY(MC.mapY);
+ 	tiles.refresh(levels[current_level][0],levels[current_level][1], levels[current_level][2]);
 	MC.hp = MC.hpMax;
 	MC.nextFp = 10;
 	MC.fp = Math.floor(MC.nextFp);

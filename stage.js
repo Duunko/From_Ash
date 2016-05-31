@@ -30,18 +30,9 @@ function stage(top) {
     }
     
     this.remove_enemies = function(){
-    	var removal_array = [];
-    	for(var i = 0; i < this.owned_objects.length; i++){
-    		if(this.owned_objects[i].type == "enemy"){
-    			removal_array.push(i);
-    		}
-    	}
-    	for(var i = 0; i < removal_array.length; i++){
-    		this.owned_objects.splice(removal_array[i], 1);
-    		for(var j = 0; j < removal_array.length; j++){
-    			removal_array[j] -= 1;
-    		}
-    	}
+    	this.owned_objects = this.owned_objects.filter(function(obj){
+    	    return obj.type != "enemy";	
+    	});
     }
     
     this.always_update = true;
@@ -52,18 +43,11 @@ function stage(top) {
     }
     
     this.remove_obstacles = function(){
-    	var removal_array = [];
-    	for(var i = 0; i < this.owned_objects.length; i++){
-    		if(this.owned_objects[i].is_obstacle == true){
-    			removal_array.push(i);
-    		}
-    	}
-    	for(var i = 0; i < removal_array.length; i++){
-    		this.owned_objects.splice(removal_array[i], 1);
-    		for(var j = 0; j < removal_array.length; j++){
-    			removal_array[j] -= 1;
-    		}
-    	}
+    	this.owned_objects = this.owned_objects.filter(function(obj){
+    	    return obj.is_obstacle == undefined;	
+    	});
+    	console.log(this.owned_objects);
+    	
     }
     
 }
@@ -185,6 +169,7 @@ function game_draw(renderer) {
 				        } 
 				        if(renderer.stages[i].owned_objects[j] == MC || renderer.stages[i].owned_objects[k] == MC){
 				            if(MC.attack_hitbox != false){
+				            	console.log('hitbox');
 				                if (renderer.stages[i].owned_objects[k].attack_hitbox != undefined){
 					                var response = new SAT.Response();
 					                if(SAT.testPolygonPolygon(renderer.stages[i].owned_objects[j].hitbox.col_data.toPolygon(),

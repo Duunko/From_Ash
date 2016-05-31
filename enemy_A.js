@@ -193,6 +193,8 @@ function enemy_a(x, y){
 		//console.log("damage");
 		//if not stunned
 		
+		console.log('collided');
+		
 		if (MC.attack_hitbox.shape == 'arc'){
 			if(this.stunned == false){
 			    this.knockback();

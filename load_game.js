@@ -12,12 +12,26 @@ function load_game(){
 	
 	load_sprites();
 	
-	//load the main character
-	MC = new main_character();
+	//Load all stages
+	//Each level has five fields, except the first level doesnt use 4 and 5
+	//Fields are: Level width, level height, obstacles with format of [row, column, type],
+	//Starting X of MC and starting Y of MC
+	//IMPORTANT NOTE!! The starting width and height cannot be larder than 1/2 of the canvas width
+	//and height!! Because of how our tile system is set up if its any larger than that stuff breaks.
+	levels = [];
+	levels.push([900, 900, [[10, 10, 1],[4, 4, 3], [8, 2, 1, 'y',5]], 400, 300]);
+	levels.push([900, 900, [[10, 9, 1],[3, 4, 3], [8, 4, 1, 'y',2]], 300, 300]);
+	current_level = 0;
+	
+	
+	
+
 	
 	//load the game world
-	var non_ash = [[10, 10, 1],[4, 4, 3], [8, 2, 1, 'y',5]];
-	tiles = new create_board(900, 900, 64, non_ash);
+	tiles = new create_board(levels[current_level][0], levels[current_level][1],64, levels[current_level][2]);
+	
+	//load the main character
+	MC = new main_character(levels[current_level][3], levels[current_level][4]);
 	
 	//load the starting enemies
 	EN1 = new enemy_a(100,100);

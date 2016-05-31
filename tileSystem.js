@@ -42,6 +42,8 @@ function create_board(world_width, world_height, tile_size, non_ash){
 
 	this.tileGrid = [];
 	this.tiles = [];
+	
+	this.will_refresh = false;
 
 	for(var i = 0; i < this.TILES_IN_A_ROW; i++){
 		var column = new Array();
@@ -72,10 +74,9 @@ function create_board(world_width, world_height, tile_size, non_ash){
 		
 	}
 	
-	this.refresh = function(new_world_width, new_world_height, new_tile_size, new_non_ash){
+	this.refresh = function(new_world_width, new_world_height,  new_non_ash){
 		initial_generation = false;
 		main_stage.remove_obstacles();
-		this.TILE_SIZE = new_tile_size;
 	    this.WORLD_WIDTH = new_world_width;
 	    this.WORLD_HEIGHT = new_world_height;
 
@@ -123,6 +124,7 @@ function create_board(world_width, world_height, tile_size, non_ash){
 		    }
 	    }
 	}
+	
 	
 	this.draw = function onEnterFrame(){
   
@@ -176,6 +178,7 @@ function create_board(world_width, world_height, tile_size, non_ash){
 							var newObs = new depo(i*this.TILE_SIZE, j*this.TILE_SIZE);
 						}
 						else{
+							console.log(i + " " + j);
 							var newObs = new obstacle(i*this.TILE_SIZE, j*this.TILE_SIZE, obsType);
 						}
 						main_stage.push(newObs);

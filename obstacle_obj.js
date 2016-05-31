@@ -8,6 +8,7 @@ function obstacle(x,y, type){
 	this.mapY = y;
 	this.canvasX = toCanvasX(this.mapX);
 	this.canvasY = toCanvasY(this.mapY);
+	console.log(this.mapX + " " + this.mapY + " " + this.canvasX + " " + this.canvasY);
     this.type = type;
     if(this.type == 'environment'){
         this.sprite = assets["enviro_tree"];
