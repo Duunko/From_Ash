@@ -398,7 +398,7 @@ function main_character(x, y ) {
 		//fire point display
 		context.font = '25px Verdana'; //font and size
 		if(this.can_melee == false || this.dashing == true){
-			context.fillStyle = '#CF0D42';
+			context.fillStyle = '#000000ddsd';
 		}
 		context.fillText("Fire Points: "+this.fp, 10, 50);
 		

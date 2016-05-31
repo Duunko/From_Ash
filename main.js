@@ -103,7 +103,8 @@ var main_stage = new stage();
 renderer.push(main_stage);
 
 //Set up the tile system
-var non_ash = [[10, 10, 1],[4, 4, 3], [8, 2, 1, 'y',5]];
+var first_room;
+var non_ash = [[2,2,1],[11,2,1],[2,11,1],[11,11,1]];//[[10, 10, 1],[4, 4, 3], [8, 2, 1, 'y',5]];
 var tiles = new create_board(900, 900, 64, non_ash);
 main_stage.push(tiles);
 
@@ -171,9 +172,9 @@ function onMouseMove(e){
 
 function onMouseDown(e){
 	if (e.button == 0){	
-		//MC.attack();
-		var non_ash_2= [[10, 9, 1],[3, 4, 3], [8, 4, 1, 'y',2]];
-		tiles.refresh(900, 900, 64, non_ash_2);
+		MC.attack();
+		//var non_ash_2= [[10, 9, 1],[3, 4, 3], [8, 4, 1, 'y',2]];
+		//tiles.refresh(900, 900, 64, non_ash_2);
 	} else if (e.button == 2){
 	    MC.dash();
 	}
@@ -233,12 +234,12 @@ function angleDeg(x1,y1,x2,y2){
  
  function start_game(){
 	MC = new main_character(tiles.playerX, tiles.playerY);
-	EN1 = new enemy_a(100,100);
-	EN2 = new enemy_a(200, 200);
+	//EN1 = new enemy_a(100,100);
+	//EN2 = new enemy_a(200, 200);
 	SC = new sound_control();
 	main_stage.push(MC);
-	main_stage.push(EN1);
-	main_stage.push(EN2);
+	//main_stage.push(EN1);
+	//main_stage.push(EN2);
 	main_stage.push(SC);
 	main_stage.push(SC);
 
@@ -263,8 +264,8 @@ function angleDeg(x1,y1,x2,y2){
 	MC.fp = Math.floor(MC.nextFp);
 	main_stage.remove_enemies();
 	
-	EN1 = new enemy_a(100,100);
-	EN2 = new enemy_a(200, 200);
+	//EN1 = new enemy_a(100,100);
+	//EN2 = new enemy_a(200, 200);
 	
 	main_stage.push(EN1);
 	main_stage.push(EN2);
