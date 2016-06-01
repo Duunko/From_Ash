@@ -151,8 +151,8 @@ function angleDeg(x1,y1,x2,y2){
 	main_stage.push(tiles);
 	
 	main_stage.push(MC);
-	//main_stage.push(EN1);
-	//main_stage.push(EN2);
+	main_stage.push(EN1);
+	main_stage.push(EN2);
 	main_stage.push(SC);
 	main_stage.push(SC);
 

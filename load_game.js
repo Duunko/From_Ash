@@ -24,7 +24,7 @@ function load_game(){
 	//Default is 0
 	//If you want to add more obstacle types, ask me I'll do it.
 	levels = [];
-	levels.push([900, 900, [[10, 10, 1],[4, 4, 3], [8, 2, 1, 'y',5]], 400, 300]);
+	levels.push([1200, 1200, [[11, 11, 1],[4, 4, 3], [8, 2, 1, 'y',5]], 400, 300]);
 	levels.push([900, 900, [[10, 9, 1],[3, 4, 3], [8, 4, 1, 'y',2]], 300, 300]);
 	current_level = 0;
 	
