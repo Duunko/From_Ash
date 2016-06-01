@@ -24,6 +24,12 @@ function draw_animated_sprite(spr_arr, owner, cX, cY, spr_w, spr_h){
 				console.log("melee animation");
 				owner.end_animation("melee");
 			}
+			if(spr_arr == MC.death){
+				owner.end_animation("death");
+			}
+			if(spr_arr == MC.right_dash || spr_arr == MC.left_dash || spr_arr == MC.up_dash || spr_arr == MC.down_dash){
+				owner.end_animation("dash");
+			}
 			
 			owner.image_index = 0;
 		}

@@ -66,7 +66,7 @@ function enemy_a(x, y){
 		
 		if(this.stunned == false){
 			
-			if(this.hitbox.active == true){
+			if(this.hitbox.active == true && MC.active_animation != MC.death){
 			    this.moveTowards(MC);
 			
 			    this.mapX += this.mapXSpeed * this.speed;
