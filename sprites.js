@@ -41,6 +41,9 @@ function load_sprites(){
 
 	var sScorpion = new Image();
 	sScorpion.src = 'images/enemies/seascorpion.png';
+	
+	var fly = new Image();
+	fly.src = 'images/enemies/fly.png'
 
 	var gui_dash = new Image();
 	gui_dash.src = 'images/gui/dash_overlay.png';
@@ -91,6 +94,7 @@ function load_sprites(){
 		mc_melee_up_4: mc_melee_up_4,
 		
 		sScorpion: sScorpion,
+		fly: fly,
 		
 		gui_dash: gui_dash,
 		gui_melee: gui_melee,

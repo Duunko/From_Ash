@@ -109,8 +109,9 @@ function enemy_a(x, y){
 		var value_map = [];
 		var tlocX = Math.floor(target.mapX/64);
 		var tlocY = Math.floor(target.mapY/64);
-		var locX = 0;
-		var locY = 0;
+		var locX = this.mapX/64;
+		var locY = this.mapY/64;
+		
 		
 		
 		

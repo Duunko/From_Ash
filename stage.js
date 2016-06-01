@@ -46,8 +46,17 @@ function stage(top) {
     	this.owned_objects = this.owned_objects.filter(function(obj){
     	    return obj.is_obstacle == undefined;	
     	});
-    	console.log(this.owned_objects);
     	
+    }
+    
+    this.check_num_enemies = function(){
+    	var count = 0;
+    	for(var i = 0; i < this.owned_objects.length; i++){
+    		if(this.owned_objects.type = "enemy"){
+    			count++;
+    		}
+    	}
+    	return count;
     }
     
 }

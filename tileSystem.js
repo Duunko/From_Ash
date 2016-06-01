@@ -71,7 +71,22 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	}
 	
 	this.update = function(){
-		
+		if(initial_generation == false){
+	 	     for(var i = 0; i < this.tileGrid.length; i++){
+	 	     	for(var j = 0; j < this.tileGrid.length; j++){
+	 	     		if(this.tileGrid[i][j] == 1){
+	 	     			var obj = new obstacle(i*this.TILE_SIZE, j*this.TILE_SIZE, 'wall');
+	 	     			main_stage.push(obj);
+	 	     		} if(this.tileGrid[i][j] == 3){
+	 	     		    var obj = new depo(i*this.TILE_SIZE, j*this.TILE_SIZE);
+	 	     		    main_stage.push(obj);
+	 	     		}
+	 	     		
+	 	     	}
+	 	     		
+		     }
+		initial_generation = true;       
+	    }
 	}
 	
 	this.refresh = function(){
@@ -162,38 +177,15 @@ function create_board(world_width, world_height, tile_size, non_ash){
         for(var i = 0; i < this.VIEW_TILE_WIDTH+1; i++){
   	        for(var j = 0; j < this.VIEW_TILE_HEIGHT+1; j++){
 		        var tileSprite = this.TILE_SPRITES[0];
-		        var drawObs = false;
-		        var obsType = 0;
 		        if(this.tileGrid.length - 1 >= leftTile+i){
 			        if(this.tileGrid[leftTile+i].length - 1 >= topTile+j){
 						if(this.tileGrid[leftTile+i][topTile+j] == 1){
 							tileSprite = this.TILE_SPRITES[1];
-							drawObs = true;
-							obsType = 'dark';
-						} else if(this.tileGrid[leftTile+i][topTile+j] == 2){
-							drawObs = true;
-							obsType = 'environment';
-						} else if(this.tileGrid[leftTile+i][topTile+j] == 3){
-							drawObs = true;
-							obsType = 'depo';
-						}
-						
 			        }
 		        }
 		        
 		        context.drawImage(tileSprite, i*this.TILE_SIZE - tileOffsetX, j*this.TILE_SIZE - tileOffsetY, this.TILE_SIZE, this.TILE_SIZE);
-		        if(initial_generation == false){
-		            if (drawObs == true){
-						if(obsType == 'depo'){
-							var newObs = new depo(i*this.TILE_SIZE, j*this.TILE_SIZE);
-						}
-						else{
-							console.log(i + " " + j);
-							var newObs = new obstacle(i*this.TILE_SIZE, j*this.TILE_SIZE, obsType);
-						}
-						main_stage.push(newObs);
-		            }
-		        }
+		       
 				/*
 				context.beginPath();
 		        context.fillStyle = this.TILE_COLORS[tileColor];
@@ -205,10 +197,10 @@ function create_board(world_width, world_height, tile_size, non_ash){
 				context.strokeRect(i*this.TILE_SIZE - tileOffsetX, j*this.TILE_SIZE - tileOffsetY, this.TILE_SIZE, this.TILE_SIZE);
 				*/
             }
-        }
-        
-        initial_generation = true;
-    }
+        } 
+     }
+   }
+	 
 	
 }
 

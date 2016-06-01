@@ -27,7 +27,7 @@ function obstacle(x,y, type){
 	}
 	
 	this.draw = function(){
-		context.drawImage(this.sprite, this.canvasX, this.canvasY, 64, 64);
+		//context.drawImage(this.sprite, this.canvasX, this.canvasY, 64, 64);
 		//context.fillStyle = '#CF0D42';
 		//context.fillRect(toCanvasX(this.hitbox.col_data.pos.x), toCanvasY(this.hitbox.col_data.pos.y), this.sprite.width, this.sprite.height);
 		
