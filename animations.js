@@ -19,6 +19,12 @@ function draw_animated_sprite(spr_arr, owner, cX, cY, spr_w, spr_h){
 			owner.image_index++;
 		}
 		else{
+			//animation ended
+			if(spr_arr == MC.left_melee || spr_arr == MC.right_melee || spr_arr == MC.up_melee || spr_arr == MC.down_melee){
+				console.log("melee animation");
+				owner.end_animation("melee");
+			}
+			
 			owner.image_index = 0;
 		}
 		

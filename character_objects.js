@@ -11,40 +11,37 @@
  * 
  */
 
-function main_character(x, y ) {
-	this.sprite = assets[0];
+function main_character(x, y) {
+	this.sprite = new Image();
 	this.sprite.width = 60;
 	this.sprite.height = 80;
 	
-	this.up_walk = new Array;
-	this.up_walk.push(assets["mc_up_1"]);
-	this.up_walk.push(assets["mc_up_2"]);
-	this.up_walk.push(assets["mc_up_3"]);
+	this.up_walk = new Array; this.up_walk.push(assets["mc_up_1"]); this.up_walk.push(assets["mc_up_2"]); this.up_walk.push(assets["mc_up_3"]);
 	
-	this.down_walk = new Array;
-	this.down_walk.push(assets["mc_down_1"]);
-	this.down_walk.push(assets["mc_down_2"]);
-	this.down_walk.push(assets["mc_down_3"]);
+	this.down_walk = new Array; this.down_walk.push(assets["mc_down_1"]); this.down_walk.push(assets["mc_down_2"]); this.down_walk.push(assets["mc_down_3"]);
 	
-	this.right_walk = new Array;
-	this.right_walk.push(assets["mc_right_1"]);
-	this.right_walk.push(assets["mc_right_2"]);
-	this.right_walk.push(assets["mc_right_3"]);
+	this.right_walk = new Array; this.right_walk.push(assets["mc_right_1"]); this.right_walk.push(assets["mc_right_2"]); this.right_walk.push(assets["mc_right_3"]);
 	
-	this.left_walk = new Array;
-	this.left_walk.push(assets["mc_left_1"]);
-	this.left_walk.push(assets["mc_left_2"]);
-	this.left_walk.push(assets["mc_left_3"]);
+	this.left_walk = new Array; this.left_walk.push(assets["mc_left_1"]); this.left_walk.push(assets["mc_left_2"]); this.left_walk.push(assets["mc_left_3"]);
 	
+	this.up_melee = new Array; this.up_melee.push(assets["mc_melee_up_1"]); this.up_melee.push(assets["mc_melee_up_2"]); this.up_melee.push(assets["mc_melee_up_3"]); this.up_melee.push(assets["mc_melee_up_4"]);
+	
+	this.down_melee = new Array; this.down_melee.push(assets["mc_melee_down_1"]); this.down_melee.push(assets["mc_melee_down_2"]); this.down_melee.push(assets["mc_melee_down_3"]); this.down_melee.push(assets["mc_melee_down_4"]);
+
+	this.right_melee = new Array; this.right_melee.push(assets["mc_melee_right_1"]); this.right_melee.push(assets["mc_melee_right_2"]); this.right_melee.push(assets["mc_melee_right_3"]); this.right_melee.push(assets["mc_melee_right_4"]);
+
+	this.left_melee = new Array; this.left_melee.push(assets["mc_melee_left_1"]); this.left_melee.push(assets["mc_melee_left_2"]); this.left_melee.push(assets["mc_melee_left_3"]); this.left_melee.push(assets["mc_melee_left_4"]);
+
 	this.image_index = 0;
 	this.image_speed_max = 7;  
 	this.image_speed_counter = 0;
 	
 	this.active_animation = this.up_walk;
-	this.animated = false;
+	this.animated = false;               //whether the draw animated sprite script should be called
+	this.animating = false;              //whether a high priority animation is active (not walking)
 	
 	this.fp = 30;
-	this.nextFp = this.fp;
+	this.nextFp = 10;
 	
 	this.meleeCost = 2;
 	this.meleeCoolMax = 30;
@@ -65,8 +62,11 @@ function main_character(x, y ) {
 	this.look_direc = 'south';
 	this.canvasX = canvas.width/2;
 	this.canvasY = canvas.height/2;
-	this.mapX = tiles.WORLD_WIDTH/2;
-	this.mapY = tiles.WORLD_HEIGHT/2;
+	this.mapX;
+	this.mapY;
+	//this.canvasX = toCanvasX(this.mapX);
+	//this.canvasY = toCanvasY(this.mapY);
+
 	
 	this.vulnerable = true;
 	this.safetyTimerMax = 30;
@@ -92,10 +92,14 @@ function main_character(x, y ) {
 	this.dashWindD = 1.25;
 	
 	this.beaming = false;
+	this.aiming = false;
 	this.beamLength = 500;
 	this.beamGerth = 10;
 	this.beamDuration = 50;
 	this.beamTimer = this.beamDuration;
+	
+    this.xfunc;
+	this.yfunc;
 	
 	this.recently_checked = false;
 	this.can_move_left = true;
@@ -119,20 +123,20 @@ function main_character(x, y ) {
 	this.update = function(){
 		
 		//animation handlers
-		if(this.look_direc == 'west' && this.active_animation != this.left_walk){
+		if(this.look_direc == 'west' && this.animating == false){
 			this.active_animation = this.left_walk;
 		}
-		if(this.look_direc == 'south' && this.active_animation != this.down_walk){
+		if(this.look_direc == 'south' && this.animating == false){
 			this.active_animation = this.down_walk;
 		}
-		if(this.look_direc == 'north' && this.active_animation != this.up_walk){
+		if(this.look_direc == 'north' && this.animating == false){
 			this.active_animation = this.up_walk;
 		}
-		if(this.look_direc == 'east' && this.active_animation != this.right_walk){
+		if(this.look_direc == 'east' && this.animating == false){
 			this.active_animation = this.right_walk;
 		}
 		
-		if(this.canvasXSpeed == 0 && this.canvasYSpeed == 0){
+		if((this.canvasXSpeed == 0 && this.canvasYSpeed == 0) && this.animating == false){
 			this.animated = false;
 			this.image_index = 0;
 		}
@@ -291,7 +295,7 @@ function main_character(x, y ) {
 		this.hitbox.col_data.pos.x = this.mapX;
 		this.hitbox.col_data.pos.y = this.mapY;
 		
-		if(this.attack_hitbox != false){
+		if(this.attack_hitbox != false && this.attack_hitbox.shape == 'arc'){
 			if (this.attack_hitbox.currframe < this.attack_hitbox.numFrames + 2){
 				this.attack_hitbox.currframe++;
 				this.attack_hitbox.xy1 = findc1(this.attack_hitbox);
@@ -325,14 +329,64 @@ function main_character(x, y ) {
 			this.meleeCool--;
 		}
 		
-		if(this.beaming == true){
+		if(this.beaming == true && this.aiming == false){
 			if(this.beamTimer > 0){
 				this.beamTimer--;
+				console.log(this.beamTimer);
 			}
 			else{
 				this.beaming = false;
+				this.attack_hitbox = false;
 				this.beamTimer = this.beamDuration;
 			}
+		}
+		
+		if(this.aiming == true && keysPressed[BEAM_KEY_CODE] == false){
+			this.aiming = false;
+			this.attack_hitbox = {
+				    active:true,
+				    shape:'polygon',
+				    col_data:0,
+				    self:this,
+				    type:'beam'
+			}
+			var xad1 = this.beamStartX - this.mapX - this.sprite.width/2;
+			var xad2 = this.beamEndX - this.mapX - this.sprite.width/2;
+			var yad1 = this.beamStartY - this.mapY - this.sprite.height/2;
+			var yad2 = this.beamEndY - this.mapY - this.sprite.height/2;
+			console.log(xad1 + " " + xad2);
+			console.log(yad2 + " " + yad1);
+			var xDiff = xad2 - xad1;
+			var yDiff = yad2 - yad1;
+			console.log(xDiff + " " + yDiff);
+			var angle = radians(Math.atan2(xDiff, yDiff));
+			console.log(angle);
+			if (angle < 0){
+				angle = 360 +angle;
+			}
+			console.log("adjusted angle: " + angle);
+			var dist = Math.sqrt((xDiff*xDiff) + (yDiff*yDiff));
+			console.log(dist);
+			var p1 = [this.beamGerth, 0];
+			var p2 = [this.beamGerth, dist];
+			rotate_counter(p1, angle);
+			rotate_counter(p2, angle);
+			console.log(xad1 + " " + yad1);
+			console.log(xad2 + " " + yad2);
+			console.log(p1[0] + " " + p1[1]);
+			console.log(p2[0] + " " + p2[1]);
+			var adx1 = p1[0] + this.mapX + this.sprite.width/2;
+			var adx2 = p2[0] + this.mapX + this.sprite.width/2;
+			var ady1 = p1[1] + this.mapY + this.sprite.height/2;
+			var ady2 = p2[1] + this.mapY + this.sprite.height/2; 
+			this.attack_hitbox.col_data = new SAT.Polygon(new SAT.Vector(), [
+			new SAT.Vector(this.beamStartX, this.beamStartY),
+			new SAT.Vector(adx1, ady1),
+			new SAT.Vector(adx2, ady2),
+			new SAT.Vector(this.beamEndX, this.beamEndY)]);
+			
+			
+			console.log(this.attack_hitbox);
 		}
 		
 	}//Update
@@ -347,12 +401,31 @@ function main_character(x, y ) {
 		}
 		
 		//if beam active, draw beam
-		if(this.beaming == true){
+		if(this.beaming == true && this.aiming == true){
 			context.beginPath();
-			context.moveTo(this.beamStartX, this.beamStartY);
-			context.lineTo(this.beamEndX, this.beamEndY);
+			context.moveTo(toCanvasX(this.beamStartX), toCanvasY(this.beamStartY));
+			context.lineTo(toCanvasX(this.beamEndX), toCanvasY(this.beamEndY));
 			context.lineWidth = this.beamGerth;
+			if(this.aiming == false){
+				context.strokeStyle = '#ff0000';
+			}
+			else{
+				context.strokeStyle = '#000000';
+			}
 			context.stroke();
+		} else if(this.beaming == true && this.aiming == false){
+			console.log(this.attack_hitbox.col_data.points[0].x + " " + this.attack_hitbox.col_data.points[0].y);
+			console.log(this.attack_hitbox.col_data.points[1].x + " " + this.attack_hitbox.col_data.points[1].y);
+			console.log(this.attack_hitbox.col_data.points[2].x + " " + this.attack_hitbox.col_data.points[2].y);
+			console.log(this.attack_hitbox.col_data.points[3].x + " " + this.attack_hitbox.col_data.points[3].y);
+			context.beginPath();
+			context.moveTo(toCanvasX(this.attack_hitbox.col_data.points[0].x), toCanvasY(this.attack_hitbox.col_data.points[0].y));
+			context.lineTo(toCanvasX(this.attack_hitbox.col_data.points[1].x), toCanvasY(this.attack_hitbox.col_data.points[1].y));
+			context.lineTo(toCanvasX(this.attack_hitbox.col_data.points[2].x), toCanvasY(this.attack_hitbox.col_data.points[2].y));
+			context.lineTo(toCanvasX(this.attack_hitbox.col_data.points[3].x), toCanvasY(this.attack_hitbox.col_data.points[3].y));
+			context.lineTo(toCanvasX(this.attack_hitbox.col_data.points[0].x), toCanvasY(this.attack_hitbox.col_data.points[0].y));
+			context.closePath();
+			context.fill(); 
 		}
 		
 		//drawing imaginary line from corners to mouse coordinates
@@ -377,7 +450,7 @@ function main_character(x, y ) {
 			this.look_direc = 'west';
 		}
 		
-		if (this.attack_hitbox != false){
+		if (this.attack_hitbox != false && this.attack_hitbox.shape == 'arc'){
 			var posx = this.mapX + (this.sprite.width / 2);
 			var posy = this.mapY + (this.sprite.height / 2);
 		    context.fillStyle = '#CF0D42';
@@ -420,24 +493,33 @@ function main_character(x, y ) {
 
 			var opt1 = this.look_direc;
 			var direction = 180;
+			this.animated = true;
+			this.animating = true;
 		    if (opt1 == 'west') {
 			    direction = 90;
+				this.active_animation = this.left_melee;
 		    } else if (opt1 == 'south'){
 			    direction = 0;
+				this.active_animation = this.down_melee;
 		    } else if (opt1 == 'east'){
 			    direction = 270;
-		    } 
+				this.active_animation = this.right_melee;
+		    } else if (opt1 == 'north'){
+				direction = 180;
+				this.active_animation = this.up_melee;
+			}
 			this.attack_hitbox = {
 				active:true,
 				shape:'arc',
 				currframe:0,
 				col_data:0,
-				numFrames:10,
+				numFrames:16,
 				radius:100,
 				self:this,
 				direc:direction,
 				xy1:0,
-				xy2:0
+				xy2:0,
+				type:'melee'
 			}
 		    
 			this.can_melee = false;
@@ -478,12 +560,13 @@ function main_character(x, y ) {
 			//Create a beam of set length in the direction
 			//of mousex and mousey
 			this.beaming = true;
+			this.aiming = true;
 			
-			this.beamStartX = this.canvasX + this.sprite.width/2;
-			this.beamStartY = this.canvasY + this.sprite.height/2;
+			this.beamStartX = this.mapX + this.sprite.width/2;
+			this.beamStartY = this.mapY + this.sprite.height/2;
 			
-			var slopeX = mouseX - this.beamStartX;
-			var slopeY = mouseY - this.beamStartY;
+			var slopeX = toMapX(mouseX) - this.beamStartX;
+			var slopeY = toMapY(mouseY) - this.beamStartY;
 			var distance = Math.sqrt(Math.pow((mouseX - this.beamStartX), 2)
 								 + Math.pow((mouseY - this.beamStartY), 2));
 			
@@ -512,6 +595,13 @@ function main_character(x, y ) {
 	this.die = function(){
 		//reset the game
 		reset_game();
+	}
+	
+	this.end_animation = function(target){
+		//called when the current animation ends
+		if(target == "melee"){
+			this.animating = false;
+		}
 	}
 	
     this.special = function(param){
@@ -590,4 +680,15 @@ function main_character(x, y ) {
 
 function degrees(number){
 	return number * Math.PI / 180;
+}
+
+function radians(number){
+	return number *  180 / Math.PI;
+}
+
+function rotate_counter(ar, angle){
+	var tx = ar[0];
+	var ty = ar[1];
+	ar[0] = ((tx * Math.cos(angle)) - (ty * (Math.sin(angle))));
+	ar[1] = ((tx * Math.sin(angle)) + (ty * Math.cos(angle))); 
 }

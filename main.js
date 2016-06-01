@@ -15,103 +15,15 @@ var context = canvas.getContext('2d');
 // Set up the renderer
 var renderer = new renderer(canvas, context);
 
-//preload of assets
-var assets = new Array();
-
-
-var mc_up_1 = new Image();
-mc_up_1.src = 'images/walk_top/phoenix_away1.png';
-var mc_up_2 = new Image();
-mc_up_2.src = 'images/walk_top/phoenix_away2.png';
-var mc_up_3 = new Image();
-mc_up_3.src = 'images/walk_top/phoenix_away3.png';
-
-var mc_down_1 = new Image();
-mc_down_1.src = 'images/walk_down/phoenix_walkforward1.png';
-var mc_down_2 = new Image();
-mc_down_2.src = 'images/walk_down/phoenix_walkforward2.png';
-var mc_down_3 = new Image();
-mc_down_3.src = 'images/walk_down/phoenix_walkforward3.png';
-
-var mc_right_1 = new Image();
-mc_right_1.src = 'images/walk_right/phoenix_walkright1.png';
-var mc_right_2 = new Image();
-mc_right_2.src = 'images/walk_right/phoenix_walkright2.png';
-var mc_right_3 = new Image();
-mc_right_3.src = 'images/walk_right/phoenix_walkright3.png';
-
-var mc_left_1 = new Image();
-mc_left_1.src = 'images/walk_left/phoenix_walkleft1.png';
-var mc_left_2 = new Image();
-mc_left_2.src = 'images/walk_left/phoenix_walkleft2.png';
-var mc_left_3 = new Image();
-mc_left_3.src = 'images/walk_left/phoenix_walkleft3.png';
-
-var sScorpion = new Image();
-sScorpion.src = 'images/enemies/seascorpion.png';
-
-var gui_dash = new Image();
-gui_dash.src = 'images/gui/dash_overlay.png';
-var gui_melee = new Image();
-gui_melee.src = 'images/gui/melee_overlay.png';
-
-var enviro_tree = new Image();
-enviro_tree.src = 'images/environment/treestump_nest1.png';
-
-var gui_shade = new Image();
-gui_shade.src = 'images/gui/overlay_cover.png';
-
-var tile_ash = new Image();
-tile_ash.src = 'images/environment/ash_tile.png';
-
-var black_square = new Image();
-black_square.src = 'images/black_square.png';
-
-assets.push(mc_up_1);     //0
-
-assets["mc_up_1"] = mc_up_1;
-assets["mc_up_2"] = mc_up_2;
-assets["mc_up_3"] = mc_up_3;
-
-assets["mc_down_1"] = mc_down_1;
-assets["mc_down_2"] = mc_down_2;
-assets["mc_down_3"] = mc_down_3;
-
-assets["mc_right_1"] = mc_right_1;
-assets["mc_right_2"] = mc_right_2;
-assets["mc_right_3"] = mc_right_3;
-
-assets["mc_left_1"] = mc_left_1;
-assets["mc_left_2"] = mc_left_2;
-assets["mc_left_3"] = mc_left_3;
-
-assets["sScorpion"] = sScorpion;
-
-assets["gui_dash"] = gui_dash;
-assets["gui_melee"] = gui_melee;
-assets["gui_shade"] = gui_shade;
-
-assets["enviro_tree"] = enviro_tree;
-assets["tile_ash"] = tile_ash;
-assets["black_square"] = black_square;
-
-
 // Create and push the main stage.
 // This stage will be the main game, we will do this later
 // when we have a menu screen to work with.
 var main_stage = new stage();
 renderer.push(main_stage);
 
-//Set up the tile system
-var first_room;
-var non_ash = [[2,2,1],[11,2,1],[2,11,1],[11,11,1]];//[[10, 10, 1],[4, 4, 3], [8, 2, 1, 'y',5]];
-var tiles = new create_board(900, 900, 64, non_ash);
-main_stage.push(tiles);
 
 // Start the game loop. 
-//console.log(tiles.playerX);
 make_loop(renderer, 15);
-
 
 /* Making character movement
  * 
@@ -148,7 +60,7 @@ var LEFT_KEY_CODE = 65;
 var UP_KEY_CODE = 87;
 var DOWN_KEY_CODE = 83;
 
-var ACTION_KEY_CODE = 75;
+var ACTION_KEY_CODE = 69;
 var BEAM_KEY_CODE = 81;
 
 var keysPressed = {};
@@ -158,6 +70,8 @@ keysPressed[UP_KEY_CODE] = false;
 keysPressed[DOWN_KEY_CODE] = false;
 keysPressed[ACTION_KEY_CODE] = false;
 keysPressed[BEAM_KEY_CODE] = false;
+
+var anyKeyPress = false;
 
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
@@ -171,10 +85,9 @@ function onMouseMove(e){
 }
 
 function onMouseDown(e){
+	
 	if (e.button == 0){	
 		MC.attack();
-		//var non_ash_2= [[10, 9, 1],[3, 4, 3], [8, 4, 1, 'y',2]];
-		//tiles.refresh(900, 900, 64, non_ash_2);
 	} else if (e.button == 2){
 	    MC.dash();
 	}
@@ -184,14 +97,16 @@ canvas.oncontextmenu = function(){ return false;}
 
 function keyDown(e) {
   if (e.keyCode in keysPressed){
-    keysPressed[e.keyCode] = true;
+		keysPressed[e.keyCode] = true;
   }
+  anyKeyPress = true;
 }
 
 function keyUp(e){
 	if (e.keyCode in keysPressed){
-    keysPressed[e.keyCode] = false;
-  }
+		keysPressed[e.keyCode] = false;
+	}
+	anyKeyPress = false;
 }
 
 function angleDeg(x1,y1,x2,y2){
@@ -233,34 +148,29 @@ function angleDeg(x1,y1,x2,y2){
  //-----------------------------------------------------------
  
  function start_game(){
+
 	MC = new main_character(tiles.playerX, tiles.playerY);
-	//EN1 = new enemy_a(100,100);
+	//dawawdEN1 = new enemy_a(100,100);
 	//EN2 = new enemy_a(200, 200);
 	SC = new sound_control();
+	//Set up the tile system
+	main_stage.push(tiles);
+	
 	main_stage.push(MC);
-	//main_stage.push(EN1);
+	main_stage.push(EN1);
 	//main_stage.push(EN2);
 	main_stage.push(SC);
 	main_stage.push(SC);
 
-	//overlays
-	dash_sprite = assets["gui_dash"];
-	dash_sprite.width = 64;
-	dash_sprite.height = 64;
-	
-	melee_sprite = assets["gui_melee"];
-	melee_sprite.width = 64;
-	melee_sprite.height = 64;
-	
-	MO = new overlay(10, 125, melee_sprite, "melee");
 	main_stage.push(MO);
-	
-	DO = new overlay(10, 200, dash_sprite, "dash");
 	main_stage.push(DO);
  }
  
  function reset_game(){
+ 	current_level = 0;
+ 	tiles.refresh();
 	MC.hp = MC.hpMax;
+	MC.nextFp = 10;
 	MC.fp = Math.floor(MC.nextFp);
 	main_stage.remove_enemies();
 	
@@ -270,6 +180,5 @@ function angleDeg(x1,y1,x2,y2){
 	main_stage.push(EN1);
 	main_stage.push(EN2);
  }
-
-start_game();
-
+ 
+ load_game();

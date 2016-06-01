@@ -17,8 +17,10 @@ function create_board(world_width, world_height, tile_size, non_ash){
 
 	this.NUM_TILE_TYPES = 4;
 	
-	sprite_ash = assets["tile_ash"];
-	sprite_darkness = assets["black_square"];
+	//sprite_ash = assets["tile_ash"];
+	//sprite_darkness = assets["black_square"];
+	sprite_ash = assets.tile_ash;
+	sprite_darkness = assets.black_square;
 	
 	this.TILE_SPRITES = [sprite_ash, sprite_darkness];
 
@@ -34,19 +36,14 @@ function create_board(world_width, world_height, tile_size, non_ash){
 
 	this.VIEW_TILE_WIDTH = Math.floor(this.VIEW_WIDTH / this.TILE_SIZE);
 	this.VIEW_TILE_HEIGHT = Math.floor(this.VIEW_HEIGHT / this.TILE_SIZE);
-
-	this.playerX = this.WORLD_WIDTH/2;
-	this.playerY = this.WORLD_HEIGHT/2;
-	//playerX = VIEW_WIDTH/2;
-	//playerY = VIEW_HEIGHT/2;
 	
 	this.left;
 	this.top;
-	
-	console.log(this.playerX);
 
 	this.tileGrid = [];
 	this.tiles = [];
+	
+	this.will_refresh = false;
 
 	for(var i = 0; i < this.TILES_IN_A_ROW; i++){
 		var column = new Array();
@@ -77,10 +74,19 @@ function create_board(world_width, world_height, tile_size, non_ash){
 		
 	}
 	
-	this.refresh = function(new_world_width, new_world_height, new_tile_size, new_non_ash){
+	this.refresh = function(){
+		
+		MC.mapX = levels[current_level][3];
+ 	   MC.mapY = levels[current_level][4];
+ 	   MC.canvasX = toCanvasX(MC.mapX);
+ 	   MC.canvasY = toCanvasY(MC.mapY);
+		
+		var new_world_width = levels[current_level][0];
+		var new_world_height = levels[current_level][1];
+		var new_non_ash = levels[current_level][2];
+		
 		initial_generation = false;
 		main_stage.remove_obstacles();
-		this.TILE_SIZE = new_tile_size;
 	    this.WORLD_WIDTH = new_world_width;
 	    this.WORLD_HEIGHT = new_world_height;
 
@@ -128,6 +134,7 @@ function create_board(world_width, world_height, tile_size, non_ash){
 		    }
 	    }
 	}
+	
 	
 	this.draw = function onEnterFrame(){
   
@@ -181,6 +188,7 @@ function create_board(world_width, world_height, tile_size, non_ash){
 							var newObs = new depo(i*this.TILE_SIZE, j*this.TILE_SIZE);
 						}
 						else{
+							console.log(i + " " + j);
 							var newObs = new obstacle(i*this.TILE_SIZE, j*this.TILE_SIZE, obsType);
 						}
 						main_stage.push(newObs);
