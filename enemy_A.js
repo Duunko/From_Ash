@@ -109,8 +109,9 @@ function enemy_a(x, y){
 		var value_map = [];
 		var tlocX = Math.floor(target.mapX/64);
 		var tlocY = Math.floor(target.mapY/64);
-		var locX = 0;
-		var locY = 0;
+		var locX = this.mapX/64;
+		var locY = this.mapY/64;
+		
 		
 		
 		
@@ -192,10 +193,19 @@ function enemy_a(x, y){
 		//this is called when the enemy collides with the melee
 		//console.log("damage");
 		//if not stunned
-		if(this.stunned == false){
+		
+		console.log('collided');
+		
+		if (MC.attack_hitbox.shape == 'arc'){
+			if(this.stunned == false){
+			    this.knockback();
+			    this.on_hit(5);
+		    }
+		} else if(MC.attack_hitbox.shape == 'polygon'){
 			this.knockback();
-			this.on_hit(5);
+			this.on_hit(10);
 		}
+		
 	}
 	
 	this.on_hit = function(dmg){

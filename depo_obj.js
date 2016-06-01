@@ -8,7 +8,7 @@ function depo(x, y){
 	this.mapY = y;
 	this.canvasX = toCanvasX(this.mapX);
 	this.canvasY = toCanvasY(this.mapY);
-    this.sprite = assets["enviro_tree"];
+   this.sprite = assets["enviro_tree"];
 	this.sprite.width = 64;
 	this.sprite.height = 64;
 

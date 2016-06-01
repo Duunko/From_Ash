@@ -11,7 +11,7 @@
  * 
  */
 
-function main_character() {
+function main_character(x, y) {
 	this.sprite = new Image();
 	this.sprite.width = 60;
 	this.sprite.height = 80;
@@ -71,6 +71,9 @@ function main_character() {
 	this.canvasY = canvas.height/2;
 	this.mapX;
 	this.mapY;
+	//this.canvasX = toCanvasX(this.mapX);
+	//this.canvasY = toCanvasY(this.mapY);
+
 	
 	this.vulnerable = true;
 	this.safetyTimerMax = 30;
@@ -106,6 +109,9 @@ function main_character() {
 	this.beamGerth = 10;
 	this.beamDuration = 50;
 	this.beamTimer = this.beamDuration;
+	
+    this.xfunc;
+	this.yfunc;
 	
 	this.recently_checked = false;
 	this.can_move_left = true;
@@ -303,7 +309,7 @@ function main_character() {
 		this.hitbox.col_data.pos.x = this.mapX;
 		this.hitbox.col_data.pos.y = this.mapY;
 		
-		if(this.attack_hitbox != false){
+		if(this.attack_hitbox != false && this.attack_hitbox.shape == 'arc'){
 			if (this.attack_hitbox.currframe < this.attack_hitbox.numFrames + 2){
 				this.attack_hitbox.currframe++;
 				this.attack_hitbox.xy1 = findc1(this.attack_hitbox);
@@ -344,12 +350,57 @@ function main_character() {
 			}
 			else{
 				this.beaming = false;
+				this.attack_hitbox = false;
 				this.beamTimer = this.beamDuration;
 			}
 		}
 		
 		if(this.aiming == true && keysPressed[BEAM_KEY_CODE] == false){
 			this.aiming = false;
+			this.attack_hitbox = {
+				    active:true,
+				    shape:'polygon',
+				    col_data:0,
+				    self:this,
+				    type:'beam'
+			}
+			var xad1 = this.beamStartX - this.mapX - this.sprite.width/2;
+			var xad2 = this.beamEndX - this.mapX - this.sprite.width/2;
+			var yad1 = this.beamStartY - this.mapY - this.sprite.height/2;
+			var yad2 = this.beamEndY - this.mapY - this.sprite.height/2;
+			console.log(xad1 + " " + xad2);
+			console.log(yad2 + " " + yad1);
+			var xDiff = xad2 - xad1;
+			var yDiff = yad2 - yad1;
+			console.log(xDiff + " " + yDiff);
+			var angle = radians(Math.atan2(xDiff, yDiff));
+			console.log(angle);
+			if (angle < 0){
+				angle = 360 +angle;
+			}
+			console.log("adjusted angle: " + angle);
+			var dist = Math.sqrt((xDiff*xDiff) + (yDiff*yDiff));
+			console.log(dist);
+			var p1 = [this.beamGerth, 0];
+			var p2 = [this.beamGerth, dist];
+			rotate_counter(p1, angle);
+			rotate_counter(p2, angle);
+			console.log(xad1 + " " + yad1);
+			console.log(xad2 + " " + yad2);
+			console.log(p1[0] + " " + p1[1]);
+			console.log(p2[0] + " " + p2[1]);
+			var adx1 = p1[0] + this.mapX + this.sprite.width/2;
+			var adx2 = p2[0] + this.mapX + this.sprite.width/2;
+			var ady1 = p1[1] + this.mapY + this.sprite.height/2;
+			var ady2 = p2[1] + this.mapY + this.sprite.height/2; 
+			this.attack_hitbox.col_data = new SAT.Polygon(new SAT.Vector(), [
+			new SAT.Vector(this.beamStartX, this.beamStartY),
+			new SAT.Vector(adx1, ady1),
+			new SAT.Vector(adx2, ady2),
+			new SAT.Vector(this.beamEndX, this.beamEndY)]);
+			
+			
+			console.log(this.attack_hitbox);
 		}
 		
 	}//Update
@@ -364,7 +415,7 @@ function main_character() {
 		}
 		
 		//if beam active, draw beam
-		if(this.beaming == true){
+		if(this.beaming == true && this.aiming == true){
 			context.beginPath();
 			context.moveTo(toCanvasX(this.beamStartX), toCanvasY(this.beamStartY));
 			context.lineTo(toCanvasX(this.beamEndX), toCanvasY(this.beamEndY));
@@ -376,6 +427,19 @@ function main_character() {
 				context.strokeStyle = '#000000';
 			}
 			context.stroke();
+		} else if(this.beaming == true && this.aiming == false){
+			console.log(this.attack_hitbox.col_data.points[0].x + " " + this.attack_hitbox.col_data.points[0].y);
+			console.log(this.attack_hitbox.col_data.points[1].x + " " + this.attack_hitbox.col_data.points[1].y);
+			console.log(this.attack_hitbox.col_data.points[2].x + " " + this.attack_hitbox.col_data.points[2].y);
+			console.log(this.attack_hitbox.col_data.points[3].x + " " + this.attack_hitbox.col_data.points[3].y);
+			context.beginPath();
+			context.moveTo(toCanvasX(this.attack_hitbox.col_data.points[0].x), toCanvasY(this.attack_hitbox.col_data.points[0].y));
+			context.lineTo(toCanvasX(this.attack_hitbox.col_data.points[1].x), toCanvasY(this.attack_hitbox.col_data.points[1].y));
+			context.lineTo(toCanvasX(this.attack_hitbox.col_data.points[2].x), toCanvasY(this.attack_hitbox.col_data.points[2].y));
+			context.lineTo(toCanvasX(this.attack_hitbox.col_data.points[3].x), toCanvasY(this.attack_hitbox.col_data.points[3].y));
+			context.lineTo(toCanvasX(this.attack_hitbox.col_data.points[0].x), toCanvasY(this.attack_hitbox.col_data.points[0].y));
+			context.closePath();
+			context.fill(); 
 		}
 		
 		//drawing imaginary line from corners to mouse coordinates
@@ -400,7 +464,7 @@ function main_character() {
 			this.look_direc = 'west';
 		}
 		
-		if (this.attack_hitbox != false){
+		if (this.attack_hitbox != false && this.attack_hitbox.shape == 'arc'){
 			var posx = this.mapX + (this.sprite.width / 2);
 			var posy = this.mapY + (this.sprite.height / 2);
 		    context.fillStyle = '#CF0D42';
@@ -421,7 +485,7 @@ function main_character() {
 		//fire point display
 		context.font = '25px Verdana'; //font and size
 		if(this.can_melee == false || this.dashing == true){
-			context.fillStyle = '#CF0D42';
+			context.fillStyle = '#000000ddsd';
 		}
 		context.fillText("Fire Points: "+this.fp, 10, 50);
 		
@@ -468,7 +532,8 @@ function main_character() {
 				self:this,
 				direc:direction,
 				xy1:0,
-				xy2:0
+				xy2:0,
+				type:'melee'
 			}
 		    
 			this.can_melee = false;
@@ -655,4 +720,15 @@ function main_character() {
 
 function degrees(number){
 	return number * Math.PI / 180;
+}
+
+function radians(number){
+	return number *  180 / Math.PI;
+}
+
+function rotate_counter(ar, angle){
+	var tx = ar[0];
+	var ty = ar[1];
+	ar[0] = ((tx * Math.cos(angle)) - (ty * (Math.sin(angle))));
+	ar[1] = ((tx * Math.sin(angle)) + (ty * Math.cos(angle))); 
 }

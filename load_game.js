@@ -12,12 +12,61 @@ function load_game(){
 	
 	load_sprites();
 	
-	//load the main character
-	MC = new main_character();
+	//Load all stages
+	//Each level has five fields, except the first level doesnt use 4 and 5
+	//Fields are: Level width, level height, obstacles with format of [row, column, type],
+	//Starting X of MC and starting Y of MC
+	//IMPORTANT NOTE!! The starting width and height cannot be larder than 1/2 of the canvas width
+	//and height!! Because of how our tile system is set up if its any larger than that stuff breaks.
+	//Current numbers for obstacle types:
+	//Walls are 1
+	//Depots are 3
+	//Default is 0
+	//If you want to add more obstacle types, ask me I'll do it.
+	levels = [];
+	//Tutorial Levels
+	//levels.push([900, 900, 400, 300]);
+	//levels.push([900, 900, [[10, 9, 1],
+	//								[2, 3, 1, 'x', 4], 
+	//								[8, 4, 1, 'y',2],
+	//								[4,10,1,'x',2]], 300, 300]);
+	//levels.push([900, 900, [[6, 4, 3]], 300, 100]);
+	
+	//Main Levels
+	//levels.push([1200,1200,[[10,9,1],[12,12,1],[2,2,1,'y',5],[14,2,1],[14,3,1]],100,30]);
+	//levels.push([1200,1200,[[11,11,1],[4,7,1,'y',6],[4,6,3],[10,2,1,'x',3]],100,100]);
+	//levels.push([1200,1200,[[9,7,1,'y',3],[3,3,1,'y',2],[10,2,3],[10,4,1,'x',3],[2,10,1,'x',2]],100,100]);
+	//levels.push([1000,1000,[[13,4,1,'y',5],[3,3,1,'y',4],[13,1,3],[10,4,1,'x',3],[9,9,1,'x',5]],600,400]);
+	levels.push([1136,1000,[[2,3,1,'y',3],[6,3,1,'y',3],[10,3,1,'y',3],[14,3,1,'y',3],
+									[2,9,1,'y',3],[6,9,1,'y',3],[10,9,1,'y',3],[14,9,1,'y',3],
+									[1,10,3]],100,400]);
+	
+	
+	current_level = 0;
+	
+	/*if(current_level == 1){
+		EN1 = new enemy_a(200, 200);
+		main_stage.push(EN1);
+		if(EN1.hp <= 0){
+			current_level += 1;
+		}
+	} */
+	
+	/* if(current_level == 0){
+		context.fillText('Try out your moves!',100,50);
+		context.fillText('WASD to move and mouse clicks to attack!',100,75);
+	} */
+	
+	/* if(current_level == 2){
+		context.fillText('You can deposit fire points for later use.',100,50);
+		context.fillText('Press "E" on the tree stump to deposit your points.',100,75);
+	} */
 	
 	//load the game world
-	var non_ash = [[10, 10, 1],[4, 4, 3], [8, 2, 1, 'y',5]];
-	tiles = new create_board(900, 900, 64, non_ash);
+	tiles = new create_board(levels[current_level][0], levels[current_level][1],64, levels[current_level][2]);
+	
+	//load the main character
+	MC = new main_character(levels[current_level][3], levels[current_level][4]);
 	
 	//load the starting enemies
 	EN1 = new enemy_a(100,100);
