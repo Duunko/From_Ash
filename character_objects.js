@@ -76,7 +76,8 @@ function main_character(x, y) {
 	this.mapY;
 	this.depth;
 	
-	this.moveCanvas = false;
+	this.moveCanvasX = false;
+	this.moveCanvasY = false;
 	
 	this.vulnerable = true;
 	this.safetyTimerMax = 30;
@@ -113,7 +114,7 @@ function main_character(x, y) {
 	this.beamDuration = 50;
 	this.beamTimer = this.beamDuration;
 	
-   this.xfunc;
+    this.xfunc;
 	this.yfunc;
 	
 	this.recently_checked = false;
@@ -137,7 +138,7 @@ function main_character(x, y) {
 	
 	this.update = function(){
 		
-		console.log(this.moveCanvas);
+		console.log(this.moveCanvasX);
 		
 		//walking animation handlers
 		if(this.walking == true){
@@ -192,84 +193,52 @@ function main_character(x, y) {
 			this.dashYInc = 0;
 		   
 			if (keysPressed[RIGHT_KEY_CODE] == true) {
-				if(this.can_move_right == true){
-				    if(this.canvasX + this.sprite.width <= canvas.width){
-					    //this.canvasX += this.speed;
-					    if(this.canvasXSpeed < this.speed){ this.canvasXSpeed += this.speedInc }
-				    }
-				} else {
-					this.canvasXSpeed = 0;
+				if(this.canvasX + this.sprite.width <= canvas.width){
+					//this.canvasX += this.speed;
+					if(this.canvasXSpeed < this.speed){ this.canvasXSpeed += this.speedInc }
 				}
 			}
 		   
 			else {
-			   if(this.canvasXSpeed > 0){ 
-			   	   if(this.can_move_right == true){
-			           this.canvasXSpeed -= this.speedInc 
-			       } else {
-			       	   this.canvasXSpeed = 0;
-			       }
-			   }
+			    if(this.canvasXSpeed > 0){ 
+					this.canvasXSpeed -= this.speedInc 
+			    }
 			}
 		   
 			if (keysPressed[LEFT_KEY_CODE] == true) {
-				if(this.can_move_left == true){
-				    if(this.canvasX > 0){
-					    //this.canvasX -= this.speed;
-					    if(this.canvasXSpeed > -this.speed){ this.canvasXSpeed -= this.speedInc;}
-				    }
-				} else {
-					this.canvasXSpeed = 0;
+				if(this.canvasX > 0){
+					//this.canvasX -= this.speed;
+					if(this.canvasXSpeed > -this.speed){ this.canvasXSpeed -= this.speedInc;}
 				}
 			}
 		   
 			else {
-			   if(this.canvasXSpeed < 0){ 
-			   	   if(this.can_move_left == true){
-			   	       this.canvasXSpeed += this.speedInc;
-			   	   } else {
-			   	   	   this.canvasXSpeed = 0;
-			   	   }
+			    if(this.canvasXSpeed < 0){ 
+			   	    this.canvasXSpeed += this.speedInc;
 			   	}
 			}
 		   
 			if (keysPressed[DOWN_KEY_CODE] == true) {
-				if (this.can_move_down == true){
-				    if(this.canvasY + this.sprite.height < canvas.height){
-					    //this.canvasY += this.speed;
-					    if(this.canvasYSpeed < this.speed){ this.canvasYSpeed += this.speedInc }
-				    }
-				} else {
-					this.canvasYSpeed = 0;
-				}
+				if(this.canvasY + this.sprite.height < canvas.height){
+					//this.canvasY += this.speed;
+				    if(this.canvasYSpeed < this.speed){ this.canvasYSpeed += this.speedInc }
+			    }
 			}
 			else{
 				if(this.canvasYSpeed > 0){ 
-					if (this.can_move_down == true){
-					    this.canvasYSpeed -= this.speedInc 
-					} else {
-						this.canvasYSpeed = 0;
-					}
+					this.canvasYSpeed -= this.speedInc; 
 			   }
 			}
 			
 			if (keysPressed[UP_KEY_CODE] == true) {
-				if (this.can_move_up == true){
-				    if(this.canvasY > 0){
-					    //this.canvasY -= this.speed;
-					    if(this.canvasYSpeed > -this.speed){ this.canvasYSpeed -= this.speedInc }
-				    }
-				} else {
-					this.canvasYSpeed = 0;
+				if(this.canvasY > 0){
+					//this.canvasY -= this.speed;
+					if(this.canvasYSpeed > -this.speed){ this.canvasYSpeed -= this.speedInc }
 				}
 			}
 			else{
 				if(this.canvasYSpeed  < 0){ 
-					if (this.can_move_up == true){
-					    this.canvasYSpeed += this.speedInc;
-					} else {
-						this.canvasYSpeed = 0;
-					}
+					this.canvasYSpeed += this.speedInc;
 			    }
 			}
 	    }
@@ -291,24 +260,42 @@ function main_character(x, y) {
 			if(this.canvasYSpeed < 0){ 
 				this.canvasYSpeed += this.dashYInc;
 				renderer.need_sort = true;
-			}
-			
-			
+			}	
 	    }
 	   
 	    //if within bounds add directional changes
-	   if(this.canvasX > 0 && this.canvasXSpeed < 0){
-			this.canvasX += this.canvasXSpeed;
+	   if((this.canvasX > 0 && this.canvasXSpeed < 0) && this.can_move_left){
+		   if(this.moveCanvasX){
+				this.canvasX += this.canvasXSpeed;
+		   }
+		   else{
+			   this.canvasX += this.canvasXSpeed / 2;
+		   }
 		}
-		if(this.canvasX + this.sprite.width < canvas.width && this.canvasXSpeed > 0){
-			this.canvasX += this.canvasXSpeed;
+		if((this.canvasX + this.sprite.width < canvas.width && this.canvasXSpeed > 0) && this.can_move_right){
+			if(this.moveCanvasX){
+				this.canvasX += this.canvasXSpeed;
+		    }
+		    else{
+			   this.canvasX += this.canvasXSpeed / 2;
+		    }
 		}
 		
-		if(this.canvasY > 0 && this.canvasYSpeed < 0){
-			this.canvasY += this.canvasYSpeed;
+		if((this.canvasY > 0 && this.canvasYSpeed < 0) && this.can_move_up){
+			if(this.moveCanvasY){
+				this.canvasY += this.canvasYSpeed;
+		    }
+		    else{
+			   this.canvasY += this.canvasYSpeed / 2;
+		    }
 		}
-		if(this.canvasY + this.sprite.height < canvas.height && this.canvasYSpeed > 0){
-			this.canvasY += this.canvasYSpeed;
+		if((this.canvasY + this.sprite.height < canvas.height && this.canvasYSpeed > 0) && this.can_move_down){
+			if(this.moveCanvasY){
+				this.canvasY += this.canvasYSpeed;
+		    }
+		    else{
+			   this.canvasY += this.canvasYSpeed / 2;
+		    }
 		}
 		
 		//failsafe for speed wind-down

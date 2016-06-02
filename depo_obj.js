@@ -70,10 +70,8 @@ function depo(x, y){
 	}
 	
 	this.collide = function(target){
-		console.log("collided with MC");
 		if(target == MC){
 			this.in_range = true;
-			console.log("collided with MC");
 		}
 	}
 	
