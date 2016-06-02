@@ -81,12 +81,23 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	 	     		    var obj = new depo(i*this.TILE_SIZE, j*this.TILE_SIZE);
 	 	     		    main_stage.push(obj);
 	 	     		}
-	 	     		
 	 	     	}
-	 	     		
 		     }
 		initial_generation = true;       
-	    }
+	   }
+		 
+		if(enemies_killed == 2){
+			if(MC.hp >= 0){
+				current_level += 1;
+				tiles.refresh();
+				enemies_killed = 0;
+			}
+			
+		} else {
+			if(MC.hp < 0){
+				reset_game();
+			}
+		}
 	}
 	
 	this.refresh = function(){
@@ -148,6 +159,8 @@ function create_board(world_width, world_height, tile_size, non_ash){
 			   }
 		    }
 	    }
+		 
+		 console.log(this.tileGrid);
 	}
 	
 	

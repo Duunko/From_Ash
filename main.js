@@ -21,6 +21,8 @@ var renderer = new renderer(canvas, context);
 var main_stage = new stage();
 renderer.push(main_stage);
 
+enemies_killed = 0;
+
 
 // Start the game loop. 
 make_loop(renderer, 15);
@@ -147,11 +149,13 @@ function angleDeg(x1,y1,x2,y2){
  //---------MAIN GAME FUNCTIONS-------------------------------
  //-----------------------------------------------------------
  
+ load_game();
+ 
  function start_game(){
 
 	MC = new main_character(tiles.playerX, tiles.playerY);
-	//dawawdEN1 = new enemy_a(100,100);
-	//EN2 = new enemy_a(200, 200);
+	EN1 = new enemy_a(100,100);
+	EN2 = new enemy_a(200,200);
 	SC = new sound_control();
 	//Set up the tile system
 	main_stage.push(tiles);
@@ -159,10 +163,10 @@ function angleDeg(x1,y1,x2,y2){
 	main_stage.push(MC);
 	main_stage.push(EN1);
 
-	//main_stage.push(EN2);
+	main_stage.push(EN2);
 	main_stage.push(SC);
 	main_stage.push(SC);
-
+	
 	main_stage.push(MO);
 	main_stage.push(DO);
  }
@@ -171,15 +175,14 @@ function angleDeg(x1,y1,x2,y2){
  	current_level = 0;
  	tiles.refresh();
 	MC.hp = MC.hpMax;
-	MC.nextFp = 10;
+	MC.nextFp = MC.nextFp;
 	MC.fp = Math.floor(MC.nextFp);
 	main_stage.remove_enemies();
 	
-	//EN1 = new enemy_a(100,100);
-	//EN2 = new enemy_a(200, 200);
+	EN1 = new enemy_a(100,100);
+	EN2 = new enemy_a(200, 200);
 	
 	main_stage.push(EN1);
 	main_stage.push(EN2);
  }
  
- load_game();

@@ -40,8 +40,8 @@ function main_character(x, y) {
 	this.animated = false;               //whether the draw animated sprite script should be called
 	this.animating = false;              //whether a high priority animation is active (not walking)
 	
-	this.fp = 30;
-	this.nextFp = 10;
+	this.fp = 300;
+	this.nextFp = 300;
 	
 	this.meleeCost = 2;
 	this.meleeCoolMax = 30;
@@ -98,7 +98,7 @@ function main_character(x, y) {
 	this.beamDuration = 50;
 	this.beamTimer = this.beamDuration;
 	
-    this.xfunc;
+   this.xfunc;
 	this.yfunc;
 	
 	this.recently_checked = false;
@@ -121,6 +121,14 @@ function main_character(x, y) {
 
 	
 	this.update = function(){
+		
+		/* if(current_level == 1){
+			EN1 = new enemy_a(200, 200);
+			main_stage.push(EN1);
+			if(EN1.hp <= 0){
+				current_level += 1;
+			}
+		} */
 		
 		//animation handlers
 		if(this.look_direc == 'west' && this.animating == false){
@@ -261,7 +269,7 @@ function main_character(x, y) {
 	
 	   
 	    //if within bounds add directional changes
-	    if(this.canvasX > 0 && this.canvasXSpeed < 0){
+	   if(this.canvasX > 0 && this.canvasXSpeed < 0){
 			this.canvasX += this.canvasXSpeed;
 		}
 		if(this.canvasX + this.sprite.width < canvas.width && this.canvasXSpeed > 0){
@@ -300,16 +308,15 @@ function main_character(x, y) {
 				this.attack_hitbox.currframe++;
 				this.attack_hitbox.xy1 = findc1(this.attack_hitbox);
 			
-		    if (this.attack_hitbox.currframe < this.attack_hitbox.numFrames + 1){
-		        	this.attack_hitbox.xy2 = findc2(this.attack_hitbox);
-		    }
-		    var dat = new SAT.Vector(MC.canvasX + (MC.sprite.width / 2), MC.canvasY + (MC.sprite.height / 2));
-		    this.attack_hitbox.col_data = new SAT.Polygon(new SAT.Vector(), [
-		    this.attack_hitbox.xy1, this.attack_hitbox.xy2, 
-		    dat]); 
-		    }else {
-			    MC.can_melee = true;
-			    this.attack_hitbox = false;
+		   if (this.attack_hitbox.currframe < this.attack_hitbox.numFrames + 1){
+		       this.attack_hitbox.xy2 = findc2(this.attack_hitbox);
+		   }
+		   var dat = new SAT.Vector(MC.canvasX + (MC.sprite.width / 2), MC.canvasY + (MC.sprite.height / 2));
+		   this.attack_hitbox.col_data = new SAT.Polygon(new SAT.Vector(), [
+		   this.attack_hitbox.xy1, this.attack_hitbox.xy2,dat]); 
+		   } else {
+			   MC.can_melee = true;
+			   this.attack_hitbox = false;
 			}
 		}
 		

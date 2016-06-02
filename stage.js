@@ -33,6 +33,7 @@ function stage(top) {
     	this.owned_objects = this.owned_objects.filter(function(obj){
     	    return obj.type != "enemy";	
     	});
+		console.log(this.owned_objects);
     }
     
     this.always_update = true;
@@ -46,6 +47,7 @@ function stage(top) {
     	this.owned_objects = this.owned_objects.filter(function(obj){
     	    return obj.is_obstacle == undefined;	
     	});
+		console.log(this.owned_objects);
     	
     }
     
@@ -159,7 +161,9 @@ function game_draw(renderer) {
 		    		    	var t2 = renderer.stages[i].owned_objects[k].hitbox.col_data.toPolygon();
 					        if(SAT.testPolygonPolygon(t1, t2, response)){
 							        renderer.stages[i].owned_objects[j].collide(renderer.stages[i].owned_objects[k]);
-							        renderer.stages[i].owned_objects[k].collide(renderer.stages[i].owned_objects[j]);
+									  if(renderer.stages[i].owned_objects[k] == undefined){ 
+							            renderer.stages[i].owned_objects[k].collide(renderer.stages[i].owned_objects[j]);
+									  }
 						        }
 						}else if (check1 == 'rectangle' && check2 == 'circle'){
 					        var response = new SAT.Response();
