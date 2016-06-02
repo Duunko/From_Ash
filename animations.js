@@ -29,6 +29,7 @@ function draw_animated_sprite(spr_arr, owner, cX, cY, spr_w, spr_h){
 			}
 			if(spr_arr == MC.right_dash || spr_arr == MC.left_dash || spr_arr == MC.up_dash || spr_arr == MC.down_dash){
 				owner.end_animation("dash");
+				console.log("dash animation ended");
 			}
 			
 			owner.image_index = 0;

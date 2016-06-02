@@ -34,10 +34,10 @@ function main_character(x, y) {
 	
 	this.death = new Array; this.death.push(assets["mc_death_1"]); this.death.push(assets["mc_death_2"]); this.death.push(assets["mc_death_3"]); this.death.push(assets["mc_death_4"]); this.death.push(assets["mc_death_5"]); this.death.push(assets["mc_death_6"]); this.death.push(assets["mc_death_7"]); this.death.push(assets["mc_death_8"]);
 
-	this.right_dash = new Array; this.right_dash.push(assets["mc_dash_right"]); this.right_dash.push(assets["mc_right_1"]);
-	this.left_dash = new Array; this.left_dash.push(assets["mc_dash_left"]); this.left_dash.push(assets["mc_left_1"]);
-	this.up_dash = new Array; this.up_dash.push(assets["mc_dash_up"]); this.up_dash.push(assets["mc_up_1"]);
-	this.down_dash = new Array; this.down_dash.push(assets["mc_dash_down"]); this.down_dash.push(assets["mc_down_1"]);
+	this.right_dash = new Array; this.right_dash.push(assets["mc_dash_right"], assets["mc_dash_right"]); this.right_dash.push(assets["mc_right_1"]);
+	this.left_dash = new Array; this.left_dash.push(assets["mc_dash_left"], assets["mc_dash_left"]); this.left_dash.push(assets["mc_left_1"]);
+	this.up_dash = new Array; this.up_dash.push(assets["mc_dash_up"], assets["mc_dash_up"]); this.up_dash.push(assets["mc_up_1"]);
+	this.down_dash = new Array; this.down_dash.push(assets["mc_dash_down"], assets["mc_dash_down"]); this.down_dash.push(assets["mc_down_1"]);
 	
 	this.image_index = 0;
 	this.image_speed_max = 7;  
@@ -46,6 +46,7 @@ function main_character(x, y) {
 	this.active_animation = this.up_walk;
 	this.animated = false;               //whether the draw animated sprite script should be called
 	this.animating = false;              //whether a high priority animation is active (not walking)
+	this.walking = true;
 	
 	this.fp = 30;
 	this.nextFp = 10;
@@ -134,26 +135,29 @@ function main_character(x, y) {
 	
 	this.update = function(){
 		
-		//animation handlers
-		if(this.look_direc == 'west' && this.animating == false){
-			this.active_animation = this.left_walk;
-		}
-		if(this.look_direc == 'south' && this.animating == false){
-			this.active_animation = this.down_walk;
-		}
-		if(this.look_direc == 'north' && this.animating == false){
-			this.active_animation = this.up_walk;
-		}
-		if(this.look_direc == 'east' && this.animating == false){
-			this.active_animation = this.right_walk;
-		}
-		
-		if((this.canvasXSpeed == 0 && this.canvasYSpeed == 0) && this.animating == false){
-			this.animated = false;
-			this.image_index = 0;
-		}
-		else{
-			this.animated = true;
+		//walking animation handlers
+		if(this.walking == true){
+			if(this.look_direc == 'west'){
+				this.active_animation = this.left_walk;
+			}
+			if(this.look_direc == 'south'){
+				this.active_animation = this.down_walk;
+			}
+			if(this.look_direc == 'north'){
+				this.active_animation = this.up_walk;
+			}
+			if(this.look_direc == 'east'){
+				this.active_animation = this.right_walk;
+			}
+			
+			//if not moving, stop animating
+			if(this.canvasXSpeed == 0 && this.canvasYSpeed == 0){
+				this.animating = false;
+				this.image_index = 0;
+			}
+			else{
+				this.animating = true;
+			}
 		}
 		
 		if(this.recently_checked == true){
@@ -407,7 +411,7 @@ function main_character(x, y) {
 	
     this.draw = function() {
     	//drawing the player sprite
-		if(this.animated == true){
+		if(this.animating == true){
 			draw_animated_sprite(this.active_animation, this, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
 		}
 		else{
@@ -507,7 +511,7 @@ function main_character(x, y) {
 
 			var opt1 = this.look_direc;
 			var direction = 180;
-			this.animated = true;
+			this.walking = false;
 			this.animating = true;
 		    if (opt1 == 'west') {
 			    direction = 90;
@@ -572,12 +576,13 @@ function main_character(x, y) {
 			
 			//animation
 			//show a still image that is higher priority to walking
-			this.animated = false;
-			this.animating = true;
+			this.walking = false;
+			//this.animating = true;
 			if(this.look_direc == "south"){ this.active_animation = this.down_dash; }
 			if(this.look_direc == "north"){ this.active_animation = this.up_dash; }
 			if(this.look_direc == "west"){ this.active_animation = this.left_dash; }
 			if(this.look_direc == "east"){ this.active_animation = this.right_dash; }
+			console.log("active animation made dash")
 		}
 	}
 	
@@ -620,7 +625,7 @@ function main_character(x, y) {
 	}
 	
 	this.die = function(){
-		this.animated = true;
+		this.walking = false
 		this.animating = true;
 		this.active_animation = this.death;
 		this.canvasXSpeed = 0;
@@ -633,14 +638,16 @@ function main_character(x, y) {
 		//called when the current animation ends
 		if(target == "melee"){
 			this.animating = false;
+			this.walking = true;
 		}
 		if(target == "death"){
 			this.animating = false;
+			this.walking = true;
 			reset_game();
 		}
 		if(target == "dash"){
-			//this.animating = false;
-			//this.animated = false;
+			this.animating = false;
+			this.walking = true;
 		}
 	}
 	
