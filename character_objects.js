@@ -71,6 +71,7 @@ function main_character(x, y) {
 	this.canvasY = canvas.height/2;
 	this.mapX;
 	this.mapY;
+	this.depth;
 	//this.canvasX = toCanvasX(this.mapX);
 	//this.canvasY = toCanvasY(this.mapY);
 
@@ -267,8 +268,16 @@ function main_character(x, y) {
 			if(this.canvasXSpeed > 0){ this.canvasXSpeed -= this.dashXInc }
 			if(this.canvasXSpeed < 0){ this.canvasXSpeed += this.dashXInc }
 			
-			if(this.canvasYSpeed > 0){ this.canvasYSpeed -= this.dashYInc }
-			if(this.canvasYSpeed < 0){ this.canvasYSpeed += this.dashYInc }
+			if(this.canvasYSpeed > 0){ 
+				this.canvasYSpeed -= this.dashYInc; 
+				renderer.need_sort = true;
+			}
+			if(this.canvasYSpeed < 0){ 
+				this.canvasYSpeed += this.dashYInc;
+				renderer.need_sort = true;
+			}
+			
+			
 	    }
 	
 	   
@@ -305,6 +314,8 @@ function main_character(x, y) {
 		
 		this.mapX = toMapX(this.canvasX);
 	    this.mapY = toMapY(this.canvasY);
+	    
+	    this.depth = -this.mapY;
 		
 		this.hitbox.col_data.pos.x = this.mapX;
 		this.hitbox.col_data.pos.y = this.mapY;
