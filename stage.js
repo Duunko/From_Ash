@@ -161,7 +161,7 @@ function game_draw(renderer) {
 		    		    	var t2 = renderer.stages[i].owned_objects[k].hitbox.col_data.toPolygon();
 					        if(SAT.testPolygonPolygon(t1, t2, response)){
 							        renderer.stages[i].owned_objects[j].collide(renderer.stages[i].owned_objects[k]);
-									  if(renderer.stages[i].owned_objects[k] == undefined){ 
+									  if(renderer.stages[i].owned_objects[k] != undefined){ 
 							            renderer.stages[i].owned_objects[k].collide(renderer.stages[i].owned_objects[j]);
 									  }
 						        }
