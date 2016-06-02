@@ -34,6 +34,9 @@ function main_character(x, y) {
 	
 	this.death = new Array; this.death.push(assets["mc_death_1"]); this.death.push(assets["mc_death_2"]); this.death.push(assets["mc_death_3"]); this.death.push(assets["mc_death_4"]); this.death.push(assets["mc_death_5"]); this.death.push(assets["mc_death_6"]); this.death.push(assets["mc_death_7"]); this.death.push(assets["mc_death_8"]);
 
+	this.upgrade = new Array; this.upgrade.push(assets["mc_upgrade_1"]); this.upgrade.push(assets["mc_upgrade_2"]); this.upgrade.push(assets["mc_upgrade_3"]); this.upgrade.push(assets["mc_upgrade_4"]); this.upgrade.push(assets["mc_upgrade_5"]); this.upgrade.push(assets["mc_upgrade_6"]);
+		this.upgrade.push(assets["mc_upgrade_7"]); this.upgrade.push(assets["mc_upgrade_8"]); this.upgrade.push(assets["mc_upgrade_9"]); this.upgrade.push(assets["mc_upgrade_10"]);
+	
 	this.right_dash = new Array; this.right_dash.push(assets["mc_dash_right"], assets["mc_dash_right"]); this.right_dash.push(assets["mc_right_1"]);
 	this.left_dash = new Array; this.left_dash.push(assets["mc_dash_left"], assets["mc_dash_left"]); this.left_dash.push(assets["mc_left_1"]);
 	this.up_dash = new Array; this.up_dash.push(assets["mc_dash_up"], assets["mc_dash_up"]); this.up_dash.push(assets["mc_up_1"]);
@@ -47,8 +50,8 @@ function main_character(x, y) {
 	this.animating = false;              //whether a high priority animation is active (not walking)
 	this.walking = true;
 	
-	this.fp = 300;
-	this.nextFp = 300;
+	this.fp = 30;
+	this.nextFp = 30;
 	
 	this.meleeCost = 2;
 	this.meleeCoolMax = 30;
@@ -178,7 +181,8 @@ function main_character(x, y) {
 		}
 		
 		if (keysPressed[BEAM_KEY_CODE] == true){
-			MC.beam();
+			//BEAM IS TURNED OFF FOR THURSDAY AND FRIDAY TESTIN
+			//MC.beam();
 		}
 	   
 	    if(this.dashing == false && this.active_animation != this.death){

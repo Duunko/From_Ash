@@ -48,6 +48,17 @@ function load_sprites(){
 	var mc_death_7 = new Image(); mc_death_7.src = 'images/death/phoenix_death7.png';
 	var mc_death_8 = new Image(); mc_death_8.src = 'images/death/phoenix_death8.png';
 	
+	var mc_upgrade_1 = new Image(); mc_upgrade_1.src = 'images/upgrade/phoenix_upgrade1.png';
+	var mc_upgrade_2 = new Image(); mc_upgrade_2.src = 'images/upgrade/phoenix_upgrade2.png';
+	var mc_upgrade_3 = new Image(); mc_upgrade_3.src = 'images/upgrade/phoenix_upgrade3.png';
+	var mc_upgrade_4 = new Image(); mc_upgrade_4.src = 'images/upgrade/phoenix_upgrade4.png';
+	var mc_upgrade_5 = new Image(); mc_upgrade_5.src = 'images/upgrade/phoenix_upgrade5.png';
+	var mc_upgrade_6 = new Image(); mc_upgrade_6.src = 'images/upgrade/phoenix_upgrade6.png';
+	var mc_upgrade_7 = new Image(); mc_upgrade_7.src = 'images/upgrade/phoenix_upgrade7.png';
+	var mc_upgrade_8 = new Image(); mc_upgrade_8.src = 'images/upgrade/phoenix_upgrade8.png';
+	var mc_upgrade_9 = new Image(); mc_upgrade_9.src = 'images/upgrade/phoenix_upgrade9.png';
+	var mc_upgrade_10 = new Image(); mc_upgrade_10.src = 'images/upgrade/phoenix_upgrade10.png';
+	
 	var mc_dash_ball = new Image(); mc_dash_ball.src = 'images/dash/dash.png';
 	var mc_dash_right = new Image(); mc_dash_right.src = 'images/dash/phoenix_dash_right.png';
 	var mc_dash_left = new Image(); mc_dash_left.src = 'images/dash/phoenix_dash_left.png';
@@ -74,6 +85,9 @@ function load_sprites(){
 
 	var tile_ash = new Image();
 	tile_ash.src = 'images/environment/ash_tile.png';
+	
+	var enviro_rock = new Image();
+	enviro_rock.src = 'images/environment/rock.png';
 
 	var black_square = new Image();
 	black_square.src = 'images/black_square.png';
@@ -118,6 +132,17 @@ function load_sprites(){
 		mc_death_7: mc_death_7,
 		mc_death_8: mc_death_8,
 		
+		mc_upgrade_1: mc_upgrade_1,
+		mc_upgrade_2: mc_upgrade_2,
+		mc_upgrade_3: mc_upgrade_3,
+		mc_upgrade_4: mc_upgrade_4,
+		mc_upgrade_5: mc_upgrade_5,
+		mc_upgrade_6: mc_upgrade_6,
+		mc_upgrade_7: mc_upgrade_7,
+		mc_upgrade_8: mc_upgrade_8,
+		mc_upgrade_9: mc_upgrade_9,
+		mc_upgrade_10: mc_upgrade_10,
+		
 		mc_dash_ball: mc_dash_ball,
 		mc_dash_right: mc_dash_right,
 		mc_dash_left: mc_dash_left,
@@ -132,6 +157,7 @@ function load_sprites(){
 		gui_shade: gui_shade,
 		
 		enviro_tree: enviro_tree,
+		enviro_rock: enviro_rock,
 		tile_ash: tile_ash,
 		black_square: black_square,
 	}
