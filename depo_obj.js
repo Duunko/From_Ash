@@ -20,6 +20,7 @@ function depo(x, y){
 	this.update = function(){
 		if(this.in_range == true){
 			if(keysPressed[ACTION_KEY_CODE] == true){
+				console.log("depo log")
 				if(this.depo_ready == true){
 					MC.fp -= 1;
 					MC.nextFp += 1;
@@ -58,6 +59,7 @@ function depo(x, y){
 	this.collide = function(target){
 		if(target == MC){
 			this.in_range = true;
+			console.log("collided with MC");
 		}
 	}
 	

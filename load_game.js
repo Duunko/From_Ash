@@ -25,12 +25,10 @@ function load_game(){
 	//If you want to add more obstacle types, ask me I'll do it.
 	levels = [];
 	//Tutorial Levels
-	//levels.push([960,960,undefined,400,300]);
-	/*levels.push([960,960,[[10, 9, 1],
-									[2, 3, 1, 'x', 4], 
-									[8, 4, 1, 'y',2],
-									[4,10,1,'x',2]], 300, 300]); */
-	levels.push([960, 960, [[6, 4, 3]], 300, 100]);
+	levels.push([960,960,undefined,400,300]);
+	levels.push([960, 960, [[6, 4, 3]], 300, 300]);
+	levels.push([960,960,[[10, 9, 1],[2, 3, 1, 'x', 4],[8, 4, 1, 'y',2],[4,10,1,'x',2]], 300, 300]);
+
 	
 	//Main Levels
 	levels.push([1280,1280,[[10,9,1],[12,12,1],[2,2,1,'y',5],[14,2,1],[14,3,1]],100,30]);
@@ -50,6 +48,9 @@ function load_game(){
     //enemies.push([[600, 600, 'a']])
     	
 	
+
+
+>>>>>>> origin/master
 	current_level = 0;
 	
 	/* if(current_level == 1){

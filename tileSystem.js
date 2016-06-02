@@ -20,7 +20,7 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	//sprite_ash = assets["tile_ash"];
 	//sprite_darkness = assets["black_square"];
 	sprite_ash = assets.tile_ash;
-	sprite_darkness = assets.black_square;
+	sprite_darkness = assets.enviro_rock;
 	
 	this.TILE_SPRITES = [sprite_ash, sprite_darkness];
 
@@ -98,7 +98,7 @@ function create_board(world_width, world_height, tile_size, non_ash){
         }
         } */
 		initial_generation = true;       
-	   }
+	    }
 		 
 		if(enemies_killed == 2){
 			if(MC.hp >= 0){
@@ -117,9 +117,9 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	this.refresh = function(){
 		
 		MC.mapX = levels[current_level][3];
- 	   MC.mapY = levels[current_level][4];
- 	   MC.canvasX = toCanvasX(MC.mapX);
- 	   MC.canvasY = toCanvasY(MC.mapY);
+ 	    MC.mapY = levels[current_level][4];
+ 	    MC.canvasX = toCanvasX(MC.mapX);
+ 	    MC.canvasY = toCanvasY(MC.mapY);
 		
 		var new_world_width = levels[current_level][0];
 		var new_world_height = levels[current_level][1];
@@ -145,7 +145,6 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	    this.left;
 	    this.top;
 	
-
 	    this.tileGrid = [];
 	    this.tiles = [];
 
@@ -225,8 +224,8 @@ function create_board(world_width, world_height, tile_size, non_ash){
 				*/
             }
         } 
-     }
-   }
+      }
+    }
 	 
 	
 }
