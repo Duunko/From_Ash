@@ -194,8 +194,8 @@ function angleDeg(x1,y1,x2,y2){
 	MC.fp = Math.floor(MC.nextFp);
 	main_stage.remove_enemies();
 	
-	EN1 = new enemy_a(100,100);
-	EN2 = new enemy_a(200, 200);
+	//EN1 = new enemy_a(100,100);
+	//EN2 = new enemy_a(200, 200);
 	
 	main_stage.push(EN1);
 	main_stage.push(EN2);
