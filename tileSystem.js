@@ -166,8 +166,8 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	
 	this.draw = function onEnterFrame(){
   
-        this.left = MC.canvasX - this.VIEW_WIDTH / 2;
-        this.top = MC.canvasY - this.VIEW_HEIGHT / 2;
+      this.left = MC.canvasX - this.VIEW_WIDTH / 2;
+      this.top = MC.canvasY - this.VIEW_HEIGHT / 2;
 		this.right = MC.canvasX + this.VIEW_WIDTH / 2;
 		this.bottom = MC.canvasY + this.VIEW_HEIGHT / 2;
 		
