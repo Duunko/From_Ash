@@ -127,7 +127,7 @@ function main_character(x, y) {
     	offsetY:0,
     	width:this.sprite.width,
     	height:this.sprite.height,
-    	col_data: new SAT.Box(new SAT.Vector(this.mapX, this.mapY), this.sprite.width, this.sprite.height)
+    	col_data: new SAT.Box(new SAT.Vector(this.mapX, this.mapY - 20), this.sprite.width, this.sprite.height - 20)
     }
 	
 	this.attack_hitbox = false;
