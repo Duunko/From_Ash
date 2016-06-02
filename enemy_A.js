@@ -27,6 +27,8 @@ function enemy_a(x, y){
 	this.mapX = x;
 	this.mapY = y;
 	
+	this.depth = -this.mapY;
+	
 	this.canvasX = toCanvasX(this.mapX);
 	this.canvasY = toCanvasY(this.mapY);
 	
@@ -66,7 +68,7 @@ function enemy_a(x, y){
 		
 		if(this.stunned == false){
 			
-			if(this.hitbox.active == true){
+			if(this.hitbox.active == true && MC.active_animation != MC.death){
 			    this.moveTowards(MC);
 			
 			    this.mapX += this.mapXSpeed * this.speed;
@@ -91,6 +93,8 @@ function enemy_a(x, y){
 		else{
 			this.stunned = false;
 		}
+		
+		this.depth = -this.mapY;
 	}
 	
 	this.draw = function(){	
@@ -109,9 +113,9 @@ function enemy_a(x, y){
 		var value_map = [];
 		var tlocX = Math.floor(target.mapX/64);
 		var tlocY = Math.floor(target.mapY/64);
-		var locX = this.mapX/64;
-		var locY = this.mapY/64;
-		
+		var locX = Math.floor(this.mapX/64);
+		var locY = Math.floor(this.mapY/64);
+		value_map.push([distance_to_object(target), 0, ])
 		
 		
 		

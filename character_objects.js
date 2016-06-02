@@ -31,7 +31,14 @@ function main_character(x, y) {
 	this.right_melee = new Array; this.right_melee.push(assets["mc_melee_right_1"]); this.right_melee.push(assets["mc_melee_right_2"]); this.right_melee.push(assets["mc_melee_right_3"]); this.right_melee.push(assets["mc_melee_right_4"]);
 
 	this.left_melee = new Array; this.left_melee.push(assets["mc_melee_left_1"]); this.left_melee.push(assets["mc_melee_left_2"]); this.left_melee.push(assets["mc_melee_left_3"]); this.left_melee.push(assets["mc_melee_left_4"]);
+	
+	this.death = new Array; this.death.push(assets["mc_death_1"]); this.death.push(assets["mc_death_2"]); this.death.push(assets["mc_death_3"]); this.death.push(assets["mc_death_4"]); this.death.push(assets["mc_death_5"]); this.death.push(assets["mc_death_6"]); this.death.push(assets["mc_death_7"]); this.death.push(assets["mc_death_8"]);
 
+	this.right_dash = new Array; this.right_dash.push(assets["mc_dash_right"]); this.right_dash.push(assets["mc_right_1"]);
+	this.left_dash = new Array; this.left_dash.push(assets["mc_dash_left"]); this.left_dash.push(assets["mc_left_1"]);
+	this.up_dash = new Array; this.up_dash.push(assets["mc_dash_up"]); this.up_dash.push(assets["mc_up_1"]);
+	this.down_dash = new Array; this.down_dash.push(assets["mc_dash_down"]); this.down_dash.push(assets["mc_down_1"]);
+	
 	this.image_index = 0;
 	this.image_speed_max = 7;  
 	this.image_speed_counter = 0;
@@ -64,6 +71,7 @@ function main_character(x, y) {
 	this.canvasY = canvas.height/2;
 	this.mapX;
 	this.mapY;
+	this.depth;
 	//this.canvasX = toCanvasX(this.mapX);
 	//this.canvasY = toCanvasY(this.mapY);
 
@@ -90,6 +98,11 @@ function main_character(x, y) {
 	this.dashXInc;
 	this.dashYInc;
 	this.dashWindD = 1.25;
+	
+	this.particleStartX = 0;
+	this.particleStartY = 0;
+	this.particleTargetX = 0;
+	this.particleTargetY = 0;
 	
 	this.beaming = false;
 	this.aiming = false;
@@ -165,7 +178,7 @@ function main_character(x, y) {
 			MC.beam();
 		}
 	   
-	    if(this.dashing == false){
+	    if(this.dashing == false && this.active_animation != this.death){
 			//reset the dashing values
 			this.dashXInc = 0;
 			this.dashYInc = 0;
@@ -253,9 +266,9 @@ function main_character(x, y) {
 			}
 	    }
 
-	    else{
+	    else if(this.active_animation != this.death){
 			//spawn fireball effect
-			var f = new fireParticle(this.canvasX- this.sprite.width / 2, this.canvasY - this.sprite.height / 2, this.sprite.height, 10);
+			var f = new fireParticle(this.canvasX- this.sprite.width / 2, this.canvasY - this.sprite.height / 2, this.sprite.height, 10, "dash");
 			main_stage.push(f);
 			
 			//wind-down proportionally for dash
@@ -263,8 +276,16 @@ function main_character(x, y) {
 			if(this.canvasXSpeed > 0){ this.canvasXSpeed -= this.dashXInc }
 			if(this.canvasXSpeed < 0){ this.canvasXSpeed += this.dashXInc }
 			
-			if(this.canvasYSpeed > 0){ this.canvasYSpeed -= this.dashYInc }
-			if(this.canvasYSpeed < 0){ this.canvasYSpeed += this.dashYInc }
+			if(this.canvasYSpeed > 0){ 
+				this.canvasYSpeed -= this.dashYInc; 
+				renderer.need_sort = true;
+			}
+			if(this.canvasYSpeed < 0){ 
+				this.canvasYSpeed += this.dashYInc;
+				renderer.need_sort = true;
+			}
+			
+			
 	    }
 	
 	   
@@ -292,13 +313,17 @@ function main_character(x, y) {
 			this.canvasYSpeed = 0;
 		}
 		
-		//re-enable dash
+		//re-enable dash when dash ends
 		if(this.dashing == true && (this.canvasXSpeed == 0 && this.canvasYSpeed == 0)){
 			this.dashing = false;
+			//start playing dash animation
+			this.animating = true;
 		}
 		
 		this.mapX = toMapX(this.canvasX);
 	    this.mapY = toMapY(this.canvasY);
+	    
+	    this.depth = -this.mapY;
 		
 		this.hitbox.col_data.pos.x = this.mapX;
 		this.hitbox.col_data.pos.y = this.mapY;
@@ -542,6 +567,10 @@ function main_character(x, y) {
 			//mouseX and mouseY
 			var slopeX = mouseX - this.canvasX;
 			var slopeY = mouseY - this.canvasY;
+			this.particleTargetX = mouseX;
+			this.particleTargetY = mouseY;
+			this.particleStartX = this.canvasX;
+			this.particleStartY = this.canvasY;
 			var distance = Math.sqrt(Math.pow((mouseX - this.canvasX), 2)
 								 + Math.pow((mouseY - this.canvasY), 2));
 			
@@ -558,6 +587,15 @@ function main_character(x, y) {
 			
 			this.fp -= this.dashCost;
 			this.dashCool = this.dashCoolMax;
+			
+			//animation
+			//show a still image that is higher priority to walking
+			this.animated = false;
+			this.animating = true;
+			if(this.look_direc == "south"){ this.active_animation = this.down_dash; }
+			if(this.look_direc == "north"){ this.active_animation = this.up_dash; }
+			if(this.look_direc == "west"){ this.active_animation = this.left_dash; }
+			if(this.look_direc == "east"){ this.active_animation = this.right_dash; }
 		}
 	}
 	
@@ -593,21 +631,34 @@ function main_character(x, y) {
 				this.safetyTimer = this.safetyTimerMax;
 				this.vulnerable = false;
 			}
-			else{
+			else if(this.active_animation != this.death){
 				this.die();
 			}
 		}
 	}
 	
 	this.die = function(){
-		//reset the game
-		reset_game();
+		this.animated = true;
+		this.animating = true;
+		this.active_animation = this.death;
+		this.canvasXSpeed = 0;
+		this.canvasYSpeed = 0;
+		//set this animation to play slower
+		this.image_speed_counter = 20;
 	}
 	
 	this.end_animation = function(target){
 		//called when the current animation ends
 		if(target == "melee"){
 			this.animating = false;
+		}
+		if(target == "death"){
+			this.animating = false;
+			reset_game();
+		}
+		if(target == "dash"){
+			//this.animating = false;
+			//this.animated = false;
 		}
 	}
 	

@@ -38,7 +38,23 @@ function load_sprites(){
 	var mc_melee_down_2 = new Image();  mc_melee_down_2.src = 'images/melee_down/phoenix_melee2.png';
 	var mc_melee_down_3 = new Image();  mc_melee_down_3.src = 'images/melee_down/phoenix_melee3.png';
 	var mc_melee_down_4 = new Image();  mc_melee_down_4.src = 'images/melee_down/phoenix_melee4.png';
-
+	
+	var mc_death_1 = new Image(); mc_death_1.src = 'images/death/phoenix_death1.png';
+	var mc_death_2 = new Image(); mc_death_2.src = 'images/death/phoenix_death2.png';
+	var mc_death_3 = new Image(); mc_death_3.src = 'images/death/phoenix_death3.png';
+	var mc_death_4 = new Image(); mc_death_4.src = 'images/death/phoenix_death4.png';
+	var mc_death_5 = new Image(); mc_death_5.src = 'images/death/phoenix_death5.png';
+	var mc_death_6 = new Image(); mc_death_6.src = 'images/death/phoenix_death6.png';
+	var mc_death_7 = new Image(); mc_death_7.src = 'images/death/phoenix_death7.png';
+	var mc_death_8 = new Image(); mc_death_8.src = 'images/death/phoenix_death8.png';
+	
+	var mc_dash_ball = new Image(); mc_dash_ball.src = 'images/dash/dash.png';
+	var mc_dash_right = new Image(); mc_dash_right.src = 'images/dash/phoenix_dash_right.png';
+	var mc_dash_left = new Image(); mc_dash_left.src = 'images/dash/phoenix_dash_left.png';
+	var mc_dash_down = new Image(); mc_dash_down.src = 'images/dash/phoenix_dash_down.png';
+	var mc_dash_up = new Image(); mc_dash_up.src = 'images/dash/phoenix_dash_up.png';
+	
+	
 	var sScorpion = new Image();
 	sScorpion.src = 'images/enemies/seascorpion.png';
 	
@@ -92,6 +108,21 @@ function load_sprites(){
 		mc_melee_up_2: mc_melee_up_2,
 		mc_melee_up_3: mc_melee_up_3,
 		mc_melee_up_4: mc_melee_up_4,
+		
+		mc_death_1: mc_death_1,
+		mc_death_2: mc_death_2,
+		mc_death_3: mc_death_3,
+		mc_death_4: mc_death_4,
+		mc_death_5: mc_death_5,
+		mc_death_6: mc_death_6,
+		mc_death_7: mc_death_7,
+		mc_death_8: mc_death_8,
+		
+		mc_dash_ball: mc_dash_ball,
+		mc_dash_right: mc_dash_right,
+		mc_dash_left: mc_dash_left,
+		mc_dash_down: mc_dash_down,
+		mc_dash_up: mc_dash_up,
 		
 		sScorpion: sScorpion,
 		fly: fly,
