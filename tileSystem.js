@@ -83,7 +83,7 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	 	     		}
 	 	     	}
 		     }
-		/*if(enemies[current_level] != undefined){
+		if(enemies[current_level] != undefined){
 		for(var i = 0; i < enemies[current_level].length; i++){
     	    if(enemies[current_level][i][2] == 'a'){
     		    var obj = new enemy_a(enemies[current_level][i][0], enemies[current_level][i][1]);
@@ -96,7 +96,7 @@ function create_board(world_width, world_height, tile_size, non_ash){
     		    main_stage.push(obj);
     	    }
         }
-        } */
+        } 
 		initial_generation = true;       
 	    }
 		 

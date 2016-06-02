@@ -164,9 +164,9 @@ function angleDeg(x1,y1,x2,y2){
 	
 	main_stage.push(MC);
 	
-	main_stage.push(EN1);
+	//main_stage.push(EN1);
 
-   /* for(var i = 0; i < enemies[current_level].length; i++){
+   for(var i = 0; i < enemies[current_level].length; i++){
     	if(enemies[current_level][i][2] == 'a'){
     		console.log(enemies[current_level][i][1]);
     		var obj = new enemy_a(enemies[current_level][i][0], enemies[current_level][i][1]);
@@ -178,7 +178,7 @@ function angleDeg(x1,y1,x2,y2){
     		var obj = new enemy_c(enemies[current_level][i][0], enemies[current_level][i][1]);
     		main_stage.push(obj);
     	}
-    } */
+    } 
 	main_stage.push(SC);
 	main_stage.push(SC);
 	
