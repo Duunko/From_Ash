@@ -75,9 +75,8 @@ function main_character(x, y) {
 	this.mapX;
 	this.mapY;
 	this.depth;
-	//this.canvasX = toCanvasX(this.mapX);
-	//this.canvasY = toCanvasY(this.mapY);
-
+	
+	this.moveCanvas = false;
 	
 	this.vulnerable = true;
 	this.safetyTimerMax = 30;
@@ -137,6 +136,8 @@ function main_character(x, y) {
 
 	
 	this.update = function(){
+		
+		console.log(this.moveCanvas);
 		
 		//walking animation handlers
 		if(this.walking == true){

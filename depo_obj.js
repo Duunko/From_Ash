@@ -9,16 +9,15 @@ function depo(x, y){
 	this.canvasX = toCanvasX(this.mapX);
 	this.canvasY = toCanvasY(this.mapY);
 	
-	this.empty = assets["enviro_tree_1"]; 
+	this.sprite = assets["enviro_tree_1"]; 
+	this.sprite.width = 128;
+	this.sprite.height = 128;
     
-	this.sprite = new Array; this.sprite.push(assets["enviro_tree_2"]); this.sprite.push(assets["enviro_tree_3"]);
+	this.flaming = new Array; this.flaming.push(assets["enviro_tree_2"]); this.flaming.push(assets["enviro_tree_3"]);
 	
 	this.image_index = 0;
 	this.image_speed_max = 7;  
 	this.image_speed_counter = 0;
-	
-	this.width = 128;
-	this.height = 128;
 
 	this.is_obstacle = true;
 	
@@ -49,10 +48,10 @@ function depo(x, y){
 	
 	this.draw = function(){
 		if(storedFP > 0){
-			draw_animated_sprite(this.sprite, this, this.canvasX, this.canvasY, this.width, this.height);
+			draw_animated_sprite(this.flaming, this, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
 		}
 		else{
-			context.drawImage(this.empty, this.canvasX, this.canvasY, this.width, this.height);
+			context.drawImage(this.sprite, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
 		}
 		
 		//context.fillStyle = '#CF0D42';

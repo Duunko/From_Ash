@@ -184,11 +184,13 @@ function create_board(world_width, world_height, tile_size, non_ash){
 		this.right = MC.canvasX + this.VIEW_WIDTH / 2;
 		this.bottom = MC.canvasY + this.VIEW_HEIGHT / 2;
 		
-		if(this.left <= 0){ this.left = 0; console.log("player is only moving via canvas") }
-		if(this.top <= 0){ this.top = 0; console.log("player is only moving via canvas") }
+		MC.moveCanvas = false;
 		
-		if(this.bottom >= this.WORLD_HEIGHT){ this.top = this.WORLD_HEIGHT - this.VIEW_HEIGHT}
-		if(this.right >= this.WORLD_WIDTH){ this.left = this.WORLD_WIDTH - this.VIEW_WIDTH}
+		if(this.left <= 0){ this.left = 0; MC.moveCanvas = true; }
+		if(this.top <= 0){ this.top = 0; MC.moveCanvas = true; }
+		
+		if(this.bottom >= this.WORLD_HEIGHT){ this.top = this.WORLD_HEIGHT - this.VIEW_HEIGHT; MC.moveCanvas = true;}
+		if(this.right >= this.WORLD_WIDTH){ this.left = this.WORLD_WIDTH - this.VIEW_WIDTH; MC.moveCanvas = true;}
   
         var leftTile = Math.floor(this.left / this.TILE_SIZE);
         var topTile = Math.floor(this.top / this.TILE_SIZE);
