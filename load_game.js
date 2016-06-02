@@ -40,8 +40,15 @@ function load_game(){
 	levels.push([1280,1088,[[2,2,1,'y',3],[6,2,1,'y',3],[10,2,1,'y',3],[14,2,1,'y',3],
 									[2,9,1,'y',3],[6,9,1,'y',3],[10,9,1,'y',3],[14,9,1,'y',3],
 									[1,10,3]],100,400]);
-
-	
+    //Enemies
+    //Each index in this array counts as a level.
+    //The arrays will have this format: 
+    //[[x,y,"type"], [x,y,"type"]]
+    //An example: [[20, 20, "a"]] will create an enemy A at 20,20
+    //Only use enemy A for now, we can add more later
+    //enemies = [];
+    //enemies.push([[600, 600, 'a']])
+    	
 	
 	current_level = 0;
 	
@@ -70,8 +77,6 @@ function load_game(){
 	MC = new main_character(levels[current_level][3], levels[current_level][4]);
 	
 	//load the starting enemies
-	EN1 = new enemy_a(100,100);
-	EN2 = new enemy_a(200, 200);
 	
 	//load the sound system
 	SC = new sound_control();
