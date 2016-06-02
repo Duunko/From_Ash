@@ -179,13 +179,13 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	
 	this.draw = function onEnterFrame(){
   
-      this.left = MC.canvasX - this.VIEW_WIDTH / 2;
-      this.top = MC.canvasY - this.VIEW_HEIGHT / 2;
+        this.left = MC.canvasX - this.VIEW_WIDTH / 2;
+        this.top = MC.canvasY - this.VIEW_HEIGHT / 2;
 		this.right = MC.canvasX + this.VIEW_WIDTH / 2;
 		this.bottom = MC.canvasY + this.VIEW_HEIGHT / 2;
 		
-		if(this.left <= 0){ this.left = 0 }
-		if(this.top <= 0){ this.top = 0 }
+		if(this.left <= 0){ this.left = 0; console.log("player is only moving via canvas") }
+		if(this.top <= 0){ this.top = 0; console.log("player is only moving via canvas") }
 		
 		if(this.bottom >= this.WORLD_HEIGHT){ this.top = this.WORLD_HEIGHT - this.VIEW_HEIGHT}
 		if(this.right >= this.WORLD_WIDTH){ this.left = this.WORLD_WIDTH - this.VIEW_WIDTH}

@@ -294,7 +294,6 @@ function main_character(x, y) {
 			
 			
 	    }
-	
 	   
 	    //if within bounds add directional changes
 	   if(this.canvasX > 0 && this.canvasXSpeed < 0){
@@ -680,27 +679,26 @@ function main_character(x, y) {
 		if(this.dashing == false){
 			if (target.is_obstacle != undefined){
 				if(this.recently_checked == false){
-				var response = new SAT.Response();
-				SAT.testPolygonPolygon(this.hitbox.col_data.toPolygon(), target.hitbox.col_data.toPolygon(), response);
-				
-				this.mapX -= response.overlapV.x;
-				this.mapY -= response.overlapV.y;
-				 
-				
-				if(response.overlapV.x > 0){
-					this.recently_checked = true;
-					this.can_move_right = false;
-				} else if(response.overlapV.x < 0){
-					this.recently_checked = true;
-					this.can_move_left = false;
-				}
-				if (response.overlapV.y > 0){
-					this.recently_checked = true;
-					this.can_move_down = false;
-				} else if(response.overlapV.y < 0){
-					this.recently_checked = true;
-					this.can_move_up = false;
-				}
+					var response = new SAT.Response();
+					SAT.testPolygonPolygon(this.hitbox.col_data.toPolygon(), target.hitbox.col_data.toPolygon(), response);
+					
+					this.mapX -= response.overlapV.x;
+					this.mapY -= response.overlapV.y;
+					 
+					if(response.overlapV.x > 0){
+						this.recently_checked = true;
+						this.can_move_right = false;
+					} else if(response.overlapV.x < 0){
+						this.recently_checked = true;
+						this.can_move_left = false;
+					}
+					if (response.overlapV.y > 0){
+						this.recently_checked = true;
+						this.can_move_down = false;
+					} else if(response.overlapV.y < 0){
+						this.recently_checked = true;
+						this.can_move_up = false;
+					}
 				}
 				
 				this.canvasX = toCanvasX(this.mapX);

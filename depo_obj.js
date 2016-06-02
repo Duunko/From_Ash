@@ -8,9 +8,17 @@ function depo(x, y){
 	this.mapY = y;
 	this.canvasX = toCanvasX(this.mapX);
 	this.canvasY = toCanvasY(this.mapY);
-    this.sprite = assets["enviro_tree"];
-	this.sprite.width = 128;
-	this.sprite.height = 128;
+	
+	this.empty = assets["enviro_tree_1"]; 
+    
+	this.sprite = new Array; this.sprite.push(assets["enviro_tree_2"]); this.sprite.push(assets["enviro_tree_3"]);
+	
+	this.image_index = 0;
+	this.image_speed_max = 7;  
+	this.image_speed_counter = 0;
+	
+	this.width = 128;
+	this.height = 128;
 
 	this.is_obstacle = true;
 	
@@ -22,8 +30,8 @@ function depo(x, y){
 			if(keysPressed[ACTION_KEY_CODE] == true){
 				console.log("depo log")
 				if(this.depo_ready == true){
-					MC.fp -= 1;
-					MC.nextFp += 1;
+					MC.nextFp -= 1;
+					storedFP += 1;
 					console.log("deposited points");
 					this.depo_ready = false;
 				}
@@ -40,7 +48,13 @@ function depo(x, y){
 	}
 	
 	this.draw = function(){
-		context.drawImage(this.sprite, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
+		if(storedFP > 0){
+			draw_animated_sprite(this.sprite, this, this.canvasX, this.canvasY, this.width, this.height);
+		}
+		else{
+			context.drawImage(this.empty, this.canvasX, this.canvasY, this.width, this.height);
+		}
+		
 		//context.fillStyle = '#CF0D42';
 		//context.fillRect(toCanvasX(this.hitbox.col_data.pos.x), toCanvasY(this.hitbox.col_data.pos.y), this.sprite.width, this.sprite.height);
 		

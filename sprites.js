@@ -77,8 +77,9 @@ function load_sprites(){
 	var gui_melee = new Image();
 	gui_melee.src = 'images/gui/melee_overlay.png';
 
-	var enviro_tree = new Image();
-	enviro_tree.src = 'images/environment/treestump_nest1.png';
+	var enviro_tree_1 = new Image(); enviro_tree_1.src = 'images/environment/treestump_nest1.png';
+	var enviro_tree_2 = new Image(); enviro_tree_2.src = 'images/environment/treestump_nest2.png';
+	var enviro_tree_3 = new Image(); enviro_tree_3.src = 'images/environment/treestump_nest3.png';
 
 	var gui_shade = new Image();
 	gui_shade.src = 'images/gui/overlay_cover.png';
@@ -156,7 +157,10 @@ function load_sprites(){
 		gui_melee: gui_melee,
 		gui_shade: gui_shade,
 		
-		enviro_tree: enviro_tree,
+		enviro_tree_1: enviro_tree_1,
+		enviro_tree_2: enviro_tree_2,
+		enviro_tree_3: enviro_tree_3,
+		
 		enviro_rock: enviro_rock,
 		tile_ash: tile_ash,
 		black_square: black_square,

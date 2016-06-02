@@ -23,6 +23,8 @@ renderer.push(main_stage);
 
 enemies_killed = 0;
 
+storedFP = 0;
+
 
 // Start the game loop. 
 make_loop(renderer, 15);
