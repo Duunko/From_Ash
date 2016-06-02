@@ -47,6 +47,8 @@ function enemy_c(x, y){
 	
 	this.update = function(){
 		
+
+		
 		if(this.hitbox.active != true){
 			var distance = this.distanceToObject(MC);
 			if (distance < this.vision_range){

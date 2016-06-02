@@ -27,6 +27,8 @@ function enemy_a(x, y){
 	this.mapX = x;
 	this.mapY = y;
 	
+	this.depth = -this.mapY;
+	
 	this.canvasX = toCanvasX(this.mapX);
 	this.canvasY = toCanvasY(this.mapY);
 	
@@ -50,9 +52,9 @@ function enemy_a(x, y){
 	this.t2 = 0;
 	
 	var en_pos = [[-50, 0],
-					[tiles.WORLD_WIDTH + 50,0],
-					[-50,tiles.WORLD_HEIGHT+50],
-					[tiles.WORLD_WIDTH + 50, tiles.WORLD_HEIGHT+50]]; 
+					  [tiles.WORLD_WIDTH + 50,0],
+					  [-50,tiles.WORLD_HEIGHT+50],
+					  [tiles.WORLD_WIDTH + 50, tiles.WORLD_HEIGHT+50]]; 
 	
 	this.update = function(){
 		
@@ -91,6 +93,8 @@ function enemy_a(x, y){
 		else{
 			this.stunned = false;
 		}
+		
+		this.depth = -this.mapY;
 	}
 	
 	this.draw = function(){	
@@ -109,9 +113,9 @@ function enemy_a(x, y){
 		var value_map = [];
 		var tlocX = Math.floor(target.mapX/64);
 		var tlocY = Math.floor(target.mapY/64);
-		var locX = this.mapX/64;
-		var locY = this.mapY/64;
-		
+		var locX = Math.floor(this.mapX/64);
+		var locY = Math.floor(this.mapY/64);
+		value_map.push([distance_to_object(target), 0, ])
 		
 		
 		
@@ -155,6 +159,7 @@ function enemy_a(x, y){
 	}
 	
 	this.destroy = function(){
+		enemies_killed += 1;
 		this.hp = 10;
 		var int1 = getRandomInt(0,3);
 		var int2 = getRandomInt(0,3);
@@ -216,14 +221,9 @@ function enemy_a(x, y){
 				console.log("New health is "+this.hp);
 			}
 			else{
-				this.die();
 				this.destroy();
 			}
 		}
-	}
-	
-	this.die = function(){
-		
 	}
 	
 	this.hitbox = {

@@ -44,12 +44,11 @@ function main_character(x, y) {
 	this.image_speed_counter = 0;
 	
 	this.active_animation = this.up_walk;
-	this.animated = false;               //whether the draw animated sprite script should be called
 	this.animating = false;              //whether a high priority animation is active (not walking)
 	this.walking = true;
 	
-	this.fp = 30;
-	this.nextFp = 10;
+	this.fp = 300;
+	this.nextFp = 300;
 	
 	this.meleeCost = 2;
 	this.meleeCoolMax = 30;
@@ -72,6 +71,7 @@ function main_character(x, y) {
 	this.canvasY = canvas.height/2;
 	this.mapX;
 	this.mapY;
+	this.depth;
 	//this.canvasX = toCanvasX(this.mapX);
 	//this.canvasY = toCanvasY(this.mapY);
 
@@ -111,7 +111,7 @@ function main_character(x, y) {
 	this.beamDuration = 50;
 	this.beamTimer = this.beamDuration;
 	
-    this.xfunc;
+   this.xfunc;
 	this.yfunc;
 	
 	this.recently_checked = false;
@@ -127,7 +127,7 @@ function main_character(x, y) {
     	offsetY:0,
     	width:this.sprite.width,
     	height:this.sprite.height,
-    	col_data: new SAT.Box(new SAT.Vector(this.mapX, this.mapY), this.sprite.width, this.sprite.height)
+    	col_data: new SAT.Box(new SAT.Vector(this.mapX, this.mapY - 20), this.sprite.width, this.sprite.height - 20)
     }
 	
 	this.attack_hitbox = false;
@@ -159,6 +159,14 @@ function main_character(x, y) {
 				this.animating = true;
 			}
 		}
+		
+		/* if(current_level == 1){
+			EN1 = new enemy_a(200, 200);
+			main_stage.push(EN1);
+			if(EN1.hp <= 0){
+				current_level += 1;
+			}
+			*/
 		
 		if(this.recently_checked == true){
 			this.recently_checked = false;
@@ -271,13 +279,21 @@ function main_character(x, y) {
 			if(this.canvasXSpeed > 0){ this.canvasXSpeed -= this.dashXInc }
 			if(this.canvasXSpeed < 0){ this.canvasXSpeed += this.dashXInc }
 			
-			if(this.canvasYSpeed > 0){ this.canvasYSpeed -= this.dashYInc }
-			if(this.canvasYSpeed < 0){ this.canvasYSpeed += this.dashYInc }
+			if(this.canvasYSpeed > 0){ 
+				this.canvasYSpeed -= this.dashYInc; 
+				renderer.need_sort = true;
+			}
+			if(this.canvasYSpeed < 0){ 
+				this.canvasYSpeed += this.dashYInc;
+				renderer.need_sort = true;
+			}
+			
+			
 	    }
 	
 	   
 	    //if within bounds add directional changes
-	    if(this.canvasX > 0 && this.canvasXSpeed < 0){
+	   if(this.canvasX > 0 && this.canvasXSpeed < 0){
 			this.canvasX += this.canvasXSpeed;
 		}
 		if(this.canvasX + this.sprite.width < canvas.width && this.canvasXSpeed > 0){
@@ -309,6 +325,8 @@ function main_character(x, y) {
 		
 		this.mapX = toMapX(this.canvasX);
 	    this.mapY = toMapY(this.canvasY);
+	    
+	    this.depth = -this.mapY;
 		
 		this.hitbox.col_data.pos.x = this.mapX;
 		this.hitbox.col_data.pos.y = this.mapY;
@@ -318,16 +336,15 @@ function main_character(x, y) {
 				this.attack_hitbox.currframe++;
 				this.attack_hitbox.xy1 = findc1(this.attack_hitbox);
 			
-		    if (this.attack_hitbox.currframe < this.attack_hitbox.numFrames + 1){
-		        	this.attack_hitbox.xy2 = findc2(this.attack_hitbox);
-		    }
-		    var dat = new SAT.Vector(MC.canvasX + (MC.sprite.width / 2), MC.canvasY + (MC.sprite.height / 2));
-		    this.attack_hitbox.col_data = new SAT.Polygon(new SAT.Vector(), [
-		    this.attack_hitbox.xy1, this.attack_hitbox.xy2, 
-		    dat]); 
-		    }else {
-			    MC.can_melee = true;
-			    this.attack_hitbox = false;
+		   if (this.attack_hitbox.currframe < this.attack_hitbox.numFrames + 1){
+		       this.attack_hitbox.xy2 = findc2(this.attack_hitbox);
+		   }
+		   var dat = new SAT.Vector(MC.canvasX + (MC.sprite.width / 2), MC.canvasY + (MC.sprite.height / 2));
+		   this.attack_hitbox.col_data = new SAT.Polygon(new SAT.Vector(), [
+		   this.attack_hitbox.xy1, this.attack_hitbox.xy2,dat]); 
+		   } else {
+			   MC.can_melee = true;
+			   this.attack_hitbox = false;
 			}
 		}
 		
