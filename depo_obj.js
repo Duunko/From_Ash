@@ -8,7 +8,11 @@ function depo(x, y){
 	this.mapY = y;
 	this.canvasX = toCanvasX(this.mapX);
 	this.canvasY = toCanvasY(this.mapY);
+<<<<<<< HEAD
     this.sprite = assets["enviro_tree"];
+=======
+   this.sprite = assets["enviro_tree"];
+>>>>>>> origin/master
 	this.sprite.width = 128;
 	this.sprite.height = 128;
 
@@ -52,7 +56,7 @@ function depo(x, y){
     	offsetY:32,
     	width:this.sprite.width,
     	height:this.sprite.height,
-    	col_data: new SAT.Box(new SAT.Vector(this.mapX + 20, this.mapY + 38), this.sprite.width - 40, this.sprite.height - 38)
+    	col_data: new SAT.Box(new SAT.Vector(this.mapX + 20, this.mapY + 56), this.sprite.width - 40, this.sprite.height - 56)
 	}
 	
 	this.collide = function(target){
