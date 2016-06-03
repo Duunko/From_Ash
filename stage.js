@@ -59,8 +59,7 @@ function stage(top) {
     		}
     	}
 		return count;
-    }
-    
+    }   
 }
 
 /* make_loop

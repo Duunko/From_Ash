@@ -99,6 +99,10 @@ function create_board(world_width, world_height, tile_size, non_ash){
 			} 
 			var door = new level_door(100, 100);
 			main_stage.push(door);
+			var flr_obj = new floor_object(300, 300, assets["wasd"]);
+			main_stage.push(flr_obj);
+			var flr_obj = new floor_object(375, 300, assets["mouse"]);
+			main_stage.push(flr_obj);
 			
 			initial_generation = true;       
 	    }
@@ -145,6 +149,7 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	
 	    this.tileGrid = [];
 	    this.tiles = [];
+		main_stage.remove_enemies();
 		
 		var door = new level_door(100, 100);
 		main_stage.push(door);

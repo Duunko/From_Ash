@@ -55,5 +55,4 @@ function overlay(x, y, spr, target){
 		context.drawImage(this.sprite, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
 		context.drawImage(this.shade, this.canvasX, this.canvasY, this.shade.width, this.shade.height);
 	}
-	
 }

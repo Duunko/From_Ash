@@ -25,19 +25,19 @@ function load_game(){
 	//If you want to add more obstacle types, ask me I'll do it.
 	levels = [];
 	//Tutorial Levels
-	//levels.push([960,960,undefined,400,300]);
-	levels.push([960, 960, [[6, 4, 3]], 300, 300]);
-	levels.push([960,960,[[10, 9, 1],[2, 3, 1, 'x', 4],[8, 4, 1, 'y',2],[4,10,1,'x',2]], 300, 300]);
+	levels.push([960,960,undefined,400,300]);
+	levels.push([960, 960, [[6, 4, 3]], 500, 500]);
+	levels.push([960,960,[[10, 9, 1],[2, 3, 1, 'x', 4],[8, 4, 1, 'y',2],[4,10,1,'x',2]], 500, 500]);
 
 	
 	//Main Levels
-	levels.push([1280,1280,[[10,9,1],[12,12,1],[2,2,1,'y',5],[14,2,1],[14,3,1]],100,30]);
-	levels.push([1280,1280,[[11,11,1],[4,7,1,'y',6],[4,6,3],[10,2,1,'x',3]],100,100]);
-	levels.push([1280,1280,[[9,7,1,'y',3],[3,3,1,'y',2],[10,2,3],[10,4,1,'x',3],[2,10,1,'x',2]],100,100]);
+	levels.push([1280,1280,[[10,9,1],[12,12,1],[2,2,1,'y',5],[14,2,1],[14,3,1]],500,500]);
+	levels.push([1280,1280,[[11,11,1],[4,7,1,'y',6],[4,6,3],[10,2,1,'x',3]],500,500]);
+	levels.push([1280,1280,[[9,7,1,'y',3],[3,3,1,'y',2],[10,2,3],[10,4,1,'x',3],[2,10,1,'x',2]],500,500]);
 	levels.push([1088,1088,[[13,4,1,'y',5],[3,3,1,'y',4],[13,1,3],[10,4,1,'x',3],[9,9,1,'x',5]],600,400]);
 	levels.push([1280,1088,[[2,2,1,'y',3],[6,2,1,'y',3],[10,2,1,'y',3],[14,2,1,'y',3],
 									[2,9,1,'y',3],[6,9,1,'y',3],[10,9,1,'y',3],[14,9,1,'y',3],
-									[1,10,3]],100,400]);
+									[1,10,3]],500,500]);
     //Enemies
     //Each index in this array counts as a level.
     //The arrays will have this format: 
@@ -46,17 +46,10 @@ function load_game(){
     //Only use enemy A for now, we can add more later
     
 	enemies = [];
-    enemies.push([[600, 600, 'a']])
+	enemies.push(undefined);
+    enemies.push([[600, 600, 'a'], [100, 100, 'a']]);
     
 	current_level = 0;
-	
-	/* if(current_level == 1){
-		EN1 = new enemy_a(200, 200);
-		main_stage.push(EN1);
-		if(EN1.hp <= 0){
-			current_level += 1;
-		}
-	} */
 	
 	/* if(current_level == 0){
 		context.fillText('Try out your moves!',100,50);

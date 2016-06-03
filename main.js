@@ -186,7 +186,7 @@ function angleDeg(x1,y1,x2,y2){
 	//EN1 = new enemy_a(100,100);
 	//EN2 = new enemy_a(200, 200);
 	
-	main_stage.push(EN1);
-	main_stage.push(EN2);
+	//main_stage.push(EN1);
+	//main_stage.push(EN2);
  }
  
