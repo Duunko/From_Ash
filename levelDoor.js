@@ -7,7 +7,7 @@ function level_door(x, y){
 	this.sprite = assets["door_closed"];
 	this.sprite2 = assets["door_open"];
 	
-	//this.is_obstacle = false;
+	this.is_obstacle = false;
 	
 	this.sprite.width = 75;
 	this.sprite.height = 75;
