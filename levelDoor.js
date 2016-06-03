@@ -6,6 +6,8 @@ function level_door(x, y){
 	
 	this.sprite = assets["black_square"];
 	
+	this.is_obstacle = false;
+	
 	this.sprite.width = 200;
 	this.sprite.height = 200;
 	
@@ -15,18 +17,33 @@ function level_door(x, y){
 	this.canvasX = toCanvasX(this.mapX);
 	this.canvasY = toCanvasY(this.mapY);
 	
+	this.hitbox = {
+    	active:true,
+    	shape:'rectangle',
+    	offsetX:0,
+    	offsetY:0,
+    	width:this.sprite.width,
+    	height:this.sprite.height,
+    	col_data: new SAT.Box(new SAT.Vector(this.mapX, this.mapY), this.sprite.width, this.sprite.height)
+    }
+	
 	this.update = function(){
 		this.canvasX = toCanvasX(this.mapX);
 		this.canvasY = toCanvasY(this.mapY);
 	}
 	
 	this.draw = function(){	
-		
+		context.drawImage(this.sprite, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
+		context.fillRect(toCanvasX(this.hitbox.col_data.pos.x), toCanvasY(this.hitbox.col_data.pos.y), this.hitbox.col_data.w, this.hitbox.col_data.hz);
 	}
 	
 	this.collide = function(target){
 		if(target == MC){
-			console.log("MC collided with door");
+			if(keysPressed[ACTION_KEY_CODE]){
+				console.log("moving to next level")
+				current_level += 1;
+				tiles.refresh();
+			}
 		}
 	}
 	
@@ -35,46 +52,9 @@ function level_door(x, y){
 		//console.log("damage");
 		//if not stunned
 		
-		console.log('collided');
-		
-		if (MC.attack_hitbox.shape == 'arc'){
-			if(this.stunned == false){
-			    this.knockback();
-			    this.on_hit(5);
-		    }
-		} else if(MC.attack_hitbox.shape == 'polygon'){
-			this.knockback();
-			this.on_hit(10);
-		}
-		
-	}
-	
-	this.on_hit = function(dmg){
-		if(this.vulnerable == true){
-			if(this.hp > 0){
-				this.hp -= dmg;
-				console.log("EN took "+dmg+" damage");
-				console.log("New health is "+this.hp);
-			}
-			else{
-				this.die();
-				this.destroy();
-			}
-		}
 	}
 	
 	this.die = function(){
 		
 	}
-	
-	this.hitbox = {
-    	active:false,
-    	shape:'rectangle',
-    	offsetX:0,
-    	offsetY:0,
-    	width:this.sprite.width,
-    	height:this.sprite.height,
-    	col_data: new SAT.Box(new SAT.Vector(this.mapX, this.mapY), this.sprite.width, this.sprite.height)
-    }
-    
 }

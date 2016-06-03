@@ -97,6 +97,8 @@ function load_sprites(){
 
 	var black_square = new Image();
 	black_square.src = 'images/black_square.png';
+	var black_square2 = new Image();
+	black_square2.src = 'images/black_square2.png';
 	
 	assets = {
 		mc_up_1: mc_up_1,
@@ -172,6 +174,7 @@ function load_sprites(){
 		enviro_rock: enviro_rock,
 		tile_ash: tile_ash,
 		black_square: black_square,
+		black_square2: black_square2,
 	}
 	
 	var count = 0;

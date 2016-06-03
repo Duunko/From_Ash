@@ -13,7 +13,7 @@ function obstacle(x,y, type){
     if(this.type == 'environment'){
         this.sprite = assets["enviro_tree"];
     } else {
-    	this.sprite = assets["black_square"];
+    	this.sprite = assets["black_square2"];
     }
 
 	this.sprite.width = 64;

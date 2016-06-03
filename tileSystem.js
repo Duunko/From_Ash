@@ -83,39 +83,33 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	 	     		}
 	 	     	}
 		     }
-		if(enemies[current_level] != undefined){
-		for(var i = 0; i < enemies[current_level].length; i++){
-    	    if(enemies[current_level][i][2] == 'a'){
-    		    var obj = new enemy_a(enemies[current_level][i][0], enemies[current_level][i][1]);
-    		    main_stage.push(obj);
-    	    } else if(enemies[current_level][i][2] == 'b'){
-    		    var obj = new enemy_b(enemies[current_level][i][0], enemies[current_level][i][1]);
-    		    main_stage.push(obj);
-    	    } else if(enemies[current_level][i][2] == 'c'){
-    		    var obj = new enemy_c(enemies[current_level][i][0], enemies[current_level][i][1]);
-    		    main_stage.push(obj);
-    	    }
-        }
-        } 
-		initial_generation = true;       
+			if(enemies[current_level] != undefined){
+				for(var i = 0; i < enemies[current_level].length; i++){
+					if(enemies[current_level][i][2] == 'a'){
+						var obj = new enemy_a(enemies[current_level][i][0], enemies[current_level][i][1]);
+						main_stage.push(obj);
+					} else if(enemies[current_level][i][2] == 'b'){
+						var obj = new enemy_b(enemies[current_level][i][0], enemies[current_level][i][1]);
+						main_stage.push(obj);
+					} else if(enemies[current_level][i][2] == 'c'){
+						var obj = new enemy_c(enemies[current_level][i][0], enemies[current_level][i][1]);
+						main_stage.push(obj);
+					}
+				}
+			} 
+			var door = new level_door(100, 100);
+			main_stage.push(door);
+			
+			initial_generation = true;       
 	    }
 		 
 		 
-		console.log(main_stage.check_num_enemies());
+		//console.log(main_stage.check_num_enemies());
 		
-		if(/*main_stage.check_num_enemies() == 0*/ keysPressed[ACTION_KEY_CODE]){
-			if(MC.hp >= 0){
-				console.log("moving to next level")
-				current_level += 1;
-				tiles.refresh();
-				//enemies_killed = 0;
-			}
-			
-		} else {
-			if(MC.hp < 0){
-				reset_game();
-			}
+		if(MC.hp < 0){
+			reset_game();
 		}
+		
 	}
 	
 	this.refresh = function(){
@@ -151,6 +145,9 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	
 	    this.tileGrid = [];
 	    this.tiles = [];
+		
+		var door = new level_door(100, 100);
+		main_stage.push(door);
 
 	    for(var i = 0; i < this.TILES_IN_A_ROW; i++){
 		     var column = new Array();
