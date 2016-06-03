@@ -159,16 +159,17 @@ function enemy_a(x, y){
 	}
 	
 	this.destroy = function(){
-		enemies_killed += 1;
-		this.hp = 10;
-		var int1 = getRandomInt(0,3);
-		var int2 = getRandomInt(0,3);
-		this.mapX = en_pos[int1][0];
-		this.mapY = en_pos[int1][1];
-		var a = new enemy_a(en_pos[int2][0], en_pos[int2][1]);
-		main_stage.push(a);
-		
-		MC.nextFp += 0.5;
+		//enemies_killed += 1;
+		//this.hp = 10;
+		//var int1 = getRandomInt(0,3);
+		//var int2 = getRandomInt(0,3);
+		//this.mapX = en_pos[int1][0];
+		//this.mapY = en_pos[int1][1];
+		//var a = new enemy_a(en_pos[int2][0], en_pos[int2][1]);
+		//main_stage.push(a);
+	
+		MC.nextFp += 5;
+		main_stage.destroy(this);
 	}
 	
 	this.collide = function(target){

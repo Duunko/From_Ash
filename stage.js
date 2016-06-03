@@ -54,11 +54,11 @@ function stage(top) {
     this.check_num_enemies = function(){
     	var count = 0;
     	for(var i = 0; i < this.owned_objects.length; i++){
-    		if(this.owned_objects.type = "enemy"){
+    		if(this.owned_objects[i].type == "enemy"){
     			count++;
     		}
     	}
-    	return count;
+		return count;
     }
     
 }

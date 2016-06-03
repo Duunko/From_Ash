@@ -100,11 +100,15 @@ function create_board(world_width, world_height, tile_size, non_ash){
 		initial_generation = true;       
 	    }
 		 
-		if(enemies_killed == 2){
+		 
+		console.log(main_stage.check_num_enemies());
+		
+		if(/*main_stage.check_num_enemies() == 0*/ keysPressed[ACTION_KEY_CODE]){
 			if(MC.hp >= 0){
+				console.log("moving to next level")
 				current_level += 1;
 				tiles.refresh();
-				enemies_killed = 0;
+				//enemies_killed = 0;
 			}
 			
 		} else {

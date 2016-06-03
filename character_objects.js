@@ -138,8 +138,6 @@ function main_character(x, y) {
 	
 	this.update = function(){
 		
-		console.log(this.moveCanvasX);
-		
 		//walking animation handlers
 		if(this.walking == true){
 			if(this.look_direc == 'west'){

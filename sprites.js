@@ -76,6 +76,11 @@ function load_sprites(){
 	gui_dash.src = 'images/gui/dash_overlay.png';
 	var gui_melee = new Image();
 	gui_melee.src = 'images/gui/melee_overlay.png';
+	
+	var gui_e = new Image();
+	gui_e.src = 'images/gui/pass_on_gui.png';
+	var gui_r = new Image();
+	gui_r.src = 'images/gui/inherit_gui.png';
 
 	var enviro_tree_1 = new Image(); enviro_tree_1.src = 'images/environment/treestump_nest1.png';
 	var enviro_tree_2 = new Image(); enviro_tree_2.src = 'images/environment/treestump_nest2.png';
@@ -156,6 +161,9 @@ function load_sprites(){
 		gui_dash: gui_dash,
 		gui_melee: gui_melee,
 		gui_shade: gui_shade,
+		
+		gui_e: gui_e,
+		gui_r: gui_r,
 		
 		enviro_tree_1: enviro_tree_1,
 		enviro_tree_2: enviro_tree_2,

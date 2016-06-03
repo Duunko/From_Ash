@@ -65,6 +65,7 @@ var UP_KEY_CODE = 87;
 var DOWN_KEY_CODE = 83;
 
 var ACTION_KEY_CODE = 69;
+var RETRIEVE_KEY_CODE = 82;
 var BEAM_KEY_CODE = 81;
 
 var keysPressed = {};
@@ -73,6 +74,7 @@ keysPressed[LEFT_KEY_CODE] = false;
 keysPressed[UP_KEY_CODE] = false;
 keysPressed[DOWN_KEY_CODE] = false;
 keysPressed[ACTION_KEY_CODE] = false;
+keysPressed[RETRIEVE_KEY_CODE] = false;
 keysPressed[BEAM_KEY_CODE] = false;
 
 var anyKeyPress = false;
