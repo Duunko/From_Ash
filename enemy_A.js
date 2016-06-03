@@ -51,12 +51,16 @@ function enemy_a(x, y){
 	
 	this.t2 = 0;
 	
+	this.a_star_timer = 0;
+	
 	var en_pos = [[-50, 0],
 					  [tiles.WORLD_WIDTH + 50,0],
 					  [-50,tiles.WORLD_HEIGHT+50],
 					  [tiles.WORLD_WIDTH + 50, tiles.WORLD_HEIGHT+50]]; 
 	
 	this.update = function(){
+		
+		
 		
 		if(this.hitbox.active != true){
 			var distance = this.distanceToObject(MC);
@@ -83,7 +87,7 @@ function enemy_a(x, y){
 		this.canvasX = toCanvasX(this.mapX);
 		this.canvasY = toCanvasY(this.mapY);
 		
-	   this.hitbox.col_data.pos.x = this.mapX;
+	    this.hitbox.col_data.pos.x = this.mapX;
 		this.hitbox.col_data.pos.y = this.mapY;
 		
 		//------------TIMERS-----------------
@@ -115,10 +119,54 @@ function enemy_a(x, y){
 		var tlocY = Math.floor(target.mapY/64);
 		var locX = Math.floor(this.mapX/64);
 		var locY = Math.floor(this.mapY/64);
-		value_map.push([distance_to_object(target), 0, ])
+		value_map.push([Math.abs(this.distanceToObject(target)), 0,[0,0],[]]);
+		var directions = ['NORTH', 'SOUTH', 'EAST', 'WEST'];
+		var c_path;
+		var c_step = 1;
+		while(true){
+			var node = value_map[0];
+			value_map.pop();
+			if(locX + node[2][0] == tlocX && locY + node[2][1] == tlocY){
+				c_path = node[3];
+				break;
+			}
+			for(var i = 0; i < directions.length; i++){
+                var direc_val;
+                if(directions[i] == 'NORTH'){
+                	direc_val = [0, -1];
+                } else if(directions[i] == 'SOUTH'){
+                	direc_val = [0, 1];
+                } else if(directions[i] == 'EAST'){
+                	direc_val = [-1, 0];
+                } else if(directions[i] == 'WEST'){
+                	direc_val = [1, 0];
+                }
+                if(map[Math.floor((this.mapX + ((node[2][0] + direc_val[0]) * 32))/64)][
+                       Math.floor((this.mapY + ((node[2][1] + direc_val[1]) * 32))/64)] == 0){
+                var addnode = [];
+                for(var j = 0; j < node[3].length; j++){
+                	addnode.push(node[3][i]);
+                }
+                addnode.push(directions[i]);
+				value_map.push([Math.abs(this.distanceToObject(target, node[2][0], node[2][1]))+(node[1]*32), 
+				                c_step, [node[2][0] + direc_val[0], node[2][1] + direc_val[1]],
+				                addnode]);
+				
+				}			
+				}
+			
+			value_map.sort(function(a,b){
+				if(a[0] > b[0]){
+					return -1;
+				}else if(b[0] > a[0]){
+					return 1;
+				} else {
+					return 0;
+				}
+			});
+		}
 		
-		
-		
+		console.log(c_path);
 		
 		
 	}

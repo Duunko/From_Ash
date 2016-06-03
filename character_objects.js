@@ -691,7 +691,7 @@ function main_character(x, y) {
 				this.canvasY = toCanvasY(this.mapY);
 				
 			
-			} else {
+			} else if(target.type == "enemy"){
 			    MC.on_hit(5);
 			}
 		}
