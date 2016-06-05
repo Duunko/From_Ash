@@ -97,9 +97,21 @@ function load_sprites(){
 	
 	var enviro_rock = new Image();
 	enviro_rock.src = 'images/environment/rock.png';
+	
+	var door_open = new Image();
+	door_open.src = 'images/environment/door_open.png';
+	var door_closed = new Image();
+	door_closed.src = 'images/environment/door_closed.png';
+	
+	var wasd = new Image();
+	wasd.src = 'images/gui/wasd.png';
+	var mouse = new Image();
+	mouse.src = 'images/gui/mouse.png';
 
 	var black_square = new Image();
 	black_square.src = 'images/black_square.png';
+	var black_square2 = new Image();
+	black_square2.src = 'images/black_square2.png';
 	
 	assets = {
 		mc_up_1: mc_up_1,
@@ -173,9 +185,16 @@ function load_sprites(){
 		enviro_tree_2: enviro_tree_2,
 		enviro_tree_3: enviro_tree_3,
 		
+		door_open: door_open,
+		door_closed: door_closed,
+		
 		enviro_rock: enviro_rock,
 		tile_ash: tile_ash,
 		black_square: black_square,
+		black_square2: black_square2,
+		
+		wasd: wasd,
+		mouse: mouse,
 	}
 	
 	var count = 0;
