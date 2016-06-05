@@ -8,7 +8,7 @@
  
 function create_board(world_width, world_height, tile_size, non_ash){
 	
-	var initial_generation = false;
+	this.initial_generation = false;
 	this.depth = 100000;
 	this.TILE_TYPE_ASH = 0;
 	this.TILE_TYPE_VOID = 1;
@@ -71,7 +71,7 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	}
 	
 	this.update = function(){
-		if(initial_generation == false){
+		if(this.initial_generation == false){
 	 	     for(var i = 0; i < this.tileGrid.length; i++){
 	 	     	for(var j = 0; j < this.tileGrid.length; j++){
 	 	     		if(this.tileGrid[i][j] == 1){
@@ -97,11 +97,11 @@ function create_board(world_width, world_height, tile_size, non_ash){
     	    }
         }
         } 
-		initial_generation = true;       
+		this.initial_generation = true;       
 	    }
 		 
 		 
-		console.log(main_stage.check_num_enemies());
+		//console.log(main_stage.check_num_enemies());
 		
 		if(/*main_stage.check_num_enemies() == 0*/ keysPressed[ACTION_KEY_CODE]){
 			if(MC.hp >= 0){
@@ -129,7 +129,7 @@ function create_board(world_width, world_height, tile_size, non_ash){
 		var new_world_height = levels[current_level][1];
 		var new_non_ash = levels[current_level][2];
 		
-		initial_generation = false;
+		this.initial_generation = false;
 		main_stage.remove_obstacles();
 	    this.WORLD_WIDTH = new_world_width;
 	    this.WORLD_HEIGHT = new_world_height;

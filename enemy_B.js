@@ -7,9 +7,11 @@ function enemy_b(x, y){
 	
 	this.type = "enemy";
 	
-	this.sprite = assets[8];
-	this.sprite.width = 64;
-	this.sprite.height = 64;
+	this.sprite = assets["centipede"];
+	this.sprite.width = 96;
+	this.sprite.height = 96;
+	
+	this.vision_range = 800;
 	
 	this.move_direc = 'south';
 	this.look_direc = 'south';
@@ -17,12 +19,16 @@ function enemy_b(x, y){
 	this.mapX = x;
 	this.mapY = y;
 	
+	this.depth = -this.mapY;
+	
 	this.canvasX = toCanvasX(this.mapX);
 	this.canvasY = toCanvasY(this.mapY);
 	
-	this.speed = 4;
+	this.speed = 2.5;
 	this.mapXSpeed = 0;
 	this.mapYSpeed = 0;
+	
+	this.path = 0;
 	
 	this.self = this;
 	
@@ -35,18 +41,35 @@ function enemy_b(x, y){
 	
 	this.hp = 10;
 	
+	this.t2 = 0;
+	
+	this.attack_timer = 0;
+	
 	var en_pos = [[-50, 0],
-					[tiles.WORLD_WIDTH + 50,0],
-					[-50,tiles.WORLD_HEIGHT+50],
-					[tiles.WORLD_WIDTH + 50, tiles.WORLD_HEIGHT+50]]; 
+					  [tiles.WORLD_WIDTH + 50,0],
+					  [-50,tiles.WORLD_HEIGHT+50],
+					  [tiles.WORLD_WIDTH + 50, tiles.WORLD_HEIGHT+50]]; 
 	
 	this.update = function(){
+		
+		this.attack_timer++;
+		
+		if(this.hitbox.active != true){
+			var distance = this.distanceToObject(MC);
+			if (distance < this.vision_range){
+				this.hitbox.active = true;
+			}
+		}
+		
+		
 		if(this.stunned == false){
 			
-			this.moveTowards(MC);
+			if(this.hitbox.active == true && MC.active_animation != MC.death){
+			    this.moveTowards(MC);
 			
-			this.mapX += this.mapXSpeed * this.speed;
-			this.mapY += this.mapYSpeed * this.speed;
+			    this.mapX += this.mapXSpeed * this.speed;
+			    this.mapY += this.mapYSpeed * this.speed;
+			}
 		}
 		else{
 			this.mapX += this.mapXSpeed * this.knockbackSpeed;
@@ -56,7 +79,7 @@ function enemy_b(x, y){
 		this.canvasX = toCanvasX(this.mapX);
 		this.canvasY = toCanvasY(this.mapY);
 		
-	   this.hitbox.col_data.pos.x = this.mapX;
+	    this.hitbox.col_data.pos.x = this.mapX;
 		this.hitbox.col_data.pos.y = this.mapY;
 		
 		//------------TIMERS-----------------
@@ -67,20 +90,27 @@ function enemy_b(x, y){
 			this.stunned = false;
 		}
 		
+		this.depth = -this.mapY;
 	}
 	
-	this.draw = function(){
-		context.drawImage(this.sprite, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
+	this.draw = function(){	
+		//rotation and drawing
+		context.save();
+		context.translate(this.canvasX + this.sprite.width/2, this.canvasY + this.sprite.height/2);
+		context.rotate(this.rotateEnemy()*(Math.PI/180) + Math.PI/2);
+		context.drawImage(this.sprite, -this.sprite.width/2, -this.sprite.height/2, this.sprite.width, this.sprite.height);
+		context.restore();
+		
+		
 	}
+	
+	
 	
 	this.moveTowards = function(target){
 		if(!isNaN(target.mapX)){
 			var slopeX = target.mapX - this.mapX;
-			var slopeY = target.mapY - this.mapY;
-				
-			var distance = Math.sqrt(Math.pow((target.mapX - this.mapX), 2)
-								+ Math.pow((target.mapY - this.mapY), 2));
-				
+	        var slopeY = target.mapY - this.mapY;
+			var distance = this.distanceToObject(target);
 			this.mapXSpeed = slopeX / distance;
 			this.mapYSpeed = slopeY / distance;
 				
@@ -88,6 +118,15 @@ function enemy_b(x, y){
 		else{
 			console.log("Nan detected");
 		}
+	}
+	
+	this.rotateEnemy = function(){
+		var tm = angleDeg(this.canvasX + this.sprite.width/2,this.canvasY + this.sprite.height/2,
+								MC.mapX,MC.mapY); //* (Math.PI/180);
+		if(tm < 0){
+			tm = 360 - (-tm);
+		}
+		return tm
 	}
 	
 	this.knockback = function(){
@@ -103,30 +142,30 @@ function enemy_b(x, y){
 	}
 	
 	this.destroy = function(){
-		this.hp = 10;
-		var int1 = getRandomInt(0,3);
-		var int2 = getRandomInt(0,3);
-		this.mapX = en_pos[int1][0];
-		this.mapY = en_pos[int1][1];
-		var a = new enemy_a(en_pos[int2][0], en_pos[int2][1]);
-		main_stage.push(a);
-		
-		MC.nextFp += 0.5;
+		//enemies_killed += 1;
+		//this.hp = 10;
+		//var int1 = getRandomInt(0,3);
+		//var int2 = getRandomInt(0,3);
+		//this.mapX = en_pos[int1][0];
+		//this.mapY = en_pos[int1][1];
+		//var a = new enemy_a(en_pos[int2][0], en_pos[int2][1]);
+		//main_stage.push(a);
+	
+		MC.nextFp += 5;
+		main_stage.destroy(this);
 	}
 	
 	this.collide = function(target){
-		if (target.is_obstacle != undefined){
+		if (target.is_obstacle == true){
 				var response = new SAT.Response();
 				SAT.testPolygonPolygon(this.hitbox.col_data.toPolygon(), target.hitbox.col_data.toPolygon(), response);
-				console.log(response);
 				this.canvasX -= response.overlapV.x;
 				this.canvasY -= response.overlapV.y
 				this.mapX = toMapX(this.canvasX);
 				this.mapY = toMapY(this.canvasY);
 	   } else if(target.type == "enemy"){
-	   	        var response = new SAT.Response();
+	   	   var response = new SAT.Response();
 				SAT.testPolygonPolygon(this.hitbox.col_data.toPolygon(), target.hitbox.col_data.toPolygon(), response);
-				console.log(response);
 				this.canvasX -= response.overlapV.x;
 				this.canvasY -= response.overlapV.y
 				this.mapX = toMapX(this.canvasX);
@@ -143,10 +182,19 @@ function enemy_b(x, y){
 		//this is called when the enemy collides with the melee
 		//console.log("damage");
 		//if not stunned
-		if(this.stunned == false){
+		
+		console.log('collided');
+		
+		if (MC.attack_hitbox.shape == 'arc'){
+			if(this.stunned == false){
+			    this.knockback();
+			    this.on_hit(5);
+		    }
+		} else if(MC.attack_hitbox.shape == 'polygon'){
 			this.knockback();
-			this.on_hit(5);
+			this.on_hit(10);
 		}
+		
 	}
 	
 	this.on_hit = function(dmg){
@@ -157,23 +205,32 @@ function enemy_b(x, y){
 				console.log("New health is "+this.hp);
 			}
 			else{
-				this.die();
 				this.destroy();
 			}
 		}
 	}
 	
-	this.die = function(){
-		
-	}
-	
 	this.hitbox = {
-    	active:true,
+    	active:false,
     	shape:'rectangle',
     	offsetX:0,
     	offsetY:0,
     	width:this.sprite.width,
     	height:this.sprite.height,
     	col_data: new SAT.Box(new SAT.Vector(this.mapX, this.mapY), this.sprite.width, this.sprite.height)
+    }
+    
+    this.distanceToObject = function(target, offX, offY){
+	    var slopeX = target.mapX - this.mapX;
+	    if(offX != undefined){
+	    	slopeX += offX * 32;
+	    }
+	    var slopeY = target.mapY - this.mapY;
+	    if(offY != undefined){
+	    	slopeY += offY * 32;
+	    }
+	    var distance = Math.sqrt(Math.pow((target.mapX - this.mapX), 2)
+								+ Math.pow((target.mapY - this.mapY), 2));
+	    return distance;
     }
 }

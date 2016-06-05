@@ -86,6 +86,7 @@ function renderer(canvas, context) {
 	this.can = canvas;
 	this.stages = [];
 	this.need_sort = false;
+	this.sort_timer = 0;
 	this.push = function(obj) { 
 		if(this.stages.length != 0){
 		    this.stages[this.stages.length - 1].always_update = false;
@@ -137,9 +138,13 @@ function game_draw(renderer) {
 		       
 		    } //For1
 		    for(var j = 0; j < renderer.stages[i].owned_objects.length; j++){
+		    	
 		    	if(renderer.stages[i].owned_objects[j].hitbox == undefined){
 		    		//console.log(renderer.stages[i].owned_objects[j]);
 		    		//console.log("nohitbox");
+		    		continue;
+		    	}
+		    	if(renderer.stages[i].owned_objects[j].hitbox.active == false){
 		    		continue;
 		    	}
 		    	for(var k = j + 1; k < renderer.stages[i].owned_objects.length; k++){
@@ -152,6 +157,11 @@ function game_draw(renderer) {
 		    			if(renderer.stages[i].owned_objects[k].hitbox.active == false){
 		    				continue;
 		    			}
+		    			if(renderer.stages[i].owned_objects[j].is_obstacle == true && 
+		    				renderer.stages[i].owned_objects[k].is_obstacle == true){
+		    					continue;
+		    			}
+		    			
 		    	
 		    			var check1 = renderer.stages[i].owned_objects[j].hitbox.shape;
 		    			var check2 = renderer.stages[i].owned_objects[k].hitbox.shape;
@@ -168,21 +178,39 @@ function game_draw(renderer) {
 						}else if (check1 == 'rectangle' && check2 == 'circle'){
 					        var response = new SAT.Response();
 					        if(SAT.testPolygonCircle(renderer.stages[i].owned_objects[j].hitbox.col_data.toPolygon(),
-						        renderer.stages[i].owned_objects[k].hitbox.col_data, response)){
+						        renderer.stages[i].owned_objects[k].hitbox.col_data, response) == true){
+						        	if(renderer.stages[i].owned_objects[j] == MC){
+						        	    console.log("true");
+						        	}
 							        renderer.stages[i].owned_objects[j].collide(renderer.stages[i].owned_objects[k]);
-							        renderer.stages[i].owned_objects[k].collide(renderer.stages[i].owned_objects[j]);
+							        if(typeof(renderer.stages[i].owned_objects[j].collide) ==="function"){
+							            renderer.stages[i].owned_objects[k].collide(renderer.stages[i].owned_objects[j]);
+							        }
 						        }
+						        
 			            }else if (check1 == 'circle' && check2 == 'rectangle'){
 					        var response = new SAT.Response();
 					        if(SAT.testCirclePolygon(renderer.stages[i].owned_objects[j].hitbox.col_data,
-						        renderer.stages[i].owned_objects[k].hitbox.col_data.toPolygon(), response)){
+						        renderer.stages[i].owned_objects[k].hitbox.col_data.toPolygon(), response) == true){
+						        	if(renderer.stages[i].owned_objects[k] == MC){
+						        	    console.log("true");
+						        	}
 							        renderer.stages[i].owned_objects[j].collide(renderer.stages[i].owned_objects[k]);
-							        renderer.stages[i].owned_objects[k].collide(renderer.stages[i].owned_objects[j]);
+							        if(typeof(renderer.stages[i].owned_objects[k].collide) === "function"){
+							        	console.log(typeof(renderer.stages[i].owned_objects[k].collide));
+							        	console.log(renderer.stages[i].owned_objects[k]);
+							            renderer.stages[i].owned_objects[k].collide(renderer.stages[i].owned_objects[j]);
+							        }
 						        }
+						        
 				        } 
 				        if(renderer.stages[i].owned_objects[j] == MC || renderer.stages[i].owned_objects[k] == MC){
 				            if(MC.attack_hitbox != false){
 				            	console.log('hitbox');
+				            	if(renderer.stages[i].owned_objects[j].hitbox.shape == 'circle' ||
+				            	     renderer.stages[i].owned_objects[k].hitbox.shape == 'circle'){
+				            	     	continue;
+				            	     }
 				                if (renderer.stages[i].owned_objects[k].attack_hitbox != undefined){
 					                var response = new SAT.Response();
 					                if(SAT.testPolygonPolygon(renderer.stages[i].owned_objects[j].hitbox.col_data.toPolygon(),
@@ -211,11 +239,15 @@ function game_draw(renderer) {
 		    	
 		    } //For2
 		    for(var j = 0; j < renderer.stages[i].owned_objects.length; j++){
-		    	 if (renderer.stages[i].always_draw == true) {
-		        	if(renderer.need_sort == true){
-		        	    sort_array(renderer.stages[i].owned_objects);
-		        	    renderer.need_sort = false;
-		        	}
+		        	//if(renderer.need_sort == true){
+		        		//if(renderer.sort_timer < 20){
+		        			//renderer.sort_timer++;
+		        		//} else {
+		        	       // sort_array(renderer.stages[i].owned_objects);
+		        	       // renderer.need_sort = false;
+		        	       // renderer.sort_timer = 0;
+		        	    //}
+		        	//} 
 		        	if (renderer.stages[i].owned_objects[j] != undefined){
 		        		if(renderer.stages[i].owned_objects[j].canvasX != undefined && 
 		        			renderer.stages[i].owned_objects[j].canvasY != undefined) {
@@ -236,7 +268,6 @@ function game_draw(renderer) {
 		        				renderer.stages[i].owned_objects[j].draw();
 		        			}
 		        	}
-		        }
 		    } //For3
 		
 		}
@@ -267,5 +298,30 @@ function compare_depth(a,b) {
 }
 //Sorts array by depth.
 function sort_array(input){
-    input.sort(compare_depth);	
+	/*if(tiles.initial_generation == true){
+	var indices = [];
+	for(var i = 0; i < input.length; i++){
+		if(input[i].type == "enemy" || input[i] == MC){
+			indices.push(input[i]);
+		}
+	}
+	for(var i = 0; i < indices.length; i++){
+		var index = input.indexOf(indices[i]);
+		var index2;
+		for(var j = 0; j < input.length; j++){
+			if(indices[i].depth > input[j]){
+				if(i != 0){
+					index2 = i - 1;
+				} else {
+					index2 = 0;
+				}
+			}
+		}
+		input.move(index, index2);
+	}
+	} else { */
+	    console.log("sort begins");
+        input.sort(compare_depth);	
+        console.log("sort ends");
+   //}
 }

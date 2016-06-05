@@ -71,6 +71,9 @@ function load_sprites(){
 	
 	var fly = new Image();
 	fly.src = 'images/enemies/fly.png'
+	
+	var centipede = new Image();
+	centipede.src = 'images/enemies/decay.png';
 
 	var gui_dash = new Image();
 	gui_dash.src = 'images/gui/dash_overlay.png';
@@ -157,6 +160,7 @@ function load_sprites(){
 		
 		sScorpion: sScorpion,
 		fly: fly,
+		centipede:centipede,
 		
 		gui_dash: gui_dash,
 		gui_melee: gui_melee,
