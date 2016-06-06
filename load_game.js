@@ -22,6 +22,7 @@ function load_game(){
 	//Walls are 1
 	//Depots are 3
 	//Doors are 4
+	//5 and 6 are wasd and mouse input tiles on the floor, respectively
 	//Default is 0
 	//If you want to add more obstacle types, ask me I'll do it.
 	levels = [];
