@@ -9,8 +9,8 @@ function level_door(x, y){
 	
 	this.is_obstacle = false;
 	
-	this.sprite.width = 75;
-	this.sprite.height = 75;
+	this.sprite.width = 128;
+	this.sprite.height = 128;
 	
 	this.mapX = x;
 	this.mapY = y;

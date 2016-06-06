@@ -10,8 +10,8 @@ function depo(x, y){
 	this.canvasY = toCanvasY(this.mapY);
 	
 	this.sprite = assets["enviro_tree_1"]; 
-	this.sprite.width = 128;
-	this.sprite.height = 128;
+	this.sprite.width = 288;
+	this.sprite.height = 288;
 	this.depth = -(y + 56);
     
 	this.flaming = new Array; this.flaming.push(assets["enviro_tree_2"]); this.flaming.push(assets["enviro_tree_3"]);

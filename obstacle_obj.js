@@ -16,8 +16,8 @@ function obstacle(x,y, type){
     	this.sprite = assets["black_square2"];
     }
 
-	this.sprite.width = 64;
-	this.sprite.height = 64;
+	this.sprite.width = 96;
+	this.sprite.height = 96;
 
 	this.is_obstacle = true;
 	

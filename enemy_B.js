@@ -8,8 +8,8 @@ function enemy_b(x, y){
 	this.type = "enemy";
 	
 	this.sprite = assets["centipede"];
-	this.sprite.width = 96;
-	this.sprite.height = 96;
+	this.sprite.width = 192;
+	this.sprite.height = 192;
 	
 	this.vision_range = 800;
 	
