@@ -130,7 +130,7 @@ function main_character(x, y) {
     	offsetY:0,
     	width:this.sprite.width,
     	height:this.sprite.height,
-    	col_data: new SAT.Box(new SAT.Vector(this.mapX, this.mapY - 20), this.sprite.width, this.sprite.height - 20)
+    	col_data: new SAT.Box(new SAT.Vector(this.mapX + 10, this.mapY + 20), this.sprite.width - 20, this.sprite.height - 40)
     }
 	
 	this.attack_hitbox = false;
@@ -253,11 +253,9 @@ function main_character(x, y) {
 			
 			if(this.canvasYSpeed > 0){ 
 				this.canvasYSpeed -= this.dashYInc; 
-				renderer.need_sort = true;
 			}
 			if(this.canvasYSpeed < 0){ 
 				this.canvasYSpeed += this.dashYInc;
-				renderer.need_sort = true;
 			}	
 	    }
 	   
@@ -269,6 +267,7 @@ function main_character(x, y) {
 		   else{
 			   this.canvasX += this.canvasXSpeed / 2;
 		   }
+		   
 		}
 		if((this.canvasX + this.sprite.width < canvas.width && this.canvasXSpeed > 0) && this.can_move_right){
 			if(this.moveCanvasX){
@@ -286,6 +285,7 @@ function main_character(x, y) {
 		    else{
 			   this.canvasY += this.canvasYSpeed / 2;
 		    }
+		    renderer.need_sort = true;
 		}
 		if((this.canvasY + this.sprite.height < canvas.height && this.canvasYSpeed > 0) && this.can_move_down){
 			if(this.moveCanvasY){
@@ -294,6 +294,7 @@ function main_character(x, y) {
 		    else{
 			   this.canvasY += this.canvasYSpeed / 2;
 		    }
+		    renderer.need_sort = true;
 		}
 		
 		//failsafe for speed wind-down
@@ -315,10 +316,10 @@ function main_character(x, y) {
 		this.mapX = toMapX(this.canvasX);
 	    this.mapY = toMapY(this.canvasY);
 	    
-	    this.depth = -this.mapY;
+	    this.depth = -(this.mapY - 20);
 		
-		this.hitbox.col_data.pos.x = this.mapX;
-		this.hitbox.col_data.pos.y = this.mapY;
+		this.hitbox.col_data.pos.x = this.mapX + 10;
+		this.hitbox.col_data.pos.y = this.mapY + 20;
 		
 		if(this.attack_hitbox != false && this.attack_hitbox.shape == 'arc'){
 			if (this.attack_hitbox.currframe < this.attack_hitbox.numFrames + 2){
@@ -510,6 +511,9 @@ function main_character(x, y) {
 		} 
 		context.fillText("Hit Points: "+this.hp, 10, 100);
 		
+		//context.fillStyle = 'orange';
+		//context.fillRect(toCanvasX(this.hitbox.col_data.pos.x), toCanvasY(this.hitbox.col_data.pos.y), this.hitbox.col_data.w, this.hitbox.col_data.h);
+		
     }
     
     this.attack = function(){
@@ -663,7 +667,7 @@ function main_character(x, y) {
     
     this.collide = function(target){
 		if(this.dashing == false){
-			if (target.is_obstacle != undefined){
+			if (target.is_obstacle == true){
 				if(this.recently_checked == false){
 					var response = new SAT.Response();
 					SAT.testPolygonPolygon(this.hitbox.col_data.toPolygon(), target.hitbox.col_data.toPolygon(), response);
@@ -693,6 +697,8 @@ function main_character(x, y) {
 			
 			} else if(target.type == "enemy"){
 			    MC.on_hit(5);
+			} else if(target.type == 'bullet'){
+				MC.on_hit(5);
 			}
 		}
 		else{

@@ -3,7 +3,7 @@
  */
 
 function obstacle(x,y, type){
-	this.depth = y;
+	this.depth = -(y - 20);
 	this.mapX = x;
 	this.mapY = y;
 	this.canvasX = toCanvasX(this.mapX);
@@ -24,6 +24,16 @@ function obstacle(x,y, type){
 	this.update = function(){
 		this.canvasX = toCanvasX(this.mapX);
 	    this.canvasY = toCanvasY(this.mapY);
+	    
+	    if(this.canvasX < 0 || this.canvasX > canvas.width){
+	    	if(this.canvasY < 0 || this.canvasY > canvas.height){
+	    		this.hitbox.active = false;
+	    	} else {
+	    		this.hitbox.active = true;
+	    	}
+	    } else {
+	    	this.hitbox.active = true;
+	    }
 	}
 	
 	this.draw = function(){
@@ -40,7 +50,7 @@ function obstacle(x,y, type){
     	offsetY:32,
     	width:this.sprite.width,
     	height:this.sprite.height,
-    	col_data: new SAT.Box(new SAT.Vector(this.mapX - 1, this.mapY - 1), this.sprite.width + 2, this.sprite.height + 2)
+    	col_data: new SAT.Box(new SAT.Vector(this.mapX /*+ 8 */, this.mapY /*+ 10*/), this.sprite.width /*-16*/, this.sprite.height /*- 10*/)
 	}
 	
 	this.collide = function(target){
