@@ -52,6 +52,7 @@ function main_character(x, y) {
 	
 	this.fp = 30;
 	this.nextFp = 30;
+	this.fpReturn = this.fp;
 	
 	this.meleeCost = 2;
 	this.meleeCoolMax = 30;
@@ -163,13 +164,11 @@ function main_character(x, y) {
 			}
 		}
 		
-		/* if(current_level == 1){
-			EN1 = new enemy_a(200, 200);
-			main_stage.push(EN1);
-			if(EN1.hp <= 0){
-				current_level += 1;
-			}
-			*/
+		if(current_level == 0){
+			this.fp = 999;
+		} else if(current_level == 1 && this.fp == 999){
+			this.fp = this.fpReturn;
+		}
 		
 		if(this.recently_checked == true){
 			this.recently_checked = false;

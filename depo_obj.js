@@ -60,7 +60,7 @@ function depo(x, y){
 		}
 		
 		this.canvasX = toCanvasX(this.mapX);
-	    this.canvasY = toCanvasY(this.mapY);
+	   this.canvasY = toCanvasY(this.mapY);
 		
 		if(MC.canvasX < this.canvasX - this.range_dist || MC.canvasX > this.canvasX + this.range_dist + this.sprite.width || MC.canvasY < this.canvasY - this.range_dist || MC.canvasY > this.canvasY + this.range_dist + this.sprite.height){
 			this.in_range = false;
