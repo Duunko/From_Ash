@@ -65,9 +65,6 @@ function level_door(x, y){
 	}
 	
 	this.collide_damage = function(){
-		//this is called when the enemy collides with the melee
-		//console.log("damage");
-		//if not stunned
 		
 	}
 	

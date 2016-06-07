@@ -14,14 +14,14 @@ function depo(x, y){
 	this.sprite.height = 288;
 	this.depth = -(y + 56);
     
-	this.flaming = new Array; this.flaming.push(assets["enviro_tree_2"]); this.flaming.push(assets["enviro_tree_3"]);
+	this.flaming = new Array; this.flaming.push(assets["enviro_tree_2"]); this.flaming.push(assets["enviro_tree_3"]); this.flaming.push(assets["enviro_tree_4"]); this.flaming.push(assets["enviro_tree_3"]);
 	
 	this.passUI = assets["gui_e"];
 	this.inheritUI = assets["gui_r"];
-	this.passUI.width = 150;
-	this.passUI.height = 50;
-	this.inheritUI.width = 150;
-	this.inheritUI.height = 50;
+	this.passUI.width = 300;
+	this.passUI.height = 100;
+	this.inheritUI.width = 300;
+	this.inheritUI.height = 100;
 	
 	this.image_index = 0;
 	this.image_speed_max = 7;  
@@ -38,7 +38,7 @@ function depo(x, y){
 	this.update = function(){
 		if(this.in_range == true){
 			if(keysPressed[ACTION_KEY_CODE] == true){
-				if(this.depo_ready_e == true){
+				if(this.depo_ready_e == true && MC.nextFp >= 0){
 					MC.nextFp -= 1;
 					storedFP += 1;
 					this.depo_ready_e = false;
@@ -49,7 +49,7 @@ function depo(x, y){
 			}
 			
 			if(keysPressed[RETRIEVE_KEY_CODE] == true){
-				if(this.depo_ready_r == true){
+				if(this.depo_ready_r == true && MC.storedFP >= 0){
 					storedFP -= 1;
 					MC.fp += 1;
 					this.depo_ready_r = false;
