@@ -13,8 +13,8 @@
 
 function main_character(x, y) {
 	this.sprite = new Image();
-	this.sprite.width = 60;
-	this.sprite.height = 80;
+	this.sprite.width = 128;
+	this.sprite.height = 175;
 	
 	this.up_walk = new Array; this.up_walk.push(assets["mc_up_1"]); this.up_walk.push(assets["mc_up_2"]); this.up_walk.push(assets["mc_up_3"]);
 	
@@ -131,7 +131,7 @@ function main_character(x, y) {
     	offsetY:0,
     	width:this.sprite.width,
     	height:this.sprite.height,
-    	col_data: new SAT.Box(new SAT.Vector(this.mapX, this.mapY - 20), this.sprite.width, this.sprite.height - 20)
+    	col_data: new SAT.Box(new SAT.Vector(this.mapX + 10, this.mapY + 20), this.sprite.width - 20, this.sprite.height - 40)
     }
 	
 	this.attack_hitbox = false;
@@ -252,11 +252,9 @@ function main_character(x, y) {
 			
 			if(this.canvasYSpeed > 0){ 
 				this.canvasYSpeed -= this.dashYInc; 
-				renderer.need_sort = true;
 			}
 			if(this.canvasYSpeed < 0){ 
 				this.canvasYSpeed += this.dashYInc;
-				renderer.need_sort = true;
 			}	
 	    }
 	   
@@ -268,6 +266,7 @@ function main_character(x, y) {
 		   else{
 			   this.canvasX += this.canvasXSpeed / 2;
 		   }
+		   
 		}
 		if((this.canvasX + this.sprite.width < canvas.width && this.canvasXSpeed > 0) && this.can_move_right){
 			if(this.moveCanvasX){
@@ -285,6 +284,7 @@ function main_character(x, y) {
 		    else{
 			   this.canvasY += this.canvasYSpeed / 2;
 		    }
+		    renderer.need_sort = true;
 		}
 		if((this.canvasY + this.sprite.height < canvas.height && this.canvasYSpeed > 0) && this.can_move_down){
 			if(this.moveCanvasY){
@@ -293,6 +293,7 @@ function main_character(x, y) {
 		    else{
 			   this.canvasY += this.canvasYSpeed / 2;
 		    }
+		    renderer.need_sort = true;
 		}
 		
 		//failsafe for speed wind-down
@@ -314,13 +315,13 @@ function main_character(x, y) {
 		this.mapX = toMapX(this.canvasX);
 	    this.mapY = toMapY(this.canvasY);
 	    
-	    this.depth = -this.mapY;
+	    this.depth = -(this.mapY - 20);
 		
-		this.hitbox.col_data.pos.x = this.mapX;
-		this.hitbox.col_data.pos.y = this.mapY;
+		this.hitbox.col_data.pos.x = this.mapX + 10;
+		this.hitbox.col_data.pos.y = this.mapY + 20;
 		
 		if(this.attack_hitbox != false && this.attack_hitbox.shape == 'arc'){
-			if (this.attack_hitbox.currframe < this.attack_hitbox.numFrames + 2){
+			if (this.attack_hitbox.currframe < this.attack_hitbox.numFrames + 4){
 				this.attack_hitbox.currframe++;
 				this.attack_hitbox.xy1 = findc1(this.attack_hitbox);
 			
@@ -409,7 +410,6 @@ function main_character(x, y) {
 			new SAT.Vector(this.beamEndX, this.beamEndY)]);
 			
 			
-			console.log(this.attack_hitbox);
 		}
 		
 	}//Update
@@ -509,6 +509,9 @@ function main_character(x, y) {
 		} 
 		context.fillText("Hit Points: "+this.hp, 10, 100);
 		
+		//context.fillStyle = 'orange';
+		//context.fillRect(toCanvasX(this.hitbox.col_data.pos.x), toCanvasY(this.hitbox.col_data.pos.y), this.hitbox.col_data.w, this.hitbox.col_data.h);
+		
     }
     
     this.attack = function(){
@@ -537,7 +540,7 @@ function main_character(x, y) {
 				currframe:0,
 				col_data:0,
 				numFrames:16,
-				radius:100,
+				radius:200,
 				self:this,
 				direc:direction,
 				xy1:0,
@@ -662,7 +665,7 @@ function main_character(x, y) {
     
     this.collide = function(target){
 		if(this.dashing == false){
-			if (target.is_obstacle != undefined){
+			if (target.is_obstacle == true){
 				if(this.recently_checked == false){
 					var response = new SAT.Response();
 					SAT.testPolygonPolygon(this.hitbox.col_data.toPolygon(), target.hitbox.col_data.toPolygon(), response);
@@ -692,6 +695,8 @@ function main_character(x, y) {
 			
 			} else if(target.type == "enemy"){
 			    MC.on_hit(5);
+			} else if(target.type == 'bullet'){
+				MC.on_hit(5);
 			}
 		}
 		else{
@@ -703,14 +708,14 @@ function main_character(x, y) {
     function findc1 (obj) {
 		var cx = MC.canvasX + (MC.sprite.width / 2);
 		var cy = MC.canvasY + (MC.sprite.height / 2);
-		if (obj.currframe < 3) {
+		if (obj.currframe < 5) {
 			var newval = new SAT.Vector(Math.round(cx +(obj.radius * (Math.cos(degrees(45 + obj.direc))))),
 				    Math.round(cy + (obj.radius * (Math.sin(degrees(45 + obj.direc))))));
 		    //newval.x -= MC.mapX;
 		    //newval.y -= MC.mapY;
 			return newval;
 		} else {
-			var angle = (obj.currframe - 2) * (90 / obj.numFrames);
+			var angle = (obj.currframe - 4) * (90 / obj.numFrames);
 			var newval = new SAT.Vector(Math.round(cx + (obj.radius * (Math.cos(degrees(45 + obj.direc + angle))))),
 				    Math.round(cy + (obj.radius * (Math.sin(degrees(45 + obj.direc + angle))))));
 		   // newval.x -= MC.mapX;

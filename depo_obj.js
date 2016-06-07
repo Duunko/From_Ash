@@ -3,15 +3,16 @@
  */
 
 function depo(x, y){
-	this.depth = y;
+
 	this.mapX = x;
 	this.mapY = y;
 	this.canvasX = toCanvasX(this.mapX);
 	this.canvasY = toCanvasY(this.mapY);
 	
 	this.sprite = assets["enviro_tree_1"]; 
-	this.sprite.width = 128;
-	this.sprite.height = 128;
+	this.sprite.width = 288;
+	this.sprite.height = 288;
+	this.depth = -(y + 56);
     
 	this.flaming = new Array; this.flaming.push(assets["enviro_tree_2"]); this.flaming.push(assets["enviro_tree_3"]);
 	
@@ -94,7 +95,7 @@ function depo(x, y){
     	offsetY:32,
     	width:this.sprite.width,
     	height:this.sprite.height,
-    	col_data: new SAT.Box(new SAT.Vector(this.mapX + 20, this.mapY + 56), this.sprite.width - 40, this.sprite.height - 56)
+    	col_data: new SAT.Box(new SAT.Vector(this.mapX /*+ 10*/, this.mapY /*+ 56*/), this.sprite.width /*- 40*/, this.sprite.height /*- 56*/)
 	}
 	
 	this.collide = function(target){

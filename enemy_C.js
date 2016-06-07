@@ -1,4 +1,4 @@
-/**
+/*
  * @author Duunko
  */
 
@@ -7,10 +7,10 @@ function enemy_c(x, y){
 	this.type = "enemy";
 	
 	this.sprite = assets["fly"];
-	this.sprite.width = 64;
-	this.sprite.height = 64;
+	this.sprite.width = 160;
+	this.sprite.height = 160;
 	
-	this.vision_range = 800;
+	this.vision_range = 1200;
 	
 	this.move_direc = 'south';
 	this.look_direc = 'south';
@@ -44,10 +44,13 @@ function enemy_c(x, y){
 					[tiles.WORLD_WIDTH + 50,0],
 					[-50,tiles.WORLD_HEIGHT+50],
 					[tiles.WORLD_WIDTH + 50, tiles.WORLD_HEIGHT+50]]; 
+					
+	this.attack_timer = 0;
+	this.attack_interval = 120;
 	
 	this.update = function(){
 		
-
+        this.attack_timer++;
 		
 		if(this.hitbox.active != true){
 			var distance = this.distanceToObject(MC);
@@ -60,10 +63,14 @@ function enemy_c(x, y){
 		if(this.stunned == false){
 			
 			if(this.hitbox.active == true){
-			    this.moveTowards(MC);
-			
-			    this.mapX += this.mapXSpeed * this.speed;
-			    this.mapY += this.mapYSpeed * this.speed;
+			    if(this.attack_timer == this.attack_interval){
+			    	var bull = new bullet(this.mapX + (this.sprite.width/2), this.mapY + 
+			    	                      (this.sprite.height/2), 
+			    	                       MC.mapX, MC.mapY, this.distanceToObject(MC));
+			    	main_stage.push(bull);
+			    	this.attack_timer = 0;
+			    }
+			    
 			}
 		}
 		else{
@@ -97,19 +104,6 @@ function enemy_c(x, y){
 		
 	}
 	
-	this.aStar = function(target){
-		var map = tiles.tileGrid;
-		var value_map = [];
-		var tlocX = Math.floor(target.mapX/64);
-		var tlocY = Math.floor(target.mapY/64);
-		var locX = 0;
-		var locY = 0;
-		
-		
-		
-		
-		
-	}
 	
 	this.moveTowards = function(target){
 		if(!isNaN(target.mapX)){
@@ -152,8 +146,6 @@ function enemy_c(x, y){
 		var int2 = getRandomInt(0,3);
 		this.mapX = en_pos[int1][0];
 		this.mapY = en_pos[int1][1];
-		var a = new enemy_a(en_pos[int2][0], en_pos[int2][1]);
-		main_stage.push(a);
 		
 		MC.nextFp += 0.5;
 	}
@@ -246,6 +238,68 @@ function enemy_c(x, y){
 
 
 
-function bullet(x, y, angle){
+function bullet(x, y, cx, cy, distance){
+	this.type = 'bullet';
+	this.sprite = new Image();
+	this.depth = 0;
+	this.sprite.width = 10;
+	this.sprite.height = 10;
+	this.mapX = x;
+	this.mapY = y;
+	this.canvasX = toCanvasX(this.mapX);
+	this.canvasY = toCanvasY(this.mapY);
 	
+	this.slopeX = (cx - x)/distance;
+	this.slopeY = (cy - y)/distance;
+	
+	this.will_destroy = false;
+	this.speed = 2;
+    
+    this.range = 800;
+    this.dist = 0;
+	
+	this.hitbox = {
+    	active:true,
+    	shape:'circle',
+    	offsetX:0,
+    	offsetY:0,
+    	width:10,
+    	height:10,
+    	col_data: new SAT.Circle(new SAT.Vector(this.mapX, this.mapY), 10)
+    }
+	
+	this.update = function(){
+		this.mapX += this.slopeX*this.speed;
+		this.mapY += this.slopeY*this.speed;
+		this.canvasX = toCanvasX(this.mapX);
+	    this.canvasY = toCanvasY(this.mapY);
+	    this.hitbox.col_data = new SAT.Circle(new SAT.Vector(this.mapX, this.mapY), 10);
+	    this.dist += this.speed;
+	    if(this.dist > this.range){
+	    	this.will_destroy = true;
+	    }
+		if(this.will_destroy == true){
+			main_stage.destroy(this);
+		}
+		
+	}
+	
+	this.draw = function(){
+      context.beginPath();
+      context.arc(this.canvasX, this.canvasY, 10, 0, 2 * Math.PI, false);
+      context.fillStyle = 'white';
+      context.fill();
+	}
+	
+	this.collide = function(target){
+		if(target.is_obstacle == true){
+			main_stage.destroy(this);
+		} else if(target == MC){
+			this.will_destroy = true;
+		}
+	}
+	
+	this.collide_damage = function(){
+		
+	}
 }
