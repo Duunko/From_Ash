@@ -27,44 +27,34 @@ function load_game(){
 	levels = [];
 	//Tutorial Levels
 	//MIN SIZE 1344/864
-	levels.push([1344,1344,[[4, 2, 4], [5, 5, 5], [6, 5, 6]],400,300]);
-	levels.push([1344, 1344, [[6, 4, 3], [4, 2, 4]], 500, 500]);
-	levels.push([1344,1344,[[10, 9, 1],[2, 3, 1, 'x', 4],[8, 4, 1, 'y',2],[4,10,1,'x',2], [4, 2, 4]], 500, 500]);
+	//levels.push([1344,1344,[[4, 2, 4], [5, 5, 5], [6, 5, 6]],400,300]);
+	//levels.push([1344,1344, [[6, 4, 3], [4, 2, 4]], 500, 500]);
+	//levels.push([1344,1344,[[10, 9, 1],[2, 3, 1, 'x', 4],[8, 4, 1, 'y',2],[4,10,1,'x',2], [4, 2, 4]], 500, 500]);
 
 	
 	//Main Levels
-	levels.push([1344,1344,[[10,9,1],[12,12,1],[2,2,1,'y',5],[14,2,1],[14,3,1], [4, 2, 4]],500,500]);
+	levels.push([1344,1344,[[10,9,1],[12,12,1],[2,2,1,'y',5],[14,2,1],[14,3,1],[5,2,4]],500,500]);
 	levels.push([1344,1344,[[11,11,1],[4,7,1,'y',6],[4,6,3],[10,2,1,'x',3], [4, 2, 4]],500,500]);
 	levels.push([1344,1344,[[9,7,1,'y',3],[3,3,1,'y',2],[10,2,3],[10,4,1,'x',3],[2,10,1,'x',2], [4, 2, 4]],500,500]);
 	levels.push([1344,1344,[[13,4,1,'y',5],[3,3,1,'y',4],[13,1,3],[10,4,1,'x',3],[9,9,1,'x',5], [4, 2, 4]],600,400]);
 	levels.push([1344,1344,[[2,2,1,'y',3],[6,2,1,'y',3],[10,2,1,'y',3],[14,2,1,'y',3],
 									[2,9,1,'y',3],[6,9,1,'y',3],[10,9,1,'y',3],[14,9,1,'y',3],
 									[1,10,3], [4, 2, 4]],500,500]);
-    //Enemies
-    //Each index in this array counts as a level.
-    //The arrays will have this format: 
-    //[[x,y,"type"], [x,y,"type"]]
-    //An example: [[20, 20, "a"]] will create an enemy A at 20,20
-    //Only use enemy A for now, we can add more later
+   //Enemies
+   //Each index in this array counts as a level.
+   //The arrays will have this format: 
+   //[[x,y,"type"], [x,y,"type"]]
+   //An example: [[20, 20, "a"]] will create an enemy A at 20,20
+   //Only use enemy A for now, we can add more later
     
 	enemies = [];
-	enemies.push(undefined);
-   enemies.push([[200, 200, 'a'],[400, 200, 'a'],[600, 200, 'a']]);
+	//enemies.push(undefined);
+   //enemies.push([[200, 200, 'a'],[400, 200, 'a'],[600, 200, 'a']]);
 	//enemies.push([[600, 300, 'a'],[100, 200, 'a']]);
 	//enemies.push([[800, 100, 'a'],[300, 100, 'a'],[300, 800, 'a']]);
 	
     
-	current_level = 0;
-	
-	/* if(current_level == 0){
-		context.fillText('Try out your moves!',100,50);
-		context.fillText('WASD to move and mouse clicks to attack!',100,75);
-	} */
-	
-	/* if(current_level == 2){
-		context.fillText('You can deposit fire points for later use.',100,50);
-		context.fillText('Press "E" on the tree stump to deposit your points.',100,75);
-	} */
+	current_level = 0;	
 	
 	//load the game world
 	tiles = new create_board(levels[current_level][0], levels[current_level][1],96, levels[current_level][2]);
