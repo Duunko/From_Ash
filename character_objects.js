@@ -32,7 +32,7 @@ function main_character(x, y) {
 
 	this.left_melee = new Array; this.left_melee.push(assets["mc_melee_left_1"]); this.left_melee.push(assets["mc_melee_left_2"]); this.left_melee.push(assets["mc_melee_left_3"]); this.left_melee.push(assets["mc_melee_left_4"]);
 	
-	this.death = new Array; this.death.push(assets["mc_death_1"]); this.death.push(assets["mc_death_2"]); this.death.push(assets["mc_death_3"]); this.death.push(assets["mc_death_4"]); this.death.push(assets["mc_death_5"]); this.death.push(assets["mc_death_6"]); this.death.push(assets["mc_death_7"]); this.death.push(assets["mc_death_8"]);
+	this.death = new Array; /*this.death.push(assets["mc_death_1"]);*/ this.death.push(assets["mc_death_2"]); this.death.push(assets["mc_death_3"]); this.death.push(assets["mc_death_4"]); this.death.push(assets["mc_death_5"]); this.death.push(assets["mc_death_6"]); this.death.push(assets["mc_death_7"]); this.death.push(assets["mc_death_8"]);
 
 	this.upgrade = new Array; this.upgrade.push(assets["mc_upgrade_1"]); this.upgrade.push(assets["mc_upgrade_2"]); this.upgrade.push(assets["mc_upgrade_3"]); this.upgrade.push(assets["mc_upgrade_4"]); this.upgrade.push(assets["mc_upgrade_5"]); this.upgrade.push(assets["mc_upgrade_6"]);
 		this.upgrade.push(assets["mc_upgrade_7"]); this.upgrade.push(assets["mc_upgrade_8"]); this.upgrade.push(assets["mc_upgrade_9"]); this.upgrade.push(assets["mc_upgrade_10"]);
@@ -85,8 +85,8 @@ function main_character(x, y) {
 	this.safetyTimer = 0;
 	
 	//speed rounds up to the nearest multiple of the incriment
-	this.speed = 6;
-	this.speedInc = 0.5;
+	this.speed = 12.1;
+	this.speedInc = 1;
 	
 	this.canvasXSpeed = 0;
 	this.mapXSpeed = 0;
@@ -98,10 +98,10 @@ function main_character(x, y) {
 	this.can_beam = true;
 	
 	this.dashing = false;
-	this.dashTimer = 25;     //affects the distance
+	this.dashTimer = 45;     //affects the distance
 	this.dashXInc;
 	this.dashYInc;
-	this.dashWindD = 1.25;
+	this.dashWindD = 2.5;
 	
 	this.particleStartX = 0;
 	this.particleStartY = 0;
@@ -485,7 +485,7 @@ function main_character(x, y) {
 		    context.closePath();
 		    context.fill();
 			
-			var f = new fireParticle(this.attack_hitbox.col_data.points[1].x - 7, this.attack_hitbox.col_data.points[1].y - 7, 15, 15);
+			var f = new fireParticle(this.attack_hitbox.col_data.points[1].x - 7, this.attack_hitbox.col_data.points[1].y - 7, 30, 15);
 			main_stage.push(f);
 		}
 		

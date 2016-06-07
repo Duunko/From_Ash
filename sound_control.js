@@ -19,6 +19,9 @@ function sound_control(){
     this.draw = function(){
     	
     }
+	this.switch = function(){
+		
+	}
     
     this.destroy = function(){
     	sound.stop();

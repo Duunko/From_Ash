@@ -9,8 +9,8 @@
  
 function floor_object(x, y, spr){
 	this.sprite = spr;
-	this.sprite.width = 64;
-	this.sprite.height = 64;
+	this.sprite.width = 128;
+	this.sprite.height = 128;
 	
 	this.is_obstacle = false;
 	
