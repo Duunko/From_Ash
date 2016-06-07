@@ -16,8 +16,8 @@ function enemy_a(x, y){
 	this.type = "enemy";
 	
 	this.sprite = assets["sScorpion"];
-	this.sprite.width = 128;
-	this.sprite.height = 128;
+	this.sprite.width = 256;
+	this.sprite.height = 256;
 	
 	this.vision_range = 800;
 	
@@ -108,6 +108,7 @@ function enemy_a(x, y){
 		context.rotate(this.rotateEnemy()*(Math.PI/180) + Math.PI/2);
 		context.drawImage(this.sprite, -this.sprite.width/2, -this.sprite.height/2, this.sprite.width, this.sprite.height);
 		context.restore();
+		
 		
 		
 	}

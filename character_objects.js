@@ -13,8 +13,8 @@
 
 function main_character(x, y) {
 	this.sprite = new Image();
-	this.sprite.width = 60;
-	this.sprite.height = 80;
+	this.sprite.width = 128;
+	this.sprite.height = 175;
 	
 	this.up_walk = new Array; this.up_walk.push(assets["mc_up_1"]); this.up_walk.push(assets["mc_up_2"]); this.up_walk.push(assets["mc_up_3"]);
 	
@@ -322,7 +322,7 @@ function main_character(x, y) {
 		this.hitbox.col_data.pos.y = this.mapY + 20;
 		
 		if(this.attack_hitbox != false && this.attack_hitbox.shape == 'arc'){
-			if (this.attack_hitbox.currframe < this.attack_hitbox.numFrames + 2){
+			if (this.attack_hitbox.currframe < this.attack_hitbox.numFrames + 4){
 				this.attack_hitbox.currframe++;
 				this.attack_hitbox.xy1 = findc1(this.attack_hitbox);
 			
@@ -411,7 +411,6 @@ function main_character(x, y) {
 			new SAT.Vector(this.beamEndX, this.beamEndY)]);
 			
 			
-			console.log(this.attack_hitbox);
 		}
 		
 	}//Update
@@ -542,7 +541,7 @@ function main_character(x, y) {
 				currframe:0,
 				col_data:0,
 				numFrames:16,
-				radius:100,
+				radius:200,
 				self:this,
 				direc:direction,
 				xy1:0,
@@ -710,14 +709,14 @@ function main_character(x, y) {
     function findc1 (obj) {
 		var cx = MC.canvasX + (MC.sprite.width / 2);
 		var cy = MC.canvasY + (MC.sprite.height / 2);
-		if (obj.currframe < 3) {
+		if (obj.currframe < 5) {
 			var newval = new SAT.Vector(Math.round(cx +(obj.radius * (Math.cos(degrees(45 + obj.direc))))),
 				    Math.round(cy + (obj.radius * (Math.sin(degrees(45 + obj.direc))))));
 		    //newval.x -= MC.mapX;
 		    //newval.y -= MC.mapY;
 			return newval;
 		} else {
-			var angle = (obj.currframe - 2) * (90 / obj.numFrames);
+			var angle = (obj.currframe - 4) * (90 / obj.numFrames);
 			var newval = new SAT.Vector(Math.round(cx + (obj.radius * (Math.cos(degrees(45 + obj.direc + angle))))),
 				    Math.round(cy + (obj.radius * (Math.sin(degrees(45 + obj.direc + angle))))));
 		   // newval.x -= MC.mapX;

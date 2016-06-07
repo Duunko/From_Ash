@@ -213,7 +213,6 @@ function create_board(world_width, world_height, tile_size, non_ash){
 		
 		if(this.bottom >= this.WORLD_HEIGHT){ this.top = this.WORLD_HEIGHT - this.VIEW_HEIGHT; MC.moveCanvasY = true;}
 		if(this.right >= this.WORLD_WIDTH){ this.left = this.WORLD_WIDTH - this.VIEW_WIDTH; MC.moveCanvasX = true;}
-  
         var leftTile = Math.floor(this.left / this.TILE_SIZE);
         var topTile = Math.floor(this.top / this.TILE_SIZE);
 		

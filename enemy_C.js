@@ -1,4 +1,4 @@
-/**
+/*
  * @author Duunko
  */
 
@@ -7,10 +7,10 @@ function enemy_c(x, y){
 	this.type = "enemy";
 	
 	this.sprite = assets["fly"];
-	this.sprite.width = 64;
-	this.sprite.height = 64;
+	this.sprite.width = 160;
+	this.sprite.height = 160;
 	
-	this.vision_range = 800;
+	this.vision_range = 1200;
 	
 	this.move_direc = 'south';
 	this.look_direc = 'south';
