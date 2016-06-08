@@ -65,8 +65,6 @@ function load_sprites(){
 	var mc_dash_down = new Image(); mc_dash_down.src = 'images/dash/phoenix_dash_down.png';
 	var mc_dash_up = new Image(); mc_dash_up.src = 'images/dash/phoenix_dash_up.png';
 	
-	var title_button_1 = new Image(); title_button_1.src = 'images/gui/title_button.png';
-	var title_button_2 = new Image(); title_button_2.src = 'images/gui/Title_button_2.png'
 	
 	
 	var sScorpion = new Image();
@@ -201,8 +199,6 @@ function load_sprites(){
 		wasd: wasd,
 		mouse: mouse,
 		
-		title_button_1:title_button_1,
-		title_button_2:title_button_2
 	}
 	
 	var count = 0;

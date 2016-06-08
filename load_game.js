@@ -11,6 +11,10 @@ function load_game(){
 	title_stage = new stage(true);
 	renderer.push(title_stage);
 	title_stage.push(LS);
+	b1 = new title_button(80, 600, 300, 150, 1);
+	b2 = new title_button(950, 600, 300, 150, 2);
+	title_stage.push(b1);
+	title_stage.push(b2);
 	
 	load_sprites();
 	
@@ -52,7 +56,7 @@ function load_game(){
     
 	enemies = [];
 	enemies.push(undefined);
-    enemies.push([[600, 600, 'a'], [100, 100, 'a']]);
+    enemies.push([[600, 600, 'a'], [100, 100, 'b']]);
     
 	current_level = 0;
 	
@@ -107,8 +111,7 @@ function load_screen_obj(x, y, spr, spr2){
 	
 	this.update = function(){
 		if(anyKeyPress == true){
-			start_game();
-			title_stage.will_destroy = true;
+			
 		}
 	}
 	

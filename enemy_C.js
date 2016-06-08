@@ -7,8 +7,8 @@ function enemy_c(x, y){
 	this.type = "enemy";
 	
 	this.sprite = assets["fly"];
-	this.sprite.width = 160;
-	this.sprite.height = 160;
+	this.sprite.width = 96;
+	this.sprite.height = 96;
 	
 	this.vision_range = 1200;
 	
@@ -141,13 +141,10 @@ function enemy_c(x, y){
 	}
 	
 	this.destroy = function(){
-		this.hp = 10;
-		var int1 = getRandomInt(0,3);
-		var int2 = getRandomInt(0,3);
-		this.mapX = en_pos[int1][0];
-		this.mapY = en_pos[int1][1];
+		
 		
 		MC.nextFp += 0.5;
+		main_stage.destroy(this);
 	}
 	
 	this.collide = function(target){
