@@ -558,6 +558,8 @@ function main_character(x, y) {
 			
 			this.fp -= this.meleeCost;
 			this.meleeCool = this.meleeCoolMax;
+			
+			SC.fire.play();
 		}
     }
     
@@ -587,6 +589,8 @@ function main_character(x, y) {
 			
 			this.fp -= this.dashCost;
 			this.dashCool = this.dashCoolMax;
+			
+			SC.fire.play();
 			
 			//animation
 			//show a still image that is higher priority to walking
@@ -631,6 +635,8 @@ function main_character(x, y) {
 				
 				this.safetyTimer = this.safetyTimerMax;
 				this.vulnerable = false;
+				
+				SC.hit_enemy.play();
 			}
 			else if(this.active_animation != this.death){
 				this.die();
@@ -645,9 +651,11 @@ function main_character(x, y) {
 		this.canvasXSpeed = 0;
 		this.canvasYSpeed = 0;
 		//set this animation to play slower
-		this.image_speed_counter = 20;
+		this.image_speed_counter = 30;
 		
 		this.lives--;
+		SC.battle.stop();
+		SC.death.play();
 	}
 	
 	this.end_animation = function(target){

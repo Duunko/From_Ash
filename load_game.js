@@ -30,6 +30,7 @@ function load_game(){
 	levels = [];
 	//Tutorial Levels
 	//MIN SIZE 1344/864
+	/*
 	levels.push([1344,1344,[[4, 2, 4], [5, 5, 5], [6, 5, 6]],400,300]);
 	levels.push([1344, 1344, [[6, 4, 3], [4, 2, 4]], 500, 500]);
 	levels.push([1344,1344,[[10, 9, 1],[2, 3, 1, 'x', 4],[8, 4, 1, 'y',2],[4,10,1,'x',2], [4, 2, 4]], 500, 500]);
@@ -43,7 +44,11 @@ function load_game(){
 	levels.push([1344,1344,[[2,2,1,'y',3],[6,2,1,'y',3],[10,2,1,'y',3],[14,2,1,'y',3],
 									[2,9,1,'y',3],[6,9,1,'y',3],[10,9,1,'y',3],[14,9,1,'y',3],
 									[1,10,3], [4, 2, 4]],500,500]);
-    //Enemies
+	*/								
+	//final level
+	levels.push([1344, 1344, [[6, 4, 3]], 500, 500]);
+    
+	//Enemies
     //Each index in this array counts as a level.
     //The arrays will have this format: 
     //[[x,y,"type"], [x,y,"type"]]

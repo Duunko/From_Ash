@@ -81,7 +81,7 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	 	     			var obj = new obstacle(i*this.TILE_SIZE, j*this.TILE_SIZE, 'wall');
 	 	     			main_stage.push(obj);
 	 	     		} if(this.tileGrid[i][j] == 3){
-	 	     		    var obj = new depo(i*this.TILE_SIZE, j*this.TILE_SIZE);
+	 	     		    var obj = new depo(i*this.TILE_SIZE, j*this.TILE_SIZE, false);
 	 	     		    main_stage.push(obj);
 	 	     		} if(this.tileGrid[i][j] == 4){
 	 	     		    var obj = new level_door(i*this.TILE_SIZE, j*this.TILE_SIZE);
