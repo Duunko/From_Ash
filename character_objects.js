@@ -67,6 +67,9 @@ function main_character(x, y) {
 	
 	this.hpMax = 40;
 	this.hp = this.hpMax;
+	
+	this.lives = 5;
+	this.MaxLives = 5;
 
 	this.move_direc = 'south';
 	this.look_direc = 'south';
@@ -510,6 +513,8 @@ function main_character(x, y) {
 		} 
 		context.fillText("Hit Points: "+this.hp, 10, 100);
 		
+		context.fillText("Lives: "+MC.lives, 10, 120);
+		
 		//context.fillStyle = 'orange';
 		//context.fillRect(toCanvasX(this.hitbox.col_data.pos.x), toCanvasY(this.hitbox.col_data.pos.y), this.hitbox.col_data.w, this.hitbox.col_data.h);
 		
@@ -641,6 +646,8 @@ function main_character(x, y) {
 		this.canvasYSpeed = 0;
 		//set this animation to play slower
 		this.image_speed_counter = 20;
+		
+		this.lives--;
 	}
 	
 	this.end_animation = function(target){
