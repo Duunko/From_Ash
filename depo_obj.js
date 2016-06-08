@@ -2,19 +2,29 @@
  * @author Duunko
  */
 
-function depo(x, y){
+function depo(x, y, big){
 
 	this.mapX = x;
 	this.mapY = y;
 	this.canvasX = toCanvasX(this.mapX);
 	this.canvasY = toCanvasY(this.mapY);
 	
-	this.sprite = assets["enviro_tree_1"]; 
-	this.sprite.width = 208;
-	this.sprite.height = 208;
-	this.depth = -(y + 100);
-    
-	this.flaming = new Array; this.flaming.push(assets["enviro_tree_2"]); this.flaming.push(assets["enviro_tree_3"]); this.flaming.push(assets["enviro_tree_4"]); this.flaming.push(assets["enviro_tree_3"]);
+	if(big == false){
+		this.sprite = assets["enviro_tree_1"]; 
+		this.sprite.width = 208;
+		this.sprite.height = 208;
+		this.depth = -(y + 100);
+		
+		this.flaming = new Array; this.flaming.push(assets["enviro_tree_2"]); this.flaming.push(assets["enviro_tree_3"]); this.flaming.push(assets["enviro_tree_4"]); this.flaming.push(assets["enviro_tree_3"]);
+	}
+	else{
+		this.sprite = assets["enviro_tree_1"]; 
+		this.sprite.width = 288;
+		this.sprite.height = 288;
+		this.depth = -(y + 150);
+		
+		this.flaming = new Array; this.flaming.push(assets["enviro_tree_2"]); this.flaming.push(assets["enviro_tree_3"]); this.flaming.push(assets["enviro_tree_4"]); this.flaming.push(assets["enviro_tree_3"]);
+	}
 	
 	this.passUI = assets["gui_e"];
 	this.inheritUI = assets["gui_r"];
@@ -39,7 +49,7 @@ function depo(x, y){
 		if(this.in_range == true){
 			if(keysPressed[ACTION_KEY_CODE] == true){
 				if(this.depo_ready_e == true && MC.nextFp >= 0){
-					MC.nextFp -= 1;
+					MC.fp -= 1;
 					storedFP += 1;
 					this.depo_ready_e = false;
 				}
@@ -61,7 +71,7 @@ function depo(x, y){
 		}
 		
 		this.canvasX = toCanvasX(this.mapX);
-	    this.canvasY = toCanvasY(this.mapY);
+	   this.canvasY = toCanvasY(this.mapY);
 		
 		if(MC.canvasX < this.canvasX - this.range_dist || MC.canvasX > this.canvasX + this.range_dist + this.sprite.width || MC.canvasY < this.canvasY - this.range_dist || MC.canvasY > this.canvasY + this.range_dist + this.sprite.height){
 			this.in_range = false;

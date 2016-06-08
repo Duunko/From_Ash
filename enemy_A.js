@@ -47,7 +47,7 @@ function enemy_a(x, y){
 	
 	this.vulnerable = true;
 	
-	this.hp = 20;
+	this.hp = 14;
 	
 	this.t2 = 0;
 	

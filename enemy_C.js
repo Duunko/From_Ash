@@ -108,7 +108,7 @@ function enemy_c(x, y){
 	this.moveTowards = function(target){
 		if(!isNaN(target.mapX)){
 			var slopeX = target.mapX - this.mapX;
-	        var slopeY = target.mapY - this.mapY;
+	      var slopeY = target.mapY - this.mapY;
 			var distance = this.distanceToObject(target);
 			this.mapXSpeed = slopeX / distance;
 			this.mapYSpeed = slopeY / distance;
@@ -191,7 +191,7 @@ function enemy_c(x, y){
 	
 	this.on_hit = function(dmg){
 		if(this.vulnerable == true){
-			if(this.hp > 0){
+			if(this.hp > -1){
 				this.hp -= dmg;
 				console.log("EN took "+dmg+" damage");
 				console.log("New health is "+this.hp);
@@ -269,12 +269,12 @@ function bullet(x, y, cx, cy, distance){
 		this.mapX += this.slopeX*this.speed;
 		this.mapY += this.slopeY*this.speed;
 		this.canvasX = toCanvasX(this.mapX);
-	    this.canvasY = toCanvasY(this.mapY);
-	    this.hitbox.col_data = new SAT.Circle(new SAT.Vector(this.mapX, this.mapY), 10);
-	    this.dist += this.speed;
-	    if(this.dist > this.range){
-	    	this.will_destroy = true;
-	    }
+	   this.canvasY = toCanvasY(this.mapY);
+	   this.hitbox.col_data = new SAT.Circle(new SAT.Vector(this.mapX, this.mapY), 10);
+	   this.dist += this.speed;
+	   if(this.dist > this.range){
+	    this.will_destroy = true;
+	   }
 		if(this.will_destroy == true){
 			main_stage.destroy(this);
 		}

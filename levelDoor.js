@@ -20,6 +20,12 @@ function level_door(x, y){
 	
 	this.used = false;
 	this.open = false;
+	this.in_range = false;
+	
+	this.passUI = assets["gui_e"];
+	this.passUI.width = 150;
+	this.passUI.height = 50;
+	this.range_dist = 30;
 	
 	this.hitbox = {
     	active:true,
@@ -41,6 +47,13 @@ function level_door(x, y){
 		else{
 			this.open = false;
 		}
+		
+		this.canvasX = toCanvasX(this.mapX);
+	   this.canvasY = toCanvasY(this.mapY);
+		
+		if(MC.canvasX < this.canvasX - this.range_dist || MC.canvasX > this.canvasX + this.range_dist + this.sprite.width || MC.canvasY < this.canvasY - this.range_dist || MC.canvasY > this.canvasY + this.range_dist + this.sprite.height){
+			this.in_range = false;
+		}
 	}
 	
 	this.draw = function(){
@@ -50,17 +63,23 @@ function level_door(x, y){
 		else{
 			context.drawImage(this.sprite, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
 		}
-		context.fillRect(toCanvasX(this.hitbox.col_data.pos.x), toCanvasY(this.hitbox.col_data.pos.y), this.hitbox.col_data.w, this.hitbox.col_data.hz);
+		//context.fillRect(toCanvasX(this.hitbox.col_data.pos.x), toCanvasY(this.hitbox.col_data.pos.y), this.hitbox.col_data.w, this.hitbox.col_data.hz);
+		
+		if(this.in_range){
+				context.drawImage(this.passUI, this.canvasX + 75, this.canvasY - 50, this.passUI.width, this.passUI.height);
+		}
 	}
 	
 	this.collide = function(target){
 		if(target == MC){
+			this.in_range = true;
 			if(keysPressed[ACTION_KEY_CODE] && this.open == true){
 				console.log("moving to next level")
 				current_level += 1;
 				tiles.refresh();
 				this.used = true;
 			}
+			
 		}
 	}
 	
