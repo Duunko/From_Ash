@@ -65,6 +65,8 @@ function load_sprites(){
 	var mc_dash_down = new Image(); mc_dash_down.src = 'images/dash/phoenix_dash_down.png';
 	var mc_dash_up = new Image(); mc_dash_up.src = 'images/dash/phoenix_dash_up.png';
 	
+	var title_button_1 = new Image(); title_button_1.src = 'images/gui/title_button.png';
+	var title_button_2 = new Image(); title_button_2.src = 'images/gui/Title_button_2.png'
 	
 	var sScorpion = new Image();
 	sScorpion.src = 'images/enemies/seascorpion.png';
@@ -89,6 +91,12 @@ function load_sprites(){
 	var enviro_tree_2 = new Image(); enviro_tree_2.src = 'images/environment/treestump_nest2.png';
 	var enviro_tree_3 = new Image(); enviro_tree_3.src = 'images/environment/treestump_nest3.png';
 	var enviro_tree_4 = new Image(); enviro_tree_4.src = 'images/environment/treestump_nest4.png';
+	
+	//the end stuff
+	var end_tree_1 = new Image(); end_tree_1.src = 'images/theEnd/collectivepotential.png';
+	var end_tree_2 = new Image(); end_tree_2.src = 'images/theEnd/collectivepotential_1.png';
+	var end_tree_3 = new Image(); end_tree_3.src = 'images/theEnd/collectivepotential_2.png';
+	var end_tree_4 = new Image(); end_tree_4.src = 'images/theEnd/collectivepotential_3.png';
 
 	var gui_shade = new Image();
 	gui_shade.src = 'images/gui/overlay_cover.png';
@@ -100,9 +108,9 @@ function load_sprites(){
 	enviro_rock.src = 'images/environment/rock.png';
 	
 	var door_open = new Image();
-	door_open.src = 'images/environment/door_open.png';
+	door_open.src = 'images/environment/gate_2.png';
 	var door_closed = new Image();
-	door_closed.src = 'images/environment/door_closed.png';
+	door_closed.src = 'images/environment/gate.png';
 	
 	var wasd = new Image();
 	wasd.src = 'images/gui/wasd.png';
@@ -187,6 +195,11 @@ function load_sprites(){
 		enviro_tree_3: enviro_tree_3,
 		enviro_tree_4: enviro_tree_4,
 		
+		end_tree_1: end_tree_1,
+		end_tree_2: end_tree_2,
+		end_tree_3: end_tree_3,
+		end_tree_4: end_tree_4,
+		
 		door_open: door_open,
 		door_closed: door_closed,
 		
@@ -197,6 +210,9 @@ function load_sprites(){
 		
 		wasd: wasd,
 		mouse: mouse,
+		
+		title_button_1:title_button_1,
+		title_button_2:title_button_2
 	}
 	
 	var count = 0;

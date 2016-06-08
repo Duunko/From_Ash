@@ -81,7 +81,7 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	 	     			var obj = new obstacle(i*this.TILE_SIZE, j*this.TILE_SIZE, 'wall');
 	 	     			main_stage.push(obj);
 	 	     		} if(this.tileGrid[i][j] == 3){
-	 	     		    var obj = new depo(i*this.TILE_SIZE, j*this.TILE_SIZE);
+	 	     		    var obj = new depo(i*this.TILE_SIZE, j*this.TILE_SIZE, false);
 	 	     		    main_stage.push(obj);
 	 	     		} if(this.tileGrid[i][j] == 4){
 	 	     		    var obj = new level_door(i*this.TILE_SIZE, j*this.TILE_SIZE);
@@ -181,6 +181,8 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	    if (new_non_ash != undefined){
 		    for(var i = 0; i < new_non_ash.length; i++){
 			    if(new_non_ash[i].length == 3){
+			    	console.log(this.tileGrid);
+			    	console.log(new_non_ash[i][0] + " " + new_non_ash[i][1]);
 			        this.tileGrid[new_non_ash[i][0]][new_non_ash[i][1]] = new_non_ash[i][2];
 			    } else if(new_non_ash[i][3] == 'x'){
 				    for(var j = new_non_ash[i][0]; j < new_non_ash[i][0] + new_non_ash[i][4]; j++){

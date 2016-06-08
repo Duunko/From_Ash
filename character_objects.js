@@ -13,8 +13,8 @@
 
 function main_character(x, y) {
 	this.sprite = new Image();
-	this.sprite.width = 128;
-	this.sprite.height = 175;
+	this.sprite.width = 100;
+	this.sprite.height = 136;
 	
 	this.up_walk = new Array; this.up_walk.push(assets["mc_up_1"]); this.up_walk.push(assets["mc_up_2"]); this.up_walk.push(assets["mc_up_3"]);
 	
@@ -68,6 +68,9 @@ function main_character(x, y) {
 	
 	this.hpMax = 40;
 	this.hp = this.hpMax;
+	
+	this.lives = 5;
+	this.MaxLives = 5;
 
 	this.move_direc = 'south';
 	this.look_direc = 'south';
@@ -115,7 +118,7 @@ function main_character(x, y) {
 	this.beamDuration = 50;
 	this.beamTimer = this.beamDuration;
 	
-    this.xfunc;
+   this.xfunc;
 	this.yfunc;
 	
 	this.recently_checked = false;
@@ -131,7 +134,7 @@ function main_character(x, y) {
     	offsetY:0,
     	width:this.sprite.width,
     	height:this.sprite.height,
-    	col_data: new SAT.Box(new SAT.Vector(this.mapX + 10, this.mapY + 20), this.sprite.width - 20, this.sprite.height - 40)
+    	col_data: new SAT.Box(new SAT.Vector(this.mapX + 24, this.mapY + 40), this.sprite.width - 36, this.sprite.height - 60)
     }
 	
 	this.attack_hitbox = false;
@@ -317,8 +320,8 @@ function main_character(x, y) {
 	    
 	    this.depth = -(this.mapY - 20);
 		
-		this.hitbox.col_data.pos.x = this.mapX + 10;
-		this.hitbox.col_data.pos.y = this.mapY + 20;
+		this.hitbox.col_data.pos.x = this.mapX + 18;
+		this.hitbox.col_data.pos.y = this.mapY + 50;
 		
 		if(this.attack_hitbox != false && this.attack_hitbox.shape == 'arc'){
 			if (this.attack_hitbox.currframe < this.attack_hitbox.numFrames + 4){
@@ -509,6 +512,8 @@ function main_character(x, y) {
 		} 
 		context.fillText("Hit Points: "+this.hp, 10, 100);
 		
+		context.fillText("Lives: "+MC.lives, 10, 120);
+		
 		//context.fillStyle = 'orange';
 		//context.fillRect(toCanvasX(this.hitbox.col_data.pos.x), toCanvasY(this.hitbox.col_data.pos.y), this.hitbox.col_data.w, this.hitbox.col_data.h);
 		
@@ -552,6 +557,8 @@ function main_character(x, y) {
 			
 			this.fp -= this.meleeCost;
 			this.meleeCool = this.meleeCoolMax;
+			
+			SC.fire.play();
 		}
     }
     
@@ -581,6 +588,8 @@ function main_character(x, y) {
 			
 			this.fp -= this.dashCost;
 			this.dashCool = this.dashCoolMax;
+			
+			SC.fire.play();
 			
 			//animation
 			//show a still image that is higher priority to walking
@@ -625,6 +634,8 @@ function main_character(x, y) {
 				
 				this.safetyTimer = this.safetyTimerMax;
 				this.vulnerable = false;
+				
+				SC.hit_enemy.play();
 			}
 			else if(this.active_animation != this.death){
 				this.die();
@@ -639,7 +650,11 @@ function main_character(x, y) {
 		this.canvasXSpeed = 0;
 		this.canvasYSpeed = 0;
 		//set this animation to play slower
-		this.image_speed_counter = 20;
+		this.image_speed_counter = 30;
+		
+		this.lives--;
+		SC.battle.stop();
+		SC.death.play();
 	}
 	
 	this.end_animation = function(target){
