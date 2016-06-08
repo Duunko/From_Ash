@@ -10,9 +10,9 @@ function depo(x, y){
 	this.canvasY = toCanvasY(this.mapY);
 	
 	this.sprite = assets["enviro_tree_1"]; 
-	this.sprite.width = 288;
-	this.sprite.height = 288;
-	this.depth = -(y + 150);
+	this.sprite.width = 208;
+	this.sprite.height = 208;
+	this.depth = -(y + 100);
     
 	this.flaming = new Array; this.flaming.push(assets["enviro_tree_2"]); this.flaming.push(assets["enviro_tree_3"]); this.flaming.push(assets["enviro_tree_4"]); this.flaming.push(assets["enviro_tree_3"]);
 	
@@ -84,7 +84,7 @@ function depo(x, y){
 		}
 		
 		//context.fillStyle = '#CF0D42';
-		//context.fillRect(toCanvasX(this.hitbox.col_data.pos.x), toCanvasY(this.hitbox.col_data.pos.y), this.sprite.width, this.sprite.height);
+		//context.fillRect(toCanvasX(this.hitbox.col_data.pos.x), toCanvasY(this.hitbox.col_data.pos.y), this.hitbox.col_data.w, this.hitbox.col_data.h);
 		
 	}
 	
@@ -95,7 +95,7 @@ function depo(x, y){
     	offsetY:32,
     	width:this.sprite.width,
     	height:this.sprite.height,
-    	col_data: new SAT.Box(new SAT.Vector(this.mapX + 40, this.mapY + 150), this.sprite.width - 80, this.sprite.height - 150)
+    	col_data: new SAT.Box(new SAT.Vector(this.mapX + 10, this.mapY + 100), this.sprite.width - 20, this.sprite.height - 130)
 	}
 	
 	this.collide = function(target){

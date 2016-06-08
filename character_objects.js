@@ -13,8 +13,8 @@
 
 function main_character(x, y) {
 	this.sprite = new Image();
-	this.sprite.width = 128;
-	this.sprite.height = 175;
+	this.sprite.width = 100;
+	this.sprite.height = 136;
 	
 	this.up_walk = new Array; this.up_walk.push(assets["mc_up_1"]); this.up_walk.push(assets["mc_up_2"]); this.up_walk.push(assets["mc_up_3"]);
 	
@@ -133,7 +133,7 @@ function main_character(x, y) {
     	offsetY:0,
     	width:this.sprite.width,
     	height:this.sprite.height,
-    	col_data: new SAT.Box(new SAT.Vector(this.mapX + 24, this.mapY + 40), this.sprite.width - 48, this.sprite.height - 60)
+    	col_data: new SAT.Box(new SAT.Vector(this.mapX + 24, this.mapY + 40), this.sprite.width - 36, this.sprite.height - 60)
     }
 	
 	this.attack_hitbox = false;
@@ -321,8 +321,8 @@ function main_character(x, y) {
 	    
 	    this.depth = -(this.mapY - 20);
 		
-		this.hitbox.col_data.pos.x = this.mapX + 24;
-		this.hitbox.col_data.pos.y = this.mapY + 70;
+		this.hitbox.col_data.pos.x = this.mapX + 18;
+		this.hitbox.col_data.pos.y = this.mapY + 50;
 		
 		if(this.attack_hitbox != false && this.attack_hitbox.shape == 'arc'){
 			if (this.attack_hitbox.currframe < this.attack_hitbox.numFrames + 4){
