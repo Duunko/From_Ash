@@ -50,7 +50,7 @@ function obstacle(x,y, type){
     	offsetY:32,
     	width:this.sprite.width,
     	height:this.sprite.height,
-    	col_data: new SAT.Box(new SAT.Vector(this.mapX /*+ 8 */, this.mapY /*+ 10*/), this.sprite.width /*-16*/, this.sprite.height /*- 10*/)
+    	col_data: new SAT.Box(new SAT.Vector(this.mapX + 8, this.mapY + 10), this.sprite.width -16, this.sprite.height - 10)
 	}
 	
 	this.collide = function(target){
