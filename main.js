@@ -91,7 +91,7 @@ function onMouseMove(e){
 }
 
 function onMouseDown(e){
-	if(renderer.stages.length > 1){
+	if(renderer.stages.length == 2){
 		
 	} else {
 	    if (e.button == 0){	

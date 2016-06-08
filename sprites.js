@@ -65,6 +65,9 @@ function load_sprites(){
 	var mc_dash_down = new Image(); mc_dash_down.src = 'images/dash/phoenix_dash_down.png';
 	var mc_dash_up = new Image(); mc_dash_up.src = 'images/dash/phoenix_dash_up.png';
 	
+	var title_button_1 = new Image(); title_button_1.src = 'images/gui/title_button.png';
+	var title_button_2 = new Image(); title_button_2.src = 'images/gui/Title_button_2.png'
+	
 	var sScorpion = new Image();
 	sScorpion.src = 'images/enemies/seascorpion.png';
 	
@@ -105,9 +108,9 @@ function load_sprites(){
 	enviro_rock.src = 'images/environment/rock.png';
 	
 	var door_open = new Image();
-	door_open.src = 'images/environment/door_open.png';
+	door_open.src = 'images/environment/gate_2.png';
 	var door_closed = new Image();
-	door_closed.src = 'images/environment/door_closed.png';
+	door_closed.src = 'images/environment/gate.png';
 	
 	var wasd = new Image();
 	wasd.src = 'images/gui/wasd.png';
@@ -207,6 +210,9 @@ function load_sprites(){
 		
 		wasd: wasd,
 		mouse: mouse,
+		
+		title_button_1:title_button_1,
+		title_button_2:title_button_2
 	}
 	
 	var count = 0;

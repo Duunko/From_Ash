@@ -16,8 +16,8 @@ function enemy_a(x, y){
 	this.type = "enemy";
 	
 	this.sprite = assets["sScorpion"];
-	this.sprite.width = 256;
-	this.sprite.height = 256;
+	this.sprite.width = 180;
+	this.sprite.height = 180;
 	
 	this.vision_range = 800;
 	
@@ -87,8 +87,8 @@ function enemy_a(x, y){
 		this.canvasX = toCanvasX(this.mapX);
 		this.canvasY = toCanvasY(this.mapY);
 		
-	    this.hitbox.col_data.pos.x = this.mapX;
-		this.hitbox.col_data.pos.y = this.mapY;
+	    this.hitbox.col_data.pos.x = this.mapX + 15;
+		this.hitbox.col_data.pos.y = this.mapY + 15;
 		
 		//------------TIMERS-----------------
 		if(this.stunTimer > 0){
@@ -103,6 +103,8 @@ function enemy_a(x, y){
 	
 	this.draw = function(){	
 		//rotation and drawing
+		//context.fillStyle = '#CF0D42';
+		//context.fillRect(toCanvasX(this.hitbox.col_data.pos.x), toCanvasY(this.hitbox.col_data.pos.y), this.hitbox.col_data.w, this.hitbox.col_data.h);
 		context.save();
 		context.translate(this.canvasX + this.sprite.width/2, this.canvasY + this.sprite.height/2);
 		context.rotate(this.rotateEnemy()*(Math.PI/180) + Math.PI/2);
@@ -226,7 +228,7 @@ function enemy_a(x, y){
     	offsetY:0,
     	width:this.sprite.width,
     	height:this.sprite.height,
-    	col_data: new SAT.Box(new SAT.Vector(this.mapX, this.mapY), this.sprite.width, this.sprite.height)
+    	col_data: new SAT.Box(new SAT.Vector(this.mapX - 15, this.mapY - 15), this.sprite.width - 30, this.sprite.height - 30)
     }
     
     this.distanceToObject = function(target, offX, offY){
