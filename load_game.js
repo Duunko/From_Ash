@@ -8,7 +8,9 @@ function load_game(){
 	var load_screen = new Image(); load_screen.src = 'images/load_screen.png'; load_screen.width = canvas.width; load_screen.height = canvas.height;
 	var title_screen = new Image(); title_screen.src = 'images/title_screen.png'; title_screen.width = canvas.width; title_screen.height = canvas.height;
 	LS = new load_screen_obj(0, 0, load_screen, title_screen);
-	main_stage.push(LS);
+	title_stage = new stage(true);
+	renderer.push(title_stage);
+	title_stage.push(LS);
 	
 	load_sprites();
 	
@@ -34,7 +36,7 @@ function load_game(){
 
 	
 	//Main Levels
-	levels.push([1344,1344,[[10,9,1],[12,12,1],[2,2,1,'y',5],[14,2,1],[14,3,1], [4, 2, 4]],500,500]);
+	levels.push([1344,1344,[[10,9,1],[12,4,1],[2,2,1,'y',5],[12,2,1],[12,3,1],[4, 2, 4]],500,500]);
 	levels.push([1344,1344,[[11,11,1],[4,7,1,'y',6],[4,6,3],[10,2,1,'x',3], [4, 2, 4]],500,500]);
 	levels.push([1344,1344,[[9,7,1,'y',3],[3,3,1,'y',2],[10,2,3],[10,4,1,'x',3],[2,10,1,'x',2], [4, 2, 4]],500,500]);
 	levels.push([1344,1344,[[13,4,1,'y',5],[3,3,1,'y',4],[13,1,3],[10,4,1,'x',3],[9,9,1,'x',5], [4, 2, 4]],600,400]);
@@ -98,14 +100,15 @@ function load_screen_obj(x, y, spr, spr2){
 	
 	this.ready = false;
 	
+	
 	this.destroy = function(){
-		main_stage.destroy(this);
+		title_stage.destroy(this);
 	}
 	
 	this.update = function(){
 		if(anyKeyPress == true){
 			start_game();
-			this.destroy();
+			title_stage.will_destroy = true;
 		}
 	}
 	

@@ -16,6 +16,7 @@ function stage(top) {
     this.owned_objects = [];
     this.push = function(obj) { this.owned_objects.push(obj);}
     this.pop = function() {this.owned_objects.pop();}  
+    this.will_destroy = false;
     this.destroy = function(obj) {
     	var i = this.owned_objects.indexOf(obj);
         this.owned_objects.splice(i, 1);
@@ -33,7 +34,6 @@ function stage(top) {
     	this.owned_objects = this.owned_objects.filter(function(obj){
     	    return obj.type != "enemy";	
     	});
-		console.log(this.owned_objects);
     }
     
     this.always_update = true;
@@ -124,10 +124,15 @@ function game_draw(renderer) {
 	//this draws the tiles to the floor
 	
 	for(var i = 0; i < renderer.stages.length; i++){
+		if(renderer.stages[i].will_destroy == true){
+			renderer.pop();
+			continue;
+		}
 	    if(renderer.stages[i].always_update == true || renderer.stages[i].always_draw == true){
 	    	if (renderer.stages[i].owned_objects.indexOf(MC) != -1){
 	    		renderer.stages[i].owned_objects[renderer.stages[i].owned_objects.indexOf(MC)].update();
 	    	}
+	    	
 		    for (var j = 0; j < renderer.stages[i].owned_objects.length; j++){
 		        if(renderer.stages[i].always_update == true){
 		        	if(renderer.stages[i].owned_objects[j] != MC){
@@ -178,9 +183,7 @@ function game_draw(renderer) {
 					        var response = new SAT.Response();
 					        if(SAT.testPolygonCircle(renderer.stages[i].owned_objects[j].hitbox.col_data.toPolygon(),
 						        renderer.stages[i].owned_objects[k].hitbox.col_data, response) == true){
-						        	if(renderer.stages[i].owned_objects[j] == MC){
-						        	    console.log("true");
-						        	}
+						        	
 							        renderer.stages[i].owned_objects[j].collide(renderer.stages[i].owned_objects[k]);
 							        if(typeof(renderer.stages[i].owned_objects[j].collide) ==="function"){
 							            renderer.stages[i].owned_objects[k].collide(renderer.stages[i].owned_objects[j]);
@@ -191,13 +194,10 @@ function game_draw(renderer) {
 					        var response = new SAT.Response();
 					        if(SAT.testCirclePolygon(renderer.stages[i].owned_objects[j].hitbox.col_data,
 						        renderer.stages[i].owned_objects[k].hitbox.col_data.toPolygon(), response) == true){
-						        	if(renderer.stages[i].owned_objects[k] == MC){
-						        	    console.log("true");
-						        	}
+						        	
 							        renderer.stages[i].owned_objects[j].collide(renderer.stages[i].owned_objects[k]);
 							        if(typeof(renderer.stages[i].owned_objects[k].collide) === "function"){
-							        	console.log(typeof(renderer.stages[i].owned_objects[k].collide));
-							        	console.log(renderer.stages[i].owned_objects[k]);
+							        	
 							            renderer.stages[i].owned_objects[k].collide(renderer.stages[i].owned_objects[j]);
 							        }
 						        }
@@ -237,16 +237,37 @@ function game_draw(renderer) {
 		    	}
 		    	
 		    } //For2
-		    for(var j = 0; j < renderer.stages[i].owned_objects.length; j++){
-		        	//if(renderer.need_sort == true){
-		        		//if(renderer.sort_timer < 20){
-		        			//renderer.sort_timer++;
-		        		//} else {
-		        	       // sort_array(renderer.stages[i].owned_objects);
-		        	       // renderer.need_sort = false;
-		        	       // renderer.sort_timer = 0;
-		        	    //}
-		        	//} 
+		    if (renderer.stages[i].always_draw == true) {
+		        	var indices = [];
+		        	for(var q = 0; q < renderer.stages[i].owned_objects.length; q++){
+		        		indices.push([q, renderer.stages[i].owned_objects[q].depth]);
+		        		//console.log(renderer.stages[i].owned_objects[q]);
+		        	}
+		        	//console.log(indices);
+		        	indices.sort(function(a,b){
+		        		var dep1 = a[1];
+                        if (dep1 == undefined || dep1 == NaN){
+                            dep1 = 0;
+                        }
+                        var dep2 = b[1];
+                        if (dep2 == undefined || dep2 == NaN){
+                            dep2 = 0;
+                        }
+                        if (dep1 > dep2){
+                            return -1;
+                        }else if (dep1 < dep2){
+                            return 1;
+                        }else {
+                            return 0;
+                        }
+		        	});
+
+		        	for(var j = 0; j < indices.length; j++){
+		        		if (renderer.stages[i].owned_objects[indices[j][0]] != undefined){
+		        				renderer.stages[i].owned_objects[indices[j][0]].draw();
+		        	   }
+		        	}
+		    /*for(var j = 0; j < renderer.stages[i].owned_objects.length; j++){
 		        	if (renderer.stages[i].owned_objects[j] != undefined){
 		        		if(renderer.stages[i].owned_objects[j].canvasX != undefined && 
 		        			renderer.stages[i].owned_objects[j].canvasY != undefined) {
@@ -267,10 +288,11 @@ function game_draw(renderer) {
 		        				renderer.stages[i].owned_objects[j].draw();
 		        			}
 		        	}
-		    } //For3
+		    } //For3 */
 		
-		}
+		     }
 		
+	     }
 	}
 	
 	

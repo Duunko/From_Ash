@@ -130,7 +130,7 @@ function main_character(x, y) {
     	offsetY:0,
     	width:this.sprite.width,
     	height:this.sprite.height,
-    	col_data: new SAT.Box(new SAT.Vector(this.mapX + 10, this.mapY + 20), this.sprite.width - 20, this.sprite.height - 40)
+    	col_data: new SAT.Box(new SAT.Vector(this.mapX + 24, this.mapY + 40), this.sprite.width - 48, this.sprite.height - 60)
     }
 	
 	this.attack_hitbox = false;
@@ -318,8 +318,8 @@ function main_character(x, y) {
 	    
 	    this.depth = -(this.mapY - 20);
 		
-		this.hitbox.col_data.pos.x = this.mapX + 10;
-		this.hitbox.col_data.pos.y = this.mapY + 20;
+		this.hitbox.col_data.pos.x = this.mapX + 24;
+		this.hitbox.col_data.pos.y = this.mapY + 70;
 		
 		if(this.attack_hitbox != false && this.attack_hitbox.shape == 'arc'){
 			if (this.attack_hitbox.currframe < this.attack_hitbox.numFrames + 4){

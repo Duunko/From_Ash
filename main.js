@@ -91,11 +91,14 @@ function onMouseMove(e){
 }
 
 function onMouseDown(e){
-	
-	if (e.button == 0){	
-		MC.attack();
-	} else if (e.button == 2){
-	    MC.dash();
+	if(renderer.stages.length > 1){
+		
+	} else {
+	    if (e.button == 0){	
+		    MC.attack();
+	    } else if (e.button == 2){
+	        MC.dash();
+	    }
 	}
 }
 
