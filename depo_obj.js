@@ -39,7 +39,7 @@ function depo(x, y){
 		if(this.in_range == true){
 			if(keysPressed[ACTION_KEY_CODE] == true){
 				if(this.depo_ready_e == true && MC.nextFp >= 0){
-					MC.nextFp -= 1;
+					MC.fp -= 1;
 					storedFP += 1;
 					this.depo_ready_e = false;
 				}

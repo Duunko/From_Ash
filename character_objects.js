@@ -50,8 +50,8 @@ function main_character(x, y) {
 	this.animating = false;              //whether a high priority animation is active (not walking)
 	this.walking = true;
 	
-	this.fp = 30;
-	this.nextFp = 30;
+	this.fp = 300; //EDIT THIS LATER <==============================================
+	this.nextFp = 300; //EDIT THIS LATER <==========================================
 	this.fpReturn = this.fp;
 	
 	this.meleeCost = 2;

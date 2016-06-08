@@ -160,7 +160,7 @@ function angleDeg(x1,y1,x2,y2){
 	MC = new main_character(tiles.playerX, tiles.playerY);
 	EN1 = new enemy_a(100,100);
 	EN2 = new enemy_a(200,200);
-	SC = new sound_control();
+	//SC = new sound_control();
 	//Set up the tile system
 	main_stage.push(tiles);
 	
@@ -168,8 +168,7 @@ function angleDeg(x1,y1,x2,y2){
 	
 	//main_stage.push(EN1);
     
-	main_stage.push(SC);
-	main_stage.push(SC);
+	//main_stage.push(SC);
 	
 	main_stage.push(MO);
 	main_stage.push(DO);
