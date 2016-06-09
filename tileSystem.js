@@ -17,8 +17,9 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	this.TILE_TYPE_DOOR = 4;
 	this.TILE_TYPE_WASD = 5;
 	this.TILE_TYPE_MOUSE = 6;
+	this.TILE_TYPE_ENDDEPO = 7;
 
-	this.NUM_TILE_TYPES = 7;
+	this.NUM_TILE_TYPES = 8;
 	
 	//sprite_ash = assets["tile_ash"];
 	//sprite_darkness = assets["black_square"];
@@ -91,6 +92,9 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	 	     		    main_stage.push(obj);
 					} if(this.tileGrid[i][j] == 6){
 	 	     		    var obj = new floor_object(i*this.TILE_SIZE, j*this.TILE_SIZE, assets["mouse"]);
+	 	     		    main_stage.push(obj);
+					} if(this.tileGrid[i][j] == 7){
+	 	     		    var obj = new depo(i*this.TILE_SIZE, j*this.TILE_SIZE, true);
 	 	     		    main_stage.push(obj);
 					}
 	 	     	}
@@ -201,17 +205,19 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	
 	
 	this.draw = function onEnterFrame(){
-  
-        this.left = MC.canvasX - this.VIEW_WIDTH / 2;
-        this.top = MC.canvasY - this.VIEW_HEIGHT / 2;
-		this.right = MC.canvasX + this.VIEW_WIDTH / 2;
-		this.bottom = MC.canvasY + this.VIEW_HEIGHT / 2;
+		
+		if(panning == false){
+			this.left = MC.canvasX - this.VIEW_WIDTH / 2;
+			this.top = MC.canvasY - this.VIEW_HEIGHT / 2;
+			this.right = MC.canvasX + this.VIEW_WIDTH / 2;
+			this.bottom = MC.canvasY + this.VIEW_HEIGHT / 2;
+		}
 		
 		MC.moveCanvasX = false;
 		MC.moveCanvasY = false;
 		
 		if(this.left <= 0){ this.left = 0; MC.moveCanvasX = true; }
-		if(this.top <= 0){ this.top = 0; MC.moveCanvasY = true; }
+		if(this.top <= 0 && panning == false){ this.top = 0; MC.moveCanvasY = true; }
 		
 		if(this.bottom >= this.WORLD_HEIGHT){ this.top = this.WORLD_HEIGHT - this.VIEW_HEIGHT; MC.moveCanvasY = true;}
 		if(this.right >= this.WORLD_WIDTH){ this.left = this.WORLD_WIDTH - this.VIEW_WIDTH; MC.moveCanvasX = true;}

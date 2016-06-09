@@ -24,6 +24,11 @@ renderer.push(main_stage);
 enemies_killed = 0;
 
 storedFP = 0;
+cutsceneStarted = false;
+panning = false;
+ascending = false;
+panning2 = false;
+ending = false;
 
 
 // Start the game loop. 

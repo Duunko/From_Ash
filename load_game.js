@@ -25,13 +25,15 @@ function load_game(){
 	//Depots are 3
 	//Doors are 4
 	//5 and 6 are wasd and mouse input tiles on the floor, respectively
+	//7 is the depo for the end
 	//Default is 0
 	//If you want to add more obstacle types, ask me I'll do it.
 	levels = [];
 	//Tutorial Levels
 	//MIN SIZE 1344/864
-	/*
+	
 	levels.push([1344,1344,[[4, 2, 4], [5, 5, 5], [6, 5, 6]],400,300]);
+	/*
 	levels.push([1344, 1344, [[6, 4, 3], [4, 2, 4]], 500, 500]);
 	levels.push([1344,1344,[[10, 9, 1],[2, 3, 1, 'x', 4],[8, 4, 1, 'y',2],[4,10,1,'x',2], [4, 2, 4]], 500, 500]);
 
@@ -46,7 +48,7 @@ function load_game(){
 									[1,10,3], [4, 2, 4]],500,500]);
 	*/								
 	//final level
-	levels.push([1344, 1344, [[6, 4, 3]], 500, 500]);
+	levels.push([2000, 1344, [[8, 1, 7]], 100, 350]);
     
 	//Enemies
     //Each index in this array counts as a level.
@@ -57,7 +59,7 @@ function load_game(){
     
 	enemies = [];
 	enemies.push(undefined);
-    enemies.push([[600, 600, 'a'], [100, 100, 'a']]);
+    //enemies.push([[600, 600, 'a'], [100, 100, 'a']]);
     
 	current_level = 0;
 	

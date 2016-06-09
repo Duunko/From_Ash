@@ -59,6 +59,23 @@ function load_sprites(){
 	var mc_upgrade_9 = new Image(); mc_upgrade_9.src = 'images/upgrade/phoenix_upgrade9.png';
 	var mc_upgrade_10 = new Image(); mc_upgrade_10.src = 'images/upgrade/phoenix_upgrade10.png';
 	
+	var mc_give_right_1 = new Image(); mc_give_right_1.src = 'images/theEnd/phoenix_giveright1.png';
+	var mc_give_right_2 = new Image(); mc_give_right_2.src = 'images/theEnd/phoenix_giveright2.png';
+	var mc_give_right_3 = new Image(); mc_give_right_3.src = 'images/theEnd/phoenix_giveright3.png';
+	
+	var mc_give_left_1 = new Image(); mc_give_left_1.src = 'images/theEnd/phoenix_giveleft1.png';
+	var mc_give_left_2 = new Image(); mc_give_left_2.src = 'images/theEnd/phoenix_giveleft2.png';
+	var mc_give_left_3 = new Image(); mc_give_left_3.src = 'images/theEnd/phoenix_giveleft3.png';
+	
+	/*
+	var mc_give_right_1 = new Image(); mc_give_right_1.src = 'images/theEnd/phoenix_giveright1.png';
+	var mc_give_right_1 = new Image(); mc_give_right_1.src = 'images/theEnd/phoenix_giveright1.png';
+	var mc_give_right_1 = new Image(); mc_give_right_1.src = 'images/theEnd/phoenix_giveright1.png';
+	
+	var mc_give_right_1 = new Image(); mc_give_right_1.src = 'images/theEnd/phoenix_giveright1.png';
+	var mc_give_right_1 = new Image(); mc_give_right_1.src = 'images/theEnd/phoenix_giveright1.png';
+	var mc_give_right_1 = new Image(); mc_give_right_1.src = 'images/theEnd/phoenix_giveright1.png';
+	*/
 	var mc_dash_ball = new Image(); mc_dash_ball.src = 'images/dash/dash.png';
 	var mc_dash_right = new Image(); mc_dash_right.src = 'images/dash/phoenix_dash_right.png';
 	var mc_dash_left = new Image(); mc_dash_left.src = 'images/dash/phoenix_dash_left.png';
@@ -97,6 +114,12 @@ function load_sprites(){
 	var end_tree_2 = new Image(); end_tree_2.src = 'images/theEnd/collectivepotential_1.png';
 	var end_tree_3 = new Image(); end_tree_3.src = 'images/theEnd/collectivepotential_2.png';
 	var end_tree_4 = new Image(); end_tree_4.src = 'images/theEnd/collectivepotential_3.png';
+	
+	var sky = new Image(); sky.src = 'images/theEnd/sky.png';
+	
+	var sun = new Image(); sun.src = 'images/theEnd/phoenix_sun.png';
+	
+	var earth = new Image(); earth.src = 'images/theEnd/phoenix_earth.png';
 
 	var gui_shade = new Image();
 	gui_shade.src = 'images/gui/overlay_cover.png';
@@ -179,6 +202,14 @@ function load_sprites(){
 		mc_dash_down: mc_dash_down,
 		mc_dash_up: mc_dash_up,
 		
+		mc_give_left_1: mc_give_left_1,
+		mc_give_left_2: mc_give_left_2,
+		mc_give_left_3: mc_give_left_3,
+		
+		mc_give_right_1: mc_give_right_1,
+		mc_give_right_2: mc_give_right_2,
+		mc_give_right_3: mc_give_right_3,
+		
 		sScorpion: sScorpion,
 		fly: fly,
 		centipede:centipede,
@@ -199,6 +230,12 @@ function load_sprites(){
 		end_tree_2: end_tree_2,
 		end_tree_3: end_tree_3,
 		end_tree_4: end_tree_4,
+		
+		sky: sky,
+		
+		sun: sun,
+		
+		earth: earth,
 		
 		door_open: door_open,
 		door_closed: door_closed,
