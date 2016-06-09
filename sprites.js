@@ -119,7 +119,9 @@ function load_sprites(){
 	
 	var sky = new Image(); sky.src = 'images/theEnd/sky.png';
 	
-	var sun = new Image(); sun.src = 'images/theEnd/phoenix_sun.png';
+	var sun_1 = new Image(); sun_1.src = 'images/theEnd/phoenix_sun1.png';
+	var sun_2 = new Image(); sun_2.src = 'images/theEnd/phoenix_sun2.png';
+	var sun_3 = new Image(); sun_3.src = 'images/theEnd/phoenix_sun3.png';
 	
 	var earth = new Image(); earth.src = 'images/theEnd/phoenix_earth.png';
 
@@ -235,7 +237,9 @@ function load_sprites(){
 		
 		sky: sky,
 		
-		sun: sun,
+		sun_1: sun_1,
+		sun_2: sun_2,
+		sun_3: sun_3,
 		
 		earth: earth,
 		

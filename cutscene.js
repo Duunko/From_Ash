@@ -227,7 +227,7 @@ function slider(x, y, speed, targetX, targetY, sprite_src, s_w, s_h){
 			else{
 				this.shrinking = false;
 				//make the sun appear
-				sun_obj = new grower(this.canvasX, this.canvasY, 200, assets["sun"], 1, 1, 500, 500);
+				sun_obj = new grower(this.canvasX, this.canvasY, 200, assets["sun_1"], 1, 1, 500, 500);
 				main_stage.push(sun_obj);
 				main_stage.destroy(this);
 			}
@@ -299,6 +299,12 @@ function grower(x, y, speed, sprite_src, s_w, s_h, end_x, end_y){
 	this.sprite.width = s_w;
 	this.sprite.height = s_h;
 	
+	this.image_index = 0;
+	this.image_speed_max = 20;  
+	this.image_speed_counter = 0;
+	
+	this.sun_animation = new Array; this.sun_animation.push(assets["sun_1"]); this.sun_animation.push(assets["sun_2"]); this.sun_animation.push(assets["sun_3"]);
+	
 	this.depth = -9999999;
 	
 	this.growing = true;
@@ -338,6 +344,6 @@ function grower(x, y, speed, sprite_src, s_w, s_h, end_x, end_y){
 	}
 	
 	this.draw = function(){
-		context.drawImage(this.sprite, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
+		draw_animated_sprite(this.sun_animation, this, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
 	}
 }
