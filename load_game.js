@@ -104,8 +104,8 @@ function load_game(){
 	
 	var melee_sprite = assets["gui_melee"];
 	
-	MO = new overlay(10, 125, melee_sprite, "melee");
-	DO = new overlay(10, 400, dash_sprite, "dash");
+	MO = new overlay(40, 700, melee_sprite, "melee");
+	DO = new overlay(200, 700, dash_sprite, "dash");
 	
 	console.log("all objects loaded");
 } 

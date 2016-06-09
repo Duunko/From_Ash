@@ -82,9 +82,11 @@ function load_sprites(){
 	var mc_dash_down = new Image(); mc_dash_down.src = 'images/dash/phoenix_dash_down.png';
 	var mc_dash_up = new Image(); mc_dash_up.src = 'images/dash/phoenix_dash_up.png';
 	
-	var hp_back = new Image(); hp_back.src = 'images/gui/feather_healthbar1';
-	var hp_front = new Image(); hp_front.src = 'images/gui/feather_healthbar2';
-	var fp_front = new Image(); fp_front.src = 'images/gui/firepower_hb';
+	var hp_back = new Image(); hp_back.src = 'images/gui/feather_healthbar1.png';
+	var hp_front = new Image(); hp_front.src = 'images/gui/feather_healthbar2.png';
+	var fp_front = new Image(); fp_front.src = 'images/gui/firepower_hb.png';
+	
+	var credits = new Image(); credits.src = 'images/Credits.png';
 	
 	
 	var sScorpion = new Image();
@@ -143,6 +145,7 @@ function load_sprites(){
 	wasd.src = 'images/gui/wasd.png';
 	var mouse = new Image();
 	mouse.src = 'images/gui/mouse.png';
+	var gui_dock = new Image(); gui_dock.src = 'images/gui/Gui_dock.png'
 
 	var black_square = new Image();
 	black_square.src = 'images/black_square.png';
@@ -257,6 +260,10 @@ function load_sprites(){
 		hp_front:hp_front,
 		hp_back:hp_back,
 		fp_front:fp_front,
+		
+		credits:credits,
+		
+		gui_dock:gui_dock
 		
 	}
 	

@@ -50,8 +50,8 @@ function main_character(x, y) {
 	this.animating = false;              //whether a high priority animation is active (not walking)
 	this.walking = true;
 	
-	this.fp = 300; //EDIT THIS LATER <==============================================
-	this.nextFp = 300; //EDIT THIS LATER <==========================================
+	this.fp = 100; //EDIT THIS LATER <==============================================
+	this.nextFp = 0; //EDIT THIS LATER <==========================================
 	this.fpReturn = this.fp;
 	
 	this.meleeCost = 2;
@@ -507,20 +507,20 @@ function main_character(x, y) {
 		if(this.can_melee == false || this.dashing == true){
 			context.fillStyle = '#000000ddsd';
 		}
-		context.fillText("Fire Points: "+this.fp, 10, 50);
+		//context.fillText("Fire Points: "+this.fp, 10, 50);
 		
-		context.fillStyle = 'white';
-		context.fillText("Next Fire Points: "+Math.floor(this.nextFp), 10, 75);
+		//context.fillStyle = 'white';
+		//context.fillText("Next Fire Points: "+Math.floor(this.nextFp), 10, 75);
 		
 		//hit point display
-		if(this.safetyTimer > 0){
+		/*if(this.safetyTimer > 0){
 			context.fillStyle = '#CF0D42';
 		} else {
 			context.fillStyle = 'white';
 		} 
-		context.fillText("Hit Points: "+this.hp, 10, 100);
+		context.fillText("Hit Points: "+this.hp, 10, 100);*/
 		
-		context.fillText("Lives: "+MC.lives, 10, 120);
+		//context.fillText("Lives: "+MC.lives, 10, 120); 
 		
 		//context.fillStyle = 'orange';
 		//context.fillRect(toCanvasX(this.hitbox.col_data.pos.x), toCanvasY(this.hitbox.col_data.pos.y), this.hitbox.col_data.w, this.hitbox.col_data.h);
@@ -659,6 +659,7 @@ function main_character(x, y) {
 		this.canvasYSpeed = 0;
 		//set this animation to play slower
 		this.image_speed_counter = 30;
+		this.nextFp = 0;
 		
 		this.lives--;
 		SC.battle.stop();
