@@ -161,6 +161,9 @@ function load_sprites(){
 	var black_square2 = new Image();
 	black_square2.src = 'images/black_square2.png';
 	
+	var lives = new Image(); lives.src = 'images/gui/lives.png';
+	var cross = new Image(); cross.src = 'images/gui/cross.png';
+	
 	assets = {
 		mc_up_1: mc_up_1,
 		mc_up_2: mc_up_2,
@@ -275,7 +278,10 @@ function load_sprites(){
 		
 		credits:credits,
 		
-		gui_dock:gui_dock
+		gui_dock:gui_dock,
+		
+		lives:lives,
+		cross:cross
 		
 	}
 	

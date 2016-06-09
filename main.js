@@ -234,10 +234,12 @@ function angleDeg(x1,y1,x2,y2){
 	FP_BAR = new fpBar(-25,-10,300, 300);
 	N_FP_BAR = new fireBar(-25, 80, 300, 300);
 	HP_BAR = new healthbar(10, 30, 300, 30);
+	LIVES = new life_counter(1200, 20, 66, 88);
 	DOCK = new gui_dock();
 	main_stage.push(FP_BAR);
 	main_stage.push(N_FP_BAR);
 	main_stage.push(HP_BAR);
+	main_stage.push(LIVES);
 	//main_stage.push(DOCK);
 	//SC = new sound_control();
 	//Set up the tile system
