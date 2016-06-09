@@ -29,15 +29,17 @@ function load_game(){
 	//Depots are 3
 	//Doors are 4
 	//5 and 6 are wasd and mouse input tiles on the floor, respectively
+	//7 is the depo for the end
 	//Default is 0
 	//If you want to add more obstacle types, ask me I'll do it.
 	levels = [];
 	//Tutorial Levels
 	//MIN SIZE 1344/864
+    
 	levels.push([1344,1344,[[5, 2, 4], [3, 5, 5], [5, 5, 6]],400,300]);
+	/*
 	levels.push([1344,1344, [[6, 4, 3], [4, 2, 4]], 400, 500]);
 	levels.push([1344,1344,[[10, 9, 1],[2, 3, 1, 'x', 4],[8, 4, 1, 'y',2],[12,1,1],[4,10,1,'x',2], [11, 7, 4]], 200, 100]);
-
 	
 	//Main Levels
 	levels.push([1344,1344,[[10,9,1],[12,12,1],[2,2,1,'y',5],[10,2,1],[10,3,1],[6,0,4]],1344/2,1344/2]);
@@ -54,8 +56,9 @@ function load_game(){
 	//levels.push([1344,1344, [[6, 4, 3], [4, 2, 4]], 400, 500]);
 	levels.push([1536,1536,[[3,4,1,'x',2],[3,5,1,'x',2],[7,0,1,'y',4],[7,8,1,'y',4],[11,2,1,'y',3],
 									[10, 10, 4]],300,550]);
-									
-	levels.push([1344, 1344, [[6, 4, 3]], 500, 500]);
+	*/
+	//final level
+	levels.push([2000, 1344, [[8, 1, 10]], 100, 350]);
 	
 	
    //Enemies
@@ -70,7 +73,7 @@ function load_game(){
 	enemies = [];
 	enemies.push(undefined);
 	enemies.push(undefined);
-   enemies.push([[1100, 500, 'a'],[400, 500, 'a']]);
+	enemies.push([[1100, 500, 'a'],[400, 500, 'a']]);
 	enemies.push([[600, 200, 'a'],[900, 900, 'b']]);
 	enemies.push([[800, 100, 'b'],[300, 100, 'b'],[300, 111, 'b']]);
 	
@@ -101,8 +104,8 @@ function load_game(){
 	
 	var melee_sprite = assets["gui_melee"];
 	
-	MO = new overlay(10, 125, melee_sprite, "melee");
-	DO = new overlay(10, 400, dash_sprite, "dash");
+	MO = new overlay(40, 700, melee_sprite, "melee");
+	DO = new overlay(200, 700, dash_sprite, "dash");
 	
 	console.log("all objects loaded");
 } 

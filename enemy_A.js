@@ -110,9 +110,6 @@ function enemy_a(x, y){
 		context.rotate(this.rotateEnemy()*(Math.PI/180) + Math.PI/2);
 		context.drawImage(this.sprite, -this.sprite.width/2, -this.sprite.height/2, this.sprite.width, this.sprite.height);
 		context.restore();
-		
-		
-		
 	}
 	
 	

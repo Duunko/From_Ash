@@ -50,8 +50,8 @@ function main_character(x, y) {
 	this.animating = false;              //whether a high priority animation is active (not walking)
 	this.walking = true;
 	
-	this.fp = 300; //EDIT THIS LATER <==============================================
-	this.nextFp = 300; //EDIT THIS LATER <==========================================
+	this.fp = 100; //EDIT THIS LATER <==============================================
+	this.nextFp = 0; //EDIT THIS LATER <==========================================
 	this.fpReturn = this.fp;
 	
 	this.meleeCost = 2;
@@ -127,6 +127,8 @@ function main_character(x, y) {
 	this.can_move_down = true;
 	this.can_move_up = true;
 	
+	this.locked = false;
+	
 	this.hitbox = {
     	active:true,
     	shape:'rectangle',
@@ -187,7 +189,7 @@ function main_character(x, y) {
 			//MC.beam();
 		}
 	   
-	    if(this.dashing == false && this.active_animation != this.death){
+	    if(this.dashing == false && this.active_animation != this.death && this.locked == false){
 			//reset the dashing values
 			this.dashXInc = 0;
 			this.dashYInc = 0;
@@ -243,7 +245,7 @@ function main_character(x, y) {
 			}
 	    }
 
-	    else if(this.active_animation != this.death){
+	    else if(this.active_animation != this.death && this.locked == false){
 			//spawn fireball effect
 			var f = new fireParticle(this.canvasX- this.sprite.width / 2, this.canvasY - this.sprite.height / 2, this.sprite.height, 10, "dash");
 			main_stage.push(f);
@@ -415,6 +417,9 @@ function main_character(x, y) {
 			
 		}
 		
+		if(panning == true){
+			this.canvasY += 0.1;
+		}
 	}//Update
 	
     this.draw = function() {
@@ -423,6 +428,7 @@ function main_character(x, y) {
 			draw_animated_sprite(this.active_animation, this, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
 		}
 		else{
+			
 			context.drawImage(this.active_animation[this.image_index], this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
 		}
 		
@@ -466,14 +472,16 @@ function main_character(x, y) {
 		var cADBR = angleDeg(bottomRight.x,bottomRight.y,this.canvasX + this.sprite.width/2,this.canvasY + this.sprite.height/2);
 		
 		
-		if(mADTL <= cADTL && mADTR > cADTR ){
-			this.look_direc = 'north';
-		} else if(mADTR < cADTR && mADBR > cADBR){
-			this.look_direc = 'east';
-		} else if(mADBR < cADBR && mADBL > cADBL){
-			this.look_direc = 'south';
-		} else {
-			this.look_direc = 'west';
+		if(this.locked == false){
+			if(mADTL <= cADTL && mADTR > cADTR ){
+				this.look_direc = 'north';
+			} else if(mADTR < cADTR && mADBR > cADBR){
+				this.look_direc = 'east';
+			} else if(mADBR < cADBR && mADBL > cADBL){
+				this.look_direc = 'south';
+			} else {
+				this.look_direc = 'west';
+			}
 		}
 		
 		if (this.attack_hitbox != false && this.attack_hitbox.shape == 'arc'){
@@ -499,21 +507,24 @@ function main_character(x, y) {
 		if(this.can_melee == false || this.dashing == true){
 			context.fillStyle = '#000000ddsd';
 		}
-		context.fillText("Fire Points: "+this.fp, 10, 50);
+		//context.fillText("Fire Points: "+this.fp, 10, 50);
 		
-		context.fillStyle = 'white';
-		context.fillText("Next Fire Points: "+Math.floor(this.nextFp), 10, 75);
+		//context.fillStyle = 'white';
+		//context.fillText("Next Fire Points: "+Math.floor(this.nextFp), 10, 75);
 		
 		//hit point display
-		if(this.safetyTimer > 0){
+		/*if(this.safetyTimer > 0){
 			context.fillStyle = '#CF0D42';
 		} else {
 			context.fillStyle = 'white';
 		} 
-		context.fillText("Hit Points: "+this.hp, 10, 100);
+		context.fillText("Hit Points: "+this.hp, 10, 100);*/
 		
-		context.fillStyle = 'white';
-		context.fillText("Lives: "+MC.lives, 10, 120);
+		// context.fillStyle = 'white';
+		// context.fillText("Lives: "+MC.lives, 10, 120);
+
+		//context.fillText("Lives: "+MC.lives, 10, 120); 
+
 		
 		//context.fillStyle = 'orange';
 		//context.fillRect(toCanvasX(this.hitbox.col_data.pos.x), toCanvasY(this.hitbox.col_data.pos.y), this.hitbox.col_data.w, this.hitbox.col_data.h);
@@ -522,6 +533,7 @@ function main_character(x, y) {
     
     this.attack = function(){
 		if((this.can_melee == true && this.meleeCool == 0) && this.fp >= this.meleeCost && this.active_animation != this.death){
+
 
 			var opt1 = this.look_direc;
 			var direction = 180;
@@ -564,6 +576,7 @@ function main_character(x, y) {
     }
     
 	this.dash = function(){
+
 		if((this.dashing == false && this.dashCool == 0) && this.fp >= this.dashCost && this.active_animation != this.death){
 			//move towards
 			//mouseX and mouseY
@@ -652,6 +665,7 @@ function main_character(x, y) {
 		this.canvasYSpeed = 0;
 		//set this animation to play slower
 		this.image_speed_counter = 30;
+		this.nextFp = 0;
 		
 		this.lives--;
 		SC.battle.stop();
@@ -704,10 +718,10 @@ function main_character(x, y) {
 						this.can_move_up = false;
 					}
 				}
-				
-				this.canvasX = toCanvasX(this.mapX);
-				this.canvasY = toCanvasY(this.mapY);
-				
+				if(this.panning == false){
+					this.canvasX = toCanvasX(this.mapX);
+					this.canvasY = toCanvasY(this.mapY);
+				}
 			
 			} else if(target.type == "enemy"){
 			    MC.on_hit(5);
