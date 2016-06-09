@@ -104,8 +104,17 @@ function load_sprites(){
 	var tile_ash = new Image();
 	tile_ash.src = 'images/environment/ash_tile.png';
 	
+	var tile_branch = new Image();
+	tile_branch.src = 'images/environment/branch_tile.png';
+	
+	var tile_skull = new Image();
+	tile_skull.src = 'images/environment/skull_tile.png';
+	
+	var tile_ribs = new Image();
+	tile_ribs.src = 'images/environment/ribs_tile.png';
+	
 	var enviro_rock = new Image();
-	enviro_rock.src = 'images/environment/rock.png';
+	enviro_rock.src = 'images/environment/rock_tile.png';
 	
 	var door_open = new Image();
 	door_open.src = 'images/environment/gate_2.png';
@@ -205,6 +214,9 @@ function load_sprites(){
 		
 		enviro_rock: enviro_rock,
 		tile_ash: tile_ash,
+		tile_branch: tile_branch,
+		tile_ribs: tile_ribs,
+		tile_skull: tile_skull,
 		black_square: black_square,
 		black_square2: black_square2,
 		

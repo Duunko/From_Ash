@@ -316,9 +316,9 @@ function main_character(x, y) {
 		}
 		
 		this.mapX = toMapX(this.canvasX);
-	    this.mapY = toMapY(this.canvasY);
+	   this.mapY = toMapY(this.canvasY);
 	    
-	    this.depth = -(this.mapY - 20);
+	   this.depth = -(this.mapY - 20);
 		
 		this.hitbox.col_data.pos.x = this.mapX + 18;
 		this.hitbox.col_data.pos.y = this.mapY + 50;
@@ -512,6 +512,7 @@ function main_character(x, y) {
 		} 
 		context.fillText("Hit Points: "+this.hp, 10, 100);
 		
+		context.fillStyle = 'white';
 		context.fillText("Lives: "+MC.lives, 10, 120);
 		
 		//context.fillStyle = 'orange';
@@ -520,7 +521,7 @@ function main_character(x, y) {
     }
     
     this.attack = function(){
-		if((this.can_melee == true && this.meleeCool == 0) && this.fp >= this.meleeCost){
+		if((this.can_melee == true && this.meleeCool == 0) && this.fp >= this.meleeCost && this.active_animation != this.death){
 
 			var opt1 = this.look_direc;
 			var direction = 180;
@@ -563,7 +564,7 @@ function main_character(x, y) {
     }
     
 	this.dash = function(){
-		if((this.dashing == false && this.dashCool == 0) && this.fp >= this.dashCost){
+		if((this.dashing == false && this.dashCool == 0) && this.fp >= this.dashCost && this.active_animation != this.death){
 			//move towards
 			//mouseX and mouseY
 			var slopeX = mouseX - this.canvasX;
@@ -743,7 +744,7 @@ function main_character(x, y) {
 		var cy = MC.canvasY + (MC.sprite.height / 2);
 		var angle = (obj.currframe) * (90 / obj.numFrames);
 		var newval = new SAT.Vector(Math.round(cx + (obj.radius * (Math.cos(degrees(45 + obj.direc + angle))))),
-				    Math.round(cy + (obj.radius * (Math.sin(degrees(45 + obj.direc + angle))))));
+											 Math.round(cy + (obj.radius * (Math.sin(degrees(45 + obj.direc + angle))))));
 		//newval.x -= MC.mapX;
 		//newval.y -= MC.mapY;
 		return newval;

@@ -17,8 +17,11 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	this.TILE_TYPE_DOOR = 4;
 	this.TILE_TYPE_WASD = 5;
 	this.TILE_TYPE_MOUSE = 6;
+	this.TILE_TYPE_BRANCH = 7;
+	this.TILE_TYPE_RIBS = 8;
+	this.TILE_TYPE_SKULL = 9;
 
-	this.NUM_TILE_TYPES = 7;
+	this.NUM_TILE_TYPES = 10;
 	
 	//sprite_ash = assets["tile_ash"];
 	//sprite_darkness = assets["black_square"];
@@ -132,9 +135,9 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	this.refresh = function(){
 		
 		MC.mapX = levels[current_level][3];
- 	    MC.mapY = levels[current_level][4];
- 	    MC.canvasX = toCanvasX(MC.mapX);
- 	    MC.canvasY = toCanvasY(MC.mapY);
+ 	   MC.mapY = levels[current_level][4];
+ 	   MC.canvasX = toCanvasX(MC.mapX);
+ 	   MC.canvasY = toCanvasY(MC.mapY);
 		
 		var new_world_width = levels[current_level][0];
 		var new_world_height = levels[current_level][1];
@@ -142,41 +145,32 @@ function create_board(world_width, world_height, tile_size, non_ash){
 		
 		this.initial_generation = false;
 		main_stage.remove_obstacles();
-	    this.WORLD_WIDTH = new_world_width;
-	    this.WORLD_HEIGHT = new_world_height;
+	   this.WORLD_WIDTH = new_world_width;
+	   this.WORLD_HEIGHT = new_world_height;
 
-	    this.TILES_IN_A_ROW = Math.floor(this.WORLD_WIDTH/this.TILE_SIZE);
-	    this.TILES_IN_A_COL = Math.floor(this.WORLD_HEIGHT/this.TILE_SIZE);
+	   this.TILES_IN_A_ROW = Math.floor(this.WORLD_WIDTH/this.TILE_SIZE);
+	   this.TILES_IN_A_COL = Math.floor(this.WORLD_HEIGHT/this.TILE_SIZE);
 
-	    this.VIEW_WIDTH = canvas.width;
-	    this.VIEW_HEIGHT = canvas.height;
+	   this.VIEW_WIDTH = canvas.width;
+	   this.VIEW_HEIGHT = canvas.height;
 
-	    this.VIEW_TILE_WIDTH = Math.floor(this.VIEW_WIDTH / this.TILE_SIZE);
-	    this.VIEW_TILE_HEIGHT = Math.floor(this.VIEW_HEIGHT / this.TILE_SIZE);
-
-	    //playerX = VIEW_WIDTH/2;
-	    //playerY = VIEW_HEIGHT/2;
+	   this.VIEW_TILE_WIDTH = Math.floor(this.VIEW_WIDTH / this.TILE_SIZE);
+	   this.VIEW_TILE_HEIGHT = Math.floor(this.VIEW_HEIGHT / this.TILE_SIZE);
 	
-	    this.left;
-	    this.top;
+	   this.left;
+	   this.top;
 	
-	    this.tileGrid = [];
-	    this.tiles = [];
+	   this.tileGrid = [];
+	   this.tiles = [];
 		main_stage.remove_enemies();
 		
-		/*
-		var door = new level_door(100, 100);
-		main_stage.push(door);
-		*/
-		
-	    for(var i = 0; i < this.TILES_IN_A_ROW; i++){
-		     var column = new Array();
+	   for(var i = 0; i < this.TILES_IN_A_ROW; i++){
+		   var column = new Array();
 	         for(var j=0; j < this.TILES_IN_A_COL; j++){
-		     //column[j] = Math.floor(Math.random()*NUM_TILE_TYPES);
-	               column[j] = 0;
+					column[j] = 0;
 	         } //INNER
-	    this.tileGrid[i] = column;
-	    } //OUTER
+	   this.tileGrid[i] = column;
+	   } //OUTER
 	
 	    if (new_non_ash != undefined){
 		    for(var i = 0; i < new_non_ash.length; i++){

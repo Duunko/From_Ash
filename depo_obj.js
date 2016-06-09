@@ -28,10 +28,10 @@ function depo(x, y, big){
 	
 	this.passUI = assets["gui_e"];
 	this.inheritUI = assets["gui_r"];
-	this.passUI.width = 300;
-	this.passUI.height = 100;
-	this.inheritUI.width = 300;
-	this.inheritUI.height = 100;
+	this.passUI.width = 150;
+	this.passUI.height = 50;
+	this.inheritUI.width = 150;
+	this.inheritUI.height = 50;
 	
 	this.image_index = 0;
 	this.image_speed_max = 7;  
@@ -59,7 +59,7 @@ function depo(x, y, big){
 			}
 			
 			if(keysPressed[RETRIEVE_KEY_CODE] == true){
-				if(this.depo_ready_r == true && MC.storedFP >= 0){
+				if(this.depo_ready_r == true && storedFP >= 0){
 					storedFP -= 1;
 					MC.fp += 1;
 					this.depo_ready_r = false;
@@ -82,15 +82,15 @@ function depo(x, y, big){
 		if(storedFP > 0){
 			draw_animated_sprite(this.flaming, this, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
 			if(this.in_range){
-				context.drawImage(this.inheritUI, this.canvasX + 100, this.canvasY - 50, this.passUI.width, this.passUI.height);
-				context.fillText(storedFP, this.canvasX + 50, this.canvasY - 50);
+				context.drawImage(this.inheritUI, this.canvasX + 150, this.canvasY - 25, this.passUI.width, this.passUI.height);
+				context.fillText(storedFP, this.canvasX + 100, this.canvasY - 33);
 			}
 		}
 		else{
 			context.drawImage(this.sprite, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
 		}
 		if(this.in_range){
-			context.drawImage(this.passUI, this.canvasX - 100, this.canvasY - 50, this.passUI.width, this.passUI.height);
+			context.drawImage(this.passUI, this.canvasX - 50, this.canvasY - 25, this.passUI.width, this.passUI.height);
 		}
 		
 		//context.fillStyle = '#CF0D42';
