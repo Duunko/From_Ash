@@ -29,8 +29,11 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	//sprite_darkness = assets["black_square"];
 	sprite_ash = assets.tile_ash;
 	sprite_darkness = assets.enviro_rock;
+	sprite_skull = assets.tile_skull;
+	sprite_branch = assets.tile_branch;
+	sprite_ribs = assets.tile_ribs;
 	
-	this.TILE_SPRITES = [sprite_ash, sprite_darkness];
+	this.TILE_SPRITES = [sprite_ash, sprite_darkness, sprite_skull, sprite_branch, sprite_ribs];
 
 	this.TILE_SIZE = tile_size;
 	this.WORLD_WIDTH = world_width;
@@ -106,7 +109,7 @@ function create_board(world_width, world_height, tile_size, non_ash){
 					} if(this.tileGrid[i][j] == 6){
 	 	     		    var obj = new floor_object(i*this.TILE_SIZE, j*this.TILE_SIZE, assets["mouse"], "attack");
 	 	     		    main_stage.push(obj);
-					} if(this.tileGrid[i][j] == 7){
+					} if(this.tileGrid[i][j] == 10){
 	 	     		    var obj = new depo(i*this.TILE_SIZE, j*this.TILE_SIZE, true);
 	 	     		    main_stage.push(obj);
 					}
@@ -149,9 +152,9 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	this.refresh = function(){
 		
 		MC.mapX = levels[current_level][3];
- 	   MC.mapY = levels[current_level][4];
- 	   MC.canvasX = toCanvasX(MC.mapX);
- 	   MC.canvasY = toCanvasY(MC.mapY);
+ 	    MC.mapY = levels[current_level][4];
+ 	    MC.canvasX = toCanvasX(MC.mapX);
+ 	    MC.canvasY = toCanvasY(MC.mapY);
 		
 		var new_world_width = levels[current_level][0];
 		var new_world_height = levels[current_level][1];
@@ -182,6 +185,24 @@ function create_board(world_width, world_height, tile_size, non_ash){
 		   var column = new Array();
 	         for(var j=0; j < this.TILES_IN_A_COL; j++){
 					column[j] = 0;
+					var r = Math.floor(Math.random() * 10);
+				
+					if(r != 9){
+						column[j] = 0;
+					}
+					else{
+						var r2 = Math.floor(Math.random() * 10);
+						if(r2 < 4){
+							column[j] = 7;
+						}
+						if(r2 > 4 && r2 < 8){
+							column[j] = 8;
+						}
+						if(r2 >= 8){
+							column[j] = 9;
+						}
+					}
+					
 	         } //INNER
 	   this.tileGrid[i] = column;
 	   } //OUTER
@@ -225,8 +246,8 @@ function create_board(world_width, world_height, tile_size, non_ash){
 		
 		if(this.bottom >= this.WORLD_HEIGHT){ this.top = this.WORLD_HEIGHT - this.VIEW_HEIGHT; MC.moveCanvasY = true;}
 		if(this.right >= this.WORLD_WIDTH){ this.left = this.WORLD_WIDTH - this.VIEW_WIDTH; MC.moveCanvasX = true;}
-      var leftTile = Math.floor(this.left / this.TILE_SIZE);
-      var topTile = Math.floor(this.top / this.TILE_SIZE);
+		var leftTile = Math.floor(this.left / this.TILE_SIZE);
+		var topTile = Math.floor(this.top / this.TILE_SIZE);
 		
 		var bottomTile = Math.floor(this.bottom / this.TILE_SIZE);
   
@@ -237,30 +258,28 @@ function create_board(world_width, world_height, tile_size, non_ash){
   
         for(var i = 0; i < this.VIEW_TILE_WIDTH+1; i++){
   	        for(var j = 0; j < this.VIEW_TILE_HEIGHT+1; j++){
-		        var tileSprite = this.TILE_SPRITES[0];
-		        if(this.tileGrid.length - 1 >= leftTile+i){
+				
+				var tileSprite = this.TILE_SPRITES[0];
+				
+				if(this.tileGrid.length - 1 >= leftTile+i){
 			        if(this.tileGrid[leftTile+i].length - 1 >= topTile+j){
 						if(this.tileGrid[leftTile+i][topTile+j] == 1){
 							tileSprite = this.TILE_SPRITES[1];
-			        }
-		        }
+						}
+						if(this.tileGrid[leftTile+i][topTile+j] == 7){
+							tileSprite = this.TILE_SPRITES[2];
+						}
+						if(this.tileGrid[leftTile+i][topTile+j] == 8){
+							tileSprite = this.TILE_SPRITES[3];
+						}
+						if(this.tileGrid[leftTile+i][topTile+j] == 9){
+							tileSprite = this.TILE_SPRITES[4];
+						}
+					}
 		        
 		        context.drawImage(tileSprite, i*this.TILE_SIZE - tileOffsetX, j*this.TILE_SIZE - tileOffsetY, this.TILE_SIZE, this.TILE_SIZE);
-		       
-				/*
-				context.beginPath();
-		        context.fillStyle = this.TILE_COLORS[tileColor];
-		        context.fillRect(i*this.TILE_SIZE - tileOffsetX, j*this.TILE_SIZE - tileOffsetY, this.TILE_SIZE, this.TILE_SIZE);
-				*/
-				/*
-				context.lineWidth = 3;
-				context.strokeStyle = "#000000";
-				context.strokeRect(i*this.TILE_SIZE - tileOffsetX, j*this.TILE_SIZE - tileOffsetY, this.TILE_SIZE, this.TILE_SIZE);
-				*/
-            }
-        } 
-      }
+				}
+			} 
+		}
     }
-	 
-	
 }
