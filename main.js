@@ -93,11 +93,37 @@ document.addEventListener('mousedown', onMouseDown);
 function onMouseMove(e){
 	mouseX = e.offsetX || e.pageX - window.scrollX;
 	mouseY = e.offsetY || e.pageY  - window.scrollY;
+	if(renderer.stages.length == 2){
+		var mouse_col = new SAT.Vector(e.clientX, e.clientY);
+		for(var i = 0; i < renderer.stages[1].owned_objects.length; i++){
+			if(renderer.stages[1].owned_objects[i].col_data != undefined){
+				if(SAT.pointInPolygon(mouse_col, renderer.stages[1].owned_objects[i].col_data.toPolygon()) == true){
+					if(renderer.stages[1].owned_objects[i].type == 1){
+						
+					} else if(renderer.stages[1].owned_objects[i].type == 2){
+						
+					}
+				}
+			}
+		}
+	}
 }
 
 function onMouseDown(e){
 	if(renderer.stages.length == 2){
-		
+		var mouse_col = new SAT.Vector(e.clientX, e.clientY);
+		for(var i = 0; i < renderer.stages[1].owned_objects.length; i++){
+			if(renderer.stages[1].owned_objects[i].col_data != undefined){
+				if(SAT.pointInPolygon(mouse_col, renderer.stages[1].owned_objects[i].col_data.toPolygon()) == true){
+					if(renderer.stages[1].owned_objects[i].type == 1){
+						start_game();
+			            title_stage.will_destroy = true;
+					} else if(renderer.stages[1].owned_objects[i].type == 2){
+						
+					}
+				}
+			}
+		}
 	} else {
 	    if (e.button == 0){	
 		    MC.attack();
@@ -168,7 +194,7 @@ function angleDeg(x1,y1,x2,y2){
 	MC = new main_character(tiles.playerX, tiles.playerY);
 	EN1 = new enemy_a(100,100);
 	EN2 = new enemy_a(200,200);
-	SC = new sound_control();
+	//SC = new sound_control();
 	//Set up the tile system
 	main_stage.push(tiles);
 	
@@ -176,8 +202,7 @@ function angleDeg(x1,y1,x2,y2){
 	
 	//main_stage.push(EN1);
     
-	main_stage.push(SC);
-	main_stage.push(SC);
+	//main_stage.push(SC);
 	
 	main_stage.push(MO);
 	main_stage.push(DO);

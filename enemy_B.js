@@ -8,8 +8,8 @@ function enemy_b(x, y){
 	this.type = "enemy";
 	
 	this.sprite = assets["centipede"];
-	this.sprite.width = 192;
-	this.sprite.height = 192;
+	this.sprite.width = 150;
+	this.sprite.height = 150;
 	
 	this.vision_range = 800;
 	
@@ -39,7 +39,7 @@ function enemy_b(x, y){
 	
 	this.vulnerable = true;
 	
-	this.hp = 10;
+	this.hp = 5;
 	
 	this.t2 = 0;
 	
@@ -79,8 +79,8 @@ function enemy_b(x, y){
 		this.canvasX = toCanvasX(this.mapX);
 		this.canvasY = toCanvasY(this.mapY);
 		
-	    this.hitbox.col_data.pos.x = this.mapX;
-		this.hitbox.col_data.pos.y = this.mapY;
+	    this.hitbox.col_data.pos.x = this.mapX + 10;
+		this.hitbox.col_data.pos.y = this.mapY + 10;
 		
 		//------------TIMERS-----------------
 		if(this.stunTimer > 0){
@@ -217,7 +217,7 @@ function enemy_b(x, y){
     	offsetY:0,
     	width:this.sprite.width,
     	height:this.sprite.height,
-    	col_data: new SAT.Box(new SAT.Vector(this.mapX, this.mapY), this.sprite.width, this.sprite.height)
+    	col_data: new SAT.Box(new SAT.Vector(this.mapX, this.mapY), this.sprite.width - 20, this.sprite.height - 20)
     }
     
     this.distanceToObject = function(target, offX, offY){

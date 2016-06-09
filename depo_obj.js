@@ -72,7 +72,7 @@ function depo(x, y, big){
 			}
 			
 			if(keysPressed[RETRIEVE_KEY_CODE] == true){
-				if(this.depo_ready_r == true && MC.storedFP >= 0){
+				if(this.depo_ready_r == true && storedFP >= 0){
 					storedFP -= 1;
 					MC.fp += 1;
 					this.depo_ready_r = false;
@@ -87,7 +87,7 @@ function depo(x, y, big){
 			this.mapY = toMapY(this.canvasY);
 		}
 		this.canvasX = toCanvasX(this.mapX);
-	    this.canvasY = toCanvasY(this.mapY);
+	   this.canvasY = toCanvasY(this.mapY);
 		
 		
 		if(MC.canvasX < this.canvasX - this.range_dist || MC.canvasX > this.canvasX + this.range_dist + this.sprite.width || MC.canvasY < this.canvasY - this.range_dist || MC.canvasY > this.canvasY + this.range_dist + this.sprite.height){

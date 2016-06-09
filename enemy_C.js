@@ -7,8 +7,8 @@ function enemy_c(x, y){
 	this.type = "enemy";
 	
 	this.sprite = assets["fly"];
-	this.sprite.width = 160;
-	this.sprite.height = 160;
+	this.sprite.width = 96;
+	this.sprite.height = 96;
 	
 	this.vision_range = 1200;
 	
@@ -108,7 +108,7 @@ function enemy_c(x, y){
 	this.moveTowards = function(target){
 		if(!isNaN(target.mapX)){
 			var slopeX = target.mapX - this.mapX;
-	        var slopeY = target.mapY - this.mapY;
+	      var slopeY = target.mapY - this.mapY;
 			var distance = this.distanceToObject(target);
 			this.mapXSpeed = slopeX / distance;
 			this.mapYSpeed = slopeY / distance;
@@ -141,13 +141,10 @@ function enemy_c(x, y){
 	}
 	
 	this.destroy = function(){
-		this.hp = 10;
-		var int1 = getRandomInt(0,3);
-		var int2 = getRandomInt(0,3);
-		this.mapX = en_pos[int1][0];
-		this.mapY = en_pos[int1][1];
+		
 		
 		MC.nextFp += 0.5;
+		main_stage.destroy(this);
 	}
 	
 	this.collide = function(target){
@@ -194,7 +191,7 @@ function enemy_c(x, y){
 	
 	this.on_hit = function(dmg){
 		if(this.vulnerable == true){
-			if(this.hp > 0){
+			if(this.hp > -1){
 				this.hp -= dmg;
 				console.log("EN took "+dmg+" damage");
 				console.log("New health is "+this.hp);
@@ -272,12 +269,12 @@ function bullet(x, y, cx, cy, distance){
 		this.mapX += this.slopeX*this.speed;
 		this.mapY += this.slopeY*this.speed;
 		this.canvasX = toCanvasX(this.mapX);
-	    this.canvasY = toCanvasY(this.mapY);
-	    this.hitbox.col_data = new SAT.Circle(new SAT.Vector(this.mapX, this.mapY), 10);
-	    this.dist += this.speed;
-	    if(this.dist > this.range){
-	    	this.will_destroy = true;
-	    }
+	   this.canvasY = toCanvasY(this.mapY);
+	   this.hitbox.col_data = new SAT.Circle(new SAT.Vector(this.mapX, this.mapY), 10);
+	   this.dist += this.speed;
+	   if(this.dist > this.range){
+	    this.will_destroy = true;
+	   }
 		if(this.will_destroy == true){
 			main_stage.destroy(this);
 		}
