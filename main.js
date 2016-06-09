@@ -272,3 +272,24 @@ function angleDeg(x1,y1,x2,y2){
 	//main_stage.push(EN2);
  }
  
+ function toTitleScreen(second){
+ 	main_stage.clear();
+ 	var load_screen = new Image(); load_screen.src = 'images/load_screen.png'; load_screen.width = canvas.width; load_screen.height = canvas.height;
+	var title_screen = new Image(); title_screen.src = 'images/title_screen.png'; title_screen.width = canvas.width; title_screen.height = canvas.height;
+	LS = new load_screen_obj(0, 0, load_screen, title_screen, true);
+	title_stage = new stage(true);
+	renderer.push(title_stage);
+	title_stage.push(LS);
+	
+	b1 = new title_button(80, 600, 300, 150, 1);
+	b2 = new title_button(950, 600, 300, 150, 2);
+	title_stage.push(b1);
+	title_stage.push(b2);
+	current_level = 0;
+	if(second == true){
+ 	    MC = new main_character(levels[current_level][3], levels[current_level][4]);
+ 	    tiles = new create_board(levels[current_level][0], levels[current_level][1],96, levels[current_level][2]);
+    }
+ 	
+ }
+ 
