@@ -88,11 +88,37 @@ document.addEventListener('mousedown', onMouseDown);
 function onMouseMove(e){
 	mouseX = e.offsetX || e.pageX - window.scrollX;
 	mouseY = e.offsetY || e.pageY  - window.scrollY;
+	if(renderer.stages.length == 2){
+		var mouse_col = new SAT.Vector(e.clientX, e.clientY);
+		for(var i = 0; i < renderer.stages[1].owned_objects.length; i++){
+			if(renderer.stages[1].owned_objects[i].col_data != undefined){
+				if(SAT.pointInPolygon(mouse_col, renderer.stages[1].owned_objects[i].col_data.toPolygon()) == true){
+					if(renderer.stages[1].owned_objects[i].type == 1){
+						
+					} else if(renderer.stages[1].owned_objects[i].type == 2){
+						
+					}
+				}
+			}
+		}
+	}
 }
 
 function onMouseDown(e){
 	if(renderer.stages.length == 2){
-		
+		var mouse_col = new SAT.Vector(e.clientX, e.clientY);
+		for(var i = 0; i < renderer.stages[1].owned_objects.length; i++){
+			if(renderer.stages[1].owned_objects[i].col_data != undefined){
+				if(SAT.pointInPolygon(mouse_col, renderer.stages[1].owned_objects[i].col_data.toPolygon()) == true){
+					if(renderer.stages[1].owned_objects[i].type == 1){
+						start_game();
+			            title_stage.will_destroy = true;
+					} else if(renderer.stages[1].owned_objects[i].type == 2){
+						
+					}
+				}
+			}
+		}
 	} else {
 	    if (e.button == 0){	
 		    MC.attack();

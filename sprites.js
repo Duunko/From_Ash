@@ -65,8 +65,10 @@ function load_sprites(){
 	var mc_dash_down = new Image(); mc_dash_down.src = 'images/dash/phoenix_dash_down.png';
 	var mc_dash_up = new Image(); mc_dash_up.src = 'images/dash/phoenix_dash_up.png';
 	
-	var title_button_1 = new Image(); title_button_1.src = 'images/gui/title_button.png';
-	var title_button_2 = new Image(); title_button_2.src = 'images/gui/Title_button_2.png'
+	var hp_back = new Image(); hp_back.src = 'images/gui/feather_healthbar1';
+	var hp_front = new Image(); hp_front.src = 'images/gui/feather_healthbar2';
+	var fp_front = new Image(); fp_front.src = 'images/gui/firepower_hb';
+	
 	
 	var sScorpion = new Image();
 	sScorpion.src = 'images/enemies/seascorpion.png';
@@ -223,8 +225,10 @@ function load_sprites(){
 		wasd: wasd,
 		mouse: mouse,
 		
-		title_button_1:title_button_1,
-		title_button_2:title_button_2
+		hp_front:hp_front,
+		hp_back:hp_back,
+		fp_front:fp_front,
+		
 	}
 	
 	var count = 0;

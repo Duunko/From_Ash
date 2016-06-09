@@ -40,8 +40,8 @@ function level_door(x, y){
 	this.update = function(){
 		this.canvasX = toCanvasX(this.mapX);
 		this.canvasY = toCanvasY(this.mapY);
-		
 		if(main_stage.check_num_enemies() == 0){
+
 			this.open = true;
 		}
 		else{
