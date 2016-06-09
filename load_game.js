@@ -60,7 +60,7 @@ function load_game(){
 									[10, 10, 4]],300,550]);
 	
 	//final level
-	levels.push([2000, 1344, [[8, 1, 7]], 100, 350]);
+	levels.push([2000, 1344, [[8, 1, 10]], 100, 350]);
 	
 	
    //Enemies

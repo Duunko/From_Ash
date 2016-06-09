@@ -318,9 +318,9 @@ function main_character(x, y) {
 		}
 		
 		this.mapX = toMapX(this.canvasX);
-	    this.mapY = toMapY(this.canvasY);
+	   this.mapY = toMapY(this.canvasY);
 	    
-	    this.depth = -(this.mapY - 20);
+	   this.depth = -(this.mapY - 20);
 		
 		this.hitbox.col_data.pos.x = this.mapX + 18;
 		this.hitbox.col_data.pos.y = this.mapY + 50;
@@ -520,7 +520,11 @@ function main_character(x, y) {
 		} 
 		context.fillText("Hit Points: "+this.hp, 10, 100);*/
 		
+		// context.fillStyle = 'white';
+		// context.fillText("Lives: "+MC.lives, 10, 120);
+
 		//context.fillText("Lives: "+MC.lives, 10, 120); 
+
 		
 		//context.fillStyle = 'orange';
 		//context.fillRect(toCanvasX(this.hitbox.col_data.pos.x), toCanvasY(this.hitbox.col_data.pos.y), this.hitbox.col_data.w, this.hitbox.col_data.h);
@@ -572,6 +576,7 @@ function main_character(x, y) {
     
 	this.dash = function(){
 		if((this.dashing == false && this.dashCool == 0) && this.fp >= this.dashCost && this.locked == false && this.active_animation != this.death){
+
 			//move towards
 			//mouseX and mouseY
 			var slopeX = mouseX - this.canvasX;
@@ -752,7 +757,7 @@ function main_character(x, y) {
 		var cy = MC.canvasY + (MC.sprite.height / 2);
 		var angle = (obj.currframe) * (90 / obj.numFrames);
 		var newval = new SAT.Vector(Math.round(cx + (obj.radius * (Math.cos(degrees(45 + obj.direc + angle))))),
-				    Math.round(cy + (obj.radius * (Math.sin(degrees(45 + obj.direc + angle))))));
+											 Math.round(cy + (obj.radius * (Math.sin(degrees(45 + obj.direc + angle))))));
 		//newval.x -= MC.mapX;
 		//newval.y -= MC.mapY;
 		return newval;

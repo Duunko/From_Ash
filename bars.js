@@ -114,6 +114,27 @@ function healthbar(x, y, width, height){
 		context.fillStyle = "white";
 		context.fillText(MC.hp, this.canvasX + (this.width/2 - 10), this.canvasY + (this.height/2) + 10);
 		
+		context.drawImage(assets["cross"], this.canvasX, this.canvasY, this.height, this.height);
+		
 	}
 	
+}
+
+function life_counter(x, y, width, height){
+	this.canvasX = x;
+	this.canvasY = y;
+	this.depth = -100000;
+	this.sprite = assets["lives"];
+	this.sprite.width = width;
+	this.sprite.height = height;
+	
+	this.update = function(){
+		
+	}
+	
+	this.draw = function(){
+		context.drawImage(this.sprite, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
+		context.font = "25px Verdana";
+		context.fillText("x" + MC.lives, this.canvasX + this.sprite.width + 10, this.canvasY + this.sprite.height);
+	}
 }

@@ -289,9 +289,10 @@ function bullet(x, y, cx, cy, distance){
 	}
 	
 	this.collide = function(target){
-		if(target.is_obstacle == true){
-			main_stage.destroy(this);
-		} else if(target == MC){
+		//if(target.is_obstacle == true){
+		//	main_stage.destroy(this);
+		//} else 
+		if(target == MC){
 			this.will_destroy = true;
 		}
 	}
