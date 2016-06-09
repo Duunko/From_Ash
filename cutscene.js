@@ -197,7 +197,7 @@ function slider(x, y, speed, targetX, targetY, sprite_src, s_w, s_h){
 	this.depth = -9999999;
 	
 	this.shrinking = false;
-	this.shrinkNum = 200;
+	this.shrinkNum = 300;
 	this.xAmount = this.sprite.width / this.shrinkNum;
 	this.yAmount = this.sprite.height / this.shrinkNum;
 	

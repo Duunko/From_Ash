@@ -3,7 +3,6 @@
  */
 function sound_control(){
 	this.depth = -1000000;
-	this.loaded = false;
     
 	this.battle = new Howl({
         urls: ['music/battle.ogg'],
@@ -36,10 +35,7 @@ function sound_control(){
     });
     
     this.update = function(){
-    	if (this.loaded == false){
-    		this.battle.play();
-    		this.loaded = true;
-    	}
+    	
     }
     this.draw = function(){
     	

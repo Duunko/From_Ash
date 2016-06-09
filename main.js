@@ -251,6 +251,8 @@ function angleDeg(x1,y1,x2,y2){
 	
 	main_stage.push(MO);
 	main_stage.push(DO);
+	
+	SC.battle.play();
  }
  
  function reset_game(){

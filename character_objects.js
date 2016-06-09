@@ -50,7 +50,7 @@ function main_character(x, y) {
 	this.animating = false;              //whether a high priority animation is active (not walking)
 	this.walking = true;
 	
-	this.fp = 100; //EDIT THIS LATER <==============================================
+	this.fp = 40; //EDIT THIS LATER <==============================================
 	this.nextFp = 0; //EDIT THIS LATER <==========================================
 	this.fpReturn = this.fp;
 	
@@ -528,7 +528,7 @@ function main_character(x, y) {
     }
     
     this.attack = function(){
-		if((this.can_melee == true && this.meleeCool == 0) && this.fp >= this.meleeCost && this.locked == false){
+		if((this.can_melee == true && this.meleeCool == 0) && this.fp >= this.meleeCost && this.locked == false && this.active_animation != this.death){
 
 			var opt1 = this.look_direc;
 			var direction = 180;
@@ -571,7 +571,7 @@ function main_character(x, y) {
     }
     
 	this.dash = function(){
-		if((this.dashing == false && this.dashCool == 0) && this.fp >= this.dashCost && this.locked == false){
+		if((this.dashing == false && this.dashCool == 0) && this.fp >= this.dashCost && this.locked == false && this.active_animation != this.death){
 			//move towards
 			//mouseX and mouseY
 			var slopeX = mouseX - this.canvasX;

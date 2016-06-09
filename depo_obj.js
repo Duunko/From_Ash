@@ -72,7 +72,7 @@ function depo(x, y, big){
 			}
 			
 			if(keysPressed[RETRIEVE_KEY_CODE] == true){
-				if(this.depo_ready_r == true && storedFP >= 0){
+				if(this.depo_ready_r == true && storedFP > 0){
 					storedFP -= 1;
 					MC.fp += 1;
 					this.depo_ready_r = false;
