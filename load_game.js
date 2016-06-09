@@ -5,17 +5,17 @@
  /* The simple object to display the load screen */
  
 function load_game(){
-	var load_screen = new Image(); load_screen.src = 'images/load_screen.png'; load_screen.width = canvas.width; load_screen.height = canvas.height;
-	var title_screen = new Image(); title_screen.src = 'images/title_screen.png'; title_screen.width = canvas.width; title_screen.height = canvas.height;
-	LS = new load_screen_obj(0, 0, load_screen, title_screen);
-	title_stage = new stage(true);
-	renderer.push(title_stage);
-	title_stage.push(LS);
-	b1 = new title_button(80, 600, 300, 150, 1);
-	b2 = new title_button(950, 600, 300, 150, 2);
-	title_stage.push(b1);
-	title_stage.push(b2);
-	
+	//var load_screen = new Image(); load_screen.src = 'images/load_screen.png'; load_screen.width = canvas.width; load_screen.height = canvas.height;
+	//var title_screen = new Image(); title_screen.src = 'images/title_screen.png'; title_screen.width = canvas.width; title_screen.height = canvas.height;
+	//LS = new load_screen_obj(0, 0, load_screen, title_screen);
+	//title_stage = new stage(true);
+	//renderer.push(title_stage);
+	//title_stage.push(LS);
+	//b1 = new title_button(80, 600, 300, 150, 1);
+	//b2 = new title_button(950, 600, 300, 150, 2);
+	//title_stage.push(b1);
+	//title_stage.push(b2);
+	toTitleScreen();
 	load_sprites();
 	
 	//Load all stages
@@ -112,7 +112,7 @@ function load_game(){
 	console.log("all objects loaded");
 } 
  
-function load_screen_obj(x, y, spr, spr2){
+function load_screen_obj(x, y, spr, spr2, noload){
 	this.sprite = spr;
 	this.sprite2 = spr2;
 	this.active_sprite = this.sprite;
@@ -123,7 +123,9 @@ function load_screen_obj(x, y, spr, spr2){
 	this.depth = 1;
 	
 	this.ready = false;
-	
+	if(noload == true){
+		this.active_sprite = this.sprite2;
+	}
 	
 	this.destroy = function(){
 		title_stage.destroy(this);

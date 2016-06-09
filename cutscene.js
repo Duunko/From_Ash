@@ -338,6 +338,12 @@ function grower(x, y, speed, sprite_src, s_w, s_h, end_x, end_y){
 				ending = true;
 			}
 		}
+		if(anyKeyPress == true){
+			if(ending == true){
+			    toTitleScreen(true);
+			}
+		}
+		
 		
 		if(this.growing == true){
 			

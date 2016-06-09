@@ -187,6 +187,7 @@ function main_character(x, y) {
 		if (keysPressed[BEAM_KEY_CODE] == true){
 			//BEAM IS TURNED OFF FOR THURSDAY AND FRIDAY TESTIN
 			//MC.beam();
+			
 		}
 	   
 	    if(this.dashing == false && this.active_animation != this.death && this.locked == false){
@@ -532,7 +533,9 @@ function main_character(x, y) {
     }
     
     this.attack = function(){
-		if((this.can_melee == true && this.meleeCool == 0) && this.fp >= this.meleeCost && this.locked == false && this.active_animation != this.death){
+		if((this.can_melee == true && this.meleeCool == 0) && 
+		(this.fp >= this.meleeCost || this.nextFp >= (this.meleeCost * 3)) && 
+		         this.locked == false && this.active_animation != this.death){
 
 			var opt1 = this.look_direc;
 			var direction = 180;
@@ -568,6 +571,11 @@ function main_character(x, y) {
 			this.can_melee = false;
 			
 			this.fp -= this.meleeCost;
+			if(this.fp < 0){
+				var overlap = this.fp;
+				this.nextFp += (overlap*3);
+				this.fp = 0;
+			}
 			this.meleeCool = this.meleeCoolMax;
 			
 			SC.fire.play();
@@ -575,7 +583,8 @@ function main_character(x, y) {
     }
     
 	this.dash = function(){
-		if((this.dashing == false && this.dashCool == 0) && this.fp >= this.dashCost && this.locked == false && this.active_animation != this.death){
+		if((this.dashing == false && this.dashCool == 0) && (this.fp >= this.dashCost || this.nextFp >= (this.dashCost * 3)) 
+		                && this.locked == false && this.active_animation != this.death){
 
 			//move towards
 			//mouseX and mouseY
@@ -600,6 +609,11 @@ function main_character(x, y) {
 			this.dashing = true;
 			
 			this.fp -= this.dashCost;
+			if(this.fp < 0){
+				this.nextFp += this.fp*3;
+				this.fp = 0;
+			}
+			
 			this.dashCool = this.dashCoolMax;
 			
 			SC.fire.play();
@@ -644,6 +658,9 @@ function main_character(x, y) {
 		if(this.vulnerable == true){
 			if(this.hp > 0){
 				this.hp -= dmg;
+				if(this.hp == 0){
+					this.die();
+				}
 				
 				this.safetyTimer = this.safetyTimerMax;
 				this.vulnerable = false;
@@ -680,7 +697,11 @@ function main_character(x, y) {
 		if(target == "death"){
 			this.animating = false;
 			this.walking = true;
-			reset_game();
+			if(this.lives == 0){
+				toTitleScreen(true);
+			}else {
+			    reset_game();
+			}
 		}
 		if(target == "dash"){
 			this.animating = false;
