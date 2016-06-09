@@ -15,6 +15,7 @@ function overlay(x, y, spr, target){
 	this.sprite = spr;
 	this.sprite.width = 110;
 	this.sprite.height = 110;
+	this.depth = -10000000
 	
 	this.canvasX = x;
 	this.canvasY = y;
@@ -56,3 +57,18 @@ function overlay(x, y, spr, target){
 		context.drawImage(this.shade, this.canvasX, this.canvasY, this.shade.width, this.shade.height);
 	}
 }
+
+function gui_dock(){
+	this.depth = -9999;
+	this.sprite = assets["gui_dock"];
+	this.update = function(){
+		
+	}
+	
+	this.draw = function(){
+		context.drawImage(this.sprite, 0, 0, canvas.width, canvas.height);
+	}
+}
+
+
+

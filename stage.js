@@ -86,6 +86,7 @@ function renderer(canvas, context) {
 	this.stages = [];
 	this.need_sort = false;
 	this.sort_timer = 0;
+	this.just_destroyed = false;
 	this.push = function(obj) { 
 		if(this.stages.length != 0){
 		    this.stages[this.stages.length - 1].always_update = false;
@@ -126,8 +127,9 @@ function game_draw(renderer) {
 	for(var i = 0; i < renderer.stages.length; i++){
 		if(renderer.stages[i].will_destroy == true){
 			renderer.pop();
+			renderer.just_destroyed = true;
 			continue;
-		}
+		} 
 	    if(renderer.stages[i].always_update == true || renderer.stages[i].always_draw == true){
 	    	if (renderer.stages[i].owned_objects.indexOf(MC) != -1){
 	    		renderer.stages[i].owned_objects[renderer.stages[i].owned_objects.indexOf(MC)].update();

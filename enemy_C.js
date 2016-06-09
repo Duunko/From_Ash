@@ -143,7 +143,7 @@ function enemy_c(x, y){
 	this.destroy = function(){
 		
 		
-		MC.nextFp += 0.5;
+		MC.nextFp += 5;
 		main_stage.destroy(this);
 	}
 	

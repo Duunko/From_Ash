@@ -48,9 +48,9 @@ function depo(x, y, big){
 	this.update = function(){
 		if(this.in_range == true){
 			if(keysPressed[ACTION_KEY_CODE] == true){
-				if(this.depo_ready_e == true && MC.nextFp >= 0){
-					MC.fp -= 1;
-					storedFP += 1;
+				if(this.depo_ready_e == true && MC.nextFp > 0){
+					MC.nextFp -= 5;
+					storedFP += 5;
 					this.depo_ready_e = false;
 				}
 			}
@@ -60,8 +60,8 @@ function depo(x, y, big){
 			
 			if(keysPressed[RETRIEVE_KEY_CODE] == true){
 				if(this.depo_ready_r == true && MC.storedFP >= 0){
-					storedFP -= 1;
-					MC.fp += 1;
+					storedFP -= 5;
+					MC.fp += 5;
 					this.depo_ready_r = false;
 				}
 			}

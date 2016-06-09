@@ -87,10 +87,10 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	 	     		    var obj = new level_door(i*this.TILE_SIZE, j*this.TILE_SIZE);
 	 	     		    main_stage.push(obj);
 					} if(this.tileGrid[i][j] == 5){
-	 	     		    var obj = new floor_object(i*this.TILE_SIZE, j*this.TILE_SIZE, assets["wasd"]);
+	 	     		    var obj = new floor_object(i*this.TILE_SIZE, j*this.TILE_SIZE, assets["wasd"], "move");
 	 	     		    main_stage.push(obj);
 					} if(this.tileGrid[i][j] == 6){
-	 	     		    var obj = new floor_object(i*this.TILE_SIZE, j*this.TILE_SIZE, assets["mouse"]);
+	 	     		    var obj = new floor_object(i*this.TILE_SIZE, j*this.TILE_SIZE, assets["mouse"], "attack");
 	 	     		    main_stage.push(obj);
 					}
 	 	     	}

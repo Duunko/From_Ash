@@ -83,29 +83,13 @@ document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
 document.addEventListener('mousemove', onMouseMove);
 document.addEventListener('mousedown', onMouseDown);
-//document.addEventListener('mouseup', onMouseUp);
+document.addEventListener('mouseup', onMouseUp);
 
-function onMouseMove(e){
-	mouseX = e.offsetX || e.pageX - window.scrollX;
-	mouseY = e.offsetY || e.pageY  - window.scrollY;
-	if(renderer.stages.length == 2){
-		var mouse_col = new SAT.Vector(e.clientX, e.clientY);
-		for(var i = 0; i < renderer.stages[1].owned_objects.length; i++){
-			if(renderer.stages[1].owned_objects[i].col_data != undefined){
-				if(SAT.pointInPolygon(mouse_col, renderer.stages[1].owned_objects[i].col_data.toPolygon()) == true){
-					if(renderer.stages[1].owned_objects[i].type == 1){
-						
-					} else if(renderer.stages[1].owned_objects[i].type == 2){
-						
-					}
-				}
-			}
+function onMouseUp(e){
+	/*if(renderer.stages.length == 2){
+		if(renderer.just_destroyed == true){
+			return;
 		}
-	}
-}
-
-function onMouseDown(e){
-	if(renderer.stages.length == 2){
 		var mouse_col = new SAT.Vector(e.clientX, e.clientY);
 		for(var i = 0; i < renderer.stages[1].owned_objects.length; i++){
 			if(renderer.stages[1].owned_objects[i].col_data != undefined){
@@ -114,7 +98,60 @@ function onMouseDown(e){
 						start_game();
 			            title_stage.will_destroy = true;
 					} else if(renderer.stages[1].owned_objects[i].type == 2){
-						
+						var credit = new stage(top);
+						var credits_screen = new credits();
+						credit.push(credits_screen);
+						renderer.push(credit);
+					}
+				}
+			}
+		}
+	}*/
+}
+
+function onMouseMove(e){
+	mouseX = e.offsetX || e.pageX - window.scrollX;
+	mouseY = e.offsetY || e.pageY  - window.scrollY;
+	if(renderer.stages.length == 2){
+		var mouse_col = new SAT.Vector(e.clientX, e.clientY);
+		for(var i = 0; i < renderer.stages[1].owned_objects.length; i++){
+			if(renderer.stages[1].owned_objects[i].col_data != undefined){
+				if(renderer.stages[1].owned_objects[i].type == 1){
+				    if(SAT.pointInPolygon(mouse_col, renderer.stages[1].owned_objects[i].col_data.toPolygon()) == true){
+					    renderer.stages[1].owned_objects[i].sprite.src = 'images/gui/title_button_hover.png';
+				    } else {
+					    renderer.stages[1].owned_objects[i].sprite.src = 'images/gui/title_button.png';
+				    }
+				} else if(renderer.stages[1].owned_objects[i].type == 2){
+				    if(SAT.pointInPolygon(mouse_col, renderer.stages[1].owned_objects[i].col_data.toPolygon()) == true){
+					    renderer.stages[1].owned_objects[i].sprite.src = 'images/gui/Title_button_2_hover.png';
+				    } else {
+					    renderer.stages[1].owned_objects[i].sprite.src = 'images/gui/Title_button_2.png';
+				    }
+				}
+			}
+		}
+	}
+}
+
+function onMouseDown(e){
+	if(renderer.stages.length == 2){
+		if(renderer.just_destroyed == true){
+			renderer.just_destroyed == false;
+		}
+		console.log("called");
+		var mouse_col = new SAT.Vector(e.clientX, e.clientY);
+		for(var i = 0; i < renderer.stages[1].owned_objects.length; i++){
+			if(renderer.stages[1].owned_objects[i].col_data != undefined){
+				if(SAT.pointInPolygon(mouse_col, renderer.stages[1].owned_objects[i].col_data.toPolygon()) == true){
+					if(renderer.stages[1].owned_objects[i].type == 1){
+						start_game();
+			            title_stage.will_destroy = true;
+					} else if(renderer.stages[1].owned_objects[i].type == 2){
+						var credit = new stage(top);
+						var credits_screen = new credits(credit);
+						credit.push(credits_screen);
+						renderer.push(credit);
 					}
 				}
 			}
@@ -189,6 +226,14 @@ function angleDeg(x1,y1,x2,y2){
 	MC = new main_character(tiles.playerX, tiles.playerY);
 	EN1 = new enemy_a(100,100);
 	EN2 = new enemy_a(200,200);
+	FP_BAR = new fpBar(-25,-10,300, 300);
+	N_FP_BAR = new fireBar(-25, 80, 300, 300);
+	HP_BAR = new healthbar(10, 30, 300, 30);
+	DOCK = new gui_dock();
+	main_stage.push(FP_BAR);
+	main_stage.push(N_FP_BAR);
+	main_stage.push(HP_BAR);
+	//main_stage.push(DOCK);
 	//SC = new sound_control();
 	//Set up the tile system
 	main_stage.push(tiles);
