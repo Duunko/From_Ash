@@ -65,9 +65,9 @@ function load_sprites(){
 	var mc_dash_down = new Image(); mc_dash_down.src = 'images/dash/phoenix_dash_down.png';
 	var mc_dash_up = new Image(); mc_dash_up.src = 'images/dash/phoenix_dash_up.png';
 	
-	var hp_back = new Image(); hp_back.src = 'images/gui/feather_healthbar1';
-	var hp_front = new Image(); hp_front.src = 'images/gui/feather_healthbar2';
-	var fp_front = new Image(); fp_front.src = 'images/gui/firepower_hb';
+	var hp_back = new Image(); hp_back.src = 'images/gui/feather_healthbar1.png';
+	var hp_front = new Image(); hp_front.src = 'images/gui/feather_healthbar2.png';
+	var fp_front = new Image(); fp_front.src = 'images/gui/firepower_hb.png';
 	
 	
 	var sScorpion = new Image();

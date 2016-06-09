@@ -80,6 +80,15 @@ function create_board(world_width, world_height, tile_size, non_ash){
 		if(this.initial_generation == false){
 	 	     for(var i = 0; i < this.tileGrid.length; i++){
 	 	     	for(var j = 0; j < this.tileGrid.length; j++){
+					if(this.tileGrid[i][j] == 0){
+						var rando = Math.random();
+						if(rando <= .2){
+							var rando2 = Math.random();
+							this.tileGrid[i][j] =  8; //Math.floor(rando2 * (9 - 7) + 7);
+						} else {
+							this.tileGrid[i][j] = 0;
+						}
+					}
 	 	     		if(this.tileGrid[i][j] == 1){
 	 	     			var obj = new obstacle(i*this.TILE_SIZE, j*this.TILE_SIZE, 'wall');
 	 	     			main_stage.push(obj);
@@ -196,8 +205,8 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	
 	this.draw = function onEnterFrame(){
   
-        this.left = MC.canvasX - this.VIEW_WIDTH / 2;
-        this.top = MC.canvasY - this.VIEW_HEIGHT / 2;
+      this.left = MC.canvasX - this.VIEW_WIDTH / 2;
+      this.top = MC.canvasY - this.VIEW_HEIGHT / 2;
 		this.right = MC.canvasX + this.VIEW_WIDTH / 2;
 		this.bottom = MC.canvasY + this.VIEW_HEIGHT / 2;
 		
@@ -209,8 +218,8 @@ function create_board(world_width, world_height, tile_size, non_ash){
 		
 		if(this.bottom >= this.WORLD_HEIGHT){ this.top = this.WORLD_HEIGHT - this.VIEW_HEIGHT; MC.moveCanvasY = true;}
 		if(this.right >= this.WORLD_WIDTH){ this.left = this.WORLD_WIDTH - this.VIEW_WIDTH; MC.moveCanvasX = true;}
-        var leftTile = Math.floor(this.left / this.TILE_SIZE);
-        var topTile = Math.floor(this.top / this.TILE_SIZE);
+      var leftTile = Math.floor(this.left / this.TILE_SIZE);
+      var topTile = Math.floor(this.top / this.TILE_SIZE);
 		
 		var bottomTile = Math.floor(this.bottom / this.TILE_SIZE);
   
@@ -248,4 +257,3 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	 
 	
 }
-
