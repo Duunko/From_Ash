@@ -67,15 +67,14 @@ function load_sprites(){
 	var mc_give_left_2 = new Image(); mc_give_left_2.src = 'images/theEnd/phoenix_giveleft2.png';
 	var mc_give_left_3 = new Image(); mc_give_left_3.src = 'images/theEnd/phoenix_giveleft3.png';
 	
-	/*
-	var mc_give_right_1 = new Image(); mc_give_right_1.src = 'images/theEnd/phoenix_giveright1.png';
-	var mc_give_right_1 = new Image(); mc_give_right_1.src = 'images/theEnd/phoenix_giveright1.png';
-	var mc_give_right_1 = new Image(); mc_give_right_1.src = 'images/theEnd/phoenix_giveright1.png';
+	var mc_give_up_1 = new Image(); mc_give_up_1.src = 'images/theEnd/phoenix_giveback1.png';
+	var mc_give_up_2 = new Image(); mc_give_up_2.src = 'images/theEnd/phoenix_giveback2.png';
+	var mc_give_up_3 = new Image(); mc_give_up_3.src = 'images/theEnd/phoenix_giveback3.png';
 	
-	var mc_give_right_1 = new Image(); mc_give_right_1.src = 'images/theEnd/phoenix_giveright1.png';
-	var mc_give_right_1 = new Image(); mc_give_right_1.src = 'images/theEnd/phoenix_giveright1.png';
-	var mc_give_right_1 = new Image(); mc_give_right_1.src = 'images/theEnd/phoenix_giveright1.png';
-	*/
+	var mc_give_front_1 = new Image(); mc_give_front_1.src = 'images/theEnd/phoenix_givefront1.png';
+	var mc_give_front_2 = new Image(); mc_give_front_2.src = 'images/theEnd/phoenix_givefront2.png';
+	var mc_give_front_3 = new Image(); mc_give_front_3.src = 'images/theEnd/phoenix_givefront3.png';
+	
 	var mc_dash_ball = new Image(); mc_dash_ball.src = 'images/dash/dash.png';
 	var mc_dash_right = new Image(); mc_dash_right.src = 'images/dash/phoenix_dash_right.png';
 	var mc_dash_left = new Image(); mc_dash_left.src = 'images/dash/phoenix_dash_left.png';
@@ -228,6 +227,14 @@ function load_sprites(){
 		mc_give_right_1: mc_give_right_1,
 		mc_give_right_2: mc_give_right_2,
 		mc_give_right_3: mc_give_right_3,
+		
+		mc_give_up_1: mc_give_up_1,
+		mc_give_up_2: mc_give_up_2,
+		mc_give_up_3: mc_give_up_3,
+		
+		mc_give_front_1: mc_give_front_1,
+		mc_give_front_2: mc_give_front_2,
+		mc_give_front_3: mc_give_front_3,
 		
 		sScorpion: sScorpion,
 		fly: fly,
