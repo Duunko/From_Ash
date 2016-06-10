@@ -72,7 +72,8 @@ function enemy_c(x, y){
 			    if(this.attack_timer == this.attack_interval){
 			    	var bull = new bullet(this.mapX + (this.sprite.width/2), this.mapY + 
 			    	                      (this.sprite.height/2), 
-			    	                       MC.mapX, MC.mapY, this.distanceToObject(MC));
+			    	                       MC.mapX + (MC.sprite.width/2), 
+			    	                       MC.mapY + (MC.sprite.height/2), this.distanceToObject(MC));
 			    	main_stage.push(bull);
 			    	this.attack_timer = 0;
 			    }
