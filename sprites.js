@@ -100,6 +100,9 @@ function load_sprites(){
 	gui_e.src = 'images/gui/pass_on_gui.png';
 	var gui_r = new Image();
 	gui_r.src = 'images/gui/inherit_gui.png';
+	
+	var gui_door = new Image();
+	gui_door.src = 'images/gui/door_gui.png';
 
 	var enviro_tree_1 = new Image(); enviro_tree_1.src = 'images/environment/treestump_nest1.png';
 	var enviro_tree_2 = new Image(); enviro_tree_2.src = 'images/environment/treestump_nest2.png';
@@ -244,6 +247,8 @@ function load_sprites(){
 		
 		gui_e: gui_e,
 		gui_r: gui_r,
+		
+		gui_door: gui_door,
 		
 		enviro_tree_1: enviro_tree_1,
 		enviro_tree_2: enviro_tree_2,

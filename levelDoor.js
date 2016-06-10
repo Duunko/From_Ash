@@ -22,8 +22,8 @@ function level_door(x, y){
 	this.open = false;
 	this.in_range = false;
 	
-	this.passUI = assets["gui_e"];
-	this.passUI.width = 150;
+	this.passUI = assets["gui_door"];
+	this.passUI.width = 50;
 	this.passUI.height = 50;
 	this.range_dist = 30;
 	
