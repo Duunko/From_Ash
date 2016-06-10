@@ -261,7 +261,7 @@ function angleDeg(x1,y1,x2,y2){
  function reset_game(){
 	console.log("reset game called")
 	console.log("refresh called")
-	SC.battle.play();
+	//SC.battle.play();
  	current_level = 0;
  	tiles.refresh();
 	MC.hp = MC.hpMax;
