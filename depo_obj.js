@@ -57,7 +57,7 @@ function depo(x, y, big){
 				if(this.depo_ready_e == true){
 					if(big == false && MC.nextFp > 0){
 						MC.nextFp -= 1;
-						storedFP += 1;
+						storedFPNext += 1;
 						this.depo_ready_e = false;
 					}
 					else if(big == true){
@@ -76,8 +76,8 @@ function depo(x, y, big){
 			}
 			
 			if(keysPressed[RETRIEVE_KEY_CODE] == true){
-				if(this.depo_ready_r == true && storedFP > 0){
-					storedFP -= 1;
+				if(this.depo_ready_r == true && storedFPNow > 0){
+					storedFPNow -= 1;
 					MC.fp += 1;
 					this.depo_ready_r = false;
 				}
@@ -123,11 +123,11 @@ function depo(x, y, big){
 	}
 	
 	this.draw = function(){
-		if(storedFP > 0){
+		if(storedFPNow + storedFPNext > 0){
 			draw_animated_sprite(this.flaming, this, this.canvasX, this.canvasY, this.sprite.width, this.sprite.height);
 			if(this.in_range){
 				context.drawImage(this.inheritUI, this.canvasX + 150, this.canvasY - 25, this.passUI.width, this.passUI.height);
-				context.fillText(storedFP, this.canvasX + 100, this.canvasY - 33);
+				context.fillText(storedFPNow + storedFPNext, this.canvasX + 100, this.canvasY - 33);
 			}
 		}
 		else{

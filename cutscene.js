@@ -88,7 +88,7 @@ function sheep(x, y, variant, dir, targetX, targetY){
 		
 		if(this.image_index == 2 && this.giving == true){
 			this.giving = false;
-			storedFP++;
+			storedFPNow++;
 			
 			//create sky object
 			//slider(x, y, speed, targetX, targetY, sprite_src, s_w, s_h)

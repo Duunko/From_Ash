@@ -23,7 +23,8 @@ renderer.push(main_stage);
 
 enemies_killed = 0;
 
-storedFP = 0;
+storedFPNow = 0;
+storedFPNext = 0;
 cutsceneStarted = false;
 panning = false;
 ascending = false;
@@ -258,6 +259,9 @@ function angleDeg(x1,y1,x2,y2){
  }
  
  function reset_game(){
+	console.log("reset game called")
+	console.log("refresh called")
+	SC.battle.play();
  	current_level = 0;
  	tiles.refresh();
 	MC.hp = MC.hpMax;
@@ -270,6 +274,9 @@ function angleDeg(x1,y1,x2,y2){
 	
 	//main_stage.push(EN1);
 	//main_stage.push(EN2);
+	
+	storedFPNow = storedFPNext;
+	storedFPNext = 0;
  }
  
  function toTitleScreen(second){
