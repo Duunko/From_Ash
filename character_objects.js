@@ -101,7 +101,7 @@ function main_character(x, y) {
 	this.can_beam = true;
 	
 	this.dashing = false;
-	this.dashTimer = 45;     //affects the distance
+	this.dashTimer = 60;     //affects the distance
 	this.dashXInc;
 	this.dashYInc;
 	this.dashWindD = 2.5;
@@ -143,7 +143,6 @@ function main_character(x, y) {
 
 	
 	this.update = function(){
-		
 		//walking animation handlers
 		if(this.walking == true){
 			if(this.look_direc == 'west'){
@@ -170,8 +169,8 @@ function main_character(x, y) {
 		}
 		
 		if(current_level == 0){
-			this.fp = 999;
-		} else if(current_level == 1 && this.fp == 999){
+			this.fp = 200;
+		} else if(current_level == 1 && this.fp == 200){
 			this.fp = this.fpReturn;
 		}
 		
@@ -319,7 +318,7 @@ function main_character(x, y) {
 		}
 		
 		this.mapX = toMapX(this.canvasX);
-	   this.mapY = toMapY(this.canvasY);
+	    this.mapY = toMapY(this.canvasY);
 	    
 	   this.depth = -(this.mapY - 20);
 		
@@ -488,17 +487,32 @@ function main_character(x, y) {
 		if (this.attack_hitbox != false && this.attack_hitbox.shape == 'arc'){
 			var posx = this.mapX + (this.sprite.width / 2);
 			var posy = this.mapY + (this.sprite.height / 2);
-		    context.fillStyle = '#CF0D42';
+		    /*context.fillStyle = '#CF0D42';
 		    context.beginPath()
 		    context.moveTo(this.attack_hitbox.col_data.points[2].x, this.attack_hitbox.col_data.points[2].y);
 		    context.lineTo(this.attack_hitbox.col_data.points[0].x, this.attack_hitbox.col_data.points[0].y);
 		    context.lineTo(this.attack_hitbox.col_data.points[1].x, this.attack_hitbox.col_data.points[1].y);
 		    context.lineTo(this.attack_hitbox.col_data.points[2].x, this.attack_hitbox.col_data.points[2].y);
 		    context.closePath();
-		    context.fill();
+		    context.fill(); */
+		    var tm = angleDeg(this.canvasX + this.sprite.width/2,this.canvasY + this.sprite.height/2,
+								this.attack_hitbox.col_data.points[0].x,this.attack_hitbox.col_data.points[0].y); //* (Math.PI/180);
+		    if(tm < 0){
+			     tm = 360 - (-tm);
+		    }
+		    tm = tm - 180;
+		    if(tm < 0){
+		    	tm = 360 - (-tm);
+		    }
+		    context.save();
+		    context.translate(this.canvasX + this.sprite.width/2, this.canvasY + this.sprite.height/2);
+		    context.rotate(tm*(Math.PI/180) + Math.PI/2);
+		    context.drawImage(assets['melee_flame'], 0, 0, 132, 200);
+		    context.restore();
+		    
 			
-			var f = new fireParticle(this.attack_hitbox.col_data.points[1].x - 7, this.attack_hitbox.col_data.points[1].y - 7, 30, 15);
-			main_stage.push(f);
+			//var f = new fireParticle(this.attack_hitbox.col_data.points[1].x - 7, this.attack_hitbox.col_data.points[1].y - 7, 30, 15);
+			//main_stage.push(f);
 		}
 		
 		context.fillStyle = 'white';

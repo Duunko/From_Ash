@@ -43,20 +43,24 @@ function depo(x, y, big){
 	
 	this.in_range = false;
 	this.depo_ready_e = true;
+	this.depo_ready_e_max = 15;
+	this.depo_ready_e_timer = this.depo_ready_e_max;
 	this.depo_ready_r = true;
+	this.depo_ready_r_max = 15;
+	this.depo_ready_r_timer = this.depo_ready_r_max;
 	
 	this.range_dist = 30;
 	
 	this.update = function(){
 		if(this.in_range == true){
 			if(keysPressed[ACTION_KEY_CODE] == true){
-				if(this.depo_ready_e == true && MC.nextFp >= 0){
-					if(big == false){
+				if(this.depo_ready_e == true){
+					if(big == false && MC.nextFp > 0){
 						MC.nextFp -= 1;
 						storedFP += 1;
 						this.depo_ready_e = false;
 					}
-					else{
+					else if(big == true){
 						//begin the cutscene
 						if(MC.canvasX < this.canvasX){
 							start_scene("left", this.mapX + this.sprite.width/2 - 50, this.mapY+this.sprite.height - 100);
@@ -96,6 +100,25 @@ function depo(x, y, big){
 		
 		if(panning == true && big == true){
 			this.canvasY+=1;
+		}
+		
+		if(this.depo_ready_e == false){
+			if(this.depo_ready_e_timer > 0){
+				this.depo_ready_e_timer--;
+			}
+			else{
+				this.depo_ready_e_timer = this.depo_ready_e_max;
+				this.depo_ready_e = true;
+			}
+		}
+		if(this.depo_ready_r == false){
+			if(this.depo_ready_r_timer > 0){
+				this.depo_ready_r_timer--;
+			}
+			else{
+				this.depo_ready_r_timer = this.depo_ready_r_max;
+				this.depo_ready_r = true;
+			}
 		}
 	}
 	

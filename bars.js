@@ -19,7 +19,6 @@ function fpBar(x, y, width, height){
 	this.canvasX = x;
 	this.canvasY = y;
 	
-	
 	//create the overlay shade that will be used by the overlay
 	//to display the remaining cooldown
 	this.shade = assets["hp_front"];
@@ -135,7 +134,9 @@ function life_counter(x, y, width, height){
 	this.sprite.height = height;
 	
 	this.update = function(){
-		
+		if(panning){
+			this.canvasY += 1;
+		}
 	}
 	
 	this.draw = function(){

@@ -15,9 +15,15 @@ function enemy_a(x, y){
 	
 	this.type = "enemy";
 	
-	this.sprite = assets["sScorpion"];
-	this.sprite.width = 180;
-	this.sprite.height = 180;
+	this.sprite_main = assets["sScorpion"];
+	this.sprite_main.width = 180;
+	this.sprite_main.height = 180;
+	
+	this.sprite = this.sprite_main;
+	
+	this.sprite_flash = assets["sScorpionFlash"];
+	this.sprite_flash.width = 180;
+	this.sprite_flash.height = 180;
 	
 	this.vision_range = 800;
 	
@@ -92,10 +98,14 @@ function enemy_a(x, y){
 		
 		//------------TIMERS-----------------
 		if(this.stunTimer > 0){
+			if(this.stunTimer < 10){
+				this.sprite = this.sprite_main;
+			}
 			this.stunTimer--;
 		}
 		else{
 			this.stunned = false;
+			
 		}
 		
 		this.depth = -this.mapY;
@@ -211,6 +221,7 @@ function enemy_a(x, y){
 				this.hp -= dmg;
 				console.log("EN took "+dmg+" damage");
 				console.log("New health is "+this.hp);
+				this.sprite = this.sprite_flash;
 			}
 			else{
 				this.destroy();

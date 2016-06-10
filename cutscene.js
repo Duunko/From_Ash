@@ -211,7 +211,15 @@ function slider(x, y, speed, targetX, targetY, sprite_src, s_w, s_h){
 	
 	this.speed = speed;
 	
-	this.depth = -9999999;
+	if(this.sprite == assets["sky"]){
+		this.depth = -99999990
+	}
+	if(this.sprite == assets["earth"]){
+		this.depth = -99999999
+	}
+	if(this.sprite == assets["phoenix_rise"]){
+		this.depth = -99999999;
+	}
 	
 	this.shrinking = false;
 	this.shrinkNum = 300;
@@ -226,7 +234,6 @@ function slider(x, y, speed, targetX, targetY, sprite_src, s_w, s_h){
 		}
 		
 		else if(ending == false){
-			
 			this.moveTowards(targetX, targetY);
 		
 			this.canvasX += this.canvasXSpeed * this.speed;
@@ -322,7 +329,7 @@ function grower(x, y, speed, sprite_src, s_w, s_h, end_x, end_y){
 	
 	this.sun_animation = new Array; this.sun_animation.push(assets["sun_1"]); this.sun_animation.push(assets["sun_2"]); this.sun_animation.push(assets["sun_3"]);
 	
-	this.depth = -9999999;
+	this.depth = -99999999;
 	
 	this.growing = true;
 	this.growNum = speed;

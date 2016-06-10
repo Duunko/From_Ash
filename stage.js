@@ -131,8 +131,11 @@ function game_draw(renderer) {
 			continue;
 		} 
 	    if(renderer.stages[i].always_update == true || renderer.stages[i].always_draw == true){
+	    	
 	    	if (renderer.stages[i].owned_objects.indexOf(MC) != -1){
-	    		renderer.stages[i].owned_objects[renderer.stages[i].owned_objects.indexOf(MC)].update();
+	    		if(renderer.stages[i].always_update == true){
+	    		    renderer.stages[i].owned_objects[renderer.stages[i].owned_objects.indexOf(MC)].update();
+	    		}
 	    	}
 	    	
 		    for (var j = 0; j < renderer.stages[i].owned_objects.length; j++){

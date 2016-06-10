@@ -87,7 +87,7 @@ function create_board(world_width, world_height, tile_size, non_ash){
 	 	     	for(var j = 0; j < this.tileGrid.length; j++){
 					if(this.tileGrid[i][j] == 0){
 						var rando = Math.random();
-						if(rando <= .2){
+						if(rando <= .1){
 							var rando2 = Math.random();
 							this.tileGrid[i][j] =  8; //Math.floor(rando2 * (9 - 7) + 7);
 						} else {
@@ -137,6 +137,18 @@ function create_board(world_width, world_height, tile_size, non_ash){
 			var flr_obj = new floor_object(375, 300, assets["mouse"]);
 			main_stage.push(flr_obj);
 			*/
+			if(current_level == 0){
+				over = new stage(top);
+				var ani = new anim(assets['text1'], assets['text2'], assets['text3'], assets['text4']);
+				over.push(ani);
+				renderer.push(over);
+			} else if(current_level == 1){
+				over = new stage(top);
+				var ani = new anim(assets['text5'], assets['text6'], assets['text7'], assets['text8']);
+				over.push(ani);
+				renderer.push(over);
+			}
+			
 			this.initial_generation = true;       
 	    }
 		 
