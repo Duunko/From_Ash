@@ -47,6 +47,10 @@ function sheep(x, y, variant, dir, targetX, targetY){
 	
 	this.right_give = new Array; this.right_give.push(assets["mc_give_right_1"]); this.right_give.push(assets["mc_give_right_2"]); this.right_give.push(assets["mc_give_right_3"]);
 	
+	this.up_give = new Array; this.up_give.push(assets["mc_give_up_1"]); this.up_give.push(assets["mc_give_up_2"]); this.up_give.push(assets["mc_give_up_3"]);
+	
+	this.down_give = new Array; this.down_give.push(assets["mc_give_front_1"]); this.down_give.push(assets["mc_give_front_2"]); this.down_give.push(assets["mc_give_front_3"]);
+	
 	this.active_animation = this.up_walk;
 	
 	if(dir == "down"){
@@ -102,7 +106,20 @@ function sheep(x, y, variant, dir, targetX, targetY){
 		
 		if(this.distanceToObject(targetX, targetY) < 100 && this.stopped == false){
 			this.stopped = true;
-			this.active_animation = this.left_give;
+			
+			if(dir == "down"){
+				this.active_animation = this.down_give;
+			}
+			else if(dir == "left"){
+				this.active_animation = this.left_give;
+			}
+			else if(dir == "right"){
+				this.active_animation = this.right_give;
+			}
+			else if(dir == "up"){
+				this.active_animation = this.up_give;
+			}
+			
 			this.giving = true;
 			this.image_speed_counter = 30;
 		}

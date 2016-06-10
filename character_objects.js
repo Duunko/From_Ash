@@ -55,11 +55,11 @@ function main_character(x, y) {
 	this.fpReturn = this.fp;
 	
 	this.meleeCost = 2;
-	this.meleeCoolMax = 30;
+	this.meleeCoolMax = 70;
 	this.meleeCool = 0;
 	
 	this.dashCost = 4;
-	this.dashCoolMax = 150;
+	this.dashCoolMax = 80;
 	this.dashCool = 0;
 	
 	this.beamCost = 8;
@@ -88,7 +88,7 @@ function main_character(x, y) {
 	this.safetyTimer = 0;
 	
 	//speed rounds up to the nearest multiple of the incriment
-	this.speed = 10.1;
+	this.speed = 10;
 	this.speedInc = 1;
 	
 	this.canvasXSpeed = 0;
