@@ -137,12 +137,12 @@ function create_board(world_width, world_height, tile_size, non_ash){
 			var flr_obj = new floor_object(375, 300, assets["mouse"]);
 			main_stage.push(flr_obj);
 			*/
-			if(current_level == 0){
+			if(current_level == 0 && MC.lives == 5){
 				over = new stage(top);
 				var ani = new anim(assets['text1'], assets['text2'], assets['text3'], assets['text4']);
 				over.push(ani);
 				renderer.push(over);
-			} else if(current_level == 1){
+			} else if(current_level == 1 && MC.lives == 5){
 				over = new stage(top);
 				var ani = new anim(assets['text5'], assets['text6'], assets['text7'], assets['text8']);
 				over.push(ani);

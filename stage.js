@@ -34,6 +34,9 @@ function stage(top) {
     	this.owned_objects = this.owned_objects.filter(function(obj){
     	    return obj.type != "enemy";	
     	});
+    	this.owned_objects = this.owned_objects.filter(function(obj){
+    	    return obj.type != "bullet";	
+    	});
     }
     
     this.always_update = true;
