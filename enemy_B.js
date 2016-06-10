@@ -7,9 +7,15 @@ function enemy_b(x, y){
 	
 	this.type = "enemy";
 	
-	this.sprite = assets["centipede"];
-	this.sprite.width = 150;
-	this.sprite.height = 150;
+	this.sprite_main = assets["centipede"];
+	this.sprite_main.width = 150;
+	this.sprite_main.height = 150;
+	
+	this.sprite = this.sprite_main;
+	
+	this.sprite_flash = assets["centipede_flash"];
+	this.sprite_flash.width = 150;
+	this.sprite_flash.height = 150;
 	
 	this.vision_range = 800;
 	
@@ -84,6 +90,9 @@ function enemy_b(x, y){
 		
 		//------------TIMERS-----------------
 		if(this.stunTimer > 0){
+			if(this.stunTimer < 10){
+				this.sprite = this.sprite_main;
+			}
 			this.stunTimer--;
 		}
 		else{
@@ -203,6 +212,7 @@ function enemy_b(x, y){
 				this.hp -= dmg;
 				console.log("EN took "+dmg+" damage");
 				console.log("New health is "+this.hp);
+				this.sprite = this.sprite_flash;
 			}
 			else{
 				this.destroy();

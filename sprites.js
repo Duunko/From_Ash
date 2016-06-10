@@ -91,12 +91,15 @@ function load_sprites(){
 	
 	var sScorpion = new Image();
 	sScorpion.src = 'images/enemies/seascorpion.png';
+	var sScorpionFlash = new Image(); sScorpionFlash.src = 'images/enemies/seascorpion_flash.png';
 	
 	var fly = new Image();
 	fly.src = 'images/enemies/fly.png'
+	var fly_flash = new Image(); fly_flash.src = 'images/enemies/fly_flash.png';
 	
 	var centipede = new Image();
 	centipede.src = 'images/enemies/decay.png';
+	var centipede_flash = new Image(); centipede_flash.src = 'images/enemies/decay_flash.png';
 
 	var gui_dash = new Image();
 	gui_dash.src = 'images/gui/dash_overlay.png';
@@ -163,6 +166,17 @@ function load_sprites(){
 	
 	var lives = new Image(); lives.src = 'images/gui/lives.png';
 	var cross = new Image(); cross.src = 'images/gui/cross.png';
+	
+	var text1 = new Image(); text1.src = 'images/text/text1.png';
+	var text2 = new Image(); text2.src = 'images/text/text2.png';
+	var text3 = new Image(); text3.src = 'images/text/text3.png';
+	var text4 = new Image(); text4.src = 'images/text/text4.png';
+	var text5 = new Image(); text5.src = 'images/text/text5.png';
+	var text6 = new Image(); text6.src = 'images/text/text6.png';
+	var text7 = new Image(); text7.src = 'images/text/text7.png';
+	var text8 = new Image(); text8.src = 'images/text/text8.png';
+	
+	var melee_flame = new Image(); melee_flame.src = 'images/melee_flame.png';
 	
 	assets = {
 		mc_up_1: mc_up_1,
@@ -281,7 +295,21 @@ function load_sprites(){
 		gui_dock:gui_dock,
 		
 		lives:lives,
-		cross:cross
+		cross:cross,
+		
+		text1:text1,
+		text2:text2,
+		text3:text3,
+		text4:text4,
+		text5:text5,
+		text6:text6,
+		text7:text7,
+		text8:text8,
+		melee_flame:melee_flame,
+		
+		fly_flash:fly_flash,
+		centipede_flash:centipede_flash,
+		sScorpionFlash:sScorpionFlash
 		
 	}
 	

@@ -50,7 +50,7 @@ function depo(x, y, big){
 	this.update = function(){
 		if(this.in_range == true){
 			if(keysPressed[ACTION_KEY_CODE] == true){
-				if(this.depo_ready_e == true && MC.nextFp >= 0){
+				if(this.depo_ready_e == true && MC.nextFp > 0){
 					if(big == false){
 						MC.nextFp -= 1;
 						storedFP += 1;
