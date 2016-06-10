@@ -269,10 +269,10 @@ function slider(x, y, speed, targetX, targetY, sprite_src, s_w, s_h){
 				if(this.sprite == assets["sky"] && panning == true){
 					//sky has completely covered screen
 					panning = false;
-					player_obj = new slider(canvas.width/2 - MC.sprite.width*2, 1000, 1, canvas.width/2 - MC.sprite.width*2, canvas.height/2 - MC.sprite.height, assets["mc_upgrade_4"], MC.sprite.width*4, MC.sprite.height*2);
+					player_obj = new slider(canvas.width/2 - MC.sprite.width*2, 1000, 1.75, canvas.width/2 - MC.sprite.width*2, canvas.height/2 - MC.sprite.height*2.25, assets["phoenix_rise"], MC.sprite.width*4, MC.sprite.height*4.5);
 					main_stage.push(player_obj);
 				}
-				if(this.sprite == assets["mc_upgrade_4"] && this.shrinking == false){
+				if(this.sprite == assets["phoenix_rise"] && this.shrinking == false){
 					//the winged player has reached the center of the screen
 					this.shrinking = true;
 				}
@@ -360,7 +360,7 @@ function grower(x, y, speed, sprite_src, s_w, s_h, end_x, end_y){
 				sky_obj = new slider(0, 0+canvas.height, 1, 0, 0, assets["sky"], canvas.width, canvas.height);
 				main_stage.push(sky_obj);
 				
-				earth_obj = new slider(450, 0+canvas.height*1.3, 1, 0, 0, assets["earth"], 500, 500);
+				earth_obj = new slider(475, 0+canvas.height*1.15, 1, 0, 0, assets["earth"], 500, 500);
 				main_stage.push(earth_obj);
 			}
 		}

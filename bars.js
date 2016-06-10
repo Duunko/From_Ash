@@ -29,7 +29,9 @@ function fpBar(x, y, width, height){
 	var chunk2 = (this.shade.width * chunk)/500;
 	
 	this.update = function(){
-		
+		if(panning){
+			this.canvasY += 1;
+		}
 	}
 	
 	this.draw = function(){
@@ -68,7 +70,9 @@ function fireBar(x, y, width, height){
 	var chunk2 = (this.shade.width * chunk)/500;
 	
 	this.update = function(){
-		
+		if(panning){
+			this.canvasY += 1;
+		}
 	}
 	
 	this.draw = function(){
@@ -100,7 +104,9 @@ function healthbar(x, y, width, height){
 	this.chunk = (this.width)/MC.hp;
 	
 	this.update = function(){
-		
+		if(panning){
+			this.canvasY += 1;
+		}
 	}
 	
 	this.draw = function(){

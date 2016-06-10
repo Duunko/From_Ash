@@ -29,6 +29,10 @@ function overlay(x, y, spr, target){
 	
 	this.update = function(){
 		
+		if(panning){
+			this.canvasY += 1;
+		}
+		
 		if(target == "melee"){
 			if(MC.fp > MC.meleeCost){
 				var theirPer = (MC.meleeCool / MC.meleeCoolMax);

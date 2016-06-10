@@ -118,6 +118,8 @@ function load_sprites(){
 	var end_tree_3 = new Image(); end_tree_3.src = 'images/theEnd/collectivepotential_2.png';
 	var end_tree_4 = new Image(); end_tree_4.src = 'images/theEnd/collectivepotential_3.png';
 	
+	var phoenix_rise = new Image(); phoenix_rise.src = 'images/theEnd/phoenix_rise.png';
+	
 	var sky = new Image(); sky.src = 'images/theEnd/sky.png';
 	
 	var sun_1 = new Image(); sun_1.src = 'images/theEnd/phoenix_sun1.png';
@@ -256,6 +258,8 @@ function load_sprites(){
 		end_tree_2: end_tree_2,
 		end_tree_3: end_tree_3,
 		end_tree_4: end_tree_4,
+		
+		phoenix_rise: phoenix_rise,
 		
 		sky: sky,
 		
